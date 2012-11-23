@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opendata>
+    <request>http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&amp;version=2.1&amp;key=91RU2VSP13GHHOP&amp;param[mode]=stopline&amp;param[route][]=0002&amp;param[direction][]=0&amp;param[stop][]=1061</request>
+    <answer>
+        <status code="0" message="OK"/>
+        <data localdatetime="2012-10-17T19:01:13+02:00">
+            <stopline>
+                <stop>1290</stop>
+                <route>0064</route>
+                <direction>1</direction>
+                <departures>
+                    <departure accurate="1" headsign="Acigné">2012-10-17T19:06:05+02:00</departure>
+                    <departure accurate="1" headsign="Acigné">2012-10-17T19:17:33+02:00</departure>
+                    <departure accurate="1" headsign="Acigné">2012-10-17T19:26:03+02:00</departure>
+                </departures>
+            </stopline>
+            <stopline>
+                <stop>1290</stop>
+                <route>0164</route>
+                <direction>1</direction>
+                <departures>
+                    <departure accurate="1" headsign="Acigné">2012-10-17T19:12:05+02:00</departure>
+                    <departure accurate="1" headsign="Acigné">2012-10-17T19:38:03+02:00</departure>
+                </departures>
+            </stopline>
+            <stopline>
+                <stop>4001</stop>
+                <route>0064</route>
+                <direction>0</direction>
+                <departures>
+                    <departure accurate="1" headsign="République">2012-10-17T19:04:15+02:00</departure>
+                </departures>
+            </stopline>
+            <stopline>
+                <stop>4001</stop>
+                <route>0164</route>
+                <direction>0</direction>
+                <departures>
+                    <departure accurate="1" headsign="République">2012-10-17T19:38:16+02:00</departure>
+                </departures>
+            </stopline>
+        </data>
+    </answer>
+</opendata>
