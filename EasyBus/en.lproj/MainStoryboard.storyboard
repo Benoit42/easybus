@@ -72,7 +72,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Header" rowHeight="64" id="dNF-fL-FCp" customClass="DepartureHeaderCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Header" rowHeight="64" id="dNF-fL-FCp" customClass="DepartureHeaderCell">
                                 <rect key="frame" x="0.0" y="46" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -112,7 +112,7 @@
                                     <outlet property="_libStop" destination="paJ-Km-bqr" id="zm0-ch-HKa"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="64" id="Gbg-ID-Tsa" customClass="DepartureCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="64" id="Gbg-ID-Tsa" customClass="DepartureCell">
                                 <rect key="frame" x="0.0" y="111" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -148,7 +148,7 @@
                                     <outlet property="_picto" destination="7OM-rn-tLA" id="tND-c8-rgb"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noDeparture" rowHeight="64" id="M1f-op-ImO" customClass="DepartureCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noDeparture" rowHeight="64" id="M1f-op-ImO" customClass="DepartureCell">
                                 <rect key="frame" x="0.0" y="175" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -450,6 +450,89 @@
         <image name="Pictogrammes_100\11.png" width="100" height="100"/>
         <image name="Pictogrammes_100\64.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="DepartureCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DepartureCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_delai" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="DepartureHeaderCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DepartureHeaderCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libDirection" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_libStop" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DeparturesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DeparturesViewController.h"/>
+        </class>
+        <class className="DirectionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DirectionCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libDirection" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DirectionViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DirectionViewController.h"/>
+        </class>
+        <class className="FavoriteCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoriteCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libArret" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_libDirection" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="FavoritesNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesNavigationController.h"/>
+        </class>
+        <class className="FavoritesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="unwindFromSave:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
+        </class>
+        <class className="LineCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LineCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libLigne" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="LinesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LinesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="newFavorite:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="unwindFromAlternate:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="outlet" name="_refreshDate" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="StopCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StopCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libArret" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="StopsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StopsViewController.h"/>
+        </class>
+        <class className="UIRefreshControl" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

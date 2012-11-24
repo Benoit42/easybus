@@ -43,6 +43,7 @@
     [coder encodeObject:libArret forKey:@"libArret"];
     [coder encodeObject:direction forKey:@"direction"];
     [coder encodeObject:libDirection forKey:@"libDirection"];
+    [coder encodeObject:pictoPath forKey:@"pictoPath"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -56,6 +57,7 @@
         libArret = [coder decodeObjectForKey:@"libArret"];
         direction = [coder decodeObjectForKey:@"direction"];
         libDirection = [coder decodeObjectForKey:@"libDirection"];
+        pictoPath = [coder decodeObjectForKey:@"pictoPath"];
     }
     return self;
 }
