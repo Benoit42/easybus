@@ -181,6 +181,11 @@
 		149DF060163B2B2B002D9D79 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF051163B2A47002D9D79 /* Route.m */; };
 		149DF061163B2B35002D9D79 /* Route.h in Sources */ = {isa = PBXBuildFile; fileRef = 149DF052163B2A47002D9D79 /* Route.h */; };
 		149DF066163B2B4E002D9D79 /* RoutesCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 149DF04E163B29FA002D9D79 /* RoutesCsvReader.h */; };
+		14A8AA581660F1D600394FC2 /* DepartureFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A8AA571660F1D600394FC2 /* DepartureFooterCell.m */; };
+		14A8AA5A1660F2BF00394FC2 /* DepartureFooterCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14A8AA561660F1D600394FC2 /* DepartureFooterCell.h */; };
+		14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4345165FEA3400834A23 /* DepartureCell.h */; };
+		14A8AA631660FF1C00394FC2 /* DepartureHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A8AA621660FF1C00394FC2 /* DepartureHeaderCell.m */; };
+		14A8AA641660FFCE00394FC2 /* DepartureHeaderCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14A8AA611660FF1C00394FC2 /* DepartureHeaderCell.h */; };
 		14AD3C10162AF00400DF061A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C0F162AF00400DF061A /* UIKit.framework */; };
 		14AD3C12162AF00400DF061A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C11162AF00400DF061A /* Foundation.framework */; };
 		14AD3C14162AF00400DF061A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C13162AF00400DF061A /* CoreGraphics.framework */; };
@@ -408,6 +413,10 @@
 		149DF051163B2A47002D9D79 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		149DF052163B2A47002D9D79 /* Route.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Route.h; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
+		14A8AA561660F1D600394FC2 /* DepartureFooterCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DepartureFooterCell.h; sourceTree = "<group>"; };
+		14A8AA571660F1D600394FC2 /* DepartureFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureFooterCell.m; sourceTree = "<group>"; };
+		14A8AA611660FF1C00394FC2 /* DepartureHeaderCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DepartureHeaderCell.h; sourceTree = "<group>"; };
+		14A8AA621660FF1C00394FC2 /* DepartureHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureHeaderCell.m; sourceTree = "<group>"; };
 		14AD3C0B162AF00400DF061A /* EasyBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AD3C0F162AF00400DF061A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14AD3C11162AF00400DF061A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -452,7 +461,7 @@
 		14CF4336165EB2C500834A23 /* DirectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionCell.m; sourceTree = "<group>"; };
 		14CF433F165EB44300834A23 /* StopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopCell.h; sourceTree = "<group>"; };
 		14CF4340165EB44400834A23 /* StopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopCell.m; sourceTree = "<group>"; };
-		14CF4345165FEA3400834A23 /* DepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartureCell.h; sourceTree = "<group>"; };
+		14CF4345165FEA3400834A23 /* DepartureCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DepartureCell.h; sourceTree = "<group>"; };
 		14CF4346165FEA3400834A23 /* DepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -847,6 +856,10 @@
 				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
 				14CF4346165FEA3400834A23 /* DepartureCell.m */,
+				14A8AA611660FF1C00394FC2 /* DepartureHeaderCell.h */,
+				14A8AA621660FF1C00394FC2 /* DepartureHeaderCell.m */,
+				14A8AA561660F1D600394FC2 /* DepartureFooterCell.h */,
+				14A8AA571660F1D600394FC2 /* DepartureFooterCell.m */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -1157,6 +1170,11 @@
 				14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */,
 				14CF4341165EB44400834A23 /* StopCell.m in Sources */,
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
+				14A8AA581660F1D600394FC2 /* DepartureFooterCell.m in Sources */,
+				14A8AA5A1660F2BF00394FC2 /* DepartureFooterCell.h in Sources */,
+				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
+				14A8AA631660FF1C00394FC2 /* DepartureHeaderCell.m in Sources */,
+				14A8AA641660FFCE00394FC2 /* DepartureHeaderCell.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

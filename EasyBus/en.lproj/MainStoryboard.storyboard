@@ -69,26 +69,66 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="64" sectionHeaderHeight="10" sectionFooterHeight="10" id="87c-eK-yLe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="64" id="dNF-fL-FCp" customClass="DepartureCell">
-                                <rect key="frame" x="0.0" y="46" width="320" height="66"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Header" rowHeight="64" id="dNF-fL-FCp" customClass="DepartureHeaderCell">
+                                <rect key="frame" x="0.0" y="46" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="1" width="300" height="63"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Pictogrammes_100\11.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yzq-Vo-nI6">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Clos Courtel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paJ-Km-bqr">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="0fA-rp-b8D"/>
-                                                <constraint firstAttribute="width" constant="50" id="Fxg-ge-zFA"/>
+                                                <constraint firstAttribute="height" constant="36" id="4lI-dx-let"/>
+                                                <constraint firstAttribute="width" constant="260" id="gTe-wA-dFj"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="vers Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxT-Bt-Puz">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="Yza-cS-YU0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="PxT-Bt-Puz" firstAttribute="centerX" secondItem="dNF-fL-FCp" secondAttribute="centerX" type="default" id="4CR-JB-ei1"/>
+                                    <constraint firstItem="paJ-Km-bqr" firstAttribute="top" secondItem="dNF-fL-FCp" secondAttribute="top" constant="1" id="AVi-IK-DVZ"/>
+                                    <constraint firstItem="PxT-Bt-Puz" firstAttribute="top" secondItem="dNF-fL-FCp" secondAttribute="top" constant="28" id="Cox-Ou-ACx"/>
+                                    <constraint firstItem="PxT-Bt-Puz" firstAttribute="leading" secondItem="paJ-Km-bqr" secondAttribute="leading" type="default" id="JFH-Nh-cMJ"/>
+                                    <constraint firstItem="paJ-Km-bqr" firstAttribute="trailing" secondItem="PxT-Bt-Puz" secondAttribute="trailing" type="default" id="nWV-g5-46W"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="_libDirection" destination="PxT-Bt-Puz" id="Bv4-5v-DHL"/>
+                                    <outlet property="_libStop" destination="paJ-Km-bqr" id="zm0-ch-HKa"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="64" id="Gbg-ID-Tsa" customClass="DepartureCell">
+                                <rect key="frame" x="0.0" y="111" width="320" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="63"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Pictogrammes_100\11.png" translatesAutoresizingMaskIntoConstraints="NO" id="7OM-rn-tLA">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="CSk-ro-Gqf"/>
+                                                <constraint firstAttribute="height" constant="50" id="oJO-99-R6Z"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paJ-Km-bqr">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-3x-0z5">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="124" id="G8Y-Is-L74"/>
-                                                <constraint firstAttribute="height" constant="36" id="wMt-gr-vCc"/>
+                                                <constraint firstAttribute="width" constant="124" id="APV-fz-Znd"/>
+                                                <constraint firstAttribute="height" constant="36" id="BX3-1m-28q"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -98,14 +138,14 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="paJ-Km-bqr" firstAttribute="centerY" secondItem="dNF-fL-FCp" secondAttribute="centerY" type="default" id="54A-ey-cKT"/>
-                                    <constraint firstItem="Yzq-Vo-nI6" firstAttribute="leading" secondItem="dNF-fL-FCp" secondAttribute="leading" constant="30" id="eAT-bh-Zit"/>
-                                    <constraint firstItem="paJ-Km-bqr" firstAttribute="leading" secondItem="dNF-fL-FCp" secondAttribute="leading" constant="135" id="fsB-2h-W7P"/>
-                                    <constraint firstItem="paJ-Km-bqr" firstAttribute="centerY" secondItem="Yzq-Vo-nI6" secondAttribute="centerY" type="default" id="yuV-if-WKQ"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="centerY" secondItem="7OM-rn-tLA" secondAttribute="centerY" type="default" id="DW9-Q8-634"/>
+                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="30" id="Wh9-Ty-J2H"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="135" id="XtI-eT-Q2Q"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="fhG-Bz-DEu"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="_delai" destination="paJ-Km-bqr" id="lux-JX-IKb"/>
-                                    <outlet property="_picto" destination="Yzq-Vo-nI6" id="ga7-fd-Fdl"/>
+                                    <outlet property="_delai" destination="0Gv-3x-0z5" id="qcs-mC-bZn"/>
+                                    <outlet property="_picto" destination="7OM-rn-tLA" id="tND-c8-rgb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -391,6 +431,13 @@
                 <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
             </relationships>
         </class>
+        <class className="DepartureHeaderCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DepartureHeaderCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_libDirection" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_libStop" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="DeparturesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DeparturesViewController.h"/>
         </class>
@@ -429,10 +476,14 @@
         </class>
         <class className="LinesViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LinesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="newFavorite:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
         </class>
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="unwindFromAlternate:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="_refreshDate" candidateClass="UILabel"/>
             </relationships>
         </class>

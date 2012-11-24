@@ -152,10 +152,13 @@
     if ([elementName isEqualToString:@"departure"] ) {
         //fin d'un arrêt
         if (_route && _stop && _direction &&_headsign && _departureDate && _currentDate) {
+            //calcul du délai, avec remise à 0 si négatif
             NSDate* currentDate = [self xsdDateTimeToNSDate:_currentDate];
             NSDate* departureDate = [self xsdDateTimeToNSDate:_departureDate];
             NSTimeInterval interval = [departureDate timeIntervalSinceDate:currentDate];
+            interval = interval <0 ? 0 : interval;
             
+            //création du départ
             Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval];
             [_departures addObject:depart];
         }

@@ -16,6 +16,7 @@
 @property(nonatomic) NSString* libArret;
 @property(nonatomic) NSString* direction;
 @property(nonatomic) NSString* libDirection;
+@property(nonatomic) NSString* pictoPath;
 
 - (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_;
 

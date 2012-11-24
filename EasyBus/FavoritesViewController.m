@@ -60,7 +60,7 @@
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //get picto
-        UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", favorite.libLigne] ofType:@"png"]];
+        UIImage* picto = [UIImage imageWithContentsOfFile:favorite.pictoPath];
         
         //add departure
         [cell._picto setImage:picto];

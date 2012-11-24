@@ -10,6 +10,8 @@
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
+#import "DepartureHeaderCell.h"
+#import "DepartureFooterCell.h"
 
 @interface DeparturesViewController()
 
@@ -72,38 +74,45 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[_favoritesManager groupes] count] ;
+    return [[_favoritesManager groupes] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
+    // Return the number of rows in the section plus header and footer
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:section];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
-    return [departures count];
+    return [departures count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //get departure
+    //get favorite
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:indexPath.section];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
     
-    if (indexPath.row < [departures count]) {
-        static NSString *CellIdentifier = @"Cell";
-        DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        //Header row
+        
+        //get cell and update it
+        DepartureHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
+        [[cell _libStop] setText:groupe.libArret];
+        [[cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
+        return cell;
+    }
+    else if (indexPath.row < [departures count] + 1) {
+        // departure row
         
         //get departure
-        Depart* depart = [departures objectAtIndex:indexPath.row];
+        NSInteger departureIndex = indexPath.row - 1;
+        Depart* depart = [departures objectAtIndex:departureIndex];
         
-        //get bus
-        NSInteger ligne = [depart._ligne intValue];
-        
-        //add departure
-        UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100-%i", ligne] ofType:@"png"]];
+        //get cell and update it
+        DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        UIImage* picto = [UIImage imageWithContentsOfFile:depart._pictoPath];
         [[cell _picto] setImage:picto];
         NSString* libDelai;
-        if (depart._delai >0 && depart._delai < 60*60) {
+        if (depart._delai < 60*60) {
             libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];
         }
         else {
@@ -113,11 +122,6 @@
         return cell;
     }
     return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:section];
-    return [NSString stringWithFormat:@"%@ vers %@", groupe.libArret, groupe.libDirection];
 }
 
 @end

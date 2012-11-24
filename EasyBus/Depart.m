@@ -10,7 +10,7 @@
 
 @implementation Depart
 
-@synthesize _ligne, _arret, _direction, _headsign, _delai;
+@synthesize _ligne, _arret, _direction, _headsign, _pictoPath, _delai;
 
 - (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ {
     self = [super init];
@@ -20,6 +20,7 @@
         self._direction = direction_;
         self._headsign = headsign_;
         self._delai = delai_;
+        self._pictoPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [ligne_ intValue]] ofType:@"png"];
     }
     return self;
 }

@@ -10,7 +10,7 @@
 
 @implementation Favorite
 
-@synthesize ligne, libLigne, arret, libArret, direction, libDirection;
+@synthesize ligne, libLigne, arret, libArret, direction, libDirection, pictoPath;
 
 - (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ {
     self = [super init];
@@ -21,6 +21,7 @@
         self.libArret = libArret_;
         self.direction = direction_;
         self.libDirection = libDirection_;
+        self.pictoPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100-%i", [ligne_ intValue]] ofType:@"png"];
     }
     return self;
 }

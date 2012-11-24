@@ -14,6 +14,7 @@
 @property(nonatomic) NSString* _arret;
 @property(nonatomic) NSString* _direction;
 @property(nonatomic) NSString* _headsign;
+@property(nonatomic) NSString* _pictoPath;
 @property(nonatomic) NSTimeInterval _delai;
 
 - (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_;
