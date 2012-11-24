@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/DeparturesViewController.m"
-         timestampString = "375467433.585346"
+         timestampString = "375469232.806273"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
          landmarkName = "-tableView:numberOfRowsInSection:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -277,15 +277,41 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "EasyBus/DeparturesViewController.m"
+         timestampString = "375469232.806273"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/DeparturesViewController.m"
-         timestampString = "375467429.197428"
+         timestampString = "375469232.806273"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "110"
+         endingLineNumber = "110"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "EasyBus/DeparturesViewController.m"
+         timestampString = "375469263.077054"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>

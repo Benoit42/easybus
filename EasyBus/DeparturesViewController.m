@@ -82,7 +82,13 @@
     // Return the number of rows in the section plus header and footer
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:section];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
-    return [departures count] + 1;
+    if ([departures count] == 0) {
+        //Pas de départ, on a seulement le header et le "Pas de départ"
+        return 2;
+    }
+    else {
+        return [departures count] + 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,26 +106,37 @@
         [[cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
         return cell;
     }
-    else if (indexPath.row < [departures count] + 1) {
-        // departure row
-        
-        //get departure
-        NSInteger departureIndex = indexPath.row - 1;
-        Depart* depart = [departures objectAtIndex:departureIndex];
-        
-        //get cell and update it
-        DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        UIImage* picto = [UIImage imageWithContentsOfFile:depart._pictoPath];
-        [[cell _picto] setImage:picto];
-        NSString* libDelai;
-        if (depart._delai < 60*60) {
-            libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];
+    else {
+        if ([departures count] == 0) {
+            //Aucun départ
+
+            //get cell and update it
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noDeparture" forIndexPath:indexPath];
+            [[cell textLabel] setText:@"Pas de départ"];
+            [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
+            return cell;
         }
-        else {
-            libDelai = @"> 1h";
+        else if (indexPath.row < [departures count] + 1) {
+            // departure row
+            
+            //get departure
+            NSInteger departureIndex = indexPath.row - 1;
+            Depart* depart = [departures objectAtIndex:departureIndex];
+            
+            //get cell and update it
+            DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            UIImage* picto = [UIImage imageWithContentsOfFile:depart._pictoPath];
+            [[cell _picto] setImage:picto];
+            NSString* libDelai;
+            if (depart._delai < 60*60) {
+                libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];
+            }
+            else {
+                libDelai = @"> 1h";
+            }
+            [[cell _delai] setText:libDelai];
+            return cell;
         }
-        [[cell _delai] setText:libDelai];
-        return cell;
     }
     return nil;
 }
