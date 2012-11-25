@@ -8,9 +8,15 @@
 
 #import "Depart.h"
 
+@interface Depart()
+
+@property(nonatomic) UIImage* _picto;
+
+@end
+
 @implementation Depart
 
-@synthesize _ligne, _arret, _direction, _headsign, _pictoPath, _delai;
+@synthesize _ligne, _arret, _direction, _headsign, _delai, _picto;
 
 - (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ {
     self = [super init];
@@ -20,9 +26,15 @@
         self._direction = direction_;
         self._headsign = headsign_;
         self._delai = delai_;
-        self._pictoPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [ligne_ intValue]] ofType:@"png"];
     }
     return self;
+}
+
+- (UIImage*) picto {
+    if (_picto == nil) {
+        _picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [_ligne intValue]] ofType:@"png"]];
+    }
+    return _picto;
 }
 
 @end

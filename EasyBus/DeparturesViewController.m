@@ -112,7 +112,7 @@
 
             //get cell and update it
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noDeparture" forIndexPath:indexPath];
-            [[cell textLabel] setText:@"Pas de départ"];
+            [[cell textLabel] setText:@"Aucun départ"];
             [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
             return cell;
         }
@@ -125,8 +125,7 @@
             
             //get cell and update it
             DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-            UIImage* picto = [UIImage imageWithContentsOfFile:depart._pictoPath];
-            [[cell _picto] setImage:picto];
+            [[cell _picto] setImage:depart.picto];
             NSString* libDelai;
             if (depart._delai < 60*60) {
                 libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];

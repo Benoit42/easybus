@@ -8,9 +8,15 @@
 
 #import "Route.h"
 
+@interface Route()
+
+@property(nonatomic) UIImage* _picto;
+
+@end
+
 @implementation Route
 
-@synthesize _id, _shortName, _longName, _fromName, _toName;
+@synthesize _id, _shortName, _longName, _fromName, _toName, _picto;
 
 - (id)initWithId:(NSString*)id_ shortName:(NSString*)shortName_ longName:(NSString*)longName_ {
     _id = id_;
@@ -33,6 +39,13 @@
     _toName = [_toName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 
     return self;
+}
+
+- (UIImage*) picto {
+    if (_picto == nil) {
+        _picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", _shortName] ofType:@"png"]];
+    }
+    return _picto;
 }
 
 @end

@@ -8,9 +8,15 @@
 
 #import "Favorite.h"
 
+@interface Favorite()
+
+@property(nonatomic) UIImage* _picto;
+
+@end
+
 @implementation Favorite
 
-@synthesize ligne, libLigne, arret, libArret, direction, libDirection, pictoPath;
+@synthesize ligne, libLigne, arret, libArret, direction, libDirection, _picto;
 
 - (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ {
     self = [super init];
@@ -21,17 +27,15 @@
         self.libArret = libArret_;
         self.direction = direction_;
         self.libDirection = libDirection_;
-        self.pictoPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100-%i", [ligne_ intValue]] ofType:@"png"];
     }
     return self;
 }
 
-- (NSString*)key {
-    return [Favorite key:self.ligne arret:self.arret  direction:self.direction ];
-}
-
-+ (NSString *) key:(NSString *)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ {
-    return [[NSString alloc] initWithFormat:@"%@-%@-%@", ligne_, arret_, direction_ ];
+- (UIImage*) picto {
+    if (_picto == nil) {
+        _picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [ligne intValue]] ofType:@"png"]];
+    }
+    return _picto;
 }
 
 #pragma sauvegarde
@@ -43,7 +47,6 @@
     [coder encodeObject:libArret forKey:@"libArret"];
     [coder encodeObject:direction forKey:@"direction"];
     [coder encodeObject:libDirection forKey:@"libDirection"];
-    [coder encodeObject:pictoPath forKey:@"pictoPath"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -57,7 +60,6 @@
         libArret = [coder decodeObjectForKey:@"libArret"];
         direction = [coder decodeObjectForKey:@"direction"];
         libDirection = [coder decodeObjectForKey:@"libDirection"];
-        pictoPath = [coder decodeObjectForKey:@"pictoPath"];
     }
     return self;
 }

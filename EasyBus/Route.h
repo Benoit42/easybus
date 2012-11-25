@@ -17,5 +17,6 @@
 @property(nonatomic) NSString* _toName;
 
 - (id)initWithId:(NSString*)id_ shortName:(NSString*)shortName_ longName:(NSString*)longName_;
+- (UIImage*)picto;
 
 @end

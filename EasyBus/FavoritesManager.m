@@ -67,9 +67,6 @@
     
     //ajoute un favoris en évitant les doublons
     if (current == nil) {
-        //recalcul le picto du favori
-        favorite.pictoPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [favorite.ligne intValue]] ofType:@"png"];
-
         //ajoute le favori
         [_favorites addObject:favorite];
         

@@ -59,11 +59,8 @@
         //get the favorite
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
-        //get picto
-        UIImage* picto = [UIImage imageWithContentsOfFile:favorite.pictoPath];
-        
         //add departure
-        [cell._picto setImage:picto];
+        [cell._picto setImage:favorite.picto];
         [cell._libArret setText:favorite.libArret];
         [cell._libDirection setText:favorite.libDirection];
         return cell;

@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/FavoritesManager.m"
-         timestampString = "375454229.840353"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "89"
-         endingLineNumber = "89"
+         startingLineNumber = "86"
+         endingLineNumber = "86"
          landmarkName = "-removeFavorite:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/FavoritesManager.m"
-         timestampString = "375454229.840353"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-removeAllFavorites"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/FavoritesViewController.m"
-         timestampString = "375347542.113563"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "125"
-         endingLineNumber = "125"
+         startingLineNumber = "122"
+         endingLineNumber = "122"
          landmarkName = "-unwindFromSave:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/LinesViewController.m"
-         timestampString = "375304822.403959"
+         timestampString = "375562268.645044"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "71"
-         endingLineNumber = "71"
+         startingLineNumber = "68"
+         endingLineNumber = "68"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,11 +203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/FavoritesViewController.m"
-         timestampString = "375347542.113563"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-prepareForSegue:sender:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -242,11 +242,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/Depart.m"
-         timestampString = "375453822.630224"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "18"
-         endingLineNumber = "18"
+         startingLineNumber = "24"
+         endingLineNumber = "24"
          landmarkName = "-initWithName:arret:direction:headsign:delai:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -255,25 +255,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/Favorite.m"
-         timestampString = "375453917.157817"
+         timestampString = "375566298.760902"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "16"
-         endingLineNumber = "16"
+         startingLineNumber = "22"
+         endingLineNumber = "22"
          landmarkName = "-initWithName:libLigne:arret:libArret:direction:libDirection:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "EasyBus/FavoritesManager.m"
-         timestampString = "375454253.062897"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "71"
-         endingLineNumber = "71"
-         landmarkName = "-addFavorite:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

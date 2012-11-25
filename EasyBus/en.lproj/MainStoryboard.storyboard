@@ -84,7 +84,7 @@
                                                 <constraint firstAttribute="height" constant="36" id="4lI-dx-let"/>
                                                 <constraint firstAttribute="width" constant="260" id="gTe-wA-dFj"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -92,7 +92,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="Yza-cS-YU0"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -130,7 +130,7 @@
                                                 <constraint firstAttribute="width" constant="124" id="APV-fz-Znd"/>
                                                 <constraint firstAttribute="height" constant="36" id="BX3-1m-28q"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="32"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -160,7 +160,7 @@
                                                 <constraint firstAttribute="width" constant="191" id="25Z-rY-v9u"/>
                                                 <constraint firstAttribute="height" constant="38" id="jhl-ra-R5c"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -490,9 +490,6 @@
         </class>
         <class className="FavoritesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoritesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="unwindFromSave:" candidateClass="UIStoryboardSegue"/>
-            </relationships>
         </class>
         <class className="LineCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LineCell.h"/>
@@ -503,14 +500,10 @@
         </class>
         <class className="LinesViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LinesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="newFavorite:" candidateClass="UIStoryboardSegue"/>
-            </relationships>
         </class>
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
-                <relationship kind="action" name="unwindFromAlternate:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="_refreshDate" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -528,9 +521,6 @@
         </class>
         <class className="UIRefreshControl" superclassName="UIControl">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
