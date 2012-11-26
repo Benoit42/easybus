@@ -14,5 +14,6 @@
 
 @property(strong, nonatomic) FavoritesManager* _favoritesManager;
 @property(strong, nonatomic) DeparturesManager* _departuresManager;
+@property(nonatomic) NSInteger page;
 
 @end

@@ -12,5 +12,6 @@
 @interface StopsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) StaticDataManager* _staticDataManager;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *_saveButton;
 
 @end

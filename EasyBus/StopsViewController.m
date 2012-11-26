@@ -12,7 +12,7 @@
 
 @implementation StopsViewController
 
-@synthesize _staticDataManager;
+@synthesize _staticDataManager, _saveButton;
 
 - (void)viewDidLoad
 {
@@ -82,6 +82,9 @@
     // update it the current favorite
     favorite.arret = stop._id;
     favorite.libArret = stop._name;
+
+    // activate save button
+    [_saveButton setEnabled:YES];
 }
 
 @end

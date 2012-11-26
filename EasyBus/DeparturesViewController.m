@@ -21,7 +21,7 @@
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager;
+@synthesize _favoritesManager, _departuresManager, page;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -34,10 +34,12 @@
     // Ajout du widget de refresh
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
 
-    // Abonnement au notifications des départs
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"departuresUpdated" object:nil];
+    // Abonnement au notifications des favoris
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"updateFavorites" object:nil];
 
-    //[self refreshData];
+    // Get data for favorites
+    NSArray* favorite = [_favoritesManager favorites];
+    [_departuresManager loadDeparturesFromKeolis:favorite];
 }
 
 #pragma mark - Saturation mémoire
@@ -48,10 +50,12 @@
 }
 
 #pragma mark - Stuff for refreshing view
-- (void)viewWillAppear:(BOOL)animated {
+/*- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}*/
 
-    // Raffraichissement des données
+- (void)refreshData:(NSNotification *)notification {
+    // Refresh date
     [self refreshData];
 }
 
