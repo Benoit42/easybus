@@ -24,6 +24,7 @@
 -(id)init {
     if ( self = [super init] ) {
         currentPage = 0;
+        _departuresViewControlers = [NSMutableArray new];
     }
     return self;
 }
@@ -33,6 +34,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
+    currentPage = 0;
+    _departuresViewControlers = [NSMutableArray new];
 
     //Set delegate and datasource
     self.delegate = self;
@@ -92,8 +95,11 @@
     
     //get next view controller
     index++;
-    UIViewController* nextViewController = [_departuresViewControlers objectAtIndex:index];
-    if (nextViewController == nil) {
+    UIViewController* nextViewController = nil;
+    if (index < [_departuresViewControlers count]) {
+        nextViewController = [_departuresViewControlers objectAtIndex:index];
+    }
+    else if (index < [[[FavoritesManager singleton] groupes] count]) {
         nextViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
         ((DeparturesViewController*)nextViewController).page = index;
         [_departuresViewControlers addObject:nextViewController];

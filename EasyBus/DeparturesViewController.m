@@ -13,12 +13,6 @@
 #import "DepartureHeaderCell.h"
 #import "DepartureFooterCell.h"
 
-@interface DeparturesViewController()
-
-@property(strong, nonatomic) NSArray* _sections;
-
-@end
-
 @implementation DeparturesViewController
 
 @synthesize _favoritesManager, _departuresManager, page;
@@ -75,52 +69,50 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[_favoritesManager groupes] count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section plus header and footer
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:section];
+    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
     if ([departures count] == 0) {
         //Pas de départ, on a seulement le header et le "Pas de départ"
         return 2;
     }
     else {
-        return [departures count] + 1;
+        return MIN([departures count], 5) + 1;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //get favorite
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:indexPath.section];
+    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
+    UITableViewCell* cell = nil;
     
     if (indexPath.row == 0) {
         //Header row
         
         //get cell and update it
-        DepartureHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
-        [[cell _libStop] setText:groupe.libArret];
-        [[cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
-        return cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
+        [[(DepartureHeaderCell*)cell _libStop] setText:groupe.libArret];
+        [[(DepartureHeaderCell*)cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
     }
     else {
         if ([departures count] == 0) {
             //Aucun départ
 
             //get cell and update it
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noDeparture" forIndexPath:indexPath];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"noDeparture" forIndexPath:indexPath];
             [[cell textLabel] setText:@"Aucun départ"];
             [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
-            return cell;
         }
-        else if (indexPath.row < [departures count] + 1) {
+        else if ((indexPath.row < [departures count] + 1)) {
             // departure row
             
             //get departure
@@ -128,8 +120,8 @@
             Depart* depart = [departures objectAtIndex:departureIndex];
             
             //get cell and update it
-            DepartureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-            [[cell _picto] setImage:depart.picto];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            [[(DepartureCell*)cell _picto] setImage:depart.picto];
             NSString* libDelai;
             if (depart._delai < 60*60) {
                 libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];
@@ -137,11 +129,11 @@
             else {
                 libDelai = @"> 1h";
             }
-            [[cell _delai] setText:libDelai];
-            return cell;
+            [[(DepartureCell*)cell _delai] setText:libDelai];
         }
     }
-    return nil;
+
+    return cell;
 }
 
 @end
