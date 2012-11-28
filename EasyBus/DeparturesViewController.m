@@ -17,6 +17,8 @@
 
 @synthesize _favoritesManager, _departuresManager, page;
 
+NSInteger const MAXROWS = 5;
+
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,10 +46,6 @@
 }
 
 #pragma mark - Stuff for refreshing view
-/*- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}*/
-
 - (void)refreshData:(NSNotification *)notification {
     // Refresh date
     [self refreshData];
@@ -77,15 +75,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section plus header and footer
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
-    NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
-    if ([departures count] == 0) {
-        //Pas de départ, on a seulement le header et le "Pas de départ"
-        return 2;
-    }
-    else {
-        return MIN([departures count], 5) + 1;
-    }
+    // always header + footer + iphone5->5, other->4
+    return 1 + MAXROWS;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -103,24 +94,18 @@
         [[(DepartureHeaderCell*)cell _libStop] setText:groupe.libArret];
         [[(DepartureHeaderCell*)cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
     }
-    else {
-        if ([departures count] == 0) {
-            //Aucun départ
+    else if (indexPath.row <= [departures count] ){
+        // departure row
+        
+        //get cell and update it
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-            //get cell and update it
-            cell = [tableView dequeueReusableCellWithIdentifier:@"noDeparture" forIndexPath:indexPath];
-            [[cell textLabel] setText:@"Aucun départ"];
-            [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
-        }
-        else if ((indexPath.row < [departures count] + 1)) {
-            // departure row
-            
+        NSInteger departureIndex = indexPath.row - 1;
+        if (departureIndex < [departures count]) {
             //get departure
-            NSInteger departureIndex = indexPath.row - 1;
             Depart* depart = [departures objectAtIndex:departureIndex];
             
-            //get cell and update it
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            //update cell
             [[(DepartureCell*)cell _picto] setImage:depart.picto];
             NSString* libDelai;
             if (depart._delai < 60*60) {
@@ -132,7 +117,14 @@
             [[(DepartureCell*)cell _delai] setText:libDelai];
         }
     }
-
+    else {
+        // no departure row
+        
+        //get cell and return it
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        [[(DepartureCell*)cell _picto] setImage:nil];
+        [[(DepartureCell*)cell _delai] setText:nil];
+    }
     return cell;
 }
 

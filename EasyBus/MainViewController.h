@@ -12,7 +12,8 @@
 
 @interface MainViewController : UIViewController
 
+@property (strong, nonatomic) UIPageViewController* _pageViewController;
 @property (weak, nonatomic) IBOutlet UILabel *_refreshDate;
-@property (retain, nonatomic) DeparturesViewController* _dvc;
+@property (weak, nonatomic) IBOutlet UIView *_containerView;
 
 @end

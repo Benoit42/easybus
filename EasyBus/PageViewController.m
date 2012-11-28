@@ -21,14 +21,6 @@
 @synthesize currentPage, _departuresViewControlers;
 
 //constructeur
--(id)init {
-    if ( self = [super init] ) {
-        currentPage = 0;
-        _departuresViewControlers = [NSMutableArray new];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,23 +32,29 @@
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self;
-    
-    // Create a new view controller and pass suitable data
-    DeparturesViewController *departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-    departuresViewController.page = 0;
-    [_departuresViewControlers addObject:departuresViewController];
+}
 
-    NSArray *viewControllers = @[departuresViewController];
-    [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+#pragma mark - affichage
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-    CGRect pageViewRect = self.view.bounds;
-    self.view.frame = pageViewRect;
-    
-    [self didMoveToParentViewController:self];
-    
-    // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-    //departuresViewController.view.gestureRecognizers = self.gestureRecognizers;
+    //Création de la 1ère vue
+    NSArray* favorites = [[FavoritesManager singleton] favorites];
+    if ([favorites count] > 0) {
+        // Create a new view controller and pass suitable data
+        DeparturesViewController *departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+        departuresViewController.page = 0;
+        [_departuresViewControlers addObject:departuresViewController];
+        
+        NSArray *viewControllers = @[departuresViewController];
+        [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    }
+    else {
+        //ecran de démarrage sans favoris
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoFavoritesViewController"];
+        NSArray *viewControllers = @[viewController];
+        [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    }
 }
 
 #pragma mark - UIPageViewController delegate methods

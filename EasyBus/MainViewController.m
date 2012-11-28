@@ -8,11 +8,11 @@
 
 #import "MainViewController.h"
 #import "FavoritesNavigationController.h"
-#import "DeparturesViewController.h"
+#import "PageViewController.h"
 
 @implementation MainViewController
 
-@synthesize _refreshDate, _dvc;
+@synthesize _refreshDate, _containerView, _pageViewController;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -25,13 +25,25 @@
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //abo au notifications de mis à jour
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateDeparturesNotification:)
                                                  name:@"departuresUpdated"
                                                object:nil];
+
+    
+    //on créé le page view controller si nécessaire
+    PageViewController *pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    [self addChildViewController:pageViewController];
+    [_containerView addSubview:pageViewController.view ];
+    
+    // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
+    CGRect pageViewRect = _containerView.bounds;
+    pageViewController.view.frame = pageViewRect;
 }
 
-#pragma mark - Initialisation
+#pragma mark - nettoyage
 - (void)viewDidUnload {
     [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
