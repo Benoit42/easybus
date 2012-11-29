@@ -40,51 +40,53 @@
     
     //Création de la 1ère vue
     NSArray* favorites = [[FavoritesManager singleton] favorites];
-    if ([favorites count] > 0) {
-        // Create a new view controller and pass suitable data
-        DeparturesViewController *departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-        departuresViewController.page = 0;
-        [_departuresViewControlers addObject:departuresViewController];
-        
-        NSArray *viewControllers = @[departuresViewController];
-        [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+    if ([favorites count] > 0 ) {
+        if ([_departuresViewControlers count] == 0) {
+            //Création de la 1ère vue
+
+            // Create first and second view controller and pass suitable data
+            DeparturesViewController *departuresViewController0 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+            departuresViewController0.page = 0;
+            DeparturesViewController *departuresViewController1 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+            departuresViewController1.page = 1;
+
+            [_departuresViewControlers addObjectsFromArray:@[departuresViewController0, departuresViewController1]];
+
+            [self setViewControllers:@[departuresViewController0] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+        }
+        else {
+            //Retour sur la 1ère vue
+            DeparturesViewController *departuresViewController = [_departuresViewControlers objectAtIndex:0];
+            [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+        }
     }
     else {
         //ecran de démarrage sans favoris
         UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoFavoritesViewController"];
-        NSArray *viewControllers = @[viewController];
-        [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+        [self setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     }
 }
 
 #pragma mark - UIPageViewController delegate methods
-- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
-{
-    // Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
-    UIViewController *currentViewController = self.viewControllers[0];
-    NSArray *viewControllers = @[currentViewController];
-    [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
-    
-    self.doubleSided = NO;
-    return UIPageViewControllerSpineLocationMin;
-}
+//nothing yet...
 
 #pragma mark - Page View Controller Data Source
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    //get current view controller index
     NSUInteger index = [_departuresViewControlers indexOfObject:viewController];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
     
     //get previous view controller (allready instanciated)
-    UIViewController* previousViewController = [_departuresViewControlers objectAtIndex:index-1];
+    UIViewController* previousViewController = [_departuresViewControlers objectAtIndex:index - 1];
     return previousViewController;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    //get current view controller
+    //get current view controller index
     NSUInteger index = [self._departuresViewControlers indexOfObject:viewController];
     if (index == NSNotFound) {
         //impossible en principe, c'est une erreur

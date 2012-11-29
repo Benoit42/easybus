@@ -15,9 +15,9 @@
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page;
+@synthesize _favoritesManager, _departuresManager, page, needsRefresh;
 
-NSInteger const MAXROWS = 5;
+NSInteger const MAXROWS = 6;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -26,6 +26,7 @@ NSInteger const MAXROWS = 5;
     // Instanciates des data
     _favoritesManager = [FavoritesManager singleton];
     _departuresManager = [DeparturesManager singleton];
+    needsRefresh = true;
     
     // Ajout du widget de refresh
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
@@ -38,6 +39,16 @@ NSInteger const MAXROWS = 5;
     [_departuresManager loadDeparturesFromKeolis:favorite];
 }
 
+#pragma mark - affichage
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //gestion du refresh
+    if (needsRefresh) {
+        [self refreshData];
+    }
+}
+
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -48,7 +59,7 @@ NSInteger const MAXROWS = 5;
 #pragma mark - Stuff for refreshing view
 - (void)refreshData:(NSNotification *)notification {
     // Refresh date
-    [self refreshData];
+    self.needsRefresh = true;
 }
 
 - (void)refreshData {
@@ -58,6 +69,9 @@ NSInteger const MAXROWS = 5;
 
     // Refresh view
     [(UITableView*)self.view reloadData];
+    
+    //refresh ok
+    needsRefresh = false;
 }
 
 #pragma mark - Table view refresh control

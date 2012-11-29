@@ -10,6 +10,6 @@
 
 @interface PageViewController : UIPageViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-@property(nonatomic) NSInteger currentPage;
+@property(nonatomic) NSUInteger currentPage;
 
 @end
