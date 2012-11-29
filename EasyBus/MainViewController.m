@@ -64,7 +64,10 @@
 
 #pragma mark - Segues
 - (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
-    
+    //Rechargement des départs
+    NSArray* favorite = [[FavoritesManager singleton] favorites];
+    [[DeparturesManager singleton] loadDeparturesFromKeolis:favorite];
+
 }
 
 @end

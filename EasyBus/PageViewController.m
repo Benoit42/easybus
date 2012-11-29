@@ -32,6 +32,10 @@
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self;
+
+    // Get data for favorites
+    NSArray* favorite = [[FavoritesManager singleton] favorites];
+    [[DeparturesManager singleton] loadDeparturesFromKeolis:favorite];
 }
 
 #pragma mark - affichage

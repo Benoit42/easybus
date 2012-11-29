@@ -15,7 +15,7 @@
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, needsRefresh;
+@synthesize _favoritesManager, _departuresManager, page;
 
 NSInteger const MAXROWS = 6;
 
@@ -26,27 +26,18 @@ NSInteger const MAXROWS = 6;
     // Instanciates des data
     _favoritesManager = [FavoritesManager singleton];
     _departuresManager = [DeparturesManager singleton];
-    needsRefresh = true;
     
     // Ajout du widget de refresh
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
 
-    // Abonnement au notifications des favoris
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"updateFavorites" object:nil];
-
-    // Get data for favorites
-    NSArray* favorite = [_favoritesManager favorites];
-    [_departuresManager loadDeparturesFromKeolis:favorite];
+    // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView:) name:@"departuresUpdatedSucceeded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAlert:) name:@"departuresUpdateFailed" object:nil];
 }
 
 #pragma mark - affichage
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //gestion du refresh
-    if (needsRefresh) {
-        [self refreshData];
-    }
 }
 
 #pragma mark - Saturation mémoire
@@ -56,27 +47,22 @@ NSInteger const MAXROWS = 6;
 	[alertView show];
 }
 
-#pragma mark - Stuff for refreshing view
-- (void)refreshData:(NSNotification *)notification {
-    // Refresh date
-    self.needsRefresh = true;
+#pragma mark - Erreurs sur la récupération des départs
+- (void)showAlert:(NSNotification *)notification {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
-- (void)refreshData {
-    // Get data for favorites
-    NSArray* favorite = [_favoritesManager favorites];
-    [_departuresManager loadDeparturesFromKeolis:favorite];
-
+#pragma mark - Stuff for refreshing view
+- (void)refreshTableView:(NSNotification *)notification {
     // Refresh view
     [(UITableView*)self.view reloadData];
-    
-    //refresh ok
-    needsRefresh = false;
 }
 
 #pragma mark - Table view refresh control
 - (void)refreshView:(UIRefreshControl *)refresh {
-    [self refreshData];
+    NSArray* favorite = [_favoritesManager favorites];
+    [_departuresManager loadDeparturesFromKeolis:favorite];
     [refresh endRefreshing];
 }
 

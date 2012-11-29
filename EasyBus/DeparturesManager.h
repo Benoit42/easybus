@@ -17,4 +17,5 @@
 - (NSArray*) getDeparturesForGroupe:(Favorite*)groupe;
 - (void) loadDeparturesFromKeolis:(NSArray*)favorites;
 
+@property(nonatomic) NSMutableData* _receivedData;
 @end

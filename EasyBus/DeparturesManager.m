@@ -26,7 +26,7 @@
 @end
 
 @implementation DeparturesManager
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _timeIntervalFormatter, _xsdDateTimeFormatter;
+@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter;
 
 #pragma singleton & init
 //instancie le singleton
@@ -75,14 +75,10 @@
     @try {
         //met à jour la liste des départs
         [self getData:favorites];
-    
-        //lance la notification departuresUpdated
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdated" object:self];
     }
     @catch (NSException * e) {
-        //Message d'alerte
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        //lance la notification d'erreur
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
     }
 }
 
@@ -106,23 +102,70 @@
             }
             
             // Call Keolis
-            NSData* xmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:path]];
+            NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
+                                                      cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                  timeoutInterval:15.0];
+            NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+            if (theConnection) {
+                // Create the NSMutableData to hold the received data.
+                // receivedData is an instance variable declared elsewhere.
+                _receivedData = [NSMutableData new];
+            } else {
+                //lance la notification d'erreur
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+            }
+            
             //NSString* filePath = [[NSBundle mainBundle] pathForResource:@"getbusnextdepartures" ofType:@"xml"];
             //NSData* xmlData = [NSData dataWithContentsOfFile:filePath];
-            
-            //Parse response
-            NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:xmlData];
-            [xmlParser setDelegate:self];
-            [xmlParser parse];
-            
-            //Sort data
-            //TODO a mettre dans le traitement de la vue
-            NSArray* sortedDeparts = [_departures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                return [(Depart*)a _delai] > [(Depart*)b _delai];
-            }];
-            [_departures removeAllObjects];
-            [_departures addObjectsFromArray:sortedDeparts];
         }
+}
+
+#pragma mark NSXMLParserDelegate methods
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    // This method is called when the server has determined that it
+    // has enough information to create the NSURLResponse.
+    
+    // It can be called multiple times, for example in the case of a
+    // redirect, so each time we reset the data.
+    
+    // receivedData is an instance variable declared elsewhere.
+    [_receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    // Append the new data to receivedData.
+    // receivedData is an instance variable declared elsewhere.
+    [_receivedData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    //lance la notification d'erreur
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    //Parse response
+    NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:_receivedData];
+    [xmlParser setDelegate:self];
+    [xmlParser parse];
+    
+    //Sort data
+    //TODO a mettre dans le traitement de la vue
+    NSArray* sortedDeparts = [_departures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        return [(Depart*)a _delai] > [(Depart*)b _delai];
+    }];
+    [_departures removeAllObjects];
+    [_departures addObjectsFromArray:sortedDeparts];
+    
+    //lance la notification departuresUpdated
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdatedSucceeded" object:self];
 }
 
 #pragma mark NSXMLParserDelegate methods
