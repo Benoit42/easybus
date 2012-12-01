@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *_arret;
 @property (weak, nonatomic) IBOutlet UILabel *_direction;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *_activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *_info;
 
 - (IBAction)_refreshAsked:(UIButton *)sender;
 

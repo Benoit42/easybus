@@ -12,5 +12,6 @@
 
 @property (nonatomic) IBOutlet UIImageView* _picto;
 @property (nonatomic) IBOutlet UILabel* _delai;
+@property (nonatomic) IBOutlet UILabel* _message;
 
 @end

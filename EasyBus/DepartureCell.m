@@ -10,6 +10,6 @@
 
 @implementation DepartureCell
 
-@synthesize _delai, _picto;
+@synthesize _delai, _picto, _message;
 
 @end

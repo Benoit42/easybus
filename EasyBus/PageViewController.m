@@ -34,8 +34,8 @@
     self.dataSource = self;
 
     // Get data for favorites
-    NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] refreshDepartures:favorite];
+    //NSArray* favorite = [[FavoritesManager singleton] favorites];
+    //[[DeparturesManager singleton] refreshDepartures:favorite];
 }
 
 #pragma mark - affichage

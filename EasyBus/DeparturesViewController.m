@@ -11,9 +11,15 @@
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
 
+@interface DeparturesViewController()
+
+@property(nonatomic) NSDateFormatter *_timeIntervalFormatter;
+
+@end
+
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction;
+@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction, _info, _timeIntervalFormatter;
 
 NSInteger const MAXROWS = 6;
 
@@ -25,10 +31,19 @@ NSInteger const MAXROWS = 6;
     _favoritesManager = [FavoritesManager singleton];
     _departuresManager = [DeparturesManager singleton];
     
+    _timeIntervalFormatter = [[NSDateFormatter alloc] init];
+    _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
+    _timeIntervalFormatter.dateFormat = @"HH:mm";
+
+    
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:@"departuresUpdateSucceeded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
+
+    //refresh departures
+    NSArray* favorite = [[FavoritesManager singleton] favorites];
+    [[DeparturesManager singleton] refreshDepartures:favorite];
 }
 
 #pragma mark - affichage
@@ -39,10 +54,6 @@ NSInteger const MAXROWS = 6;
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
     [_arret setText:groupe.libArret];
     [_direction setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
-
-    //update footer
-    //TODO
-
 }
 
 #pragma mark - Saturation mémoire
@@ -60,12 +71,18 @@ NSInteger const MAXROWS = 6;
     //show alert
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+
+    //message
+    [_info setText:@"erreur lors de la mise à jour..."];
 }
 
 #pragma mark - Stuff for refreshing activity indicator
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     // start indicator
     [_activityIndicator startAnimating];
+    
+    //message
+    [_info setText:@"mise à jour..."];
 }
 
 #pragma mark - Stuff for refreshing view
@@ -75,6 +92,10 @@ NSInteger const MAXROWS = 6;
 
     // Refresh view
     [(UITableView*)self.view reloadData];
+
+    //message
+    NSString* maj = [_timeIntervalFormatter stringFromDate:[NSDate date]];
+    [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
 }
 
 #pragma mark - Table view refresh control
@@ -83,11 +104,6 @@ NSInteger const MAXROWS = 6;
 }
 
 #pragma mark - Table view data source
-/*- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}*/
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section plus header and footer
@@ -123,6 +139,7 @@ NSInteger const MAXROWS = 6;
                 libDelai = @"> 1h";
             }
             [[(DepartureCell*)cell _delai] setText:libDelai];
+            [[(DepartureCell*)cell _message] setText:nil];
         }
     }
     else {
@@ -132,8 +149,21 @@ NSInteger const MAXROWS = 6;
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         [[(DepartureCell*)cell _picto] setImage:nil];
         [[(DepartureCell*)cell _delai] setText:nil];
+        if (indexPath.row == 0) {
+            [[(DepartureCell*)cell _message] setText:@"aucun départ"];
+        }
+        else {
+            [[(DepartureCell*)cell _message] setText:nil];
+        }
     }
     return cell;
+}
+
+#pragma mark - Segues
+- (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
+    //Rechargement des départs
+    NSArray* favorite = [[FavoritesManager singleton] favorites];
+    [[DeparturesManager singleton] refreshDepartures:favorite];
 }
 
 @end
