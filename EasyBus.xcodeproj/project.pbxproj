@@ -315,6 +315,7 @@
 		147480041663D4DC0091FF49 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147480031663D4DC0091FF49 /* PageViewController.m */; };
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
+		147C343F166A6A0F008FE719 /* NoFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147C343E166A6A0F008FE719 /* NoFavoritesViewController.m */; };
 		148439AF162DF2F700D1567B /* Favorite.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3CBE162B227500DF061A /* Favorite.h */; };
 		149DEFF11638214E002D9D79 /* CSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423424D1635B8C70095073C /* CSVParser.m */; };
 		149DEFF216382151002D9D79 /* CSVParser.h in Sources */ = {isa = PBXBuildFile; fileRef = 1423424C1635B8C70095073C /* CSVParser.h */; };
@@ -689,6 +690,8 @@
 		147480031663D4DC0091FF49 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarRefresh.png; sourceTree = "<group>"; };
 		147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarRefresh@2x.png"; sourceTree = "<group>"; };
+		147C343D166A6A0E008FE719 /* NoFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoFavoritesViewController.h; sourceTree = "<group>"; };
+		147C343E166A6A0F008FE719 /* NoFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoFavoritesViewController.m; sourceTree = "<group>"; };
 		149DF04E163B29FA002D9D79 /* RoutesCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = RoutesCsvReader.h; sourceTree = "<group>"; };
 		149DF04F163B2A14002D9D79 /* RoutesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReaderTest.m; sourceTree = "<group>"; };
 		149DF051163B2A47002D9D79 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
@@ -1276,6 +1279,8 @@
 				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
 				14CF4346165FEA3400834A23 /* DepartureCell.m */,
+				147C343D166A6A0E008FE719 /* NoFavoritesViewController.h */,
+				147C343E166A6A0F008FE719 /* NoFavoritesViewController.m */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -1729,6 +1734,7 @@
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
+				147C343F166A6A0F008FE719 /* NoFavoritesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

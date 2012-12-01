@@ -43,31 +43,23 @@
     [super viewWillAppear:animated];
     
     //Création de la 1ère vue
-    NSArray* favorites = [[FavoritesManager singleton] favorites];
-    if ([favorites count] > 0 ) {
-        if ([_departuresViewControlers count] == 0) {
-            //Création de la 1ère vue
+    if ([_departuresViewControlers count] == 0) {
+        //Création de la 1ère vue
 
-            // Create first and second view controller and pass suitable data
-            DeparturesViewController *departuresViewController0 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-            departuresViewController0.page = 0;
-            DeparturesViewController *departuresViewController1 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-            departuresViewController1.page = 1;
+        // Create first and second view controller and pass suitable data
+        DeparturesViewController *departuresViewController0 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+        departuresViewController0.page = 0;
+        DeparturesViewController *departuresViewController1 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+        departuresViewController1.page = 1;
 
-            [_departuresViewControlers addObjectsFromArray:@[departuresViewController0, departuresViewController1]];
+        [_departuresViewControlers addObjectsFromArray:@[departuresViewController0, departuresViewController1]];
 
-            [self setViewControllers:@[departuresViewController0] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-        }
-        else {
-            //Retour sur la 1ère vue
-            DeparturesViewController *departuresViewController = [_departuresViewControlers objectAtIndex:0];
-            [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-        }
+        [self setViewControllers:@[departuresViewController0] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     }
     else {
-        //ecran de démarrage sans favoris
-        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoFavoritesViewController"];
-        [self setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+        //Retour sur la 1ère vue
+        DeparturesViewController *departuresViewController = [_departuresViewControlers objectAtIndex:0];
+        [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     }
 }
 

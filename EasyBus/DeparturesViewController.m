@@ -14,14 +14,13 @@
 @interface DeparturesViewController()
 
 @property(nonatomic) NSDateFormatter *_timeIntervalFormatter;
+@property(nonatomic) NSUInteger _maxRows;
 
 @end
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction, _info, _timeIntervalFormatter;
-
-NSInteger const MAXROWS = 6;
+@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction, _info, _timeIntervalFormatter, _maxRows;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -35,6 +34,14 @@ NSInteger const MAXROWS = 6;
     _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     _timeIntervalFormatter.dateFormat = @"HH:mm";
 
+    //check resolution
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 480) {
+        _maxRows = 5;
+    }
+    else {
+        _maxRows = 6;
+    }
     
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
@@ -51,9 +58,12 @@ NSInteger const MAXROWS = 6;
     [super viewWillAppear:animated];
 
     //update header
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
-    [_arret setText:groupe.libArret];
-    [_direction setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
+    NSArray* groupes = [_favoritesManager groupes];
+    if (page < [groupes count]) {
+        Favorite* groupe = [groupes objectAtIndex:page];
+        [_arret setText:groupe.libArret];
+        [_direction setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
+    }
 }
 
 #pragma mark - Saturation mémoire
@@ -108,27 +118,30 @@ NSInteger const MAXROWS = 6;
 {
     // Return the number of rows in the section plus header and footer
     // always header + footer + iphone5->5, other->4
-    return MAXROWS;
+    NSArray* groupes = [_favoritesManager groupes];
+    if (page < [groupes count]) {
+        return _maxRows;
+    }
+    else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //get favorite
+    //create cell
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
+    //get departures
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
-    UITableViewCell* cell = nil;
-    
     if (indexPath.row < [departures count] ){
         // departure row
-        
-        //get cell and update it
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
         NSInteger departureIndex = indexPath.row;
         if (departureIndex < [departures count]) {
             //get departure
             Depart* depart = [departures objectAtIndex:departureIndex];
-            
+        
             //update cell
             [[(DepartureCell*)cell _picto] setImage:depart.picto];
             NSString* libDelai;
@@ -144,9 +157,6 @@ NSInteger const MAXROWS = 6;
     }
     else {
         // no departure row
-        
-        //get cell and return it
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         [[(DepartureCell*)cell _picto] setImage:nil];
         [[(DepartureCell*)cell _delai] setText:nil];
         if (indexPath.row == 0) {
@@ -157,13 +167,6 @@ NSInteger const MAXROWS = 6;
         }
     }
     return cell;
-}
-
-#pragma mark - Segues
-- (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
-    //Rechargement des départs
-    NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] refreshDepartures:favorite];
 }
 
 @end
