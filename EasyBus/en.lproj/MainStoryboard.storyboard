@@ -45,7 +45,7 @@
         <scene sceneID="xEN-Ex-Ypm">
             <objects>
                 <tableViewController storyboardIdentifier="DeparturesViewController" id="bM8-6R-e3m" userLabel="Departure View Controller" customClass="DeparturesViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="71" sectionHeaderHeight="22" sectionFooterHeight="22" id="87c-eK-yLe">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" id="87c-eK-yLe">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,7 +83,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Dai-DW-Zyo">
-                            <rect key="frame" x="0.0" y="149" width="320" height="32"/>
+                            <rect key="frame" x="0.0" y="146" width="320" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAB-4O-mu4">
@@ -99,12 +99,12 @@
                                         <segue destination="PdJ-v8-E1m" kind="modal" modalTransitionStyle="flipHorizontal" id="Uvr-gy-4ki"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZW-Lc-ODt">
+                                <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZW-Lc-ODt">
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="19" id="y6v-rH-fv3"/>
+                                        <constraint firstAttribute="height" constant="18" id="3IN-Uh-NKK"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                    <state key="normal" image="UIButtonBarRefresh.png">
+                                    <state key="normal" image="UIButtonBarRefresh.png" backgroundImage="UIButtonBarRefresh.png">
                                         <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -112,24 +112,24 @@
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
-                                        <action selector="_refreshAsked:" destination="bM8-6R-e3m" eventType="touchUpInside" id="RjR-fI-9ex"/>
+                                        <action selector="_refreshAsked:" destination="bM8-6R-e3m" eventType="touchDown" id="V9L-w0-rcH"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="bAB-4O-mu4" firstAttribute="bottom" secondItem="JZW-Lc-ODt" secondAttribute="bottom" type="default" id="7yL-zw-P9i"/>
-                                <constraint firstAttribute="trailing" secondItem="JZW-Lc-ODt" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="JIS-fh-jNx"/>
-                                <constraint firstItem="bAB-4O-mu4" firstAttribute="leading" secondItem="Dai-DW-Zyo" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="glW-EG-USY"/>
+                                <constraint firstItem="bAB-4O-mu4" firstAttribute="top" secondItem="JZW-Lc-ODt" secondAttribute="top" type="default" id="9FK-na-KjS"/>
+                                <constraint firstItem="JZW-Lc-ODt" firstAttribute="leading" secondItem="Dai-DW-Zyo" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="JiZ-Ra-AvV"/>
                                 <constraint firstItem="bAB-4O-mu4" firstAttribute="centerY" secondItem="Dai-DW-Zyo" secondAttribute="centerY" type="default" id="oxn-FP-ePL"/>
+                                <constraint firstAttribute="trailing" secondItem="bAB-4O-mu4" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="xRh-2c-2mp"/>
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="71" id="Gbg-ID-Tsa" customClass="DepartureCell">
-                                <rect key="frame" x="0.0" y="78" width="320" height="71"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Gbg-ID-Tsa" customClass="DepartureCell">
+                                <rect key="frame" x="0.0" y="78" width="320" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Pictogrammes_100\11.png" translatesAutoresizingMaskIntoConstraints="NO" id="7OM-rn-tLA">
@@ -153,8 +153,8 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="7OM-rn-tLA" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="DBH-v8-iv1"/>
-                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="EGl-hv-KWD"/>
-                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="centerY" secondItem="7OM-rn-tLA" secondAttribute="centerY" type="default" id="e9s-JL-UCv"/>
+                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="WZu-A2-LgO"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="centerY" secondItem="7OM-rn-tLA" secondAttribute="centerY" type="default" id="ev3-li-BFc"/>
                                     <constraint firstItem="0Gv-3x-0z5" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="127" id="xWP-nX-cJC"/>
                                 </constraints>
                                 <connections>
