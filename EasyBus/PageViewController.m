@@ -35,7 +35,7 @@
 
     // Get data for favorites
     NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] loadDeparturesFromKeolis:favorite];
+    [[DeparturesManager singleton] refreshDepartures:favorite];
 }
 
 #pragma mark - affichage
@@ -111,12 +111,12 @@
     return nextViewController;
 }
 
-/*- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     return [[[FavoritesManager singleton] groupes] count];
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return currentPage;
-}*/
+}
 
 @end

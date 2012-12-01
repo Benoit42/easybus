@@ -66,7 +66,7 @@
 - (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
     //Rechargement des départs
     NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] loadDeparturesFromKeolis:favorite];
+    [[DeparturesManager singleton] refreshDepartures:favorite];
 
 }
 

@@ -10,12 +10,10 @@
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
-#import "DepartureHeaderCell.h"
-#import "DepartureFooterCell.h"
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page;
+@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction;
 
 NSInteger const MAXROWS = 6;
 
@@ -27,17 +25,24 @@ NSInteger const MAXROWS = 6;
     _favoritesManager = [FavoritesManager singleton];
     _departuresManager = [DeparturesManager singleton];
     
-    // Ajout du widget de refresh
-    [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
-
     // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableView:) name:@"departuresUpdatedSucceeded" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAlert:) name:@"departuresUpdateFailed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:@"departuresUpdateSucceeded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
 }
 
 #pragma mark - affichage
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    //update header
+    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
+    [_arret setText:groupe.libArret];
+    [_direction setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
+
+    //update footer
+    //TODO
+
 }
 
 #pragma mark - Saturation mémoire
@@ -48,35 +53,46 @@ NSInteger const MAXROWS = 6;
 }
 
 #pragma mark - Erreurs sur la récupération des départs
-- (void)showAlert:(NSNotification *)notification {
+- (void)departuresUpdateFailed:(NSNotification *)notification {
+    // stop indicator
+    [_activityIndicator stopAnimating];
+
+    //show alert
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
 
+#pragma mark - Stuff for refreshing activity indicator
+- (void)departuresUpdatedStarted:(NSNotification *)notification {
+    // start indicator
+    [_activityIndicator startAnimating];
+}
+
 #pragma mark - Stuff for refreshing view
-- (void)refreshTableView:(NSNotification *)notification {
+- (void)departuresUpdatedSucceeded:(NSNotification *)notification {
+    // stop indicator
+    [_activityIndicator stopAnimating];
+
     // Refresh view
     [(UITableView*)self.view reloadData];
 }
 
 #pragma mark - Table view refresh control
-- (void)refreshView:(UIRefreshControl *)refresh {
-    NSArray* favorite = [_favoritesManager favorites];
-    [_departuresManager loadDeparturesFromKeolis:favorite];
-    [refresh endRefreshing];
+- (IBAction)_refreshAsked:(UIButton *)sender {
+    [_departuresManager refreshDepartures:[_favoritesManager favorites]];
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+/*- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
-}
+}*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section plus header and footer
     // always header + footer + iphone5->5, other->4
-    return 1 + MAXROWS;
+    return MAXROWS;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,21 +102,13 @@ NSInteger const MAXROWS = 6;
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
     UITableViewCell* cell = nil;
     
-    if (indexPath.row == 0) {
-        //Header row
-        
-        //get cell and update it
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
-        [[(DepartureHeaderCell*)cell _libStop] setText:groupe.libArret];
-        [[(DepartureHeaderCell*)cell _libDirection] setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
-    }
-    else if (indexPath.row <= [departures count] ){
+    if (indexPath.row < [departures count] ){
         // departure row
         
         //get cell and update it
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-        NSInteger departureIndex = indexPath.row - 1;
+        NSInteger departureIndex = indexPath.row;
         if (departureIndex < [departures count]) {
             //get departure
             Depart* depart = [departures objectAtIndex:departureIndex];

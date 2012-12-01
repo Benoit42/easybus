@@ -15,7 +15,9 @@
 + (DeparturesManager*) singleton;
 - (NSArray*) getDepartures;
 - (NSArray*) getDeparturesForGroupe:(Favorite*)groupe;
-- (void) loadDeparturesFromKeolis:(NSArray*)favorites;
+- (void) refreshDepartures:(NSArray*)favorites;
 
 @property(nonatomic) NSMutableData* _receivedData;
+@property(nonatomic) BOOL _isRequesting;
+
 @end

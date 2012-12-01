@@ -19,6 +19,7 @@
 @property(nonatomic) NSString* _headsign;
 @property(nonatomic) NSString* _currentDate;
 @property(nonatomic) NSString* _departureDate;
+@property(nonatomic) NSMutableArray* _freshDepartures;
 
 @property(nonatomic) NSDateFormatter* _timeIntervalFormatter;
 @property(nonatomic) NSDateFormatter* _xsdDateTimeFormatter;
@@ -26,7 +27,7 @@
 @end
 
 @implementation DeparturesManager
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter;
+@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures;
 
 #pragma singleton & init
 //instancie le singleton
@@ -44,15 +45,18 @@
 -(id)init {
     if ( self = [super init] ) {
         _departures = [NSMutableArray new];
-    }
+        _freshDepartures = [NSMutableArray new];
 
-    _timeIntervalFormatter = [[NSDateFormatter alloc] init];
-    _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
-    _timeIntervalFormatter.dateFormat = @"m";
+        _timeIntervalFormatter = [[NSDateFormatter alloc] init];
+        _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
+        _timeIntervalFormatter.dateFormat = @"m";
     
-    _xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
-    _xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
-    _xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
+        _xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
+        _xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
+        _xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
+    
+    _isRequesting = FALSE;
+    }
 
     return self;
 }
@@ -71,22 +75,13 @@
 }
 
 #pragma call keolis and parse XML response
-- (void) loadDeparturesFromKeolis:(NSArray*)favorites {
+- (void)refreshDepartures:(NSArray*)favorites {
     @try {
-        //met à jour la liste des départs
-        [self getData:favorites];
-    }
-    @catch (NSException * e) {
-        //lance la notification d'erreur
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
-    }
-}
+        if (! _isRequesting && [favorites count] > 0 ) {
+            //Request is running
+            _isRequesting = TRUE;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
 
-- (void)getData:(NSArray*)favorites {
-        // Cleanup departures
-        [_departures removeAllObjects];
-    
-        if ([favorites count] > 0 ) {
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
             static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
@@ -118,6 +113,14 @@
             //NSString* filePath = [[NSBundle mainBundle] pathForResource:@"getbusnextdepartures" ofType:@"xml"];
             //NSData* xmlData = [NSData dataWithContentsOfFile:filePath];
         }
+    }
+    @catch (NSException * e) {
+        //lance la notification d'erreur
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+
+        //Request is not running
+        _isRequesting = FALSE;
+    }
 }
 
 #pragma mark NSXMLParserDelegate methods
@@ -144,28 +147,48 @@
 {
     //lance la notification d'erreur
     [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+
+    //Log
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    
+    //Request is not running
+    _isRequesting = FALSE;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    //Parse response
-    NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:_receivedData];
-    [xmlParser setDelegate:self];
-    [xmlParser parse];
+    @try {
+        //New departures array
+        [_freshDepartures removeAllObjects];
     
-    //Sort data
-    //TODO a mettre dans le traitement de la vue
-    NSArray* sortedDeparts = [_departures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        return [(Depart*)a _delai] > [(Depart*)b _delai];
-    }];
-    [_departures removeAllObjects];
-    [_departures addObjectsFromArray:sortedDeparts];
-    
-    //lance la notification departuresUpdated
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdatedSucceeded" object:self];
+        //Parse response
+        NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:_receivedData];
+        [xmlParser setDelegate:self];
+        [xmlParser parse];
+        
+        //Sort data
+        NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            return [(Depart*)a _delai] > [(Depart*)b _delai];
+        }];
+        [_departures removeAllObjects];
+        [_departures addObjectsFromArray:sortedDeparts];
+        
+        //lance la notification departuresUpdated
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateSucceeded" object:self];
+    }
+    @catch (NSException *exception) {
+        //lance la notification d'erreur
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+
+        //Log
+        NSLog(@"Connection failed! Error - %@ %@", [exception description], [exception debugDescription]);
+    }
+    @finally {
+        //Request is not running
+        _isRequesting = FALSE;
+    }
 }
 
 #pragma mark NSXMLParserDelegate methods
@@ -203,7 +226,7 @@
             
             //création du départ
             Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval];
-            [_departures addObject:depart];
+            [_freshDepartures addObject:depart];
         }
     }
 }

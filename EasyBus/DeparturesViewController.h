@@ -15,5 +15,10 @@
 @property(strong, nonatomic) FavoritesManager* _favoritesManager;
 @property(strong, nonatomic) DeparturesManager* _departuresManager;
 @property(nonatomic) NSInteger page;
+@property (weak, nonatomic) IBOutlet UILabel *_arret;
+@property (weak, nonatomic) IBOutlet UILabel *_direction;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *_activityIndicator;
+
+- (IBAction)_refreshAsked:(UIButton *)sender;
 
 @end

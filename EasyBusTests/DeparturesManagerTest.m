@@ -39,7 +39,7 @@
     NSArray* favorites = [[NSArray alloc] initWithObjects:fav1, fav2, nil];
     
     //Recherche des départs
-    [_departuresManager loadDeparturesFromKeolis:favorites];
+    [_departuresManager refreshDepartures:favorites];
     STAssertEquals(7, (int)[[_departuresManager getDepartures] count], @"Wrong number of departures");
 }
 
