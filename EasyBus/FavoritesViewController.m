@@ -21,16 +21,25 @@
     
     // Instanciates des data
     _favoritesManager = [FavoritesManager singleton];
-    
-    // Abonnement au notifications des favoris
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"favoritesUpdated" object:nil];
 }
 
+#pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In FavoritesViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 	[alertView show];
+}
+
+#pragma mark - affichage
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //Si aucun favori, passage direct à l'écran des lignes
+    NSArray* favorites = [_favoritesManager favorites];
+    if ([favorites count] == 0) {
+        [self performSegueWithIdentifier: @"newFavorite" sender: self];
+    }
 }
 
 #pragma mark - Table view data source
