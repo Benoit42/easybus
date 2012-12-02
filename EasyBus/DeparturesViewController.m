@@ -37,10 +37,10 @@
     //check resolution
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if (screenBounds.size.height == 480) {
-        _maxRows = 5;
+        _maxRows = 3;
     }
     else {
-        _maxRows = 6;
+        _maxRows = 4;
     }
     
     // Abonnement au notifications des départs

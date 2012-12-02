@@ -173,6 +173,10 @@
 		1423410316307A0D0095073C /* stops_extensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F916307A0D0095073C /* stops_extensions.txt */; };
 		1423410416307A0D0095073C /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340FA16307A0D0095073C /* trips.txt */; };
 		1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1423423A1631F4020095073C /* getbusnextdepartures.xml */; };
+		1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D500166BEFC7002083A7 /* logo-STAR@2x.png */; };
+		1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D501166BEFC7002083A7 /* logo-STAR.png */; };
+		1427D506166BF010002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D505166BF010002083A7 /* logo-STAR.png */; };
+		1427D508166BF017002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D507166BF017002083A7 /* logo-STAR@2x.png */; };
 		143F847F1663492B0064B2F4 /* Pictogrammes_21\1.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F31663492B0064B2F4 /* Pictogrammes_21\1.png */; };
 		143F84801663492B0064B2F4 /* Pictogrammes_21\2.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F41663492B0064B2F4 /* Pictogrammes_21\2.png */; };
 		143F84811663492B0064B2F4 /* Pictogrammes_21\3.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F51663492B0064B2F4 /* Pictogrammes_21\3.png */; };
@@ -547,6 +551,10 @@
 		1423423A1631F4020095073C /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		1423424C1635B8C70095073C /* CSVParser.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = CSVParser.h; sourceTree = "<group>"; };
 		1423424D1635B8C70095073C /* CSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVParser.m; sourceTree = "<group>"; };
+		1427D500166BEFC7002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
+		1427D501166BEFC7002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
+		1427D505166BF010002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
+		1427D507166BF017002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
 		143F83F31663492B0064B2F4 /* Pictogrammes_21\1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\1.png"; path = "21x21/Pictogrammes_21\\1.png"; sourceTree = "<group>"; };
 		143F83F41663492B0064B2F4 /* Pictogrammes_21\2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\2.png"; path = "21x21/Pictogrammes_21\\2.png"; sourceTree = "<group>"; };
 		143F83F51663492B0064B2F4 /* Pictogrammes_21\3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\3.png"; path = "21x21/Pictogrammes_21\\3.png"; sourceTree = "<group>"; };
@@ -944,6 +952,8 @@
 		14AD3C00162AF00400DF061A = {
 			isa = PBXGroup;
 			children = (
+				1427D507166BF017002083A7 /* logo-STAR@2x.png */,
+				1427D505166BF010002083A7 /* logo-STAR.png */,
 				14AD3C15162AF00400DF061A /* EasyBus */,
 				14AD3C3C162AF00400DF061A /* EasyBusTests */,
 				14AD3C0E162AF00400DF061A /* Frameworks */,
@@ -992,6 +1002,8 @@
 		14AD3C16162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1427D500166BEFC7002083A7 /* logo-STAR@2x.png */,
+				1427D501166BEFC7002083A7 /* logo-STAR.png */,
 				147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */,
 				147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */,
 				143F83F31663492B0064B2F4 /* Pictogrammes_21\1.png */,
@@ -1653,6 +1665,10 @@
 				143F850A1663492B0064B2F4 /* Pictogrammes_21\TTZ.png in Resources */,
 				147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */,
 				147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */,
+				1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */,
+				1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */,
+				1427D506166BF010002083A7 /* logo-STAR.png in Resources */,
+				1427D508166BF017002083A7 /* logo-STAR@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
