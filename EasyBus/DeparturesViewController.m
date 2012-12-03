@@ -62,7 +62,7 @@
     if (page < [groupes count]) {
         Favorite* groupe = [groupes objectAtIndex:page];
         [_arret setText:groupe.libArret];
-        [_direction setText:[NSString stringWithFormat:@"vers %@", groupe.libDirection]];
+        [_direction setText:groupe.libDirection];
     }
 }
 
@@ -152,6 +152,7 @@
                 libDelai = @"> 1h";
             }
             [[(DepartureCell*)cell _delai] setText:libDelai];
+            [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
             [[(DepartureCell*)cell _message] setText:nil];
         }
     }
@@ -159,6 +160,7 @@
         // no departure row
         [[(DepartureCell*)cell _picto] setImage:nil];
         [[(DepartureCell*)cell _delai] setText:nil];
+        [[(DepartureCell*)cell _heure] setText:nil];
         if (indexPath.row == 0) {
             [[(DepartureCell*)cell _message] setText:@"aucun départ"];
         }

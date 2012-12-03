@@ -74,7 +74,8 @@
     
     //update favorite
     favorite.direction = [NSString stringWithFormat:@"%i", indexPath.row];
-    favorite.libDirection = route._toName;
+    NSString* libelle = (indexPath.row == 0) ? route._fromName : route._toName;
+    favorite.libDirection = libelle;
 }
 
 @end

@@ -225,7 +225,7 @@
             interval = interval <0 ? 0 : interval;
             
             //création du départ
-            Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval];
+            Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval heure:departureDate];
             [_freshDepartures addObject:depart];
         }
     }

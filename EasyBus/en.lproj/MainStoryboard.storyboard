@@ -57,31 +57,42 @@
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Clos Courtel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pra-KE-Gbb">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="Sbf-UL-NGX"/>
-                                        <constraint firstAttribute="width" constant="225" id="eOF-32-dQG"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="28"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="vers Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="Hdc-ju-agc"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="28"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
-                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wgj-kS-bkG"/>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wgj-kS-bkG">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="5O3-EQ-5yR"/>
+                                    </constraints>
+                                </activityIndicatorView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="gdM-cF-rWD">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="gut-sA-mv7"/>
+                                        <constraint firstAttribute="height" constant="30" id="ry2-g0-Nx2"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="pra-KE-Gbb" firstAttribute="top" secondItem="bm1-nF-d9A" secondAttribute="top" type="default" id="28r-9d-Fge"/>
-                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="leading" secondItem="bm1-nF-d9A" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="31u-3D-mKU"/>
                                 <constraint firstItem="pra-KE-Gbb" firstAttribute="leading" secondItem="bm1-nF-d9A" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="658-Bf-LkI"/>
+                                <constraint firstItem="wgj-kS-bkG" firstAttribute="leading" secondItem="pra-KE-Gbb" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="B1V-7w-mLD"/>
+                                <constraint firstItem="gdM-cF-rWD" firstAttribute="leading" secondItem="bm1-nF-d9A" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="FjP-Fb-oxp"/>
+                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="leading" secondItem="gdM-cF-rWD" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="N4d-ff-Z0U"/>
                                 <constraint firstItem="wgj-kS-bkG" firstAttribute="centerY" secondItem="bm1-nF-d9A" secondAttribute="centerY" type="user" id="QTo-g8-jvQ"/>
-                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="bottom" secondItem="bm1-nF-d9A" secondAttribute="bottom" type="default" id="TF5-Io-D2h"/>
-                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="trailing" secondItem="pra-KE-Gbb" secondAttribute="trailing" type="default" id="iqT-c6-J36"/>
+                                <constraint firstItem="gdM-cF-rWD" firstAttribute="top" secondItem="pra-KE-Gbb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Sfx-kz-HFB"/>
+                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="top" secondItem="bm1-nF-d9A" secondAttribute="top" constant="44" id="hbg-SQ-7j1"/>
                                 <constraint firstAttribute="trailing" secondItem="wgj-kS-bkG" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="jzt-04-Oar"/>
+                                <constraint firstItem="wgj-kS-bkG" firstAttribute="leading" secondItem="gSM-Vl-Bin" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="qtk-Eb-KvO"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Dai-DW-Zyo">
@@ -147,25 +158,34 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Pictogrammes_100\11.png" translatesAutoresizingMaskIntoConstraints="NO" id="7OM-rn-tLA">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="SF4-eZ-XGg"/>
-                                                <constraint firstAttribute="height" constant="80" id="nNB-zP-WiW"/>
+                                                <constraint firstAttribute="width" constant="80" id="1o3-qz-53O"/>
+                                                <constraint firstAttribute="height" constant="80" id="OC9-Xp-WpB"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-3x-0z5">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-3x-0z5">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="163" id="BbQ-8Q-u3Q"/>
+                                                <constraint firstAttribute="height" constant="66" id="YIH-FM-K7d"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="40"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ntn-Dn-IE6">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ntn-Dn-IE6">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="66" id="BLs-vF-UOR"/>
-                                                <constraint firstAttribute="width" constant="243" id="Mvt-Xk-9vj"/>
+                                                <constraint firstAttribute="height" constant="66" id="ciO-29-DAM"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="30"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="17:34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPZ-np-Ja2">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="LIv-Bu-oBO"/>
+                                                <constraint firstAttribute="width" constant="67" id="crh-ZA-tL7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="19"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
@@ -173,16 +193,19 @@
                                 </view>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="top" secondItem="Ntn-Dn-IE6" secondAttribute="top" type="default" id="0p0-C6-wgr"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ntn-Dn-IE6" secondAttribute="trailing" constant="20" type="default" id="2wg-2G-OnJ"/>
+                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="80j-ex-dFf"/>
+                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="Awf-a7-mYH"/>
+                                    <constraint firstAttribute="trailing" secondItem="PPZ-np-Ja2" secondAttribute="trailing" constant="20" type="default" id="CQU-HW-Git"/>
                                     <constraint firstItem="7OM-rn-tLA" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="DBH-v8-iv1"/>
-                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="R1t-Nh-d3m"/>
-                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="top" secondItem="Gbg-ID-Tsa" secondAttribute="top" constant="10" id="SM2-ZG-rrQ"/>
-                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="centerX" secondItem="Gbg-ID-Tsa" secondAttribute="centerX" type="default" id="SMj-fw-tfJ"/>
-                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="127" id="Sux-TX-XzN"/>
-                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="centerY" secondItem="Ntn-Dn-IE6" secondAttribute="centerY" type="default" id="dnq-aX-mV1"/>
+                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Ntn-Dn-IE6" secondAttribute="centerY" type="default" id="Jo3-jr-ttT"/>
+                                    <constraint firstItem="PPZ-np-Ja2" firstAttribute="bottom" secondItem="7OM-rn-tLA" secondAttribute="bottom" type="default" id="PVr-cU-KdV"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Gv-3x-0z5" secondAttribute="trailing" constant="20" type="default" id="Q9O-Gj-I9B"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="top" secondItem="7OM-rn-tLA" secondAttribute="top" type="default" id="icG-qh-cxr"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="_delai" destination="0Gv-3x-0z5" id="qcs-mC-bZn"/>
+                                    <outlet property="_heure" destination="PPZ-np-Ja2" id="ZWt-My-uPg"/>
                                     <outlet property="_message" destination="Ntn-Dn-IE6" id="DOo-vw-Ebi"/>
                                     <outlet property="_picto" destination="7OM-rn-tLA" id="tND-c8-rgb"/>
                                 </connections>
@@ -516,12 +539,14 @@
         <image name="Pictogrammes_100\11.png" width="100" height="100"/>
         <image name="Pictogrammes_100\64.png" width="100" height="100"/>
         <image name="UIButtonBarRefresh.png" width="18" height="22"/>
+        <image name="arrow.png" width="48" height="48"/>
     </resources>
     <classes>
         <class className="DepartureCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DepartureCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="_delai" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_heure" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_message" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
             </relationships>
@@ -571,10 +596,14 @@
         </class>
         <class className="LinesViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LinesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="newFavorite:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
         </class>
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="unwindFromAlternate:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="_containerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="_refreshDate" candidateClass="UILabel"/>
             </relationships>
