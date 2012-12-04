@@ -10,6 +10,7 @@
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
+#import "NoDepartureCell.h"
 
 @interface DeparturesViewController()
 
@@ -20,7 +21,7 @@
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _arret, _direction, _info, _timeIntervalFormatter, _maxRows;
+@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -77,6 +78,7 @@
 - (void)departuresUpdateFailed:(NSNotification *)notification {
     // stop indicator
     [_activityIndicator stopAnimating];
+    [_reloadButton setHidden:FALSE];
 
     //show alert
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -89,6 +91,7 @@
 #pragma mark - Stuff for refreshing activity indicator
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     // start indicator
+    [_reloadButton setHidden:TRUE];
     [_activityIndicator startAnimating];
     
     //message
@@ -99,6 +102,7 @@
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     // stop indicator
     [_activityIndicator stopAnimating];
+    [_reloadButton setHidden:FALSE];
 
     // Refresh view
     [(UITableView*)self.view reloadData];
@@ -130,13 +134,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //create cell
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell* cell;
 
     //get departures
     Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
     if (indexPath.row < [departures count] ){
         // departure row
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
         NSInteger departureIndex = indexPath.row;
         if (departureIndex < [departures count]) {
             //get departure
@@ -147,20 +153,14 @@
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
             [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
-            [[(DepartureCell*)cell _message] setText:nil];
-            [[(DepartureCell*)cell _min] setHidden:FALSE];
         }
     }
     else {
         // no departure row
-        [[(DepartureCell*)cell _picto] setImage:nil];
-        [[(DepartureCell*)cell _delai] setText:nil];
-        [[(DepartureCell*)cell _heure] setText:nil];
-        if (indexPath.row == 0) {
-            [[(DepartureCell*)cell _message] setText:@"aucun départ"];
-        }
-        else {
-            [[(DepartureCell*)cell _message] setText:nil];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"NoDepartureCell" forIndexPath:indexPath];
+
+        if (indexPath.row != 0) {
+            [[(NoDepartureCell*)cell _message] setText:nil];
         }
     }
     return cell;

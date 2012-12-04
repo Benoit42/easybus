@@ -10,6 +10,6 @@
 
 @implementation DepartureCell
 
-@synthesize _delai, _picto, _message, _min, _heure;
+@synthesize _delai, _picto, _min, _heure;
 
 @end

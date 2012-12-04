@@ -162,6 +162,7 @@
 		140EA850163F125600FB4A85 /* StopsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84D163DBD5800FB4A85 /* StopsViewController.h */; };
 		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
 		1414E1AA166DD7230013E9A1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1414E1A9166DD7230013E9A1 /* arrow.png */; };
+		1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */; };
 		142340DA162E0ABA0095073C /* Depart.m in Sources */ = {isa = PBXBuildFile; fileRef = 142340D9162E0ABA0095073C /* Depart.m */; };
 		142340FB16307A0D0095073C /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F116307A0D0095073C /* agency.txt */; };
 		142340FC16307A0D0095073C /* calendar.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F216307A0D0095073C /* calendar.txt */; };
@@ -536,6 +537,8 @@
 		140EA851163F287000FB4A85 /* FavoritesNavigationController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoritesNavigationController.h; sourceTree = "<group>"; };
 		140EA852163F287000FB4A85 /* FavoritesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesNavigationController.m; sourceTree = "<group>"; };
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDepartureCell.h; sourceTree = "<group>"; };
+		1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDepartureCell.m; sourceTree = "<group>"; };
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
 		142340F116307A0D0095073C /* agency.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agency.txt; sourceTree = "<group>"; };
@@ -1296,6 +1299,8 @@
 				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
 				14CF4346165FEA3400834A23 /* DepartureCell.m */,
+				1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */,
+				1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */,
 				147C343D166A6A0E008FE719 /* NoFavoritesViewController.h */,
 				147C343E166A6A0F008FE719 /* NoFavoritesViewController.m */,
 			);
@@ -1755,6 +1760,7 @@
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
 				147C343F166A6A0F008FE719 /* NoFavoritesViewController.m in Sources */,
+				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

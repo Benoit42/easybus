@@ -12,7 +12,6 @@
 
 @property (nonatomic) IBOutlet UIImageView* _picto;
 @property (nonatomic) IBOutlet UILabel* _delai;
-@property (nonatomic) IBOutlet UILabel* _message;
 @property (weak, nonatomic) IBOutlet UILabel *_heure;
 @property (weak, nonatomic) IBOutlet UILabel *_min;
 
