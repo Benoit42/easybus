@@ -144,16 +144,11 @@
         
             //update cell
             [[(DepartureCell*)cell _picto] setImage:depart.picto];
-            NSString* libDelai;
-            if (depart._delai < 60*60) {
-                libDelai = [NSString stringWithFormat:@"%i min", (int)(depart._delai/60)];
-            }
-            else {
-                libDelai = @"> 1h";
-            }
+            NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
             [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
             [[(DepartureCell*)cell _message] setText:nil];
+            [[(DepartureCell*)cell _min] setHidden:FALSE];
         }
     }
     else {

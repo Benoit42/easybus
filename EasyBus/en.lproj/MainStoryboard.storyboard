@@ -54,7 +54,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Clos Courtel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pra-KE-Gbb">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Clos Courtel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pra-KE-Gbb">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="Sbf-UL-NGX"/>
                                     </constraints>
@@ -62,7 +62,7 @@
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="Hdc-ju-agc"/>
                                     </constraints>
@@ -158,22 +158,21 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Pictogrammes_100\11.png" translatesAutoresizingMaskIntoConstraints="NO" id="7OM-rn-tLA">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="1o3-qz-53O"/>
-                                                <constraint firstAttribute="height" constant="80" id="OC9-Xp-WpB"/>
+                                                <constraint firstAttribute="width" constant="80" id="fuo-bF-6eY"/>
+                                                <constraint firstAttribute="height" constant="80" id="ijg-gJ-RhK"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-3x-0z5">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-3x-0z5">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="163" id="BbQ-8Q-u3Q"/>
-                                                <constraint firstAttribute="height" constant="66" id="YIH-FM-K7d"/>
+                                                <constraint firstAttribute="width" constant="81" id="f0I-VP-99A"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="40"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="68"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ntn-Dn-IE6">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="66" id="ciO-29-DAM"/>
+                                                <constraint firstAttribute="height" constant="66" id="Ub2-3U-SOn"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="30"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -181,11 +180,20 @@
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="17:34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPZ-np-Ja2">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="35" id="LIv-Bu-oBO"/>
+                                                <constraint firstAttribute="height" constant="35" id="5aT-kJ-rSW"/>
                                                 <constraint firstAttribute="width" constant="67" id="crh-ZA-tL7"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="19"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bb-gt-oIa">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="ONt-nr-AfB"/>
+                                                <constraint firstAttribute="width" constant="59" id="ipe-4Q-Pfa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="29"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
@@ -193,20 +201,24 @@
                                 </view>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Ntn-Dn-IE6" secondAttribute="trailing" constant="20" type="default" id="2wg-2G-OnJ"/>
-                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="80j-ex-dFf"/>
-                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="Awf-a7-mYH"/>
-                                    <constraint firstAttribute="trailing" secondItem="PPZ-np-Ja2" secondAttribute="trailing" constant="20" type="default" id="CQU-HW-Git"/>
                                     <constraint firstItem="7OM-rn-tLA" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="DBH-v8-iv1"/>
-                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Ntn-Dn-IE6" secondAttribute="centerY" type="default" id="Jo3-jr-ttT"/>
-                                    <constraint firstItem="PPZ-np-Ja2" firstAttribute="bottom" secondItem="7OM-rn-tLA" secondAttribute="bottom" type="default" id="PVr-cU-KdV"/>
-                                    <constraint firstAttribute="trailing" secondItem="0Gv-3x-0z5" secondAttribute="trailing" constant="20" type="default" id="Q9O-Gj-I9B"/>
-                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="top" secondItem="7OM-rn-tLA" secondAttribute="top" type="default" id="icG-qh-cxr"/>
+                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="centerY" secondItem="Gbg-ID-Tsa" secondAttribute="centerY" type="default" id="Ewf-vK-j1j"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Bb-gt-oIa" secondAttribute="trailing" constant="20" type="default" id="HWj-74-eNe"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="top" secondItem="Ntn-Dn-IE6" secondAttribute="top" type="default" id="IQB-A2-1aB"/>
+                                    <constraint firstItem="8Bb-gt-oIa" firstAttribute="top" secondItem="Gbg-ID-Tsa" secondAttribute="top" constant="15" id="Rju-dY-Hry"/>
+                                    <constraint firstItem="Ntn-Dn-IE6" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="20" type="default" id="Zcr-Ze-ZNH"/>
+                                    <constraint firstItem="PPZ-np-Ja2" firstAttribute="baseline" secondItem="0Gv-3x-0z5" secondAttribute="baseline" type="default" id="hKP-cA-Xoe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ntn-Dn-IE6" secondAttribute="trailing" constant="20" type="default" id="i4S-Ds-kav"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="bottom" secondItem="Gbg-ID-Tsa" secondAttribute="bottom" type="default" id="p0k-Vh-wCN"/>
+                                    <constraint firstItem="7OM-rn-tLA" firstAttribute="centerY" secondItem="Ntn-Dn-IE6" secondAttribute="centerY" type="default" id="tml-AR-qTB"/>
+                                    <constraint firstAttribute="trailing" secondItem="PPZ-np-Ja2" secondAttribute="trailing" constant="28" id="xPh-r6-aWh"/>
+                                    <constraint firstItem="0Gv-3x-0z5" firstAttribute="leading" secondItem="Gbg-ID-Tsa" secondAttribute="leading" constant="147" id="zxI-nz-meE"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="_delai" destination="0Gv-3x-0z5" id="qcs-mC-bZn"/>
                                     <outlet property="_heure" destination="PPZ-np-Ja2" id="ZWt-My-uPg"/>
                                     <outlet property="_message" destination="Ntn-Dn-IE6" id="DOo-vw-Ebi"/>
+                                    <outlet property="_min" destination="8Bb-gt-oIa" id="HpF-YP-oR0"/>
                                     <outlet property="_picto" destination="7OM-rn-tLA" id="tND-c8-rgb"/>
                                 </connections>
                             </tableViewCell>
@@ -548,6 +560,7 @@
                 <relationship kind="outlet" name="_delai" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_heure" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_message" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="_min" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_picto" candidateClass="UIImageView"/>
             </relationships>
         </class>
