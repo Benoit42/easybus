@@ -97,6 +97,7 @@
             }
             
             // Call Keolis
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
                                                       cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                   timeoutInterval:15.0];
@@ -107,6 +108,7 @@
                 _receivedData = [NSMutableData new];
             } else {
                 //lance la notification d'erreur
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
             }
             
@@ -155,6 +157,7 @@
     
     //Request is not running
     _isRequesting = FALSE;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -188,6 +191,7 @@
     @finally {
         //Request is not running
         _isRequesting = FALSE;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
 }
 
