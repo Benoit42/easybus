@@ -17,9 +17,9 @@
     if ( self = [super init] ) {
         _routes = [NSMutableArray new];
         
+        //Chargement des routes standards
         NSError* error = nil;
         NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
-        
         NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
     	
         CSVParser* parser =
@@ -29,7 +29,19 @@
          hasHeader:YES
          fieldNames:nil];
         [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
-    }
+
+        //Chargement des routes suplémentaires
+        url = [[NSBundle mainBundle] URLForResource:@"routes_extras" withExtension:@"txt"];
+        csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    	
+        parser =
+        [[CSVParser alloc]
+         initWithString:csvString
+         separator:@","
+         hasHeader:YES
+         fieldNames:nil];
+        [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+}
     return self;
 }
 

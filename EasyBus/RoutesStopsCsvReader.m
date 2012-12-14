@@ -18,9 +18,9 @@
     if ( self = [super init] ) {
         _routeStops = [NSMutableDictionary new];
         
+        //Chargement des arrêts standards
         NSError* error = nil;
         NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes_stops" withExtension:@"txt"];
-        
         NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
         
         CSVParser* parser =
@@ -30,7 +30,19 @@
          hasHeader:YES
          fieldNames:nil];
         [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
-    }
+
+        //Chargement des arrêts supplémentaires
+        url = [[NSBundle mainBundle] URLForResource:@"routes_stops_extras" withExtension:@"txt"];
+        csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+        
+        parser =
+        [[CSVParser alloc]
+         initWithString:csvString
+         separator:@","
+         hasHeader:YES
+         fieldNames:nil];
+        [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+}
     return self;
 }
 
