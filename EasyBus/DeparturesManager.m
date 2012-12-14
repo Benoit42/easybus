@@ -27,7 +27,7 @@
 @end
 
 @implementation DeparturesManager
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures;
+@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate;
 
 #pragma singleton & init
 //instancie le singleton
@@ -231,6 +231,8 @@
             //création du départ
             Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval heure:departureDate];
             [_freshDepartures addObject:depart];
+            
+            _refreshDate = [NSDate date];
         }
     }
 }

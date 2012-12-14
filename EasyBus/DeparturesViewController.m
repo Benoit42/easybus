@@ -14,14 +14,15 @@
 
 @interface DeparturesViewController()
 
-@property(nonatomic) NSDateFormatter *_timeIntervalFormatter;
+@property(nonatomic) NSDateFormatter* _timeIntervalFormatter;
 @property(nonatomic) NSUInteger _maxRows;
+@property(nonatomic) NSDate* _lastRefresh;
 
 @end
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows;
+@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -50,8 +51,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
 
     //refresh departures
-    NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] refreshDepartures:favorite];
+    NSArray* favorite = [_favoritesManager favorites];
+    [_departuresManager refreshDepartures:favorite];
 }
 
 #pragma mark - affichage
@@ -64,6 +65,13 @@
         Favorite* groupe = [groupes objectAtIndex:page];
         [_arret setText:groupe.libArret];
         [_direction setText:groupe.libDirection];
+    }
+    
+    //Compute refresh delay
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:[_departuresManager _refreshDate]];
+    if (interval > 60) {
+        //refresh si plus d'1 minute
+        [_departuresManager refreshDepartures:[_favoritesManager favorites]];
     }
 }
 

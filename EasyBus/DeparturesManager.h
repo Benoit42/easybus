@@ -19,5 +19,6 @@
 
 @property(nonatomic) NSMutableData* _receivedData;
 @property(nonatomic) BOOL _isRequesting;
+@property(nonatomic) NSDate* _refreshDate;
 
 @end
