@@ -49,10 +49,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:@"departuresUpdateSucceeded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
-
-    //refresh departures
-    NSArray* favorite = [_favoritesManager favorites];
-    [_departuresManager refreshDepartures:favorite];
 }
 
 #pragma mark - affichage
@@ -68,7 +64,7 @@
     }
     
     //Compute refresh delay
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:[_departuresManager _refreshDate]];
+    NSTimeInterval interval = [[_departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {
         //refresh si plus d'1 minute
         [_departuresManager refreshDepartures:[_favoritesManager favorites]];

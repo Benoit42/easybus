@@ -82,7 +82,9 @@
     // update it the current favorite
     favorite.arret = stop._id;
     favorite.libArret = stop._name;
-
+    favorite.lat = [stop._lat doubleValue];
+    favorite.lon = [stop._lon doubleValue];
+    
     // activate save button
     [_saveButton setEnabled:YES];
 }

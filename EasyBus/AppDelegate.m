@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
+#import "LocationManager.h"
 
 @implementation AppDelegate
 
@@ -40,10 +41,11 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
     //Compute refresh delay
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:[[DeparturesManager singleton] _refreshDate]];
-    if (interval > 60) {
-        //refresh si plus d'1 minute
+    NSDate* refreshDate = [[DeparturesManager singleton] _refreshDate];
+    if (refreshDate == nil || [refreshDate timeIntervalSinceNow] > 60) {
+        //refresh departures and location si plus d'1 minute
         [[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
+        [[LocationManager singleton] startUpdatingLocation];
     }
 }
 

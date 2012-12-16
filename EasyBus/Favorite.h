@@ -16,8 +16,11 @@
 @property(nonatomic) NSString* libArret;
 @property(nonatomic) NSString* direction;
 @property(nonatomic) NSString* libDirection;
+@property(nonatomic) double lat;
+@property(nonatomic) double lon;
 
-- (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_;
+- (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ lat:(double)lat_ lon:(double)lon_;
+
 - (UIImage*)picto;
 
 @end

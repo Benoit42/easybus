@@ -9,6 +9,7 @@
 #import "PageViewController.h"
 #import "DeparturesViewController.h"
 #import "FavoritesManager.h"
+#import "LocationManager.h"
 
 @interface PageViewController()
 
@@ -21,21 +22,20 @@
 @synthesize currentPage, _departuresViewControlers;
 
 //constructeur
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    currentPage = 0;
     _departuresViewControlers = [NSMutableArray new];
 
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self;
-
-    // Get data for favorites
-    //NSArray* favorite = [[FavoritesManager singleton] favorites];
-    //[[DeparturesManager singleton] refreshDepartures:favorite];
+    self.currentPage = -1;
+    
+    // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];
 }
 
 #pragma mark - affichage
@@ -43,45 +43,28 @@
     [super viewWillAppear:animated];
     
     //Création de la 1ère vue
-    if ([_departuresViewControlers count] == 0) {
-        //Création de la 1ère vue
-
-        // Create first and second view controller and pass suitable data
-        DeparturesViewController *departuresViewController0 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-        departuresViewController0.page = 0;
-        DeparturesViewController *departuresViewController1 = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-        departuresViewController1.page = 1;
-
-        [_departuresViewControlers addObjectsFromArray:@[departuresViewController0, departuresViewController1]];
-
-        [self setViewControllers:@[departuresViewController0] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-    }
-    else {
-        //Retour sur la 1ère vue
-        DeparturesViewController *departuresViewController = [_departuresViewControlers objectAtIndex:0];
-        [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-    }
+    [self gotoPage:0];
+//    DeparturesViewController *departuresViewController =  [self getDeparturesViewController:currentPage];
+//    [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 }
 
-#pragma mark - UIPageViewController delegate methods
-//nothing yet...
-
 #pragma mark - Page View Controller Data Source
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+
     //get current view controller index
     NSUInteger index = [_departuresViewControlers indexOfObject:viewController];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
     
-    //get previous view controller (allready instanciated)
-    UIViewController* previousViewController = [_departuresViewControlers objectAtIndex:index - 1];
+    //get previous view controller
+    int page = ((DeparturesViewController*)viewController).page;
+    DeparturesViewController *previousViewController =  [self getDeparturesViewController:page - 1];
     return previousViewController;
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+
     //get current view controller index
     NSUInteger index = [self._departuresViewControlers indexOfObject:viewController];
     if (index == NSNotFound) {
@@ -90,17 +73,28 @@
     }
     
     //get next view controller
-    index++;
-    UIViewController* nextViewController = nil;
-    if (index < [_departuresViewControlers count]) {
-        nextViewController = [_departuresViewControlers objectAtIndex:index];
-    }
-    else if (index < [[[FavoritesManager singleton] groupes] count]) {
-        nextViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
-        ((DeparturesViewController*)nextViewController).page = index;
-        [_departuresViewControlers addObject:nextViewController];
-    }
+    int page = ((DeparturesViewController*)viewController).page;
+    DeparturesViewController *nextViewController =  [self getDeparturesViewController:page + 1];
     return nextViewController;
+}
+
+- (DeparturesViewController*)getDeparturesViewController:(NSInteger)index {
+    DeparturesViewController* viewController = nil;
+    if (index < [[[FavoritesManager singleton] groupes] count]) {
+        if (index < [_departuresViewControlers count]) {
+            //Le view controler existe déjà
+            viewController = [_departuresViewControlers objectAtIndex:index];
+        }
+    
+        if (viewController == nil) {
+            //Le view controler n'existe pas encore
+            viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+            ((DeparturesViewController*)viewController).page = index;
+            [_departuresViewControlers insertObject:viewController atIndex:index];
+        }
+    }
+
+    return viewController;
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
@@ -108,7 +102,48 @@
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    return currentPage;
+    if ([pageViewController.viewControllers count] > 0) 
+        return ((DeparturesViewController*)[pageViewController.viewControllers objectAtIndex:0]).page;
+    else
+        return 0;
+}
+
+#pragma mark - Page View Controller Data Source
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (completed) {
+        currentPage = ((DeparturesViewController*)[pageViewController.viewControllers objectAtIndex:0]).page;
+    }
+}
+
+#pragma mark - Notification de localisation
+- (void)gotoPage:(NSInteger)page {
+    DeparturesViewController *departuresViewController =  [self getDeparturesViewController:page];
+    [self setViewControllers:@[departuresViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+}
+
+- (void)locationFound:(NSNotification *)notification {
+    //Get location
+    CLLocation* currentLocation = [[LocationManager singleton] currentLocation];
+    NSLog(@"latitude %+.6f, longitude %+.6f\n",
+          currentLocation.coordinate.latitude,
+          currentLocation.coordinate.longitude);
+    
+    //Compute nearest group
+    NSArray* groupes = [[FavoritesManager singleton] groupes];
+    double minDistance = MAXFLOAT;
+    int index = -1;
+    for (int i=0; i<[groupes count]; i++) {
+        Favorite* groupe = [groupes objectAtIndex:i];
+        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:groupe.lat longitude:groupe.lon];
+        CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
+        if (currentDistance < minDistance) {
+            index = i;
+            minDistance = currentDistance;
+        }
+    }
+    
+    //Move page view to nearest groupe
+    [self gotoPage:index];
 }
 
 @end

@@ -16,9 +16,9 @@
 
 @implementation Favorite
 
-@synthesize ligne, libLigne, arret, libArret, direction, libDirection, _picto;
+@synthesize ligne, libLigne, arret, libArret, direction, libDirection, _picto, lat, lon;
 
-- (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ {
+- (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ lat:(double)lat_ lon:(double)lon_ {
     self = [super init];
     if (self) {
         self.ligne = ligne_;
@@ -27,6 +27,8 @@
         self.libArret = libArret_;
         self.direction = direction_;
         self.libDirection = libDirection_;
+        self.lat = lat_;
+        self.lon = lon_;
     }
     return self;
 }
