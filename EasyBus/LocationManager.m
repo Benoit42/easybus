@@ -49,8 +49,8 @@
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0) {
-        // If the event is recent, do something with it.
+    if (abs(howRecent) < 15.0 && location.horizontalAccuracy < 100) {
+        // If the event is recent and accurate, do something with it.
         currentLocation = location;
 
         //lance la notification d'erreur
