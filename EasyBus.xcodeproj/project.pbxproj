@@ -179,6 +179,8 @@
 		1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1423423A1631F4020095073C /* getbusnextdepartures.xml */; };
 		1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D500166BEFC7002083A7 /* logo-STAR@2x.png */; };
 		1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D501166BEFC7002083A7 /* logo-STAR.png */; };
+		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
+		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		143F847F1663492B0064B2F4 /* Pictogrammes_21\1.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F31663492B0064B2F4 /* Pictogrammes_21\1.png */; };
 		143F84801663492B0064B2F4 /* Pictogrammes_21\2.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F41663492B0064B2F4 /* Pictogrammes_21\2.png */; };
 		143F84811663492B0064B2F4 /* Pictogrammes_21\3.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F83F51663492B0064B2F4 /* Pictogrammes_21\3.png */; };
@@ -563,6 +565,8 @@
 		1423424D1635B8C70095073C /* CSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVParser.m; sourceTree = "<group>"; };
 		1427D500166BEFC7002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
 		1427D501166BEFC7002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
+		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
+		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		143F83F31663492B0064B2F4 /* Pictogrammes_21\1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\1.png"; path = "21x21/Pictogrammes_21\\1.png"; sourceTree = "<group>"; };
 		143F83F41663492B0064B2F4 /* Pictogrammes_21\2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\2.png"; path = "21x21/Pictogrammes_21\\2.png"; sourceTree = "<group>"; };
 		143F83F51663492B0064B2F4 /* Pictogrammes_21\3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\3.png"; path = "21x21/Pictogrammes_21\\3.png"; sourceTree = "<group>"; };
@@ -1310,6 +1314,8 @@
 				14AD3C2B162AF00400DF061A /* MainViewController.m */,
 				147480021663D4DC0091FF49 /* PageViewController.h */,
 				147480031663D4DC0091FF49 /* PageViewController.m */,
+				143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */,
+				143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */,
 				14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */,
 				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
@@ -1789,6 +1795,8 @@
 				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
 				14EF87EB167BBF370058607C /* LocationManager.m in Sources */,
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
+				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
+				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

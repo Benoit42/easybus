@@ -42,7 +42,7 @@
 
     //Compute refresh delay
     NSDate* refreshDate = [[DeparturesManager singleton] _refreshDate];
-    if (refreshDate == nil || [refreshDate timeIntervalSinceNow] > 60) {
+    if (refreshDate == nil || -[refreshDate timeIntervalSinceNow] > 60) {
         //refresh departures and location si plus d'1 minute
         [[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
         [[LocationManager singleton] startUpdatingLocation];

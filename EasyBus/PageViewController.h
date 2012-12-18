@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PageViewController : UIPageViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
-
-@property(nonatomic) NSUInteger currentPage;
+@interface PageViewController : UIPageViewController <UIPageViewControllerDelegate>
 
 @end

@@ -7,19 +7,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "EasyBus/PageViewController.m"
-         timestampString = "377260183.967827"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "26"
-         endingLineNumber = "26"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "EasyBus/FavoritesViewController.m"
          timestampString = "376077709.754441"
          startingColumnNumber = "9223372036854775807"
@@ -241,13 +228,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "EasyBus/LocationManager.m"
-         timestampString = "377210982.016679"
+         filePath = "EasyBus/PageViewController.m"
+         timestampString = "377558931.430297"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "54"
-         endingLineNumber = "54"
-         landmarkName = "-locationManager:didUpdateLocations:"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "-locationFound:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -255,90 +242,64 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/PageViewController.m"
-         timestampString = "377339321.479435"
+         timestampString = "377558931.430297"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
-         landmarkName = "-pageViewController:viewControllerAfterViewController:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "EasyBus/PageViewController.m"
-         timestampString = "377339321.479435"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
-         landmarkName = "-getDeparturesViewController:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "EasyBus/PageViewController.m"
-         timestampString = "377339321.479435"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
-         landmarkName = "-pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "EasyBus/PageViewController.m"
-         timestampString = "377339321.479435"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "106"
-         endingLineNumber = "106"
-         landmarkName = "-presentationIndexForPageViewController:"
-         landmarkType = "5">
+         startingLineNumber = "56"
+         endingLineNumber = "56"
+         landmarkName = "@implementation PageViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/PageViewController.m"
-         timestampString = "377381318.266431"
+         timestampString = "377558931.430297"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135"
-         landmarkName = "-locationFound:"
-         landmarkType = "5">
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "@implementation PageViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "EasyBus/PageViewController.m"
-         timestampString = "377380991.356712"
+         filePath = "EasyBus/PageViewControlerDatasource.h"
+         timestampString = "377556946.724433"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "126"
-         endingLineNumber = "126"
-         landmarkName = "-locationFound:"
-         landmarkType = "5">
+         startingLineNumber = "11"
+         endingLineNumber = "11"
+         landmarkName = "@interface PageViewControlerDatasource"
+         landmarkType = "2">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "EasyBus/PageViewController.m"
-         timestampString = "377380991.356712"
+         timestampString = "377558619.785531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
-         landmarkName = "-locationFound:"
+         startingLineNumber = "34"
+         endingLineNumber = "34"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "EasyBus/PageViewControllerDatasource.m"
+         timestampString = "377558723.994336"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
+         landmarkName = "-viewControllerAtIndex:storyboard:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -47,17 +47,29 @@
      didUpdateLocations:(NSArray *)locations {
     // If it's a relatively recent event, turn off updates to save power
     CLLocation* location = [locations lastObject];
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0 && location.horizontalAccuracy < 100) {
+
+    // test the age of the location measurement to determine if the measurement is cached
+    // in most cases you will not want to rely on cached measurements
+    NSTimeInterval locationAge = -[location.timestamp timeIntervalSinceNow];
+    if (locationAge > 15.0) return;
+
+    // test that the horizontal accuracy does not indicate an invalid measurement
+    if (location.horizontalAccuracy < 0) return;
+
+    if (location.horizontalAccuracy <= 50) {
         // If the event is recent and accurate, do something with it.
         currentLocation = location;
 
-        //lance la notification d'erreur
+        // Log
+        NSLog(@"latitude %+.6f, longitude %+.6f\n",
+              currentLocation.coordinate.latitude,
+              currentLocation.coordinate.longitude);
+
+        //lance la notification de localisation
         [[NSNotificationCenter defaultCenter] postNotificationName:@"locationFound" object:self];
 
         // Then stop location manager
-        [locationManager stopUpdatingLocation];
+        //[locationManager stopUpdatingLocation];
     }
 }
 
