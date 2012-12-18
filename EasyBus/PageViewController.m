@@ -41,55 +41,46 @@
 }
 
 #pragma mark - affichage
-/*- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+ 
     //Création de la 1ère vue
     [self gotoNearestPage];
-}*/
+}
 
 
-#pragma mark - Page View Controller delegate
-/*
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
-    if (completed) {
-        currentPage = ((DeparturesViewController*)[pageViewController.viewControllers objectAtIndex:0]).page;
-    }
-}*/
+- (void)gotoPage:(NSInteger)page {
+    //Move to page
+    DeparturesViewController *viewController = [_datasource viewControllerAtIndex:page storyboard:self.storyboard];
+    [self setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
+}
 
-/*- (void)gotoNearestPage {
+- (void)gotoNearestPage {
     //Get location
     CLLocation* currentLocation = [[LocationManager singleton] currentLocation];
 
-    if (currentLocation != nil) {
-        //Compute nearest group
-        NSArray* groupes = [[FavoritesManager singleton] groupes];
-        double minDistance = MAXFLOAT;
-        int index = -1;
-        for (int i=0; i<[groupes count]; i++) {
-            Favorite* groupe = [groupes objectAtIndex:i];
-            CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:groupe.lat longitude:groupe.lon];
-            CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
-            if (currentDistance < minDistance) {
-                index = i;
-                minDistance = currentDistance;
-            }
+    //Compute nearest group
+    NSArray* groupes = [[FavoritesManager singleton] groupes];
+    double minDistance = MAXFLOAT;
+    int index = -1;
+    for (int i=0; i<[groupes count]; i++) {
+        Favorite* groupe = [groupes objectAtIndex:i];
+        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:groupe.lat longitude:groupe.lon];
+        CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
+        if (currentDistance < minDistance) {
+            index = i;
+            minDistance = currentDistance;
         }
+    }
     
-        //Move page view to nearest groupe
-        [self gotoPage:index];
-    }
-    else {
-        //No location, go to currentPage
-        [self gotoPage:currentPage];
-    }
+    //Move page view to nearest groupe
+    [self gotoPage:index];
 }
-*/
 
 #pragma mark - Notification de localistion
 - (void)locationFound:(NSNotification *)notification {
     //Move page view to nearest groupe
-    //[self gotoNearestPage];
+    [self gotoNearestPage];
 }
 
 @end

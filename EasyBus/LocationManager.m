@@ -69,7 +69,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"locationFound" object:self];
 
         // Then stop location manager
-        //[locationManager stopUpdatingLocation];
+        [locationManager stopUpdatingLocation];
     }
 }
 

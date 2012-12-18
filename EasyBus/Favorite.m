@@ -49,6 +49,8 @@
     [coder encodeObject:libArret forKey:@"libArret"];
     [coder encodeObject:direction forKey:@"direction"];
     [coder encodeObject:libDirection forKey:@"libDirection"];
+    [coder encodeDouble:lat forKey:@"lat"];
+    [coder encodeDouble:lon forKey:@"lon"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -62,6 +64,8 @@
         libArret = [coder decodeObjectForKey:@"libArret"];
         direction = [coder decodeObjectForKey:@"direction"];
         libDirection = [coder decodeObjectForKey:@"libDirection"];
+        lat = [coder decodeDoubleForKey:@"lat"];
+        lon = [coder decodeDoubleForKey:@"lon"];
     }
     return self;
 }
