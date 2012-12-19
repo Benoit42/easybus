@@ -49,10 +49,36 @@
 }
 
 
-- (void)gotoPage:(NSInteger)page {
-    //Move to page
-    DeparturesViewController *viewController = [_datasource viewControllerAtIndex:page storyboard:self.storyboard];
-    [self setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
+- (void)scrollToPage:(NSInteger)page {
+    //Get current page
+    int currentPage = ((DeparturesViewController*)[[self viewControllers]objectAtIndex:0]).page;
+    if (page != currentPage) {
+        int increment = (page>currentPage)?1:-1;
+        int nextPage = currentPage+increment;
+        UIPageViewControllerNavigationDirection direction = (increment == 1)?UIPageViewControllerNavigationDirectionForward:UIPageViewControllerNavigationDirectionReverse;
+        void (^moveNext)(BOOL);
+        if (nextPage != page) {
+            moveNext = ^(BOOL finished) {
+                if (finished) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                            [self scrollToPage:nextPage+increment];
+                    });
+                }
+            };
+        }
+        
+        //Move to page
+        UIViewController *currentViewController = [_datasource viewControllerAtIndex:currentPage storyboard:self.storyboard];
+        UIViewController *nextViewController;
+        if (increment == 1) {
+            nextViewController = [_datasource pageViewController:self viewControllerAfterViewController:currentViewController];
+        }
+        else {
+            nextViewController = [_datasource pageViewController:self viewControllerBeforeViewController:currentViewController];
+            
+        }
+        [self setViewControllers:@[/*currentViewController,*/ nextViewController] direction:direction animated:YES completion:moveNext];
+    }
 }
 
 - (void)gotoNearestPage {
@@ -74,7 +100,7 @@
     }
     
     //Move page view to nearest groupe
-    [self gotoPage:index];
+    [self scrollToPage:index];
 }
 
 #pragma mark - Notification de localistion
