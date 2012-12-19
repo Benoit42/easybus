@@ -56,7 +56,7 @@
     // test that the horizontal accuracy does not indicate an invalid measurement
     if (location.horizontalAccuracy < 0) return;
 
-    if (location.horizontalAccuracy <= 50) {
+    if (location.horizontalAccuracy <= 100) {
         // If the event is recent and accurate, do something with it.
         currentLocation = location;
 
@@ -76,10 +76,6 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //Log
     NSLog(@"Location failed! Error - %@ %@", [error description], [error debugDescription]);
-
-    // inform the user
-    UIAlertView *didFailWithErrorMessage = [[UIAlertView alloc] initWithTitle:@"Localisation" message:@"Erreur de localisation"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [didFailWithErrorMessage show];    
 }
 
 @end

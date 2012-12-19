@@ -45,8 +45,8 @@
     if (refreshDate == nil || -[refreshDate timeIntervalSinceNow] > 60) {
         //refresh departures and location si plus d'1 minute
         [[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
-        [[LocationManager singleton] startUpdatingLocation];
     }
+    [[LocationManager singleton] startUpdatingLocation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

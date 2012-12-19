@@ -257,9 +257,11 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    // inform the user
-    UIAlertView *didFailWithErrorMessage = [[UIAlertView alloc] initWithTitle:@"NSXMLParser" message:@"Erreur de traitement des horaires"  delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [didFailWithErrorMessage show];
+    //lance la notification d'erreur
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+    
+    //Log
+    NSLog(@"XML parsing failed! Error - %@ %@", [parseError description], [parseError debugDescription]);
 }
 
 - (NSDate*) xsdDateTimeToNSDate:(NSString*)dateTime {

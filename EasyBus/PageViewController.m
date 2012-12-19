@@ -77,7 +77,7 @@
             nextViewController = [_datasource pageViewController:self viewControllerBeforeViewController:currentViewController];
             
         }
-        [self setViewControllers:@[/*currentViewController,*/ nextViewController] direction:direction animated:YES completion:moveNext];
+        [self setViewControllers:@[nextViewController] direction:direction animated:YES completion:moveNext];
     }
 }
 

@@ -85,7 +85,7 @@
     [_reloadButton setHidden:FALSE];
 
     //show alert
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la récupération des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la mise à jour des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 
     //message

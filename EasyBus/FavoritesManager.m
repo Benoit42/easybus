@@ -31,6 +31,7 @@
 //constructeur
 -(id)init {
     if ( self = [super init] ) {
+        _favorites = [NSMutableArray new];
         [self loadFavoritesFromDisk];
         if (_favorites == nil) {
             _favorites = [NSMutableArray new];
@@ -69,6 +70,14 @@
     if (current == nil) {
         //ajoute le favori
         [_favorites addObject:favorite];
+        
+        //tri des favoris
+        NSArray* sortedFavorites = [_favorites sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            return [(Favorite*)a ligne] > [(Favorite*)b ligne];
+        }];
+        [_favorites removeAllObjects];
+        [_favorites addObjectsFromArray:sortedFavorites];
+
         
         //met à jour les groupes
         [self updateGroupes];
@@ -177,7 +186,13 @@
     @try {
         NSString     * path        = [self pathForDataFile];
         NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        _favorites = [rootObject valueForKey:@"favorites"];
+        NSArray* favorites = [rootObject valueForKey:@"favorites"];
+        NSArray* sortedFavorites = [favorites sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            return [(Favorite*)a ligne] > [(Favorite*)b ligne];
+        }];
+        _favorites = [NSMutableArray new];
+        [_favorites addObjectsFromArray:sortedFavorites];
+
     }
     @catch (NSException *exception) {
     }
