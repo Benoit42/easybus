@@ -56,7 +56,7 @@
     // test that the horizontal accuracy does not indicate an invalid measurement
     if (location.horizontalAccuracy < 0) return;
 
-    if (location.horizontalAccuracy <= 100) {
+    if (location.horizontalAccuracy <= 300) {
         // If the event is recent and accurate, do something with it.
         currentLocation = location;
 

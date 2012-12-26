@@ -38,9 +38,9 @@
     [_favoritesManager removeAllFavorites];
     
     //Création des favoris
-    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné"];
-    Favorite* fav1b = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné"];
-    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes"];
+    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
+    Favorite* fav1b = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
+    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
 
     //Ajout d'un favori en doublon
     [_favoritesManager addFavorite:fav1];
@@ -59,9 +59,9 @@
     [_favoritesManager removeAllFavorites];
     
     //Création des favoris
-    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné"];
-    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes"];
-    Favorite* fav3 = [[Favorite alloc] initWithName:@"bidon" libLigne:@"bidon" arret:@"bidon" libArret:@"bidon" direction:@"bidon" libDirection:@"bidon"];
+    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
+    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
+    Favorite* fav3 = [[Favorite alloc] initWithName:@"bidon" libLigne:@"bidon" arret:@"bidon" libArret:@"bidon" direction:@"bidon" libDirection:@"bidon" lat:0.0 lon:0.0];
     
     //Ajout des favoris
     [_favoritesManager addFavorite:fav1];
@@ -86,10 +86,10 @@
     [_favoritesManager removeAllFavorites];
     
     //Création des favoris
-    Favorite* fav1_gr1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné"];
-    Favorite* fav2_gr1 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné"];
-    Favorite* fav3_gr2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes"];
-    Favorite* fav4_gr2 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes"];
+    Favorite* fav1_gr1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
+    Favorite* fav2_gr1 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
+    Favorite* fav3_gr2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
+    Favorite* fav4_gr2 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
     
     //Ajout des favoris
     [_favoritesManager addFavorite:fav1_gr1];

@@ -34,14 +34,22 @@
 //Comptage des occurences
 - (void)testCountRoutes
 {
-    STAssertEquals(62, (int)_routesCsvReader._routes.count, @"Wrong number of routes in routes.txt");
+    STAssertEquals(63, (int)_routesCsvReader._routes.count, @"Wrong number of routes in routes.txt");
 }
 
 //Vérification de la ligne 64
 - (void)testRoute0064
 {
-    Route* route64 = [_routesCsvReader._routesMap objectForKey:@"0064"];
-    STAssertNotNil(route64, @"Route with id 0064 shall not be nil");
+    
+    NSUInteger idx = [_routesCsvReader._routes indexOfObjectPassingTest:
+                      ^ BOOL (Route* current, NSUInteger idx, BOOL *stop)
+                      {
+                          return [current._id isEqualToString:@"0064"];
+                      }];
+    
+    STAssertTrue(idx != NSNotFound, @"Route with id 0064 shall exists");
+    
+    Route* route64 = [_routesCsvReader._routes objectAtIndex:idx];
     STAssertEqualObjects(@"0064", route64._id, @"Wrong id for route 0064");
     STAssertEqualObjects(@"64", route64._shortName, @"Wrong short name for route 0064");
     STAssertEqualObjects(@"Rennes (République) <> Acigné", route64._longName, @"Wrong long name for route 0064");
