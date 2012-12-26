@@ -73,7 +73,7 @@
         
         //tri des favoris
         NSArray* sortedFavorites = [_favorites sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [(Favorite*)a ligne] > [(Favorite*)b ligne];
+            return [[(Favorite*)a ligne] intValue] > [[(Favorite*)b ligne] intValue];
         }];
         [_favorites removeAllObjects];
         [_favorites addObjectsFromArray:sortedFavorites];
@@ -188,7 +188,7 @@
         NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         NSArray* favorites = [rootObject valueForKey:@"favorites"];
         NSArray* sortedFavorites = [favorites sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [(Favorite*)a ligne] > [(Favorite*)b ligne];
+            return [[(Favorite*)a ligne] intValue] > [[(Favorite*)b ligne] intValue];
         }];
         _favorites = [NSMutableArray new];
         [_favorites addObjectsFromArray:sortedFavorites];
