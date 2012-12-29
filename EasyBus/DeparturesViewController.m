@@ -91,18 +91,16 @@
 #pragma mark - Stuff for refreshing activity indicator
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     // start indicator
-    [_reloadButton setHidden:TRUE];
     [_activityIndicator startAnimating];
     
     //message
-    [_info setText:@"mise à jour..."];
+    [_info setText:@""];
 }
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     // stop indicator
     [_activityIndicator stopAnimating];
-    [_reloadButton setHidden:FALSE];
 
     // Refresh view
     [(UITableView*)self.view reloadData];
