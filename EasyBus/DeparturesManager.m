@@ -83,7 +83,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
 
             // Create the request an parse the XML
-            static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
+            static NSString* basePath = @"http://data.keolis-rennes.coml/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
             static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
             
             //compute path

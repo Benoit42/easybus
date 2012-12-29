@@ -38,6 +38,14 @@
     
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
+}
+
+#pragma mark - Erreurs sur la récupération des départs
+- (void)departuresUpdateFailed:(NSNotification *)notification {
+    //show alert
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la mise à jour des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - affichage
