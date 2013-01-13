@@ -57,7 +57,6 @@
 - (NSArray*) favoritesForGroupe:(Favorite*)groupe {
     //retourne la liste des favoris pour un arrêt et une direction, trié par delai croissant
     //Remarque : pour économiser l'écriture d'une classe, on utilise un objet Favori pour représenter un Groupe
-    //TODO : on pourrait mettre un NSDictionnary pour ne pas calculer à chaque fois
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arret == %@ && direction == %@", groupe.arret, groupe.direction];
     return [_favorites filteredArrayUsingPredicate:predicate];
 }

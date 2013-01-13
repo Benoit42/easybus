@@ -84,6 +84,10 @@
     [_activityIndicator stopAnimating];
     [_reloadButton setHidden:FALSE];
 
+    //show alert
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la mise à jour des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+
     //message
     [_info setText:@"erreur lors de la mise à jour..."];
 }
