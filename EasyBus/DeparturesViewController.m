@@ -49,6 +49,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:@"departuresUpdateSucceeded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
+    
+    //Mise à jour des widgets
+    [_activityIndicator stopAnimating];
 }
 
 #pragma mark - affichage
@@ -63,6 +66,10 @@
         [_direction setText:groupe.libDirection];
     }
     
+    //update footer
+    NSString* maj = [_timeIntervalFormatter stringFromDate:[_departuresManager _refreshDate]];
+    [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+
     //Compute refresh delay
     NSTimeInterval interval = [[_departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {

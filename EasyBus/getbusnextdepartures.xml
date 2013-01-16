@@ -3,6 +3,18 @@
     <request>http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&amp;version=2.1&amp;key=91RU2VSP13GHHOP&amp;param[mode]=stopline&amp;param[route][]=0002&amp;param[direction][]=0&amp;param[stop][]=1061</request>
     <answer>
         <status code="0" message="OK"/>
+        <!-- 
+         Timonière -> Rennes
+             64   3 mn
+            164  37 mn
+         
+         Clos Courtel -> Acigné
+             64   5 mn
+            164  11 mn
+             64  16 mn
+             64  25 mn
+            164  37 mn
+         -->
         <data localdatetime="2012-10-17T19:01:13+02:00">
             <stopline>
                 <stop>1290</stop>

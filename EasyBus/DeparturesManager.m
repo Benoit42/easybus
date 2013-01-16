@@ -55,7 +55,7 @@
         _xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
         _xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
     
-    _isRequesting = FALSE;
+        _isRequesting = FALSE;
     }
 
     return self;
@@ -76,15 +76,24 @@
 
 #pragma call keolis and parse XML response
 - (void)refreshDepartures:(NSArray*)favorites {
+    //Controles
+    if ([favorites count] == 0 || _isRequesting){
+        return;
+    }
+    
     @try {
-        if (! _isRequesting && [favorites count] > 0 ) {
-            //Request is running
+        //Lancement du traitement
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
+        
+        // Call Keolis
+        BOOL real = TRUE;
+        if (real) {
+            //Appel réel vers kéolis
             _isRequesting = TRUE;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
 
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
-            static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
+                static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
             
             //compute path
             NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
@@ -96,7 +105,7 @@
                 [path appendFormat:paramPath, bus.ligne, bus.direction, bus.arret];
             }
             
-            // Call Keolis
+            //Send request
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
                                                       cachePolicy:NSURLRequestReloadIgnoringCacheData
@@ -108,12 +117,20 @@
                 _receivedData = [NSMutableData new];
             } else {
                 //lance la notification d'erreur
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+                @throw [NSException
+                 exceptionWithName:@"ConnectionException"
+                 reason:@"Unable to contact Keolis server"
+                 userInfo:nil];
             }
+        }
+        else {
+            //Utilisation d'un fichier pour les tests
+            NSString* filePath = [[NSBundle mainBundle] pathForResource:@"getbusnextdepartures" ofType:@"xml"];
+            NSData* xmlData = [NSData dataWithContentsOfFile:filePath];
+            [self parseData:xmlData];
             
-            //NSString* filePath = [[NSBundle mainBundle] pathForResource:@"getbusnextdepartures" ofType:@"xml"];
-            //NSData* xmlData = [NSData dataWithContentsOfFile:filePath];
+            //lance la notification departuresUpdated
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateSucceeded" object:self];
         }
     }
     @catch (NSException * e) {
@@ -121,11 +138,15 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
 
         //Request is not running
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isRequesting = FALSE;
+        
+        //Log
+        NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
     }
 }
 
-#pragma mark NSXMLParserDelegate methods
+#pragma mark NSURLConnection methods
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     // This method is called when the server has determined that it
@@ -150,33 +171,24 @@
     //lance la notification d'erreur
     [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
 
-    //Log
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    
     //Request is not running
     _isRequesting = FALSE;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    //Log
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);    
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     @try {
-        //New departures array
-        [_freshDepartures removeAllObjects];
-    
-        //Parse response
-        NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:_receivedData];
-        [xmlParser setDelegate:self];
-        [xmlParser parse];
-        
-        //Sort data
-        NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [(Depart*)a _delai] > [(Depart*)b _delai];
-        }];
-        [_departures removeAllObjects];
-        [_departures addObjectsFromArray:sortedDeparts];
+        //Network is not running
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+        //Parse received data
+        [self parseData:_receivedData];
         
         //lance la notification departuresUpdated
         [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateSucceeded" object:self];
@@ -184,15 +196,33 @@
     @catch (NSException *exception) {
         //lance la notification d'erreur
         [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
-
+    
         //Log
-        NSLog(@"Connection failed! Error - %@ %@", [exception description], [exception debugDescription]);
+        NSLog(@"Data parsing failed! Error - %@ %@", [exception description], [exception debugDescription]);
     }
     @finally {
         //Request is not running
         _isRequesting = FALSE;
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
+}
+
+#pragma mark XML parsing
+- (void)parseData:(NSData *)data
+{
+    //New departures array
+    [_freshDepartures removeAllObjects];
+        
+    //Parse response
+    NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:data];
+    [xmlParser setDelegate:self];
+    [xmlParser parse];
+    
+    //Sort data
+    NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        return [(Depart*)a _delai] > [(Depart*)b _delai];
+    }];
+    [_departures removeAllObjects];
+    [_departures addObjectsFromArray:sortedDeparts];
 }
 
 #pragma mark NSXMLParserDelegate methods

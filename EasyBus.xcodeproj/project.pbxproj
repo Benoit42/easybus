@@ -11,7 +11,6 @@
 		1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 1407D67A1649B107002F37AD /* DirectionViewController.h */; };
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
-		140EA4E8163D8CF400FB4A85 /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 140EA4E7163D8CF400FB4A85 /* routes_stops.txt */; };
 		140EA4EE163D8D5100FB4A85 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4ED163D8D5100FB4A85 /* Stop.m */; };
 		140EA4EF163D8D5900FB4A85 /* Stop.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4EC163D8D5100FB4A85 /* Stop.h */; };
 		140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */; };
@@ -163,19 +162,7 @@
 		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
 		1414E1AA166DD7230013E9A1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1414E1A9166DD7230013E9A1 /* arrow.png */; };
 		1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */; };
-		1420840F167BA06D00AB4466 /* routes_extras.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1420840D167BA06D00AB4466 /* routes_extras.txt */; };
-		14208410167BA06D00AB4466 /* routes_stops_extras.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1420840E167BA06D00AB4466 /* routes_stops_extras.txt */; };
 		142340DA162E0ABA0095073C /* Depart.m in Sources */ = {isa = PBXBuildFile; fileRef = 142340D9162E0ABA0095073C /* Depart.m */; };
-		142340FB16307A0D0095073C /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F116307A0D0095073C /* agency.txt */; };
-		142340FC16307A0D0095073C /* calendar.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F216307A0D0095073C /* calendar.txt */; };
-		142340FD16307A0D0095073C /* calendar_dates.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F316307A0D0095073C /* calendar_dates.txt */; };
-		142340FE16307A0D0095073C /* feed_info.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F416307A0D0095073C /* feed_info.txt */; };
-		142340FF16307A0D0095073C /* routes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F516307A0D0095073C /* routes.txt */; };
-		1423410016307A0D0095073C /* routes_extensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F616307A0D0095073C /* routes_extensions.txt */; };
-		1423410116307A0D0095073C /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F716307A0D0095073C /* stop_times.txt */; };
-		1423410216307A0D0095073C /* stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F816307A0D0095073C /* stops.txt */; };
-		1423410316307A0D0095073C /* stops_extensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340F916307A0D0095073C /* stops_extensions.txt */; };
-		1423410416307A0D0095073C /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142340FA16307A0D0095073C /* trips.txt */; };
 		1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1423423A1631F4020095073C /* getbusnextdepartures.xml */; };
 		1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D500166BEFC7002083A7 /* logo-STAR@2x.png */; };
 		1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D501166BEFC7002083A7 /* logo-STAR.png */; };
@@ -361,6 +348,7 @@
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
+		14C72E0316A6921C00463BBE /* GTFS-20130103 in Resources */ = {isa = PBXBuildFile; fileRef = 14C72E0216A6921C00463BBE /* GTFS-20130103 */; };
 		14CF430916597FA500834A23 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF430816597FA500834A23 /* FavoriteCell.m */; };
 		14CF4311165BFF4000834A23 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4310165BFF4000834A23 /* FavoritesManager.m */; };
 		14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */; };
@@ -394,7 +382,6 @@
 		1407D67A1649B107002F37AD /* DirectionViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DirectionViewController.h; sourceTree = "<group>"; };
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
 		140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReader.m; sourceTree = "<group>"; };
-		140EA4E7163D8CF400FB4A85 /* routes_stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_stops.txt; sourceTree = "<group>"; };
 		140EA4EC163D8D5100FB4A85 /* Stop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Stop.h; sourceTree = "<group>"; };
 		140EA4ED163D8D5100FB4A85 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReaderTest.m; sourceTree = "<group>"; };
@@ -548,20 +535,8 @@
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDepartureCell.h; sourceTree = "<group>"; };
 		1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDepartureCell.m; sourceTree = "<group>"; };
-		1420840D167BA06D00AB4466 /* routes_extras.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_extras.txt; sourceTree = "<group>"; };
-		1420840E167BA06D00AB4466 /* routes_stops_extras.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_stops_extras.txt; sourceTree = "<group>"; };
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
-		142340F116307A0D0095073C /* agency.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agency.txt; sourceTree = "<group>"; };
-		142340F216307A0D0095073C /* calendar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar.txt; sourceTree = "<group>"; };
-		142340F316307A0D0095073C /* calendar_dates.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar_dates.txt; sourceTree = "<group>"; };
-		142340F416307A0D0095073C /* feed_info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = feed_info.txt; sourceTree = "<group>"; };
-		142340F516307A0D0095073C /* routes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes.txt; sourceTree = "<group>"; };
-		142340F616307A0D0095073C /* routes_extensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_extensions.txt; sourceTree = "<group>"; };
-		142340F716307A0D0095073C /* stop_times.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stop_times.txt; sourceTree = "<group>"; };
-		142340F816307A0D0095073C /* stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stops.txt; sourceTree = "<group>"; };
-		142340F916307A0D0095073C /* stops_extensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stops_extensions.txt; sourceTree = "<group>"; };
-		142340FA16307A0D0095073C /* trips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trips.txt; sourceTree = "<group>"; };
 		1423423A1631F4020095073C /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		1423424C1635B8C70095073C /* CSVParser.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = CSVParser.h; sourceTree = "<group>"; };
 		1423424D1635B8C70095073C /* CSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVParser.m; sourceTree = "<group>"; };
@@ -748,6 +723,7 @@
 		14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DeparturesViewController.h; sourceTree = "<group>"; };
 		14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 		14C2E544168884B200E8A2FB /* LocationManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerTest.m; sourceTree = "<group>"; };
+		14C72E0216A6921C00463BBE /* GTFS-20130103 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "GTFS-20130103"; sourceTree = "<group>"; };
 		14CF430716597FA500834A23 /* FavoriteCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoriteCell.h; sourceTree = "<group>"; };
 		14CF430816597FA500834A23 /* FavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
 		14CF430F165BFF4000834A23 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
@@ -1088,26 +1064,6 @@
 			name = 21x21;
 			sourceTree = "<group>";
 		};
-		142340F016307A0D0095073C /* GTFS-20121008 */ = {
-			isa = PBXGroup;
-			children = (
-				142340F116307A0D0095073C /* agency.txt */,
-				142340F216307A0D0095073C /* calendar.txt */,
-				142340F316307A0D0095073C /* calendar_dates.txt */,
-				142340F416307A0D0095073C /* feed_info.txt */,
-				142340F516307A0D0095073C /* routes.txt */,
-				1420840D167BA06D00AB4466 /* routes_extras.txt */,
-				142340F616307A0D0095073C /* routes_extensions.txt */,
-				140EA4E7163D8CF400FB4A85 /* routes_stops.txt */,
-				1420840E167BA06D00AB4466 /* routes_stops_extras.txt */,
-				142340F716307A0D0095073C /* stop_times.txt */,
-				142340F816307A0D0095073C /* stops.txt */,
-				142340F916307A0D0095073C /* stops_extensions.txt */,
-				142340FA16307A0D0095073C /* trips.txt */,
-			);
-			path = "GTFS-20121008";
-			sourceTree = "<group>";
-		};
 		142342501635B8CD0095073C /* CSVParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1174,9 +1130,9 @@
 				1427D501166BEFC7002083A7 /* logo-STAR.png */,
 				147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */,
 				147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */,
+				14C72E0216A6921C00463BBE /* GTFS-20130103 */,
 				1414E19E166D2F000013E9A1 /* 21x21 */,
 				140EA734163DA76D00FB4A85 /* 100x100 */,
-				142340F016307A0D0095073C /* GTFS-20121008 */,
 				1423423A1631F4020095073C /* getbusnextdepartures.xml */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
@@ -1418,18 +1374,7 @@
 				14AD3C24162AF00400DF061A /* Default@2x.png in Resources */,
 				14AD3C26162AF00400DF061A /* Default-568h@2x.png in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
-				142340FB16307A0D0095073C /* agency.txt in Resources */,
-				142340FC16307A0D0095073C /* calendar.txt in Resources */,
-				142340FD16307A0D0095073C /* calendar_dates.txt in Resources */,
-				142340FE16307A0D0095073C /* feed_info.txt in Resources */,
-				142340FF16307A0D0095073C /* routes.txt in Resources */,
-				1423410016307A0D0095073C /* routes_extensions.txt in Resources */,
-				1423410116307A0D0095073C /* stop_times.txt in Resources */,
-				1423410216307A0D0095073C /* stops.txt in Resources */,
-				1423410316307A0D0095073C /* stops_extensions.txt in Resources */,
-				1423410416307A0D0095073C /* trips.txt in Resources */,
 				1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */,
-				140EA4E8163D8CF400FB4A85 /* routes_stops.txt in Resources */,
 				140EA7C2163DA76D00FB4A85 /* Pictogrammes_100\11.png in Resources */,
 				140EA7C3163DA76D00FB4A85 /* Pictogrammes_100\150.png in Resources */,
 				140EA7C4163DA76D00FB4A85 /* Pictogrammes_100\151.png in Resources */,
@@ -1713,8 +1658,7 @@
 				1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */,
 				1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,
-				1420840F167BA06D00AB4466 /* routes_extras.txt in Resources */,
-				14208410167BA06D00AB4466 /* routes_stops_extras.txt in Resources */,
+				14C72E0316A6921C00463BBE /* GTFS-20130103 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
