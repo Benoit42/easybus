@@ -34,7 +34,7 @@
 //Comptage des occurences
 - (void)testCountRoutes
 {
-    STAssertEquals(63, (int)_routesCsvReader._routes.count, @"Wrong number of routes in routes.txt");
+    STAssertEquals(93, (int)_routesCsvReader._routes.count, @"Wrong number of routes in routes.txt");
 }
 
 //Vérification de la ligne 64

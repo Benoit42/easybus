@@ -62,7 +62,7 @@
     NSArray* groupes = [_favoritesManager groupes];
     if (page < [groupes count]) {
         Favorite* groupe = [groupes objectAtIndex:page];
-        [_arret setText:groupe.libArret];
+        [_arret setText: [[NSString alloc] initWithFormat:@"%@ (%@)", groupe.libArret, groupe.arret]];
         [_direction setText:groupe.libDirection];
     }
     

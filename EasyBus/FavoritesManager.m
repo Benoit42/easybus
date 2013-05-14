@@ -149,7 +149,7 @@
         NSUInteger idx = [_groupes indexOfObjectPassingTest:
                           ^ BOOL (Favorite* current, NSUInteger idx, BOOL *stop)
                           {
-                              return [current.arret isEqualToString:favorite.arret] && [current.direction isEqualToString:favorite.direction] ;
+                              return [current.libArret isEqualToString:favorite.libArret] && [current.libDirection isEqualToString:favorite.libDirection] ;
                           }];
         
         if (idx == NSNotFound) {

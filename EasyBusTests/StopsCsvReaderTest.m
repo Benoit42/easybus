@@ -34,7 +34,7 @@
 //Basic test
 - (void)testStops
 {
-    STAssertEquals(1367, (int)[[_stopsCsvReader._stops.objectEnumerator allObjects] count], @"Wrong number of stops in stops.txt");
+    STAssertEquals(1402, (int)[[_stopsCsvReader._stops.objectEnumerator allObjects] count], @"Wrong number of stops in stops.txt");
 }
 
 @end
