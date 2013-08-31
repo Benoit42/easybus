@@ -7,6 +7,7 @@
 //
 
 #import "DeparturesViewController.h"
+#import "PageViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
@@ -25,7 +26,7 @@
 
 @implementation DeparturesViewController
 
-@synthesize _favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
+@synthesize favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -33,6 +34,7 @@
     
     // Instanciates des data
     _departuresManager = [DeparturesManager singleton];
+    favoritesManager = ((PageViewController*)self.parentViewController).favoritesManager;
     
     _timeIntervalFormatter = [[NSDateFormatter alloc] init];
     _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
@@ -62,7 +64,7 @@
     [super viewWillAppear:animated];
 
     //update header
-    NSArray* groupes = [_favoritesManager groupes];
+    NSArray* groupes = [self.favoritesManager groupes];
     if (page < [groupes count]) {
         Favorite* groupe = [groupes objectAtIndex:page];
         [_arret setText: groupe.stop.name];
@@ -80,7 +82,7 @@
     NSTimeInterval interval = [[_departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {
         //refresh si plus d'1 minute
-        [_departuresManager refreshDepartures:[_favoritesManager favorites]];
+        [_departuresManager refreshDepartures:[self.favoritesManager favorites]];
     }
 }
 
@@ -125,7 +127,7 @@
 
 #pragma mark - Table view refresh control
 - (IBAction)_refreshAsked:(UIButton *)sender {
-    [_departuresManager refreshDepartures:[_favoritesManager favorites]];
+    [_departuresManager refreshDepartures:[self.favoritesManager favorites]];
 }
 
 #pragma mark - Table view data source
@@ -133,7 +135,7 @@
 {
     // Return the number of rows in the section plus header and footer
     // always header + footer + iphone5->5, other->4
-    NSArray* groupes = [_favoritesManager groupes];
+    NSArray* groupes = [self.favoritesManager groupes];
     if (page < [groupes count]) {
         return _maxRows;
     }
@@ -148,7 +150,7 @@
     UITableViewCell* cell;
 
     //get departures
-    Favorite* groupe = [[_favoritesManager groupes] objectAtIndex:page];
+    Favorite* groupe = [[self.favoritesManager groupes] objectAtIndex:page];
     NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
     if (indexPath.row < [departures count] ){
         // departure row
