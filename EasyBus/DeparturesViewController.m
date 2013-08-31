@@ -11,6 +11,9 @@
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
+#import "StaticDataManager.h"
+#import "Route+RouteWithAdditions.h"
+#import "Stop.h"
 
 @interface DeparturesViewController()
 
@@ -29,7 +32,6 @@
     [super viewDidLoad];
     
     // Instanciates des data
-    _favoritesManager = [FavoritesManager singleton];
     _departuresManager = [DeparturesManager singleton];
     
     _timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -52,6 +54,7 @@
     
     //Mise à jour des widgets
     [_activityIndicator stopAnimating];
+    [_info setText:@""];
 }
 
 #pragma mark - affichage
@@ -62,14 +65,17 @@
     NSArray* groupes = [_favoritesManager groupes];
     if (page < [groupes count]) {
         Favorite* groupe = [groupes objectAtIndex:page];
-        [_arret setText: groupe.libArret];
-        [_direction setText:groupe.libDirection];
+        [_arret setText: groupe.stop.name];
+        [_direction setText:[groupe.route terminusForDirection:groupe.direction]];
     }
     
     //update footer
-    NSString* maj = [_timeIntervalFormatter stringFromDate:[_departuresManager _refreshDate]];
-    [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
-
+    NSDate* refreshDate = [_departuresManager _refreshDate];
+    if (refreshDate) {
+        NSString* maj = [_timeIntervalFormatter stringFromDate:refreshDate];
+        [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+    }
+    
     //Compute refresh delay
     NSTimeInterval interval = [[_departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {
@@ -91,12 +97,8 @@
     [_activityIndicator stopAnimating];
     [_reloadButton setHidden:FALSE];
 
-    //show alert
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la mise à jour des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-
     //message
-    [_info setText:@"erreur lors de la mise à jour..."];
+    [_info setText:@"erreur lors de la mise à jour des départs"];
 }
 
 #pragma mark - Stuff for refreshing activity indicator
@@ -158,7 +160,8 @@
             Depart* depart = [departures objectAtIndex:departureIndex];
         
             //update cell
-            [[(DepartureCell*)cell _picto] setImage:depart.picto];
+            UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", depart._ligne] ofType:@"png"]];
+            [[(DepartureCell*)cell _picto] setImage:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
             [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];

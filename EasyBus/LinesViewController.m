@@ -8,18 +8,24 @@
 
 #import "LinesViewController.h"
 #import "FavoritesNavigationController.h"
+#import "DirectionViewController.h"
 #import "LineCell.h"
 
 @implementation LinesViewController
 
-@synthesize _staticDataManager;
+@synthesize staticDataManager;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Instanciates des data
-    _staticDataManager = [StaticDataManager singleton];
+
+    // Initialize data
+    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
+
+    //Pull to refresh
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:nil action:@selector(updateData) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
 - (void)didReceiveMemoryWarning
@@ -27,6 +33,13 @@
     [super didReceiveMemoryWarning];
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In LinesViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 	[alertView show];
+}
+
+#pragma mark - Refresh Keolis data
+-(void) updateData{
+    [self.staticDataManager reloadDatabase];
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Table view data source
@@ -39,12 +52,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[_staticDataManager routes] count];
+    return [[self.staticDataManager routes] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray* routes = [_staticDataManager routes];
+    NSArray* routes = [self.staticDataManager routes];
     
     //get routes section
     if (indexPath.row < [routes count]) {
@@ -55,8 +68,9 @@
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        [cell._picto setImage:route.picto];
-        [cell._libLigne setText:route._longName];
+        UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", route.shortName] ofType:@"png"]];
+        [cell._picto setImage:picto];
+        [cell._libLigne setText:route.longName];
         return cell;
     }
     return nil;
@@ -65,19 +79,10 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get route
-    Route* route = [[_staticDataManager routes] objectAtIndex:indexPath.row];
+    Route* route = [[self.staticDataManager routes] objectAtIndex:indexPath.row];
 
     //get the current favorite fromnav controler and update it
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;    
-    favorite.ligne = route._id;
-    favorite.libLigne = route._shortName;
+    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute = route;
 }
-
-#pragma mark - Segues
-- (IBAction)newFavorite:(UIStoryboardSegue *)segue {
-    // Create the favorite
-    ((FavoritesNavigationController*)self.navigationController)._currentFavorite = [Favorite new];
-}
-
 
 @end

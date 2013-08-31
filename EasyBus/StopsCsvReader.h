@@ -11,6 +11,7 @@
 
 @interface StopsCsvReader : NSObject
 
-@property(nonatomic) NSMutableDictionary* _stops;
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+- (void)loadData;
 
 @end

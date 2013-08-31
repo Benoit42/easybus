@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StaticDataManager.h"
 
 @interface RoutesStopsCsvReader : NSObject
 
-@property(nonatomic) NSMutableDictionary* _routeStops;
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+- (void)loadData;
 
 @end

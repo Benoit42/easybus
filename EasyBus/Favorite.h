@@ -1,26 +1,20 @@
 //
-//  Case.h
-//  CdeLineTool
+//  Favorite.h
+//  EasyBus
 //
-//  Created by eu on 02/04/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Benoit on 30/06/13.
+//  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Favorite : NSObject <NSCoding>
+@class Route, Stop;
 
-@property(nonatomic) NSString* ligne;
-@property(nonatomic) NSString* libLigne;
-@property(nonatomic) NSString* arret;
-@property(nonatomic) NSString* libArret;
-@property(nonatomic) NSString* direction;
-@property(nonatomic) NSString* libDirection;
-@property(nonatomic) double lat;
-@property(nonatomic) double lon;
+@interface Favorite : NSManagedObject
 
-- (id)initWithName:(NSString*)ligne_ libLigne:(NSString*)libLigne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ libDirection:(NSString*)libDirection_ lat:(double)lat_ lon:(double)lon_;
-
-- (UIImage*)picto;
+@property (nonatomic, retain) NSString * direction;
+@property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) Stop *stop;
 
 @end

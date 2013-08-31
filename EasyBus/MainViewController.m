@@ -9,64 +9,67 @@
 #import "MainViewController.h"
 #import "FavoritesNavigationController.h"
 #import "PageViewController.h"
+#import "FavoriteInitViewController.h"
+#import "FavoritesManager.h"
 
 @implementation MainViewController
 
-@synthesize _refreshDate, _containerView, _pageViewController, _noFavoritesViewController;
+@synthesize managedObjectContext, favoritesManager;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Alerte mémoire" message:@"Dans MainViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
 }
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Init data
+    self.favoritesManager = [[FavoritesManager alloc] initWithContext:self.managedObjectContext];
 }
 
 #pragma mark - affichage
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //Création de la 1ère vue
-    NSArray* favorites = [[FavoritesManager singleton] favorites];
-    if ([favorites count] > 0 ) {
-        if (_pageViewController == nil) {
-            //Création de la 1ère vue
-            _pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+}
 
-            // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-            CGRect pageViewRect = _containerView.bounds;
-            _pageViewController.view.frame = pageViewRect;
-        }
-        [self addChildViewController:_pageViewController];
-        [_containerView addSubview:_pageViewController.view ];
-        
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //Check des favoris
+    NSArray* favorites = [favoritesManager favorites];
+    if ([favorites count] == 0 ) {
         //ecran de démarrage sans favoris
-        [_noFavoritesViewController removeFromParentViewController];
-        [_noFavoritesViewController.view removeFromSuperview];
+        [self performSegueWithIdentifier:@"initFavorite" sender:self];
     }
     else {
-        //ecran de démarrage sans favoris
-        [_pageViewController removeFromParentViewController];
-        [_pageViewController.view removeFromSuperview];
-        
-        if (_noFavoritesViewController == nil) {
-            _noFavoritesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoFavoritesViewController"];
-        }
-        [self addChildViewController:_noFavoritesViewController];
-        [_containerView addSubview:_noFavoritesViewController.view];
+        [self performSegueWithIdentifier:@"showDepartures" sender:self];
     }
 }
 
 #pragma mark - Segues
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController* controller = [segue destinationViewController];
+    if ([[segue identifier] isEqualToString:@"initFavorite"]) {
+        ((FavoriteInitViewController*)controller).managedObjectContext = self.managedObjectContext;
+        ((FavoriteInitViewController*)controller).favoritesManager = self.favoritesManager;
+    }
+    else if ([[segue identifier] isEqualToString:@"showDepartures"]) {
+        ((PageViewController*)controller).managedObjectContext = self.managedObjectContext;
+        ((PageViewController*)controller).favoritesManager = self.favoritesManager;
+    }
+}
+
 - (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
-    //Rechargement des départs
-    NSArray* favorite = [[FavoritesManager singleton] favorites];
-    [[DeparturesManager singleton] refreshDepartures:favorite];
+    if ([[segue identifier] isEqualToString:@"initFavorite"]) {
+        //Rechargement des départs
+        NSArray* favorite = [favoritesManager favorites];
+        [[DeparturesManager singleton] refreshDepartures:favorite];
+        [self performSegueWithIdentifier:@"showDepartures" sender:self];
+    }
 }
 
 @end

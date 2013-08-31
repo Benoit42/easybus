@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "DeparturesViewController.h"
+#import "FavoritesManager.h"
 
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
+
+@property (nonatomic, retain) FavoritesManager *favoritesManager;
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController;

@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StaticDataManager.h"
 
-@interface LinesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LinesViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(strong, nonatomic) StaticDataManager* _staticDataManager;
+@property(strong, nonatomic) StaticDataManager* staticDataManager;
 
 @end

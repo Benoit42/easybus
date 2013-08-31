@@ -7,18 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Favorite.h"
+#import "Favorite+FavoriteWithAdditions.h"
 
 @interface FavoritesManager : NSObject
 
-+ (FavoritesManager*) singleton;
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+
 - (NSArray*) favorites;
 - (NSArray*) groupes;
 - (NSArray*) favoritesForGroupe:(Favorite*)groupe;
-- (void) addFavorite:(Favorite*)favorite;
+- (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
 - (void) removeFavorite:(Favorite*)favorite;
-- (void) removeAllFavorites;
-- (void) loadFavoritesFromDisk;
-- (void) saveFavoritesToDisk;
 
 @end

@@ -18,6 +18,5 @@
 @property(nonatomic) NSTimeInterval _delai;
 
 - (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ ;
-- (UIImage*)picto;
 
 @end

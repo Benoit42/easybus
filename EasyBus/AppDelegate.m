@@ -7,15 +7,32 @@
 //
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "LocationManager.h"
+#import "StaticDataManager.h"
+
+@interface AppDelegate()
+
+@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@end
 
 @implementation AppDelegate
 
+#pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    //Instanciation du contexte
+    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+
+    //Initialisation du controleur racine
+    MainViewController* rootViewController = (MainViewController*) self.window.rootViewController;
+    rootViewController.managedObjectContext = [self getManagedObjectContext];
+    
     return YES;
 }
 							
@@ -40,12 +57,8 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-    //Compute refresh delay
-    NSDate* refreshDate = [[DeparturesManager singleton] _refreshDate];
-    if (refreshDate == nil || -[refreshDate timeIntervalSinceNow] > 60) {
-        //refresh departures and location si plus d'1 minute
-        [[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
-    }
+    //refresh departures and location
+    //[[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
     [[LocationManager singleton] startUpdatingLocation];
 }
 
@@ -54,4 +67,72 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma context management
+/**
+ Returns the managed object context for the application.
+ If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+ */
+- (NSManagedObjectContext *) getManagedObjectContext {
+	
+    if (self.managedObjectContext != nil) {
+        return self.managedObjectContext;
+    }
+	
+    NSPersistentStoreCoordinator *coordinator = [self getPersistentStoreCoordinator];
+    if (coordinator != nil) {
+        self.managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [self.managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    return self.managedObjectContext;
+}
+
+/**
+ Returns the managed object model for the application.
+ If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
+ */
+- (NSManagedObjectModel *)getManagedObjectModel {
+    if (self.managedObjectModel != nil) {
+        return self.managedObjectModel;
+    }
+
+    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    return self.managedObjectModel;
+}
+
+/**
+ Returns the persistent store coordinator for the application.
+ If the coordinator doesn't already exist, it is created and the application's store added to it.
+ */
+- (NSPersistentStoreCoordinator *)getPersistentStoreCoordinator {
+    if (self.persistentStoreCoordinator != nil) {
+        return self.persistentStoreCoordinator;
+    }
+
+    self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"data.sqlite"]];
+	NSError *error;
+    if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de l'initialisation" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alert show];
+    }
+	
+    return self.persistentStoreCoordinator;
+}
+
+/**
+ Returns the path to the application's documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+#pragma UIAlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //TODO : voir ce que l'on fait en cas d'erreur à l'init
+}
 @end

@@ -9,14 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "Route.h"
 #import "Stop.h"
-#import "RouteStop.h"
 
 @interface StaticDataManager : NSObject
 
-+ (StaticDataManager*) singleton;
+@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+- (id)initWithContext:(NSManagedObjectContext*)context andModel:(NSManagedObjectModel*)model;
 - (NSArray*) routes;
-- (Route*) routesForId:(NSString*)routeId;
-- (NSArray*) stopsForRouteId:(NSString*)routeId direction:(NSString*)direction;
+- (Route*) routeForId:(NSString*)routeId;
+- (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
+- (void) reloadDatabase;
+- (UIImage*) pictoForRouteId:(NSString*)routeId;
 
 @end

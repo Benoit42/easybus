@@ -9,8 +9,10 @@
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
 #import "DeparturesViewController.h"
+#import "FavoritesNavigationController.h"
 #import "FavoritesManager.h"
 #import "LocationManager.h"
+#import "Stop.h"
 
 @interface PageViewController()
 
@@ -20,15 +22,17 @@
 
 @implementation PageViewController
 
+@synthesize managedObjectContext, favoritesManager;
 @synthesize _datasource;
 
-//constructeur
+#pragma mark - lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    _datasource = [PageViewControllerDatasource new];
+    _datasource = [PageViewControllerDatasource alloc];
+    _datasource.favoritesManager = self.favoritesManager;
 
     //Set delegate and datasource
     self.delegate = self;
@@ -38,20 +42,11 @@
     
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:@"departuresUpdateFailed" object:nil];
 }
 
-#pragma mark - Erreurs sur la récupération des départs
-- (void)departuresUpdateFailed:(NSNotification *)notification {
-    //show alert
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de la mise à jour des départs" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-}
-
-#pragma mark - affichage
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
- 
+
     //Création de la 1ère vue
     [self gotoNearestPage];
 }
@@ -90,12 +85,12 @@
     CLLocation* currentLocation = [[LocationManager singleton] currentLocation];
 
     //Compute nearest group
-    NSArray* groupes = [[FavoritesManager singleton] groupes];
+    NSArray* groupes = [favoritesManager groupes];
     double minDistance = MAXFLOAT;
     int index = -1;
     for (int i=0; i<[groupes count]; i++) {
         Favorite* groupe = [groupes objectAtIndex:i];
-        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:groupe.lat longitude:groupe.lon];
+        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[groupe.stop.latitude doubleValue] longitude:[groupe.stop.longitude doubleValue]];
         CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
         if (currentDistance < minDistance) {
             index = i;
@@ -107,10 +102,28 @@
     [self scrollToPage:index];
 }
 
-#pragma mark - Notification de localistion
+#pragma mark - Notification de localisation
 - (void)locationFound:(NSNotification *)notification {
     //Move page view to nearest groupe
     [self gotoNearestPage];
 }
+
+- (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
+    //Rechargement des départs
+    NSArray* favorite = [favoritesManager favorites];
+    [[DeparturesManager singleton] refreshDepartures:favorite];
+}
+
+#pragma mark - Segues
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"addFavorite"])
+    {
+        FavoritesNavigationController* destinationViewController = (FavoritesNavigationController*)[segue destinationViewController];
+        destinationViewController.managedObjectContext = self.managedObjectContext;
+        destinationViewController.favoritesManager = self.favoritesManager;
+    }
+}
+
 
 @end

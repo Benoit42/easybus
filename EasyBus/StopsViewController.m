@@ -12,14 +12,14 @@
 
 @implementation StopsViewController
 
-@synthesize _staticDataManager, _saveButton;
+@synthesize staticDataManager, _saveButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Instanciates des data
-    _staticDataManager = [StaticDataManager singleton];
+
+    // Initialize data
+    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,40 +30,38 @@
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    //get the favorite from nav controler
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-
-    // Return the number of rows in the section.
-    return [[_staticDataManager stopsForRouteId:favorite.ligne direction:favorite.direction] count];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //get the current route and direction
+    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
+    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    
+    // Return the number of rows in the section
+    return [[self.staticDataManager stopsForRoute:route direction:direction] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //get the favorite from nav controler
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //get the current route and direction
+    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
+    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    
     //get stop list
-    NSArray* routeStops = [_staticDataManager stopsForRouteId:favorite.ligne direction:favorite.direction];
-
+    NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
+    
     //get departure section
-    if (indexPath.row < [routeStops count]) {
+    if (indexPath.row < [stops count]) {
         //get the stop
-        RouteStop* routeStop = [routeStops objectAtIndex:indexPath.row];
-        Stop* stop = [_staticDataManager stopForId:routeStop._stopId];
+        Stop* stop = [stops objectAtIndex:indexPath.row];
         
         static NSString *CellIdentifier = @"Cell";
         StopCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         //add departure
-        [cell._libArret setText:stop._name];
+        [cell._libArret setText:stop.name];
         return cell;
     }
     return nil;
@@ -71,19 +69,16 @@
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //get the current favorite fromnav controler
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-
-    //get selected stop
-    NSArray* routeStops = [_staticDataManager stopsForRouteId:favorite.ligne direction:favorite.direction];
-    RouteStop* routeStop = [routeStops objectAtIndex:indexPath.row];
-    Stop* stop = [_staticDataManager stopForId:routeStop._stopId];
+    //get the current route and direction
+    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
+    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    
+    //get the current stop
+    NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
+    Stop* stop = [stops objectAtIndex:indexPath.row];
     
     // update it the current favorite
-    favorite.arret = stop._id;
-    favorite.libArret = stop._name;
-    favorite.lat = [stop._lat doubleValue];
-    favorite.lon = [stop._lon doubleValue];
+    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteStop = stop;
     
     // activate save button
     [_saveButton setEnabled:YES];

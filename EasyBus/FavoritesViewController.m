@@ -8,20 +8,16 @@
 
 #import "FavoritesViewController.h"
 #import "FavoritesNavigationController.h"
+#import "LinesViewController.h"
 #import "Favorite.h"
+#import "Route+RouteWithAdditions.h"
+#import "Stop.h"
 #import "FavoriteCell.h"
+#import "StaticDataManager.h"
 
 @implementation FavoritesViewController
 
-@synthesize _favoritesManager;
-
-#pragma mark - Initialisation
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Instanciates des data
-    _favoritesManager = [FavoritesManager singleton];
-}
+@synthesize managedObjectContext, favoritesManager;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -31,14 +27,22 @@
 	[alertView show];
 }
 
-#pragma mark - affichage
+#pragma mark - lifecycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Initialize data
+    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
+    self.favoritesManager = ((FavoritesNavigationController*)self.navigationController).favoritesManager;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     //Si aucun favori, passage direct à l'écran des lignes
-    NSArray* favorites = [_favoritesManager favorites];
+    NSArray* favorites = [self.favoritesManager favorites];
     if ([favorites count] == 0) {
-        [self performSegueWithIdentifier: @"newFavorite" sender: self];
+        [self performSegueWithIdentifier: @"chooseLine" sender: self];
     }
 }
 
@@ -52,13 +56,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[_favoritesManager favorites] count];
+    return [[self.favoritesManager favorites] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Get favorites
-    NSArray* favorites = [_favoritesManager favorites];
+    NSArray* favorites = [self.favoritesManager favorites];
     
     //get departure section
     if (indexPath.row < favorites.count) {
@@ -69,9 +73,10 @@
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        [cell._picto setImage:favorite.picto];
-        [cell._libArret setText:favorite.libArret];
-        [cell._libDirection setText:favorite.libDirection];
+        UIImage *picto =  [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [favorite.route.id intValue]] ofType:@"png"]];
+        [cell._picto setImage:picto];
+        [cell._libArret setText:favorite.stop.name];
+        [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
         return cell;
     }
     return nil;
@@ -83,9 +88,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         // delete your data item here
-        NSArray* favorites = [_favoritesManager favorites];
+        NSArray* favorites = [self.favoritesManager favorites];
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
-        [_favoritesManager removeFavorite:favorite];
+        [self.favoritesManager removeFavorite:favorite];
 
         // Animate the deletion from the table.
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -95,7 +100,7 @@
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation {
     //Get favorites
-    NSArray* favorites = [_favoritesManager favorites];
+    NSArray* favorites = [self.favoritesManager favorites];
     NSMutableArray* favoritesToDelete = [NSMutableArray new];
     
     //Remove deleted favorites
@@ -106,7 +111,7 @@
     }
     for (Favorite* favorite in favoritesToDelete) {
         //delete the favorite
-        [_favoritesManager removeFavorite:favorite];
+        [self.favoritesManager removeFavorite:favorite];
     }
 
     //Refresh table (not necessary
@@ -114,19 +119,12 @@
     return;
 }
 
-#pragma mark - Segues
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"newFavorite"]) {
-        // Alloc new clean favorite
-        ((FavoritesNavigationController*)self.navigationController)._currentFavorite = [Favorite new];
-    }
-}
-
 - (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
     // Save the favorite
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-    [_favoritesManager addFavorite:favorite];
+    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
+    Stop* stop = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteStop;
+    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    [self.favoritesManager addFavorite:route stop:stop direction:direction];
     [((UITableView*)self.view) reloadData];
 }
 

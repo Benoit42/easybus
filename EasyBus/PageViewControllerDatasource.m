@@ -16,7 +16,7 @@
 
 @implementation PageViewControllerDatasource
 
-@synthesize _departuresViewControlers;
+@synthesize _departuresViewControlers, favoritesManager;
 
 -(id)init {
     if ( self = [super init] ) {
@@ -28,14 +28,14 @@
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
     // Return the data view controller for the given index.
-    int groupesCount = [[[FavoritesManager singleton] groupes] count];
+    int groupesCount = [[favoritesManager groupes] count];
     if (groupesCount == 0 || (index >= groupesCount)) {
         return nil;
     }
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
-    if (index < [[[FavoritesManager singleton] groupes] count]) {
+    if (index < [[favoritesManager groupes] count]) {
         if (index < [_departuresViewControlers count]) {
             //Le view controler existe déjà
             viewController = [_departuresViewControlers objectAtIndex:index];
@@ -78,14 +78,14 @@
     }
     
     index++;
-    if (index == [[[FavoritesManager singleton] groupes] count]) {
+    if (index == [[favoritesManager groupes] count]) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return [[[FavoritesManager singleton] groupes] count];
+    return [[favoritesManager groupes] count];
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {

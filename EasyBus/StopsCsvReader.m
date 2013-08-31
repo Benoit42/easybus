@@ -6,50 +6,61 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 #import "StopsCsvReader.h"
 #import "CSVParser.h"
 
+@interface StopsCsvReader()
+
+@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
+
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+
+@end
+
 @implementation StopsCsvReader
 
-@synthesize _stops;
+@synthesize _managedObjectContext;
 
-- (id)init {
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext {
     if ( self = [super init] ) {
-        _stops = [NSMutableDictionary new];
-        
-        NSError* error = nil;
-        NSURL* url = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
-        
-        NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-        
-        CSVParser* parser =
-        [[CSVParser alloc]
-         initWithString:csvString
-         separator:@","
-         hasHeader:YES
-         fieldNames:nil];
-        [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+        //initialisation des membres
+        _managedObjectContext = managedObjectContext;
     }
     return self;
 }
 
-- (void)receiveRecord:(NSDictionary *)aRecord
-{
-    Stop* stop = [[Stop alloc] initWithId:[aRecord objectForKey:@"stop_id"]
-                                    code:[aRecord objectForKey:@"stop_code"]
-                                    name:[aRecord objectForKey:@"stop_name"]
-                                    desc:[aRecord objectForKey:@"stop_desc"]
-                                     lat:[aRecord objectForKey:@"stop_lat"]
-                                     lon:[aRecord objectForKey:@"stop_lon"]
-                                     zoneId:[aRecord objectForKey:@"zone_id"]
-                                     url:[aRecord objectForKey:@"stop_url"]
-                                     locationType:[aRecord objectForKey:@"location_type"]
-                                     parentStation:[aRecord objectForKey:@"parent_station"]
-                                     timezone:[aRecord objectForKey:@"stop_timezone"]
-                      whealchairBoardoing:[aRecord objectForKey:@"wheelchair_boarding"]];
- 
-    [_stops setObject:stop forKey:stop._id];
+- (void)loadData {
+    NSError* error = nil;
+    NSURL* url = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
+    
+    NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    
+    CSVParser* parser =
+    [[CSVParser alloc]
+     initWithString:csvString
+     separator:@","
+     hasHeader:YES
+     fieldNames:nil];
+    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+    
+    //Sauvegarde des données
+    if (![_managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+
 }
 
+- (void)receiveRecord:(NSDictionary *)aRecord {
+    // Create and configure a new instance of the Stop entity.
+    Stop* stop = (Stop*)[NSEntityDescription insertNewObjectForEntityForName:@"Stop" inManagedObjectContext:_managedObjectContext];
+    stop.id = [aRecord objectForKey:@"stop_id"];
+    stop.code = [aRecord objectForKey:@"stop_code"];
+    stop.name = [aRecord objectForKey:@"stop_name"];
+    stop.desc = [aRecord objectForKey:@"stop_desc"];
+    stop.latitude = [aRecord objectForKey:@"stop_lat"];
+    stop.longitude = [aRecord objectForKey:@"stop_lon"];
+}
 
 @end

@@ -8,18 +8,21 @@
 
 #import "DirectionViewController.h"
 #import "FavoritesNavigationController.h"
+#import "StopsViewController.h"
 #import "DirectionCell.h"
+#import "Route+RouteWithAdditions.h"
+#import "StaticDataManager.h"
 
 @implementation DirectionViewController
 
-@synthesize _staticDataManager;
+@synthesize staticDataManager;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Instanciates des data
-    _staticDataManager = [StaticDataManager singleton];
+
+    // Initialize data
+    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,13 +53,10 @@
         DirectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         //get the favorite fromnav controler
-        Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-        
-        //get route
-        Route* route = [_staticDataManager routesForId:favorite.ligne];
+        Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
 
         //add departure
-        NSString* libelle = (indexPath.row == 0) ? route._fromName : route._toName;
+        NSString* libelle = [route terminusForDirection:[NSString stringWithFormat:@"%i", indexPath.row]];
         [cell._libDirection setText:libelle];
         return cell;
     }
@@ -67,15 +67,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the favorite fromnav controler
-    Favorite* favorite = ((FavoritesNavigationController*)self.navigationController)._currentFavorite;
-    
-    //get route
-    Route* route = [_staticDataManager routesForId:favorite.ligne];
-    
-    //update favorite
-    favorite.direction = [NSString stringWithFormat:@"%i", indexPath.row];
-    NSString* libelle = (indexPath.row == 0) ? route._fromName : route._toName;
-    favorite.libDirection = libelle;
+    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection = [NSString stringWithFormat:@"%i", indexPath.row];
 }
 
 @end

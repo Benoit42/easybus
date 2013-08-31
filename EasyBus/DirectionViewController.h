@@ -11,6 +11,6 @@
 
 @interface DirectionViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(strong, nonatomic) StaticDataManager* _staticDataManager;
+@property(strong, nonatomic) StaticDataManager* staticDataManager;
 
 @end

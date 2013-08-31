@@ -31,11 +31,4 @@
     return self;
 }
 
-- (UIImage*) picto {
-    if (_picto == nil) {
-        _picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [_ligne intValue]] ofType:@"png"]];
-    }
-    return _picto;
-}
-
 @end

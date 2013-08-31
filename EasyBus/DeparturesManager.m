@@ -8,6 +8,8 @@
 
 #import "DeparturesManager.h"
 #import "Favorite.h"
+#import "Route.h"
+#import "Stop.h"
 
 @interface DeparturesManager()
 @property (strong, nonatomic) NSMutableArray* _departures;
@@ -68,7 +70,7 @@
 }
 
 - (NSArray*) getDeparturesForGroupe:(Favorite*)groupe {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arret == %@ && direction == %@", groupe.arret, groupe.direction];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arret == %@ && direction == %@", groupe.stop.id, groupe.direction];
     return [_departures filteredArrayUsingPredicate:predicate];
     //retourne la liste des départs
     return _departures;
@@ -99,10 +101,10 @@
             NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
             for (int i=0; i<[favorites count] && i<10; i++) {
                 //Get bus
-                Favorite* bus = [favorites objectAtIndex:i];
+                Favorite* favorite = [favorites objectAtIndex:i];
                 
                 //Compute path
-                [path appendFormat:paramPath, bus.ligne, bus.direction, bus.arret];
+                [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
             }
             
             //Send request

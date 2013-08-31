@@ -8,21 +8,67 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "FavoritesManager.h"
+#import "RoutesCsvReader.h"
+#import "StopsCsvReader.h"
 
 @interface FavoritesManagerTest : SenTestCase
 
+@property(nonatomic) RoutesCsvReader* _routesCsvReader;
+@property(nonatomic) StopsCsvReader* _stopsCsvReader;
 @property(nonatomic) FavoritesManager* _favoritesManager;
+@property(nonatomic) NSManagedObjectModel* _managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* _managedObjectContext;
 
 @end
 
 @implementation FavoritesManagerTest
 
-@synthesize _favoritesManager;
+@synthesize _favoritesManager, _routesCsvReader, _stopsCsvReader, _managedObjectModel, _managedObjectContext;
 
 - (void)setUp
 {
     [super setUp];
-    _favoritesManager = [FavoritesManager new];
+    
+    //Create managed context
+    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    STAssertNotNil(_managedObjectModel, @"Can not create managed object model from main bundle");
+    
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
+    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
+    
+    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
+//    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"keolis.sqlite"]];
+    NSError* error;
+//    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error];
+    STAssertNotNil(store, @"Can not create persistent store");
+    if (!store) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
+
+    //Tested class
+    _routesCsvReader = [[RoutesCsvReader alloc] initWithContext:_managedObjectContext];
+    _stopsCsvReader = [[StopsCsvReader alloc] initWithContext:_managedObjectContext];
+    
+    //load data
+    [_routesCsvReader loadData];
+    [_stopsCsvReader loadData];
+
+    //Create class to test
+    _favoritesManager = [[FavoritesManager alloc] initWithContext:_managedObjectContext];
+    
+    //Ajout du jeu de tests
+    Route* route64 = [self routeForId:@"0064"];
+    Route* route164 = [self routeForId:@"0164"];
+    Stop* stopTimo = [self stopForId:@"4001"];
+    Stop* stopRepu = [self stopForId:@"1167"];
+    [_favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
+    [_favoritesManager addFavorite:route64 stop:stopRepu direction:@"1"];
+    [_favoritesManager addFavorite:route164 stop:stopTimo direction:@"0"];
+    [_favoritesManager addFavorite:route164 stop:stopRepu direction:@"1"];
 }
 
 - (void)tearDown
@@ -30,86 +76,114 @@
     [super tearDown];
 }
 
+//Test des favoris
+- (void)testFavorites
+{
+    //Lecture des favoris
+    NSArray* favorites = [_favoritesManager favorites];
+    
+    //Vérifications
+    STAssertEquals(4U, [[_favoritesManager favorites] count], @"Wrong number of favorites");
+    STAssertEqualObjects(@"4001", [favorites objectAtIndex:0] , @"Wrong favorite 0");
+}
 
 //Test de l'ajout
 - (void)testAddFavorite
 {
-    //Purge des favoris sauvegardés
-    [_favoritesManager removeAllFavorites];
+    //Ajout d'un favori
+    Route* route = [self routeForId:@"0200"];
+    Stop* stop = [self stopForId:@"4001"];
+    [_favoritesManager addFavorite:route stop:stop direction:@"0"];
+
+    //Vérifications
+    STAssertEquals(5U, [[_favoritesManager favorites] count], @"Wrong number of favorites");
+}
+
+//Test de l'ajout d'un doublon
+- (void)testAddFavoriteDoublon
+{
+    //Préparation des données
+    Route* route64 = [self routeForId:@"0064"];
+    Stop* stopTimo = [self stopForId:@"4001"];
     
-    //Création des favoris
-    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav1b = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
+    //Ajout d'un favori
+    [_favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
 
-    //Ajout d'un favori en doublon
-    [_favoritesManager addFavorite:fav1];
-    [_favoritesManager addFavorite:fav1b];
-    STAssertEquals(1, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
-
-    //Ajout d'un second favori
-    [_favoritesManager addFavorite:fav2];
-    STAssertEquals(2, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
+    //Vérifications
+    STAssertEquals(4U, [[_favoritesManager favorites] count], @"Wrong number of favorites");
 }
 
 //Test de la suppression
-- (void)testRemoveFavorites
+- (void)testRemoveFavorite
 {
-    //Purge des favoris sauvegardés
-    [_favoritesManager removeAllFavorites];
-    
-    //Création des favoris
-    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
-    Favorite* fav3 = [[Favorite alloc] initWithName:@"bidon" libLigne:@"bidon" arret:@"bidon" libArret:@"bidon" direction:@"bidon" libDirection:@"bidon" lat:0.0 lon:0.0];
-    
-    //Ajout des favoris
-    [_favoritesManager addFavorite:fav1];
-    [_favoritesManager addFavorite:fav2];
-    STAssertEquals(2, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
-    
-    //Suppression d'un favori inexistant
-    [_favoritesManager removeFavorite:fav3];
-    STAssertEquals(2, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
+    //Récupération d'un favori
+    Favorite* favorite = [[_favoritesManager favorites] lastObject];
 
-    //Suppression d'un favori existant
-    [_favoritesManager removeFavorite:fav1];
-    STAssertEquals(1, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
-    [_favoritesManager removeFavorite:fav2];
-    STAssertEquals(0, (int)[[_favoritesManager favorites] count], @"Wrong number of favorites");
+    //Suppression du favori
+    [_favoritesManager removeFavorite:favorite];
+    
+    //Vérifications
+    STAssertEquals(3U, [[_favoritesManager favorites] count], @"Wrong number of favorites");
 }
 
 //Test des groupes
 - (void)testGroupes
 {
-    //Purge des favoris sauvegardés
-    [_favoritesManager removeAllFavorites];
-    
-    //Création des favoris
-    Favorite* fav1_gr1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav2_gr1 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav3_gr2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
-    Favorite* fav4_gr2 = [[Favorite alloc] initWithName:@"0164" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Clos Courtel" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
-    
-    //Ajout des favoris
-    [_favoritesManager addFavorite:fav1_gr1];
-    [_favoritesManager addFavorite:fav2_gr1];
-    [_favoritesManager addFavorite:fav3_gr2];
-    [_favoritesManager addFavorite:fav4_gr2];
-
     //Controle des groupes
-    STAssertEquals(2, (int)[[_favoritesManager groupes] count], @"Wrong number of favorites");
-    Favorite* groupe1 = [[_favoritesManager groupes] objectAtIndex:0];
-    STAssertEquals(@"Acigné", [groupe1 libDirection], @"Wrong groupe 1");
-    Favorite* groupe2 = [[_favoritesManager groupes] objectAtIndex:1];
-    STAssertEquals(@"Rennes", [groupe2 libDirection], @"Wrong groupe 2");
+    NSArray* groupes = [_favoritesManager groupes];
+    STAssertEquals(2U, [groupes count], @"Wrong number of groups");
 
-    //Controle des favoris dans les groupes
-    NSArray* fav_groupe1 = [_favoritesManager favoritesForGroupe:fav1_gr1];
-    STAssertTrue([fav_groupe1 containsObject:fav1_gr1] , @"Missing favorite 1 in groupe 1");
-    STAssertTrue([fav_groupe1 containsObject:fav2_gr1] , @"Missing favorite 2 in groupe 1");
-    NSArray* fav_groupe2 = [_favoritesManager favoritesForGroupe:fav3_gr2];
-    STAssertTrue([fav_groupe2 containsObject:fav3_gr2] , @"Missing favorite 3 in groupe 1");
-    STAssertTrue([fav_groupe2 containsObject:fav4_gr2] , @"Missing favorite 4 in groupe 1");
+    Favorite* groupe1 = [groupes objectAtIndex:0];
+    STAssertEqualObjects(@"4001", groupe1.stop.id, @"Wrong group 1");
+
+    Favorite* groupe2 = [groupes objectAtIndex:1];
+    STAssertEqualObjects(@"1167", groupe2.stop.id, @"Wrong group 2");
 }
+
+//Test de la suppression
+- (void)testFavoritesForGroupe
+{
+    //Controle des groupes
+    NSArray* groupes = [_favoritesManager groupes];
+    STAssertEquals(2U, [groupes count], @"Wrong number of groups");
+    
+    //Vérifications du groupe 1
+    Favorite* groupe1 = [groupes objectAtIndex:0];
+    NSArray* favorites1 = [_favoritesManager favoritesForGroupe:groupe1];
+    STAssertEquals(2U, [favorites1 count], @"Wrong number of favorites in group 1");
+    Favorite* groupe1Fav1 = [favorites1 objectAtIndex:0];
+    STAssertEqualObjects(@"0064", groupe1Fav1.route.id, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"4001", groupe1Fav1.stop.id, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"0", groupe1Fav1.direction, @"Erreur on favorite in group 1");
+}
+
+- (Route*) routeForId:(NSString*)routeId {
+    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
+                                                              substitutionVariables:@{@"id" : routeId}];
+    
+    NSError *error = nil;
+    NSArray* routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
+}
+
+- (Stop*) stopForId:(NSString*)stopId {
+    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
+                                                              substitutionVariables:@{@"id" : stopId}];
+    
+    NSError *error = nil;
+    NSArray* stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    return ([stops count] == 0) ? nil : [stops objectAtIndex:0];
+}
+
+/**
+ Returns the path to the application's documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+
 @end
