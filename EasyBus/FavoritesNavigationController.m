@@ -10,7 +10,6 @@
 
 @implementation FavoritesNavigationController
 
-@synthesize managedObjectContext;
 @synthesize staticDataManager, favoritesManager;
 
 @synthesize _currentFavoriteRoute;
@@ -20,10 +19,6 @@
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Initialize data
-    NSManagedObjectModel* managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
-    self.staticDataManager = [[StaticDataManager alloc]initWithContext:self.managedObjectContext andModel:managedObjectModel];
 }
 
 @end

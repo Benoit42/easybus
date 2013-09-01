@@ -14,7 +14,7 @@
 @property(nonatomic) CLLocationManager* locationManager;
 @property(nonatomic) CLLocation* currentLocation;
 
-+ (LocationManager*) singleton;
 - (void) startUpdatingLocation;
+- (void) stopUpdatingLocation;
 
 @end

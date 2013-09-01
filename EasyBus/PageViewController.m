@@ -22,7 +22,7 @@
 
 @implementation PageViewController
 
-@synthesize managedObjectContext, favoritesManager;
+@synthesize favoritesManager, departuresManager, locationManager, staticDataManager;
 @synthesize _datasource;
 
 #pragma mark - lifecycle
@@ -31,26 +31,45 @@
     
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    _datasource = [PageViewControllerDatasource alloc];
+    self.departuresManager = [[DeparturesManager alloc] init];
+    
+    _datasource = [[PageViewControllerDatasource alloc] init];
     _datasource.favoritesManager = self.favoritesManager;
+    _datasource.departuresManager = self.departuresManager;
+    _datasource.staticDataManager = self.staticDataManager;
 
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = _datasource;
     DeparturesViewController *startingViewController = [_datasource viewControllerAtIndex:0 storyboard:self.storyboard];
+    startingViewController.departuresManager = self.departuresManager;
+    startingViewController.favoritesManager = self.favoritesManager;
+
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+
+    //Init LocationManager
+    locationManager = [[LocationManager alloc] init];
     
     // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    //Raffraichissement des données
+    NSArray* favorite = [favoritesManager favorites];
+    [self.departuresManager refreshDepartures:favorite];
+
     //Création de la 1ère vue
     [self gotoNearestPage];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    //Stop GPS
+    [self.locationManager stopUpdatingLocation];
+}
 
 - (void)scrollToPage:(NSInteger)page {
     //Get current page
@@ -82,7 +101,7 @@
 
 - (void)gotoNearestPage {
     //Get location
-    CLLocation* currentLocation = [[LocationManager singleton] currentLocation];
+    CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
     NSArray* groupes = [favoritesManager groupes];
@@ -102,6 +121,11 @@
     [self scrollToPage:index];
 }
 
+#pragma mark - refreshing location
+- (void)departuresUpdatedStarted:(NSNotification *)notification {
+    [locationManager startUpdatingLocation];
+}
+
 #pragma mark - Notification de localisation
 - (void)locationFound:(NSNotification *)notification {
     //Move page view to nearest groupe
@@ -111,19 +135,7 @@
 - (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
     //Rechargement des départs
     NSArray* favorite = [favoritesManager favorites];
-    [[DeparturesManager singleton] refreshDepartures:favorite];
+    [self.departuresManager refreshDepartures:favorite];
 }
-
-#pragma mark - Segues
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"addFavorite"])
-    {
-        FavoritesNavigationController* destinationViewController = (FavoritesNavigationController*)[segue destinationViewController];
-        destinationViewController.managedObjectContext = self.managedObjectContext;
-        destinationViewController.favoritesManager = self.favoritesManager;
-    }
-}
-
 
 @end

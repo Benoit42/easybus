@@ -11,17 +11,41 @@
 
 @interface StaticDataManagerTest : SenTestCase
 
-@property(nonatomic) StaticDataManager* _staticDataManager;
+@property(nonatomic) NSManagedObjectModel* managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
+
+@property(nonatomic) StaticDataManager* staticDataManager;
 
 @end
 
 @implementation StaticDataManagerTest
 
-@synthesize _staticDataManager;
+@synthesize managedObjectModel, managedObjectContext, staticDataManager;
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
-    _staticDataManager = [StaticDataManager singleton];
+    
+    //Create managed context
+    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    STAssertNotNil(self.managedObjectModel, @"Can not create managed object model from main bundle");
+    
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
+    
+    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
+    NSError* error;
+    STAssertNotNil(store, @"Can not create persistent store");
+    if (!store) {
+        //Log
+        STFail([NSString stringWithFormat:@"Database error - %@ %@", [error description], [error debugDescription]]);
+    }
+    
+    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
+    self.managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    
+    //Tested class
+    self.staticDataManager = [[StaticDataManager alloc] initWithContext:nil andModel:nil];
 }
 
 - (void)tearDown {
@@ -31,7 +55,7 @@
 //Vérification de la ligne 64
 - (void)testRoutes
 {
-    NSArray* routes = [_staticDataManager routes];
+    NSArray* routes = [self.staticDataManager routes];
     STAssertTrue([routes count] > 0 , @"Routes shall exist");
 
     Route* firstRoute = [routes objectAtIndex:0];

@@ -15,7 +15,7 @@
 
 @implementation FavoriteInitViewController
 
-@synthesize managedObjectContext, favoritesManager;
+@synthesize favoritesManager, staticDataManager;
 
 - (void)viewDidLoad
 {
@@ -34,10 +34,9 @@
 #pragma mark - Segues
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([[segue identifier] isEqualToString:@"addFavorite"]) {
         FavoritesNavigationController* destinationViewController = (FavoritesNavigationController*)[segue destinationViewController];
-        destinationViewController.managedObjectContext = self.managedObjectContext;
+        destinationViewController.staticDataManager = self.staticDataManager;
         destinationViewController.favoritesManager = self.favoritesManager;
     }
 }

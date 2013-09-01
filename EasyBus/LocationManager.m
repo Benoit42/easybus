@@ -13,17 +13,6 @@
 @synthesize locationManager, currentLocation;
 
 #pragma singleton & init
-//instancie le singleton
-+ (LocationManager *)singleton
-{
-    static LocationManager *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[LocationManager alloc] init];
-    });
-    return sharedInstance;
-}
-
 //constructeur
 -(id)init {
     if ( self = [super init] ) {
@@ -36,9 +25,15 @@
     return self;
 }
 
-//Démarrage de la localisation
+//Démarrage/arrêt de la localisation
 - (void) startUpdatingLocation {
     [locationManager startUpdatingLocation];
+}
+
+- (void) stopUpdatingLocation {
+    [locationManager stopUpdatingLocation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"locationCanceled" object:self];
+
 }
 
 // Démarrage de la localisation

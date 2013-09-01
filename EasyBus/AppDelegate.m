@@ -10,7 +10,6 @@
 #import "MainViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
-#import "LocationManager.h"
 #import "StaticDataManager.h"
 
 @interface AppDelegate()
@@ -56,10 +55,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
-    //refresh departures and location
-    //[[DeparturesManager singleton] refreshDepartures:[[FavoritesManager singleton] favorites]];
-    [[LocationManager singleton] startUpdatingLocation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

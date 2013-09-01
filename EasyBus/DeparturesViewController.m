@@ -8,6 +8,7 @@
 
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
+#import "FavoritesViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "DepartureCell.h"
@@ -26,15 +27,13 @@
 
 @implementation DeparturesViewController
 
-@synthesize favoritesManager, _departuresManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
+@synthesize favoritesManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Instanciates des data
-    _departuresManager = [DeparturesManager singleton];
-    favoritesManager = ((PageViewController*)self.parentViewController).favoritesManager;
     
     _timeIntervalFormatter = [[NSDateFormatter alloc] init];
     _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
@@ -72,17 +71,17 @@
     }
     
     //update footer
-    NSDate* refreshDate = [_departuresManager _refreshDate];
+    NSDate* refreshDate = [self.departuresManager _refreshDate];
     if (refreshDate) {
         NSString* maj = [_timeIntervalFormatter stringFromDate:refreshDate];
         [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
     }
     
     //Compute refresh delay
-    NSTimeInterval interval = [[_departuresManager _refreshDate] timeIntervalSinceNow];
+    NSTimeInterval interval = [[self.departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {
         //refresh si plus d'1 minute
-        [_departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
     }
 }
 
@@ -127,7 +126,7 @@
 
 #pragma mark - Table view refresh control
 - (IBAction)_refreshAsked:(UIButton *)sender {
-    [_departuresManager refreshDepartures:[self.favoritesManager favorites]];
+    [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
 }
 
 #pragma mark - Table view data source
@@ -151,7 +150,7 @@
 
     //get departures
     Favorite* groupe = [[self.favoritesManager groupes] objectAtIndex:page];
-    NSArray* departures = [_departuresManager getDeparturesForGroupe:groupe];
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
     if (indexPath.row < [departures count] ){
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -178,6 +177,16 @@
         }
     }
     return cell;
+}
+
+#pragma mark - Segues
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"addFavorite"]) {
+        FavoritesViewController* controller = (FavoritesViewController*)[segue destinationViewController];
+        controller.favoritesManager = self.favoritesManager;
+        controller.staticDataManager = self.staticDataManager;
+    }
 }
 
 @end

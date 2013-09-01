@@ -16,7 +16,7 @@
 
 @implementation PageViewControllerDatasource
 
-@synthesize _departuresViewControlers, favoritesManager;
+@synthesize _departuresViewControlers, favoritesManager, departuresManager, staticDataManager;
 
 -(id)init {
     if ( self = [super init] ) {
@@ -45,6 +45,9 @@
             //Le view controler n'existe pas encore
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
             ((DeparturesViewController*)viewController).page = index;
+            ((DeparturesViewController*)viewController).favoritesManager = self.favoritesManager;
+            ((DeparturesViewController*)viewController).departuresManager = self.departuresManager;
+            ((DeparturesViewController*)viewController).staticDataManager = self.staticDataManager;
             [_departuresViewControlers insertObject:viewController atIndex:index];
         }
     }

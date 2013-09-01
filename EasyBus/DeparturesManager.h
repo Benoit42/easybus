@@ -12,7 +12,6 @@
 
 @interface DeparturesManager : NSObject <NSXMLParserDelegate>
 
-+ (DeparturesManager*) singleton;
 - (NSArray*) getDepartures;
 - (NSArray*) getDeparturesForGroupe:(Favorite*)groupe;
 - (void) refreshDepartures:(NSArray*)favorites;

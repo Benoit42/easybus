@@ -13,8 +13,6 @@
 
 @interface FavoritesNavigationController : UINavigationController
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
 @property(retain, nonatomic) StaticDataManager* staticDataManager;
 @property(retain, nonatomic) FavoritesManager* favoritesManager;
 

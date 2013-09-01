@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DeparturesViewController.h"
 #import "FavoritesManager.h"
+#import "DeparturesManager.h"
+#import "StaticDataManager.h"
+
 
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
 
 @property (nonatomic, retain) FavoritesManager *favoritesManager;
+@property (nonatomic, retain) DeparturesManager *departuresManager;
+@property (nonatomic, retain) StaticDataManager *staticDataManager;
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController;

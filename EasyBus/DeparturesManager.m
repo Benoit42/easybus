@@ -31,18 +31,6 @@
 @implementation DeparturesManager
 @synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate;
 
-#pragma singleton & init
-//instancie le singleton
-+ (DeparturesManager *)singleton
-{
-    static DeparturesManager *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[DeparturesManager alloc] init];
-    });
-    return sharedInstance;
-}
-
 //constructeur
 -(id)init {
     if ( self = [super init] ) {

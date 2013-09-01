@@ -7,8 +7,8 @@
 //
 
 #import "FavoritesManager.h"
-#import "Route.h"
 #import "Stop.h"
+#import "Route+RouteWithAdditions.h"
 
 @interface FavoritesManager()
 
