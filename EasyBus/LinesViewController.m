@@ -68,7 +68,7 @@
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", route.shortName] ofType:@"png"]];
+        UIImage* picto = [staticDataManager pictoForRouteId:route.shortName];
         [cell._picto setImage:picto];
         [cell._libLigne setText:route.longName];
         return cell;

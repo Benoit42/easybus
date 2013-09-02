@@ -141,34 +141,41 @@
     NSArray* groupes = [_favoritesManager groupes];
     STAssertEquals(2U, [groupes count], @"Wrong number of groups");
     
-    //Vérifications du groupe 0
+    //Vérifications du groupe 0 : République -> Acigné
     Favorite* groupe0 = [groupes objectAtIndex:0];
     STAssertEqualObjects(@"1167", groupe0.stop.id, @"Wrong stop id on group 0");
     STAssertEqualObjects(@"Acigné", [groupe0 terminus] , @"Wrong terminus on group 0");
 
     //Vérifications des favoris du groupe 0
-    NSLog(@"stopId : %@, terminus : %@", groupe0.stop.name, groupe0.terminus);
     NSArray* favorites0 = [_favoritesManager favoritesForGroupe:groupe0];
     STAssertEquals(2U, [favorites0 count], @"Wrong number of favorites in group 1");
     Favorite* groupe0Fav0 = [favorites0 objectAtIndex:0];
+    STAssertEqualObjects(@"1167", groupe0Fav0.stop.id, @"Erreur on favorite in group 0");
     STAssertEqualObjects(@"0064", groupe0Fav0.route.id, @"Erreur on favorite in group 0");
-    STAssertEqualObjects(@"4001", groupe0Fav0.stop.id, @"Erreur on favorite in group 0");
-    STAssertEqualObjects(@"0", groupe0Fav0.direction, @"Erreur on favorite in group 0");
+    STAssertEqualObjects(@"Acigné", groupe0Fav0.terminus, @"Erreur on favorite in group 0");
+    Favorite* groupe0Fav1 = [favorites0 objectAtIndex:1];
+    STAssertEqualObjects(@"1167", groupe0Fav1.stop.id, @"Erreur on favorite in group 0");
+    STAssertEqualObjects(@"0164", groupe0Fav1.route.id, @"Erreur on favorite in group 0");
+    STAssertEqualObjects(@"Acigné", groupe0Fav1.terminus, @"Erreur on favorite in group 0");
 
-    //Vérifications du groupe 1
+    //Vérifications du groupe 1 : Timonière -> Rennes
     Favorite* groupe1 = [groupes objectAtIndex:1];
-    NSLog(@"stopId : %@, terminus : %@", groupe1.stop.name, groupe1.terminus);
     STAssertEqualObjects(@"4001", groupe1.stop.id, @"Wrong stop id on group 1");
     STAssertEqualObjects(@"Rennes", [groupe1 terminus] , @"Wrong terminus on group 1");
     
     //Vérifications des favoris du groupe 1
-    NSArray* favorites1 = [_favoritesManager favoritesForGroupe:groupe0];
+    NSArray* favorites1 = [_favoritesManager favoritesForGroupe:groupe1];
     STAssertEquals(2U, [favorites1 count], @"Wrong number of favorites in group 1");
     Favorite* groupe1Fav0 = [favorites1 objectAtIndex:0];
-    STAssertEqualObjects(@"0064", groupe1Fav0.route.id, @"Erreur on favorite in group 1");
     STAssertEqualObjects(@"4001", groupe1Fav0.stop.id, @"Erreur on favorite in group 1");
-    STAssertEqualObjects(@"0", groupe1Fav0.direction, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"0064", groupe1Fav0.route.id, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"Rennes", [groupe1Fav0 terminus] , @"Wrong on favorite in group 1");
+    Favorite* groupe1Fav1 = [favorites1 objectAtIndex:1];
+    STAssertEqualObjects(@"4001", groupe1Fav1.stop.id, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"0164", groupe1Fav1.route.id, @"Erreur on favorite in group 1");
+    STAssertEqualObjects(@"Rennes", [groupe1Fav1 terminus] , @"Wrong on favorite in group 1");
 }
+
 
 - (Route*) routeForId:(NSString*)routeId {
     NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"

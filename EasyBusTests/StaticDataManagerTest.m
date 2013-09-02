@@ -45,7 +45,7 @@
     self.managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
     
     //Tested class
-    self.staticDataManager = [[StaticDataManager alloc] initWithContext:nil andModel:nil];
+    self.staticDataManager = [[StaticDataManager alloc] initWithContext:self.managedObjectContext andModel:self.managedObjectModel];
 }
 
 - (void)tearDown {

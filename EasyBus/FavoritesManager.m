@@ -92,12 +92,11 @@
 }
 
 - (NSArray*) groupes {
-    //retourne la liste des groupes de favoris (stopId+terminus)
+    //retourne la liste des groupes de favoris (stop.name+terminus)
     //Remarque : pour économiser l'écriture d'une classe, on utilise un objet Favori pour représenter un Groupe
-    //Principe : on retourne pour chaque paire stopId/terminus, un seul favori correspondant
+    //Principe : on retourne pour chaque paire stop.name/terminus, un seul favori correspondant
     //Remarque : modèle vraiment pourri :-(
 
-    //Recherche des paires uniques stopId/direction
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Favorite"];
 
     NSError *error = nil;
@@ -107,7 +106,7 @@
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
     
-    //Suppression des doublons stopId/terminus
+    //Suppression des doublons stop.name/terminus
     NSMutableDictionary* groupes = [NSMutableDictionary new];
     for (Favorite* favorite in favorites) {
         [groupes setObject:favorite forKey:[NSString stringWithFormat:@"%@-%@", favorite.stop.name, favorite.terminus]];
@@ -119,7 +118,7 @@
 - (NSArray*) favoritesForGroupe:(Favorite*)groupe {
     //retourne la liste des favoris pour un arrêt et un terminus
     //Remarque : pour économiser l'écriture d'une classe, on utilise un objet Favori pour représenter un Groupe
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop.id == %@ && terminus == %@", groupe.stop.name, groupe.terminus];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop.name == %@ && terminus == %@", groupe.stop.name, groupe.terminus];
     return [[self favorites] filteredArrayUsingPredicate:predicate];
 }
 

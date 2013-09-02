@@ -161,4 +161,8 @@
     return [stops array];
 }
 
+- (UIImage*) pictoForRouteId:(NSString*)routeId {
+    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [routeId intValue]] ofType:@"png"]];
+}
+
 @end

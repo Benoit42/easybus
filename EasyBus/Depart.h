@@ -12,11 +12,12 @@
 
 @property(nonatomic) NSString* _ligne;
 @property(nonatomic) NSString* _arret;
+@property(nonatomic) NSString* _libArret;
 @property(nonatomic) NSString* _direction;
 @property(nonatomic) NSString* _headsign;
 @property(nonatomic) NSDate* _heure;
 @property(nonatomic) NSTimeInterval _delai;
 
-- (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ ;
+- (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ ;
 
 @end

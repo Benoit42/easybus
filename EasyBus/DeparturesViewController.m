@@ -161,7 +161,7 @@
             Depart* depart = [departures objectAtIndex:departureIndex];
         
             //update cell
-            UIImage* picto = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%@", depart._ligne] ofType:@"png"]];
+            UIImage* picto = [staticDataManager pictoForRouteId:depart._ligne];
             [[(DepartureCell*)cell _picto] setImage:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];

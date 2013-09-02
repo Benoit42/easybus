@@ -7,7 +7,6 @@
 //
 
 #import "DeparturesManager.h"
-#import "Favorite.h"
 #import "Route.h"
 #import "Stop.h"
 
@@ -29,7 +28,7 @@
 @end
 
 @implementation DeparturesManager
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate;
+@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
 //constructeur
 -(id)init {
@@ -58,7 +57,7 @@
 }
 
 - (NSArray*) getDeparturesForGroupe:(Favorite*)groupe {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"arret == %@ && direction == %@", groupe.stop.id, groupe.direction];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"libArret == %@ && headsign == %@", groupe.stop.name, groupe.terminus];
     return [_departures filteredArrayUsingPredicate:predicate];
     //retourne la liste des départs
     return _departures;
@@ -99,7 +98,7 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
                                                       cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                  timeoutInterval:15.0];
+                                                  timeoutInterval:60.0];
             NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
             if (theConnection) {
                 // Create the NSMutableData to hold the received data.
@@ -248,8 +247,11 @@
             NSTimeInterval interval = [departureDate timeIntervalSinceDate:currentDate];
             interval = interval <0 ? 0 : interval;
             
+            //Recherche du libellé du départ
+            Stop* stop = [staticDataManager stopForId:_stop];
+            
             //création du départ
-            Depart* depart = [[Depart alloc] initWithName:_route arret:_stop direction:_direction headsign:_headsign delai:interval heure:departureDate];
+            Depart* depart = [[Depart alloc] initWithName:_route arret:_stop libArret:stop.name direction:_direction headsign:_headsign delai:interval heure:departureDate];
             [_freshDepartures addObject:depart];
             
             _refreshDate = [NSDate date];

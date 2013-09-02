@@ -18,7 +18,7 @@
 
 @synthesize _ligne, _arret, _direction, _headsign, _delai, _picto, _heure;
 
-- (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ {
+- (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ {
     self = [super init];
     if (self) {
         self._ligne = ligne_;
