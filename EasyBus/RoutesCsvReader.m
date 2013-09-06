@@ -57,12 +57,6 @@
      hasHeader:YES
      fieldNames:nil];
     [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
-    
-    //Sauvegarde des données
-    if (![_managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
 }
 
 - (void)receiveRecord:(NSDictionary *)aRecord {

@@ -7,6 +7,7 @@
 //
 
 #import "FavoritesManager.h"
+#import "GroupManager.h"
 #import "Stop.h"
 #import "Route+RouteWithAdditions.h"
 
@@ -71,55 +72,26 @@
         newFavorite.route =  route;
         newFavorite.stop = stop;
         newFavorite.direction = direction;
-    
-        NSError *error = nil;
-        if (![_managedObjectContext save:&error]) {
-            //Log
-            NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-        }
+
+        // Also create a new group and assign favorite to it
+        Group* newGroup = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:_managedObjectContext];
+        newGroup.name =  newFavorite.stop.name;
+        newGroup.terminus = newFavorite.terminus;        
+        newFavorite.group = newGroup;
     }
 }
 
 - (void) removeFavorite:(Favorite*)favorite {
+    //Recherche du groupe
+    Group* group = favorite.group;
+    
     //Suppression du favori
     [_managedObjectContext deleteObject:favorite];
-        
-    NSError *error = nil;
-    if (![_managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
-}
-
-- (NSArray*) groupes {
-    //retourne la liste des groupes de favoris (stop.name+terminus)
-    //Remarque : pour économiser l'écriture d'une classe, on utilise un objet Favori pour représenter un Groupe
-    //Principe : on retourne pour chaque paire stop.name/terminus, un seul favori correspondant
-    //Remarque : modèle vraiment pourri :-(
-
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Favorite"];
-
-    NSError *error = nil;
-    NSArray * favorites = [_managedObjectContext executeFetchRequest:request error:&error];
-    if (favorites == nil) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
     
-    //Suppression des doublons stop.name/terminus
-    NSMutableDictionary* groupes = [NSMutableDictionary new];
-    for (Favorite* favorite in favorites) {
-        [groupes setObject:favorite forKey:[NSString stringWithFormat:@"%@-%@", favorite.stop.name, favorite.terminus]];
+    //Suppression du groupe s'il est vide
+    if ([group.favorites count] == 0) {
+        [_managedObjectContext deleteObject:group];
     }
-    
-    return [groupes allValues];
-}
-
-- (NSArray*) favoritesForGroupe:(Favorite*)groupe {
-    //retourne la liste des favoris pour un arrêt et un terminus
-    //Remarque : pour économiser l'écriture d'une classe, on utilise un objet Favori pour représenter un Groupe
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop.name == %@ && terminus == %@", groupe.stop.name, groupe.terminus];
-    return [[self favorites] filteredArrayUsingPredicate:predicate];
 }
 
 #pragma manage notifications

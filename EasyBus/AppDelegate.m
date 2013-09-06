@@ -14,9 +14,9 @@
 
 @interface AppDelegate()
 
-@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, retain) NSManagedObjectModel* managedObjectModel;
+@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, retain) NSPersistentStoreCoordinator* persistentStoreCoordinator;
 
 @end
 
@@ -26,11 +26,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //Instanciation du contexte
-    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-
+    self.managedObjectModel = [self getManagedObjectModel];
+    self.managedObjectContext = [self getManagedObjectContext];
+    
+    //Instanciation du Controleur racine
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+    MainViewController *rootViewController = (MainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"MainViewController"];
+    self.window.rootViewController = rootViewController;
+    
     //Initialisation du controleur racine
-    MainViewController* rootViewController = (MainViewController*) self.window.rootViewController;
-    rootViewController.managedObjectContext = [self getManagedObjectContext];
+    rootViewController.managedObjectContext = self.managedObjectContext;
+    rootViewController.favoritesManager = [[FavoritesManager alloc] initWithContext:self.managedObjectContext];
+    rootViewController.groupManager = [[GroupManager alloc] initWithContext:self.managedObjectContext];
+    rootViewController.staticDataManager = [[StaticDataManager alloc] initWithContext:self.managedObjectContext];
+    rootViewController.departuresManager = [[DeparturesManager alloc] initWithStaticDataManager:rootViewController.staticDataManager];
     
     return YES;
 }
@@ -45,6 +54,14 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -109,7 +126,8 @@
     if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors de l'initialisation" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [[NSFileManager defaultManager] removeItemAtURL:storeUrl error:NULL];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement, effacement des données" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
     }
 	
@@ -130,4 +148,5 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     //TODO : voir ce que l'on fait en cas d'erreur à l'init
 }
+
 @end

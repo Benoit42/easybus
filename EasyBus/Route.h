@@ -2,7 +2,7 @@
 //  Route.h
 //  EasyBus
 //
-//  Created by Benoit on 26/06/13.
+//  Created by Benoit on 04/09/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
@@ -18,22 +18,12 @@
 @property (nonatomic, retain) NSString * longName;
 @property (nonatomic, retain) NSString * shortName;
 @property (nonatomic, retain) NSString * toName;
-@property (nonatomic, retain) NSOrderedSet *stopsDirectionZero;
 @property (nonatomic, retain) NSOrderedSet *stopsDirectionOne;
+@property (nonatomic, retain) NSOrderedSet *stopsDirectionZero;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Stop *)value inStopsDirectionZeroAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromStopsDirectionZeroAtIndex:(NSUInteger)idx;
-- (void)insertStopsDirectionZero:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInStopsDirectionZeroAtIndex:(NSUInteger)idx withObject:(Stop *)value;
-- (void)replaceStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes withStopsDirectionZero:(NSArray *)values;
-- (void)addStopsDirectionZeroObject:(Stop *)value;
-- (void)removeStopsDirectionZeroObject:(Stop *)value;
-- (void)addStopsDirectionZero:(NSOrderedSet *)values;
-- (void)removeStopsDirectionZero:(NSOrderedSet *)values;
 - (void)insertObject:(Stop *)value inStopsDirectionOneAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromStopsDirectionOneAtIndex:(NSUInteger)idx;
 - (void)insertStopsDirectionOne:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
@@ -44,4 +34,14 @@
 - (void)removeStopsDirectionOneObject:(Stop *)value;
 - (void)addStopsDirectionOne:(NSOrderedSet *)values;
 - (void)removeStopsDirectionOne:(NSOrderedSet *)values;
+- (void)insertObject:(Stop *)value inStopsDirectionZeroAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromStopsDirectionZeroAtIndex:(NSUInteger)idx;
+- (void)insertStopsDirectionZero:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInStopsDirectionZeroAtIndex:(NSUInteger)idx withObject:(Stop *)value;
+- (void)replaceStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes withStopsDirectionZero:(NSArray *)values;
+- (void)addStopsDirectionZeroObject:(Stop *)value;
+- (void)removeStopsDirectionZeroObject:(Stop *)value;
+- (void)addStopsDirectionZero:(NSOrderedSet *)values;
+- (void)removeStopsDirectionZero:(NSOrderedSet *)values;
 @end

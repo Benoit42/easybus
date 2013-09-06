@@ -27,7 +27,7 @@
 @synthesize managedObjectModel, managedObjectContext;
 
 #pragma mark init method
-- (id)initWithContext:(NSManagedObjectContext*)context andModel:(NSManagedObjectModel*)model {
+- (id)initWithContext:(NSManagedObjectContext*)context {
     if ( self = [super init] ) {
         //initialisation des membres
         self.managedObjectContext = context;
@@ -37,10 +37,6 @@
         _routesStopsCsvReader = [[RoutesStopsCsvReader alloc] initWithContext:self.managedObjectContext];
     }
     
-    if ([[self routes] count] == 0) {
-        [self reloadDatabase];
-    }
-
     return self;
 }
 
@@ -64,14 +60,6 @@
     [_routesCsvReader loadData];
     [_stopsCsvReader loadData];
     [_routesStopsCsvReader loadData];
-    
-    //save data
-    error = nil;
-    if (![[self managedObjectContext] save:&error]) {
-        //Log
-        NSLog(@"Database error while saving - %@ %@", [error description], [error debugDescription]);
-    }
-
 }
 
 #pragma mark Business methods

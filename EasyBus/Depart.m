@@ -16,17 +16,16 @@
 
 @implementation Depart
 
-@synthesize _ligne, _arret, _direction, _headsign, _delai, _picto, _heure;
+@synthesize route, stop, _direction, _delai, _heure;
 
-- (id)initWithName:(NSString*)ligne_ arret:(NSString*)arret_ libArret:(NSString*)libArret_ direction:(NSString*)direction_ headsign:(NSString*)headsign_ delai:(NSTimeInterval)delai_ heure:(NSDate*)heure_ {
+- (id)initWithRoute:(Route*)route_ stop:(Stop*)stop_ direction:(NSString*)direction delai:(NSTimeInterval)delai heure:(NSDate*)heure {
     self = [super init];
     if (self) {
-        self._ligne = ligne_;
-        self._arret = arret_;
-        self._direction = direction_;
-        self._headsign = headsign_;
-        self._delai = delai_;
-        self._heure = heure_;
+        self.route = route_;
+        self.stop = stop_;
+        self._direction = direction;
+        self._delai = delai;
+        self._heure = heure;
     }
     return self;
 }

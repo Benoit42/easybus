@@ -2,7 +2,7 @@
 //  Route.m
 //  EasyBus
 //
-//  Created by Benoit on 26/06/13.
+//  Created by Benoit on 04/09/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @dynamic longName;
 @dynamic shortName;
 @dynamic toName;
-@dynamic stopsDirectionZero;
 @dynamic stopsDirectionOne;
+@dynamic stopsDirectionZero;
 
 @end

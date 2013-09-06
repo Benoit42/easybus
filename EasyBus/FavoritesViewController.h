@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "FavoritesManager.h"
+#import "GroupManager.h"
 #import "StaticDataManager.h"
 
 @interface FavoritesViewController : UITableViewController
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
 @property(retain, nonatomic) StaticDataManager* staticDataManager;
 @property(retain, nonatomic) FavoritesManager* favoritesManager;
+@property (nonatomic, retain) GroupManager* groupManager;
 
 @end

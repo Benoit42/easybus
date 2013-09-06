@@ -16,7 +16,7 @@
 
 @implementation PageViewControllerDatasource
 
-@synthesize _departuresViewControlers, favoritesManager, departuresManager, staticDataManager;
+@synthesize _departuresViewControlers, favoritesManager, groupManager, departuresManager, staticDataManager;
 
 -(id)init {
     if ( self = [super init] ) {
@@ -28,14 +28,14 @@
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
     // Return the data view controller for the given index.
-    int groupesCount = [[favoritesManager groupes] count];
+    int groupesCount = [[groupManager groups] count];
     if (groupesCount == 0 || (index >= groupesCount)) {
         return nil;
     }
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
-    if (index < [[favoritesManager groupes] count]) {
+    if (index < [[groupManager groups] count]) {
         if (index < [_departuresViewControlers count]) {
             //Le view controler existe déjà
             viewController = [_departuresViewControlers objectAtIndex:index];
@@ -48,6 +48,7 @@
             ((DeparturesViewController*)viewController).favoritesManager = self.favoritesManager;
             ((DeparturesViewController*)viewController).departuresManager = self.departuresManager;
             ((DeparturesViewController*)viewController).staticDataManager = self.staticDataManager;
+            ((DeparturesViewController*)viewController).groupManager = self.groupManager;
             [_departuresViewControlers insertObject:viewController atIndex:index];
         }
     }
@@ -81,14 +82,14 @@
     }
     
     index++;
-    if (index == [[favoritesManager groupes] count]) {
+    if (index == [[groupManager groups] count]) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return [[favoritesManager groupes] count];
+    return [[groupManager groups] count];
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {

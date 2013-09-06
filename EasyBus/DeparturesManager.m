@@ -7,8 +7,9 @@
 //
 
 #import "DeparturesManager.h"
-#import "Route.h"
+#import "Route+RouteWithAdditions.h"
 #import "Stop.h"
+#import "Favorite+FavoriteWithAdditions.h"
 
 @interface DeparturesManager()
 @property (strong, nonatomic) NSMutableArray* _departures;
@@ -31,8 +32,10 @@
 @synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
 //constructeur
--(id)init {
+-(id)initWithStaticDataManager:(StaticDataManager*)staticDataManager_ {
     if ( self = [super init] ) {
+        self.staticDataManager = staticDataManager_;
+        
         _departures = [NSMutableArray new];
         _freshDepartures = [NSMutableArray new];
 
@@ -56,11 +59,18 @@
     return _departures;
 }
 
-- (NSArray*) getDeparturesForGroupe:(Favorite*)groupe {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"libArret == %@ && headsign == %@", groupe.stop.name, groupe.terminus];
-    return [_departures filteredArrayUsingPredicate:predicate];
+- (NSArray*) getDeparturesForGroupe:(Group*)groupe {
+    NSMutableArray* departures = [[NSMutableArray alloc] init];
+    NSOrderedSet* favorites = groupe.favorites;
+    [favorites enumerateObjectsUsingBlock:^(Favorite* favorite, NSUInteger idx, BOOL *stop)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop.name == %@ && route.id == %@ && _direction == %@", favorite.stop.name, favorite.route.id, favorite.direction];
+        NSArray* partialResult = [_departures filteredArrayUsingPredicate:predicate];
+        [departures addObjectsFromArray:partialResult];
+    }];
+
     //retourne la liste des départs
-    return _departures;
+    return departures;
 }
 
 #pragma call keolis and parse XML response
@@ -247,11 +257,12 @@
             NSTimeInterval interval = [departureDate timeIntervalSinceDate:currentDate];
             interval = interval <0 ? 0 : interval;
             
-            //Recherche du libellé du départ
-            Stop* stop = [staticDataManager stopForId:_stop];
+            //Recherche de la route et de l'arrêt
+            Route* route = [self.staticDataManager routeForId:_route];
+            Stop* stop = [self.staticDataManager stopForId:_stop];
             
             //création du départ
-            Depart* depart = [[Depart alloc] initWithName:_route arret:_stop libArret:stop.name direction:_direction headsign:_headsign delai:interval heure:departureDate];
+            Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:_direction delai:interval heure:departureDate];
             [_freshDepartures addObject:depart];
             
             _refreshDate = [NSDate date];

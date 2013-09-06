@@ -17,7 +17,7 @@
 
 @implementation FavoritesViewController
 
-@synthesize managedObjectContext, favoritesManager;
+@synthesize favoritesManager, staticDataManager, groupManager;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -34,6 +34,7 @@
     // Initialize data
     self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
     self.favoritesManager = ((FavoritesNavigationController*)self.navigationController).favoritesManager;
+    self.groupManager = ((FavoritesNavigationController*)self.navigationController).groupManager;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -50,19 +51,32 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    NSUInteger count = [[self.groupManager groups] count];
+    return [[self.groupManager groups] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[self.favoritesManager favorites] count];
+    Group* group = [[self.groupManager groups] objectAtIndex:section];
+    return [group.favorites count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section < [[self.groupManager groups] count]) {
+        Group* group = [[self.groupManager groups] objectAtIndex:section];
+        
+        //add departure
+        return [NSString stringWithFormat:@"%@ vers %@", group.name, group.terminus];
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Get favorites
-    NSArray* favorites = [self.favoritesManager favorites];
+    Group* group = [[self.groupManager groups] objectAtIndex:indexPath.section];
+    NSOrderedSet* favorites = group.favorites;
     
     //get departure section
     if (indexPath.row < favorites.count) {
@@ -120,7 +134,7 @@
 }
 
 - (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
-    // Save the favorite
+    //Create the favorite
     Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
     Stop* stop = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteStop;
     NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;

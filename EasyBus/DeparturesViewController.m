@@ -8,12 +8,9 @@
 
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
-#import "FavoritesViewController.h"
-#import "FavoritesManager.h"
-#import "DeparturesManager.h"
+#import "FavoritesNavigationController.h"
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
-#import "StaticDataManager.h"
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
 
@@ -27,7 +24,7 @@
 
 @implementation DeparturesViewController
 
-@synthesize favoritesManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
+@synthesize favoritesManager, groupManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
@@ -63,11 +60,11 @@
     [super viewWillAppear:animated];
 
     //update header
-    NSArray* groupes = [self.favoritesManager groupes];
+    NSArray* groupes = [self.groupManager groups];
     if (page < [groupes count]) {
-        Favorite* groupe = [groupes objectAtIndex:page];
-        [_arret setText: groupe.stop.name];
-        [_direction setText:[groupe.route terminusForDirection:groupe.direction]];
+        Group* groupe = [groupes objectAtIndex:page];
+        [_arret setText: groupe.name];
+        [_direction setText:groupe.terminus];
     }
     
     //update footer
@@ -134,7 +131,7 @@
 {
     // Return the number of rows in the section plus header and footer
     // always header + footer + iphone5->5, other->4
-    NSArray* groupes = [self.favoritesManager groupes];
+    NSArray* groupes = [self.groupManager groups];
     if (page < [groupes count]) {
         return _maxRows;
     }
@@ -149,7 +146,7 @@
     UITableViewCell* cell;
 
     //get departures
-    Favorite* groupe = [[self.favoritesManager groupes] objectAtIndex:page];
+    Group* groupe = [[self.groupManager groups] objectAtIndex:page];
     NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
     if (indexPath.row < [departures count] ){
         // departure row
@@ -161,7 +158,7 @@
             Depart* depart = [departures objectAtIndex:departureIndex];
         
             //update cell
-            UIImage* picto = [staticDataManager pictoForRouteId:depart._ligne];
+            UIImage* picto = [staticDataManager pictoForRouteId:depart.route.id];
             [[(DepartureCell*)cell _picto] setImage:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
@@ -183,9 +180,10 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"addFavorite"]) {
-        FavoritesViewController* controller = (FavoritesViewController*)[segue destinationViewController];
+        FavoritesNavigationController* controller = (FavoritesNavigationController*)[segue destinationViewController];
         controller.favoritesManager = self.favoritesManager;
         controller.staticDataManager = self.staticDataManager;
+        controller.groupManager = self.groupManager;
     }
 }
 

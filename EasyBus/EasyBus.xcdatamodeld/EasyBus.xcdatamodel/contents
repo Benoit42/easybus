@@ -2,8 +2,14 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Favorite" representedClassName="Favorite" syncable="YES">
         <attribute name="direction" attributeType="String" syncable="YES"/>
+        <relationship name="group" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="favorites" inverseEntity="Group" syncable="YES"/>
         <relationship name="route" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" syncable="YES"/>
         <relationship name="stop" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stop" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="terminus" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Favorite" inverseName="group" inverseEntity="Favorite" syncable="YES"/>
     </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
         <attribute name="fromName" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,13 +31,16 @@
         <relationship name="routesDirectionsZero" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Route" inverseName="stopsDirectionZero" inverseEntity="Route" syncable="YES"/>
     </entity>
     <fetchRequest name="fetchAllFavorites" entity="Favorite"/>
+    <fetchRequest name="fetchAllGroups" entity="Group"/>
     <fetchRequest name="fetchAllRoutes" entity="Route"/>
     <fetchRequest name="fetchAllStops" entity="Stop"/>
+    <fetchRequest name="FetchGroupWithNameAndTerminus" entity="Group" predicateString="name == &quot;name == $name and terminus == $terminus&quot;"/>
     <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
     <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
     <elements>
-        <element name="Favorite" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Favorite" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Route" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Stop" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Group" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

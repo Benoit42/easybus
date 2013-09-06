@@ -10,7 +10,6 @@
 #import "PageViewControllerDatasource.h"
 #import "DeparturesViewController.h"
 #import "FavoritesNavigationController.h"
-#import "FavoritesManager.h"
 #import "LocationManager.h"
 #import "Stop.h"
 
@@ -22,7 +21,7 @@
 
 @implementation PageViewController
 
-@synthesize favoritesManager, departuresManager, locationManager, staticDataManager;
+@synthesize favoritesManager, groupManager, departuresManager, locationManager, staticDataManager;
 @synthesize _datasource;
 
 #pragma mark - lifecycle
@@ -31,12 +30,11 @@
     
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    self.departuresManager = [[DeparturesManager alloc] init];
-    
     _datasource = [[PageViewControllerDatasource alloc] init];
     _datasource.favoritesManager = self.favoritesManager;
     _datasource.departuresManager = self.departuresManager;
     _datasource.staticDataManager = self.staticDataManager;
+    _datasource.groupManager = self.groupManager;
 
     //Set delegate and datasource
     self.delegate = self;
@@ -44,7 +42,9 @@
     DeparturesViewController *startingViewController = [_datasource viewControllerAtIndex:0 storyboard:self.storyboard];
     startingViewController.departuresManager = self.departuresManager;
     startingViewController.favoritesManager = self.favoritesManager;
-
+    startingViewController.groupManager = self.groupManager;
+    startingViewController.staticDataManager = self.staticDataManager;
+ 
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 
     //Init LocationManager
@@ -104,12 +104,13 @@
     CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
-    NSArray* groupes = [favoritesManager groupes];
+    NSArray* groupes = [groupManager groups];
     double minDistance = MAXFLOAT;
     int index = -1;
     for (int i=0; i<[groupes count]; i++) {
-        Favorite* groupe = [groupes objectAtIndex:i];
-        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[groupe.stop.latitude doubleValue] longitude:[groupe.stop.longitude doubleValue]];
+        Group* groupe = [groupes objectAtIndex:i];
+        Favorite* firstFavorite = [[groupe favorites] objectAtIndex:0];
+        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[firstFavorite.stop.latitude doubleValue] longitude:[firstFavorite.stop.longitude doubleValue]];
         CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
         if (currentDistance < minDistance) {
             index = i;

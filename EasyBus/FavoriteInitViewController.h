@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "FavoritesManager.h"
+#import "GroupManager.h"
 #import "StaticDataManager.h"
 
 @interface FavoriteInitViewController : UIViewController
 
 @property (nonatomic, retain) StaticDataManager* staticDataManager;
 @property (nonatomic, retain) FavoritesManager* favoritesManager;
+@property (nonatomic, retain) GroupManager* groupManager;
 
 @end

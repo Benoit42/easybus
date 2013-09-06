@@ -15,7 +15,8 @@
 @property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-- (id)initWithContext:(NSManagedObjectContext*)context andModel:(NSManagedObjectModel*)model;
+- (id)initWithContext:(NSManagedObjectContext*)context;
+
 - (NSArray*) routes;
 - (Route*) routeForId:(NSString*)routeId;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;

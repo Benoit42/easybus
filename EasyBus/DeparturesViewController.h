@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "FavoritesManager.h"
+#import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataManager.h"
 
 @interface DeparturesViewController : UITableViewController
 
 @property(strong, nonatomic) FavoritesManager* favoritesManager;
+@property(strong, nonatomic) GroupManager* groupManager;
 @property(strong, nonatomic) DeparturesManager* departuresManager;
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
 

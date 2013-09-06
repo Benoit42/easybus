@@ -14,7 +14,7 @@
 
 @implementation MainViewController
 
-@synthesize managedObjectContext, favoritesManager, departuresManager, staticDataManager;
+@synthesize managedObjectContext, favoritesManager, groupManager, departuresManager, staticDataManager;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -25,12 +25,6 @@
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Init data
-    self.favoritesManager = [[FavoritesManager alloc] initWithContext:self.managedObjectContext];
-    self.departuresManager = [[DeparturesManager alloc] init];
-    NSManagedObjectModel* managedObjectModel = [self.managedObjectContext persistentStoreCoordinator].managedObjectModel;
-    self.staticDataManager = [[StaticDataManager alloc] initWithContext:self.managedObjectContext andModel:managedObjectModel];
 }
 
 #pragma mark - affichage
@@ -40,6 +34,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    //Check des données statiques
+    if ([[self.staticDataManager routes] count] == 0) {
+        [self.staticDataManager reloadDatabase];
+    }
     
     //Check des favoris
     NSArray* favorites = [favoritesManager favorites];
@@ -59,10 +58,12 @@
     if ([[segue identifier] isEqualToString:@"initFavorite"]) {
         ((FavoriteInitViewController*)controller).staticDataManager = self.staticDataManager;
         ((FavoriteInitViewController*)controller).favoritesManager = self.favoritesManager;
+        ((FavoriteInitViewController*)controller).groupManager = self.groupManager;
     }
     else if ([[segue identifier] isEqualToString:@"showDepartures"]) {
         ((PageViewController*)controller).staticDataManager = self.staticDataManager;
         ((PageViewController*)controller).favoritesManager = self.favoritesManager;
+        ((PageViewController*)controller).groupManager = self.groupManager;
         ((PageViewController*)controller).departuresManager = self.departuresManager;
     }
 }

@@ -8,6 +8,7 @@
 
 #import "LinesViewController.h"
 #import "FavoritesManager.h"
+#import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataManager.h"
 
@@ -16,6 +17,7 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) FavoritesManager *favoritesManager;
+@property (nonatomic, retain) GroupManager *groupManager;
 @property (nonatomic, retain) DeparturesManager *departuresManager;
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
 

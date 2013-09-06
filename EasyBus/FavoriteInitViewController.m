@@ -15,7 +15,7 @@
 
 @implementation FavoriteInitViewController
 
-@synthesize favoritesManager, staticDataManager;
+@synthesize favoritesManager, groupManager, staticDataManager;
 
 - (void)viewDidLoad
 {
@@ -38,6 +38,7 @@
         FavoritesNavigationController* destinationViewController = (FavoritesNavigationController*)[segue destinationViewController];
         destinationViewController.staticDataManager = self.staticDataManager;
         destinationViewController.favoritesManager = self.favoritesManager;
+        destinationViewController.groupManager= self.groupManager;
     }
 }
 

@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Favorite+FavoriteWithAdditions.h"
+#import "Group.h"
 
-@interface FavoritesManager : NSObject
+@interface GroupManager : NSObject
 
 - (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
 
-- (NSArray*) favorites;
-- (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
-- (void) removeFavorite:(Favorite*)favorite;
+- (NSArray*) groups;
+- (void) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus;
+- (void) removeGroup:(Group*)group;
 
 @end
