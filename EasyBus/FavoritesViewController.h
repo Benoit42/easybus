@@ -15,6 +15,9 @@
 
 @property(retain, nonatomic) StaticDataManager* staticDataManager;
 @property(retain, nonatomic) FavoritesManager* favoritesManager;
+@property(retain, nonatomic) NSNumber* editing;
 @property (nonatomic, retain) GroupManager* groupManager;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
 
 @end

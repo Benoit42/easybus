@@ -52,8 +52,7 @@
 }
 
 #pragma mark - Segues
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController* controller = [segue destinationViewController];
     if ([[segue identifier] isEqualToString:@"initFavorite"]) {
         ((FavoriteInitViewController*)controller).staticDataManager = self.staticDataManager;

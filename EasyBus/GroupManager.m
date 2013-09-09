@@ -28,8 +28,10 @@
 
 #pragma manage groupes
 - (NSArray*) groups {
-    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
-    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllGroups"];
+    //    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    //    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllGroups"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];

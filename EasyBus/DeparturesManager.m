@@ -69,8 +69,15 @@
         [departures addObjectsFromArray:partialResult];
     }];
 
+    //tri
+    NSArray *sortedDepartures = [departures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSTimeInterval first = [(Depart*)a _delai];
+        NSTimeInterval second = [(Depart*)b _delai];
+        return first > second;
+    }];
+
     //retourne la liste des départs
-    return departures;
+    return sortedDepartures;
 }
 
 #pragma call keolis and parse XML response

@@ -17,7 +17,7 @@
 
 @implementation FavoritesViewController
 
-@synthesize favoritesManager, staticDataManager, groupManager;
+@synthesize favoritesManager, staticDataManager, groupManager, addButton, editing;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -35,6 +35,7 @@
     self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
     self.favoritesManager = ((FavoritesNavigationController*)self.navigationController).favoritesManager;
     self.groupManager = ((FavoritesNavigationController*)self.navigationController).groupManager;
+    self.editing = [NSNumber numberWithBool:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -45,6 +46,13 @@
     if ([favorites count] == 0) {
         [self performSegueWithIdentifier: @"chooseLine" sender: self];
     }
+    else {
+        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(handleLongPress:)];
+        lpgr.minimumPressDuration = 1.0; //seconds
+        lpgr.delegate = self;
+        [self.tableView addGestureRecognizer:lpgr];
+    }
 }
 
 #pragma mark - Table view data source
@@ -52,14 +60,15 @@
 {
     // Return the number of sections.
     NSUInteger count = [[self.groupManager groups] count];
-    return [[self.groupManager groups] count];
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     Group* group = [[self.groupManager groups] objectAtIndex:section];
-    return [group.favorites count];
+    NSUInteger count = [group.favorites count];
+    return count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -67,7 +76,7 @@
         Group* group = [[self.groupManager groups] objectAtIndex:section];
         
         //add departure
-        return [NSString stringWithFormat:@"%@ vers %@", group.name, group.terminus];
+        return [NSString stringWithFormat:@"vers %@", group.terminus];
     }
     return nil;
 }
@@ -101,36 +110,74 @@
     // If row is deleted, remove it from the list.
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        //begin editing update
+        [self.tableView beginUpdates];
+        
         // delete your data item here
-        NSArray* favorites = [self.favoritesManager favorites];
-        Favorite* favorite = [favorites objectAtIndex:indexPath.row];
+        Group* group = [[self.groupManager groups] objectAtIndex:indexPath.section];
+        Favorite* favorite = [[group favorites] objectAtIndex:indexPath.row];
         [self.favoritesManager removeFavorite:favorite];
 
-        // Animate the deletion from the table.
+        // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (group.favorites.count == 0) {
+            NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
+            [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+        }
 
+        //end editing update
+        [self.tableView endUpdates];
     }
 }
 
-- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation {
-    //Get favorites
-    NSArray* favorites = [self.favoritesManager favorites];
-    NSMutableArray* favoritesToDelete = [NSMutableArray new];
-    
-    //Remove deleted favorites
-    for (NSIndexPath* indexPath in indexPaths) {
-        //get the favorite
-        Favorite* favorite = [favorites objectAtIndex:indexPath.row];
-        [favoritesToDelete addObject:favorite];
-    }
-    for (Favorite* favorite in favoritesToDelete) {
-        //delete the favorite
-        [self.favoritesManager removeFavorite:favorite];
-    }
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
-    //Refresh table (not necessary
-    [((UITableView*)self.view) reloadData];
-    return;
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    //Get source group
+    Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
+    
+    //Get favorite
+    Favorite* favorite = [[sourceGroup favorites] objectAtIndex:sourceIndexPath.row];
+
+    //Get destination group
+    Group* destinationGroup = [[self.groupManager groups] objectAtIndex:destinationIndexPath.section];
+
+    //Move favorite
+    [favoritesManager moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+    if (sourceGroup.favorites.count == 0) {
+        NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(sourceIndexPath.section, 1)];
+        [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
+    [self.tableView setEditing:YES animated:YES];
+    [addButton setTitle:@"Fin"];
+    self.editing = [NSNumber numberWithBool:TRUE];
+}
+
+- (IBAction)addButtonPressed:(id)sender {
+    if (self.editing.boolValue == TRUE) {
+        [self.tableView setEditing:NO animated:YES];
+        [addButton setTitle:@"+"];
+        self.editing = [NSNumber numberWithBool:FALSE];
+    }
+}
+
+#pragma mark - Segues
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"chooseLine"]) {
+        if (self.editing.boolValue == YES) {
+            [self.tableView setEditing:NO animated:YES];
+            [addButton setTitle:@"+"];
+            self.editing = [NSNumber numberWithBool:NO];
+            return FALSE;
+        }
+    }
+    
+    return TRUE;
 }
 
 - (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {

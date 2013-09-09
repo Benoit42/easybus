@@ -10,32 +10,33 @@
 #import "GroupManager.h"
 #import "Stop.h"
 #import "Route+RouteWithAdditions.h"
+#import "Group+GroupeWithAdditions.h"
 
 @interface FavoritesManager()
 
-@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end
 
 @implementation FavoritesManager
 
-@synthesize _managedObjectContext;
+@synthesize managedObjectContext;
 
 //constructeur
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext {
+- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext_ {
     if ( self = [super init] ) {
-        _managedObjectContext = managedObjectContext;
+        self.managedObjectContext = managedObjectContext_;
     }
     return self;
 }
 
 #pragma manage favorites
 - (NSArray*) favorites {
-    NSManagedObjectModel *managedObjectModel = [[_managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllFavorites"];
-    
+
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[_managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
@@ -54,7 +55,7 @@
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"route.id" ascending:YES]];
 
     NSError *error = nil;
-    NSMutableArray *result = [[_managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *result = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if ([result count] > 0) {
         //Should be 0 or 1 item
         return [result objectAtIndex:0];
@@ -68,29 +69,40 @@
     
     if (existing == nil) {
         // Create and configure a new instance of the Favorite entity.
-        Favorite* newFavorite = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:_managedObjectContext];
+        Favorite* newFavorite = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
         newFavorite.route =  route;
         newFavorite.stop = stop;
         newFavorite.direction = direction;
 
         // Also create a new group and assign favorite to it
-        Group* newGroup = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:_managedObjectContext];
+        Group* newGroup = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
         newGroup.name =  newFavorite.stop.name;
         newGroup.terminus = newFavorite.terminus;        
-        newFavorite.group = newGroup;
+        [newGroup addFavoritesObject:newFavorite];
     }
 }
 
 - (void) removeFavorite:(Favorite*)favorite {
     //Recherche du groupe
     Group* group = favorite.group;
+    [group removeFavoritesObject:favorite];
     
     //Suppression du favori
-    [_managedObjectContext deleteObject:favorite];
+    [self.managedObjectContext deleteObject:favorite];
     
     //Suppression du groupe s'il est vide
     if ([group.favorites count] == 0) {
-        [_managedObjectContext deleteObject:group];
+        [self.managedObjectContext deleteObject:group];
+    }
+}
+
+- (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {
+    [sourceGroup removeFavoritesObject:favorite];
+    [destinationGroup insertObject:favorite inFavoritesAtIndex:index];
+    
+    //Suppression du groupe s'il est vide
+    if ([sourceGroup.favorites count] == 0) {
+        [self.managedObjectContext deleteObject:sourceGroup];
     }
 }
 

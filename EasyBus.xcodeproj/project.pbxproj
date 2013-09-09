@@ -354,6 +354,7 @@
 		14776DF917427B54008C7E2E /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DE117427B54008C7E2E /* trips.txt */; };
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
+		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
 		149DEFF11638214E002D9D79 /* CSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423424D1635B8C70095073C /* CSVParser.m */; };
 		149DEFF216382151002D9D79 /* CSVParser.h in Sources */ = {isa = PBXBuildFile; fileRef = 1423424C1635B8C70095073C /* CSVParser.h */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
@@ -764,6 +765,8 @@
 		14776DE117427B54008C7E2E /* trips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trips.txt; sourceTree = "<group>"; };
 		147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarRefresh.png; sourceTree = "<group>"; };
 		147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarRefresh@2x.png"; sourceTree = "<group>"; };
+		1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+GroupeWithAdditions.h"; sourceTree = "<group>"; };
+		1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+GroupeWithAdditions.m"; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
 		14A540FE17773E0700E18262 /* StaticDataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataManagerTest.m; sourceTree = "<group>"; };
 		14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataLoader.h; sourceTree = "<group>"; };
@@ -1335,6 +1338,8 @@
 				1475CA0017D7A0EF001323B7 /* Stop.m */,
 				1475CA0217D7A0EF001323B7 /* Group.h */,
 				1475CA0317D7A0EF001323B7 /* Group.m */,
+				1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */,
+				1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */,
 				14B1F88B17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.h */,
 				14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
@@ -1925,6 +1930,7 @@
 				1475C9FE17D7A0EF001323B7 /* Route.m in Sources */,
 				1475CA0117D7A0EF001323B7 /* Stop.m in Sources */,
 				1475CA0417D7A0EF001323B7 /* Group.m in Sources */,
+				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
