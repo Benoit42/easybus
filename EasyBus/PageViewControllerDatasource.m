@@ -89,7 +89,8 @@
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return [[groupManager groups] count];
+    int count = [[groupManager groups] count];
+    return count;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {

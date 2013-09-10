@@ -135,6 +135,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    //begin editing update
+    [self.tableView beginUpdates];
+
     //Get source group
     Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
     
@@ -150,6 +153,9 @@
         NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(sourceIndexPath.section, 1)];
         [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
     }
+
+    //end editing update
+    [self.tableView endUpdates];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
