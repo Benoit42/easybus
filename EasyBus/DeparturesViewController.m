@@ -19,19 +19,20 @@
 @property(nonatomic) NSDateFormatter* _timeIntervalFormatter;
 @property(nonatomic) NSUInteger _maxRows;
 @property(nonatomic) NSDate* _lastRefresh;
+@property(nonatomic) BOOL _refreshing;
 
 @end
 
 @implementation DeparturesViewController
 
-@synthesize favoritesManager, groupManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _arret, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh;
+@synthesize favoritesManager, groupManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh, _refreshing;
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Instanciates des data
-    
+    _refreshing = FALSE;
     _timeIntervalFormatter = [[NSDateFormatter alloc] init];
     _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     _timeIntervalFormatter.dateFormat = @"HH:mm";
@@ -63,7 +64,6 @@
     NSArray* groupes = [self.groupManager groups];
     if (page < [groupes count]) {
         Group* groupe = [groupes objectAtIndex:page];
-        [_arret setText: groupe.name];
         [_direction setText:groupe.terminus];
     }
     
@@ -71,7 +71,7 @@
     NSDate* refreshDate = [self.departuresManager _refreshDate];
     if (refreshDate) {
         NSString* maj = [_timeIntervalFormatter stringFromDate:refreshDate];
-        [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+        [_info setText:self._refreshing?@"":[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
     }
     
     //Compute refresh delay
@@ -96,6 +96,7 @@
     [_reloadButton setHidden:FALSE];
 
     //message
+    _refreshing = FALSE;
     [_info setText:@"erreur lors de la mise à jour des départs"];
 }
 
@@ -105,6 +106,7 @@
     [_activityIndicator startAnimating];
     
     //message
+    _refreshing = TRUE;
     [_info setText:@""];
 }
 

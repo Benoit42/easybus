@@ -44,12 +44,8 @@
     startingViewController.favoritesManager = self.favoritesManager;
     startingViewController.groupManager = self.groupManager;
     startingViewController.staticDataManager = self.staticDataManager;
- 
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 
-    //Init LocationManager
-    locationManager = [[LocationManager alloc] init];
-    
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];

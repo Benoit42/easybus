@@ -88,22 +88,12 @@
     [group removeFavoritesObject:favorite];
     
     //Suppression du favori
-    [self.managedObjectContext deleteObject:favorite];
-    
-    //Suppression du groupe s'il est vide
-    if ([group.favorites count] == 0) {
-        [self.managedObjectContext deleteObject:group];
-    }
+    [self.managedObjectContext deleteObject:favorite];    
 }
 
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {
     [sourceGroup removeFavoritesObject:favorite];
     [destinationGroup insertObject:favorite inFavoritesAtIndex:index];
-    
-    //Suppression du groupe s'il est vide
-    if ([sourceGroup.favorites count] == 0) {
-        [self.managedObjectContext deleteObject:sourceGroup];
-    }
 }
 
 #pragma manage notifications

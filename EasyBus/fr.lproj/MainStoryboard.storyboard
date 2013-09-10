@@ -56,19 +56,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Clos Courtel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pra-KE-Gbb">
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="44" id="Sbf-UL-NGX"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="28"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Acigné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="Hdc-ju-agc"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="28"/>
+                                    <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="36"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="gdM-cF-rWD">
@@ -80,13 +72,10 @@
                             </subviews>
                             <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="pra-KE-Gbb" firstAttribute="top" secondItem="bm1-nF-d9A" secondAttribute="top" type="default" id="28r-9d-Fge"/>
-                                <constraint firstItem="pra-KE-Gbb" firstAttribute="leading" secondItem="bm1-nF-d9A" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="658-Bf-LkI"/>
+                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="top" secondItem="bm1-nF-d9A" secondAttribute="top" constant="23" id="CzP-jK-tFh"/>
                                 <constraint firstItem="gdM-cF-rWD" firstAttribute="leading" secondItem="bm1-nF-d9A" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="FjP-Fb-oxp"/>
-                                <constraint firstAttribute="trailing" secondItem="pra-KE-Gbb" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="HbY-7L-tPF"/>
                                 <constraint firstItem="gSM-Vl-Bin" firstAttribute="leading" secondItem="gdM-cF-rWD" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="N4d-ff-Z0U"/>
-                                <constraint firstItem="gdM-cF-rWD" firstAttribute="top" secondItem="pra-KE-Gbb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Sfx-kz-HFB"/>
-                                <constraint firstItem="gSM-Vl-Bin" firstAttribute="top" secondItem="bm1-nF-d9A" secondAttribute="top" constant="44" id="hbg-SQ-7j1"/>
+                                <constraint firstItem="gdM-cF-rWD" firstAttribute="centerY" secondItem="bm1-nF-d9A" secondAttribute="centerY" type="default" id="dQf-Nf-8Z7"/>
                                 <constraint firstAttribute="trailing" secondItem="gSM-Vl-Bin" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="oDl-nw-rvn"/>
                             </constraints>
                         </view>
@@ -248,7 +237,6 @@
                     </tableView>
                     <connections>
                         <outlet property="_activityIndicator" destination="wgj-kS-bkG" id="Qpl-5J-hF9"/>
-                        <outlet property="_arret" destination="pra-KE-Gbb" id="HxY-yk-Coh"/>
                         <outlet property="_direction" destination="gSM-Vl-Bin" id="kK3-z7-Nyg"/>
                         <outlet property="_info" destination="59b-xg-1HV" id="iZQ-Ce-hRJ"/>
                         <outlet property="_reloadButton" destination="JZW-Lc-ODt" id="pec-9i-Bk5"/>
@@ -267,11 +255,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" showsReorderControl="YES" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fMk-Z8-gqw" customClass="FavoriteCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fMk-Z8-gqw" customClass="FavoriteCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2du-3R-kuQ">
