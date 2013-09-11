@@ -61,10 +61,10 @@
     [super viewWillAppear:animated];
 
     //update header
-    NSArray* groupes = [self.groupManager groups];
-    if (page < [groupes count]) {
-        Group* groupe = [groupes objectAtIndex:page];
-        [_direction setText:groupe.terminus];
+    NSArray* groups = [self.groupManager groups];
+    if (page < [groups count]) {
+        Group* group = [groups objectAtIndex:page];
+        [_direction setText:[NSString stringWithFormat:@"vers %@", group.terminus]];
     }
     
     //update footer
@@ -123,7 +123,6 @@
     _refreshing = FALSE;
     [_info setText:@"erreur lors de la mise à jour des départs"];
 }
-
 
 #pragma mark - Table view refresh control
 - (IBAction)_refreshAsked:(UIButton *)sender {

@@ -14,7 +14,7 @@
 
 @implementation MainViewController
 
-@synthesize managedObjectContext, favoritesManager, groupManager, departuresManager, staticDataManager;
+@synthesize managedObjectContext, favoritesManager, groupManager, departuresManager, staticDataManager, locationManager;
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -64,6 +64,7 @@
         ((PageViewController*)controller).favoritesManager = self.favoritesManager;
         ((PageViewController*)controller).groupManager = self.groupManager;
         ((PageViewController*)controller).departuresManager = self.departuresManager;
+        ((PageViewController*)controller).locationManager = self.locationManager;
     }
 }
 
