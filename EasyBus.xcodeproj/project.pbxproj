@@ -404,6 +404,7 @@
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
+		14E4014D17E041AA00EA7B00 /* Pictogrammes_100\1.png in Resources */ = {isa = PBXBuildFile; fileRef = 14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -822,6 +823,7 @@
 		14E2AD7F17D64A8F00ED4546 /* GroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupManager.h; sourceTree = "<group>"; };
 		14E2AD8017D64A9000ED4546 /* GroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupManager.m; sourceTree = "<group>"; };
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
+		14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\1.png"; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -860,6 +862,7 @@
 		140EA734163DA76D00FB4A85 /* 100x100 */ = {
 			isa = PBXGroup;
 			children = (
+				14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */,
 				140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */,
 				140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */,
 				140EA738163DA76D00FB4A85 /* Pictogrammes_100\151.png */,
@@ -1826,6 +1829,7 @@
 				14776DF417427B54008C7E2E /* stops.txt in Resources */,
 				14776DF617427B54008C7E2E /* stops_extensions.txt in Resources */,
 				14776DF817427B54008C7E2E /* trips.txt in Resources */,
+				14E4014D17E041AA00EA7B00 /* Pictogrammes_100\1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

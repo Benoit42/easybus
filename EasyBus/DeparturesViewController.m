@@ -71,7 +71,8 @@
     NSDate* refreshDate = [self.departuresManager _refreshDate];
     if (refreshDate) {
         NSString* maj = [_timeIntervalFormatter stringFromDate:refreshDate];
-        [_info setText:self._refreshing?@"":[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+        NSString* infoText = self._refreshing?@"":[[NSString alloc] initWithFormat:@"mis à jour à %@", maj];
+        [_info setText:infoText];
     }
     
     //Compute refresh delay
@@ -89,18 +90,7 @@
 	[alertView show];
 }
 
-#pragma mark - Erreurs sur la récupération des départs
-- (void)departuresUpdateFailed:(NSNotification *)notification {
-    // stop indicator
-    [_activityIndicator stopAnimating];
-    [_reloadButton setHidden:FALSE];
-
-    //message
-    _refreshing = FALSE;
-    [_info setText:@"erreur lors de la mise à jour des départs"];
-}
-
-#pragma mark - Stuff for refreshing activity indicator
+#pragma mark - Gestion de la mise à jour des départs
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     // start indicator
     [_activityIndicator startAnimating];
@@ -119,9 +109,21 @@
     [(UITableView*)self.view reloadData];
 
     //message
+    _refreshing = FALSE;
     NSString* maj = [_timeIntervalFormatter stringFromDate:[NSDate date]];
     [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
 }
+
+- (void)departuresUpdateFailed:(NSNotification *)notification {
+    // stop indicator
+    [_activityIndicator stopAnimating];
+    [_reloadButton setHidden:FALSE];
+    
+    //message
+    _refreshing = FALSE;
+    [_info setText:@"erreur lors de la mise à jour des départs"];
+}
+
 
 #pragma mark - Table view refresh control
 - (IBAction)_refreshAsked:(UIButton *)sender {
