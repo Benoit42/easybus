@@ -16,7 +16,7 @@
 
 @implementation PageViewControllerDatasource
 
-@synthesize _departuresViewControlers, favoritesManager, groupManager, departuresManager, staticDataManager;
+@synthesize _departuresViewControlers, favoritesManager, groupManager, departuresManager, staticDataManager, locationDataManager;
 
 -(id)init {
     if ( self = [super init] ) {

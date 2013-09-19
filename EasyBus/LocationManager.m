@@ -28,18 +28,18 @@
 //Démarrage/arrêt de la localisation
 - (void) startUpdatingLocation {
     [locationManager startUpdatingLocation];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"locationStarted" object:self];
 }
 
 - (void) stopUpdatingLocation {
     [locationManager stopUpdatingLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"locationCanceled" object:self];
-
 }
 
 // Démarrage de la localisation
 #pragma mark - Location Manager delegate
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     // If it's a relatively recent event, turn off updates to save power
     CLLocation* location = [locations lastObject];
 
@@ -54,11 +54,6 @@
     if (location.horizontalAccuracy <= 300) {
         // If the event is recent and accurate, do something with it.
         currentLocation = location;
-
-        // Log
-        NSLog(@"latitude %+.6f, longitude %+.6f\n",
-              currentLocation.coordinate.latitude,
-              currentLocation.coordinate.longitude);
 
         //lance la notification de localisation
         [[NSNotificationCenter defaultCenter] postNotificationName:@"locationFound" object:self];

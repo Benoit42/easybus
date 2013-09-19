@@ -80,7 +80,7 @@
     NSArray* favorites = [_favoritesManager favorites];
     
     //Vérifications
-    STAssertEquals(4U, [[_favoritesManager favorites] count], @"Wrong number of favorites");
+    STAssertEquals(4U, [favorites count], @"Wrong number of favorites");
 }
 
 //Test de l'ajout
