@@ -6,27 +6,33 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "PageViewControllerDatasource.h"
 
 @interface PageViewControllerDatasource()
 
-@property(nonatomic) NSMutableArray* _departuresViewControlers;
+@property(nonatomic) NSMutableArray* departuresViewControlers;
 
 @end
 
 @implementation PageViewControllerDatasource
+objection_register(PageViewControllerDatasource);
 
-@synthesize _departuresViewControlers, favoritesManager, groupManager, departuresManager, staticDataManager, locationDataManager;
+objection_requires(@"groupManager")
+@synthesize departuresViewControlers, groupManager;
 
 -(id)init {
     if ( self = [super init] ) {
-        _departuresViewControlers = [NSMutableArray new];
+        self.departuresViewControlers = [NSMutableArray new];
     }
     return self;
 }
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
+    //Pré-conditions
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    
     // Return the data view controller for the given index.
     int groupesCount = [[groupManager groups] count];
     if (groupesCount == 0 || (index >= groupesCount)) {
@@ -36,20 +42,16 @@
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
     if (index < [[groupManager groups] count]) {
-        if (index < [_departuresViewControlers count]) {
+        if (index < [self.departuresViewControlers count]) {
             //Le view controler existe déjà
-            viewController = [_departuresViewControlers objectAtIndex:index];
+            viewController = [self.departuresViewControlers objectAtIndex:index];
         }
         
         if (viewController == nil) {
             //Le view controler n'existe pas encore
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
             ((DeparturesViewController*)viewController).page = index;
-            ((DeparturesViewController*)viewController).favoritesManager = self.favoritesManager;
-            ((DeparturesViewController*)viewController).departuresManager = self.departuresManager;
-            ((DeparturesViewController*)viewController).staticDataManager = self.staticDataManager;
-            ((DeparturesViewController*)viewController).groupManager = self.groupManager;
-            [_departuresViewControlers insertObject:viewController atIndex:index];
+            [self.departuresViewControlers insertObject:viewController atIndex:index];
         }
     }
     
@@ -76,6 +78,9 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
+    //Pré-conditions
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    
     NSUInteger index = [self indexOfViewController:(DeparturesViewController *)viewController];
     if (index == NSNotFound) {
         return nil;
@@ -89,6 +94,9 @@
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    //Pré-conditions
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    
     int count = [[groupManager groups] count];
     return count;
 }

@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "LocationManager.h"
 
 @implementation LocationManager
+objection_register_singleton(LocationManager)
 
 @synthesize locationManager, currentLocation;
 

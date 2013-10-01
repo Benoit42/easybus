@@ -10,8 +10,6 @@
 
 @implementation FavoritesNavigationController
 
-@synthesize staticDataManager, favoritesManager, groupManager;
-
 @synthesize _currentFavoriteRoute;
 @synthesize _currentFavoriteStop;
 @synthesize _currentFavoriteDirection;

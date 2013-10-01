@@ -19,8 +19,6 @@
 @property(nonatomic) BOOL _isRequesting;
 @property(nonatomic) NSDate* _refreshDate;
 
--(id)initWithStaticDataManager:(StaticDataManager*)staticDataManager;
-
 - (NSArray*) getDepartures;
 - (NSArray*) getDeparturesForGroupe:(Group*)groupe;
 - (void) refreshDepartures:(NSArray*)favorites;

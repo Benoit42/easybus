@@ -6,41 +6,35 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <SenTestingKit/SenTestingKit.h>
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "GroupManager.h"
 
 @interface GroupManagerTest : SenTestCase
 
 @property(nonatomic) GroupManager* groupManager;
-@property(nonatomic) NSManagedObjectModel* managedObjectModel;
-@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
 @implementation GroupManagerTest
 
-@synthesize groupManager, managedObjectModel, managedObjectContext;
+objection_requires(@"groupManager")
+@synthesize groupManager;
 
 - (void)setUp
 {
     [super setUp];
     
-    //Create managed context
-    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    STAssertNotNil(self.managedObjectModel, @"Can not create managed object model from main bundle");
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
     
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
-    
-    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
-    NSError* error;
-    STAssertNotNil(store, @"Database error - %@ %@", [error description], [error debugDescription]);
-
-    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
-    self.managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
-
-    //Create class to test
-    self.groupManager = [[GroupManager alloc] initWithContext:self.managedObjectContext];
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
 }
 
 - (void)tearDown
@@ -59,7 +53,7 @@
     NSArray* groups = [self.groupManager groups];
     
     //Vérifications
-    STAssertEquals(2U, [groups count], @"Wrong number of groups");
+    STAssertEquals([groups count], 2U, @"Wrong number of groups");
 }
 
 //Test de la suppression
@@ -68,7 +62,7 @@
     //Ajout du jeu de tests
     [self.groupManager addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
     [self.groupManager addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
-    STAssertEquals(2U, [[self.groupManager groups] count], @"Wrong number of groups");
+    STAssertEquals([[self.groupManager groups] count], 2U, @"Wrong number of groups");
     
     //Récupération d'un groupe
     NSArray* groups = [self.groupManager groups];
@@ -78,7 +72,7 @@
     [self.groupManager removeGroup:group];
     
     //Vérifications
-    STAssertEquals(1U, [[self.groupManager groups] count], @"Wrong number of groups");
+    STAssertEquals([[self.groupManager groups] count], 1U, @"Wrong number of groups");
 }
 
 @end

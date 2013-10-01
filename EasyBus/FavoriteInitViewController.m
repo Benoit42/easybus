@@ -15,8 +15,6 @@
 
 @implementation FavoriteInitViewController
 
-@synthesize favoritesManager, groupManager, staticDataManager;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -29,17 +27,6 @@
     // Dispose of any resources that can be recreated.
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In FavoriteInitViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 	[alertView show];
-}
-
-#pragma mark - Segues
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"addFavorite"]) {
-        FavoritesNavigationController* destinationViewController = (FavoritesNavigationController*)[segue destinationViewController];
-        destinationViewController.staticDataManager = self.staticDataManager;
-        destinationViewController.favoritesManager = self.favoritesManager;
-        destinationViewController.groupManager= self.groupManager;
-    }
 }
 
 @end

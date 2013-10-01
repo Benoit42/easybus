@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
 #import "DeparturesViewController.h"
@@ -21,29 +22,32 @@
 
 @implementation PageViewController
 
-@synthesize favoritesManager, groupManager, departuresManager, locationManager, staticDataManager;
-@synthesize _datasource;
+objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"locationManager")
+@synthesize favoritesManager, groupManager, departuresManager, locationManager, _datasource;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 #pragma mark - lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Pré-conditions
+    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
+    NSAssert(self.locationManager != nil, @"locationManager should not be nil");
+
 	// Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-    _datasource = [[PageViewControllerDatasource alloc] init];
-    _datasource.favoritesManager = self.favoritesManager;
-    _datasource.departuresManager = self.departuresManager;
-    _datasource.staticDataManager = self.staticDataManager;
-    _datasource.groupManager = self.groupManager;
+    _datasource = [[JSObjection defaultInjector] getObject:[PageViewControllerDatasource class]];
 
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = _datasource;
     DeparturesViewController *startingViewController = [_datasource viewControllerAtIndex:0 storyboard:self.storyboard];
-    startingViewController.departuresManager = self.departuresManager;
-    startingViewController.favoritesManager = self.favoritesManager;
-    startingViewController.groupManager = self.groupManager;
-    startingViewController.staticDataManager = self.staticDataManager;
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 
     // Abonnement au notifications des départs

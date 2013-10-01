@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Route.h"
-#import "Stop.h"
+#import "RoutesCsvReader.h"
+#import "RoutesStopsCsvReader.h"
+#import "StopsCsvReader.h"
 
 @interface StaticDataManager : NSObject
 
-@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
-- (id)initWithContext:(NSManagedObjectContext*)context;
+@property(nonatomic) RoutesCsvReader* routesCsvReader;
+@property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
+@property(nonatomic) StopsCsvReader* stopsCsvReader;
 
 - (NSArray*) routes;
 - (Route*) routeForId:(NSString*)routeId;

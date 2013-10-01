@@ -6,43 +6,40 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <SenTestingKit/SenTestingKit.h>
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "RoutesCsvReader.h"
 
 @interface RoutesCsvReaderTest : SenTestCase
 
-@property(nonatomic) RoutesCsvReader* _routesCsvReader;
-@property(nonatomic) NSManagedObjectModel* _managedObjectModel;
-@property(nonatomic) NSManagedObjectContext* _managedObjectContext;
+@property(nonatomic) RoutesCsvReader* routesCsvReader;
+@property(nonatomic) NSManagedObjectModel* managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
 @implementation RoutesCsvReaderTest
 
-@synthesize _routesCsvReader, _managedObjectModel, _managedObjectContext;
+objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvReader")
+@synthesize managedObjectModel, managedObjectContext, routesCsvReader;
 
 - (void)setUp
 {
     [super setUp];
     
-    //Create managed context
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    STAssertNotNil(_managedObjectModel, @"Can not create managed object model from main bundle");
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
     
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
-
-    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
-    STAssertNotNil(store, @"Can not create In-Memory persistent store");
-    
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    _managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
-    
-    //Create tested class
-    _routesCsvReader = [[RoutesCsvReader alloc] initWithContext:_managedObjectContext];
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [_routesCsvReader loadData];
+    [self.routesCsvReader loadData];
 }
 
 - (void)tearDown
@@ -53,20 +50,20 @@
 //Comptage des occurences
 - (void)testCountRoutes {
     NSError *error = nil;
-    NSFetchRequest *request = [_managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
-    NSArray *routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
+    NSArray *routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     
     int count = [routes count];
-    STAssertEquals(93, count, @"Wrong number of routes in routes.txt");
+    STAssertEquals(count, 93, @"Wrong number of routes in routes.txt");
 }
 
 //Vérification de la ligne 64
 - (void)testRoute0064
 {
     NSError *error = nil;
-    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                                     substitutionVariables:@{@"id" : @"0064"}];
-    NSArray* routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     STAssertTrue([routes count] > 0 , @"Route with id 0064 shall exists");
     Route* route64 = [routes objectAtIndex:0];
     

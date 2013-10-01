@@ -6,27 +6,26 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "RoutesStopsCsvReader.h"
 #import "StaticDataManager.h"
 #import "CSVParser.h"
 
-@interface RoutesStopsCsvReader()
-
-@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
-
-@end
-
-
 @implementation RoutesStopsCsvReader
+objection_register_singleton(RoutesStopsCsvReader)
 
-@synthesize _managedObjectContext;
+objection_requires(@"managedObjectContext")
+@synthesize managedObjectContext;
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext {
-    if ( self = [super init] ) {
-        _managedObjectContext = managedObjectContext;
-    }
-    return self;
-}
+//constructeur
+//-(id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//    }
+//    
+//    return self;
+//}
 
 - (void)loadData {
     //Chargement des arrêts standards
@@ -79,21 +78,27 @@
 }
 
 - (Route*) routeForId:(NSString*)routeId {
-    NSManagedObjectModel *managedObjectModel = [[_managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
     NSFetchRequest *request = [managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                               substitutionVariables:@{@"id" : routeId}];
     NSError *error = nil;
-    NSArray* routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
 }
 
 - (Stop*) stopForId:(NSString*)stopId {
-    NSManagedObjectModel *managedObjectModel = [[_managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
     NSFetchRequest *request = [managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
                                                               substitutionVariables:@{@"id" : stopId}];
     
     NSError *error = nil;
-    NSArray* stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
     return ([stops count] == 0) ? nil : [stops objectAtIndex:0];
 }
 

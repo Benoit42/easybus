@@ -7,41 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import "IoCModule.h"
 #import "MainViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataManager.h"
-
-@interface AppDelegate()
-
-@property (nonatomic, retain) NSManagedObjectModel* managedObjectModel;
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSPersistentStoreCoordinator* persistentStoreCoordinator;
-
-@end
 
 @implementation AppDelegate
 
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Instanciation du contexte
-    self.managedObjectModel = [self getManagedObjectModel];
-    self.managedObjectContext = [self getManagedObjectContext];
+    //IoC
+    JSObjectionInjector *injector = [JSObjection createInjector:[[IoCModule alloc] init]];
+    [JSObjection setDefaultInjector:injector];
     
     //Instanciation du Controleur racine
+    //TODO : est-ce nécessaire ?
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
     MainViewController *rootViewController = (MainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"MainViewController"];
     self.window.rootViewController = rootViewController;
     
-    //Initialisation du controleur racine
-    rootViewController.managedObjectContext = self.managedObjectContext;
-    rootViewController.favoritesManager = [[FavoritesManager alloc] initWithContext:self.managedObjectContext];
-    rootViewController.groupManager = [[GroupManager alloc] initWithContext:self.managedObjectContext];
-    rootViewController.staticDataManager = [[StaticDataManager alloc] initWithContext:self.managedObjectContext];
-    rootViewController.departuresManager = [[DeparturesManager alloc] initWithStaticDataManager:rootViewController.staticDataManager];
-    rootViewController.locationManager = [[LocationManager alloc] init];
-
     return YES;
 }
 							
@@ -58,8 +44,9 @@
     
     
     //sauvegarde du contexte
+    NSManagedObjectContext* managedObjectContext = [[JSObjection defaultInjector] getObject:[NSManagedObjectContext class]];
     NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
+    if (![managedObjectContext save:&error]) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }    
@@ -83,71 +70,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma context management
-/**
- Returns the managed object context for the application.
- If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
- */
-- (NSManagedObjectContext *) getManagedObjectContext {
-	
-    if (self.managedObjectContext != nil) {
-        return self.managedObjectContext;
-    }
-	
-    NSPersistentStoreCoordinator *coordinator = [self getPersistentStoreCoordinator];
-    if (coordinator != nil) {
-        self.managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [self.managedObjectContext setPersistentStoreCoordinator: coordinator];
-    }
-    return self.managedObjectContext;
-}
-
-/**
- Returns the managed object model for the application.
- If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
- */
-- (NSManagedObjectModel *)getManagedObjectModel {
-    if (self.managedObjectModel != nil) {
-        return self.managedObjectModel;
-    }
-
-    self.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    return self.managedObjectModel;
-}
-
-/**
- Returns the persistent store coordinator for the application.
- If the coordinator doesn't already exist, it is created and the application's store added to it.
- */
-- (NSPersistentStoreCoordinator *)getPersistentStoreCoordinator {
-    if (self.persistentStoreCoordinator != nil) {
-        return self.persistentStoreCoordinator;
-    }
-
-    self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"data.sqlite"]];
-    //[[NSFileManager defaultManager] removeItemAtURL:storeUrl error:NULL];
-	NSError *error;
-    if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-        [[NSFileManager defaultManager] removeItemAtURL:storeUrl error:NULL];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement, effacement des données" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-    }
-	
-    return self.persistentStoreCoordinator;
-}
-
-/**
- Returns the path to the application's documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
-}
 
 #pragma UIAlertView delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

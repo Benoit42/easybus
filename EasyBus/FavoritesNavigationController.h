@@ -7,16 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StaticDataManager.h"
-#import "FavoritesManager.h"
-#import "GroupManager.h"
-#import "RoutesCsvReader.h"
+#import "Route+RouteWithAdditions.h"
+#import "Stop.h"
 
 @interface FavoritesNavigationController : UINavigationController
-
-@property(retain, nonatomic) StaticDataManager* staticDataManager;
-@property(retain, nonatomic) FavoritesManager* favoritesManager;
-@property (nonatomic, retain) GroupManager* groupManager;
 
 @property(retain, nonatomic) Route* _currentFavoriteRoute;
 @property(retain, nonatomic) Stop* _currentFavoriteStop;

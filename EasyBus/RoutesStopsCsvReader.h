@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StaticDataManager.h"
 
 @interface RoutesStopsCsvReader : NSObject
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 - (void)loadData;
 
 @end

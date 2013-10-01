@@ -6,50 +6,46 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <SenTestingKit/SenTestingKit.h>
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "RoutesStopsCsvReader.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 
 @interface RoutesStopsCsvReaderTest : SenTestCase
 
-@property(nonatomic) RoutesStopsCsvReader* _routesStopsCsvReader;
-@property(nonatomic) RoutesCsvReader* _routesCsvReader;
-@property(nonatomic) StopsCsvReader* _stopsCsvReader;
-@property(nonatomic) NSManagedObjectModel* _managedObjectModel;
-@property(nonatomic) NSManagedObjectContext* _managedObjectContext;
+@property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
+@property(nonatomic) RoutesCsvReader* routesCsvReader;
+@property(nonatomic) StopsCsvReader* stopsCsvReader;
+@property(nonatomic) NSManagedObjectModel* managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
 @implementation RoutesStopsCsvReaderTest
 
-@synthesize _routesStopsCsvReader, _routesCsvReader, _stopsCsvReader, _managedObjectModel, _managedObjectContext;
+objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesStopsCsvReader", @"routesCsvReader", @"stopsCsvReader")
+@synthesize managedObjectModel, managedObjectContext, routesStopsCsvReader, routesCsvReader, stopsCsvReader;
 
 - (void)setUp
 {
     [super setUp];
-    //Create managed context
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    STAssertNotNil(_managedObjectModel, @"Can not create managed object model from main bundle");
     
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
     
-    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
-    STAssertNotNil(store, @"Can not create In-Memory persistent store");
-    
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    _managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
-    
-    //Tested class
-    _routesCsvReader = [[RoutesCsvReader alloc] initWithContext:_managedObjectContext];
-    _stopsCsvReader = [[StopsCsvReader alloc] initWithContext:_managedObjectContext];
-    _routesStopsCsvReader = [[RoutesStopsCsvReader alloc] initWithContext:_managedObjectContext];
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
     
     //load data
-    [_routesCsvReader loadData];
-    [_stopsCsvReader loadData];
-    [_routesStopsCsvReader loadData];    
+    [self.routesCsvReader loadData];
+    [self.stopsCsvReader loadData];
+    [self.routesStopsCsvReader loadData];
 }
 
 - (void)tearDown
@@ -68,28 +64,28 @@
     //Vérification des arrêts direction 0
     NSOrderedSet* stops0 = [route64 stopsDirectionZero];
     STAssertNotNil(stops0, @"Stops route 64 direction 0 shall exists");
-    STAssertEquals(22U, [stops0 count], @"Stops route 64 direction 0 shall be 22");
+    STAssertEquals([stops0 count], 22U, @"Stops route 64 direction 0 shall be 22");
     Stop* timoniere0 = [stops0 objectAtIndex:0];
-    STAssertEqualObjects(@"Timonière", [timoniere0 name], @"Last stop of route 64 shall be Timonière");
+    STAssertEqualObjects([timoniere0 name], @"Timonière", @"Last stop of route 64 shall be Timonière");
     Stop* republique0 = [stops0 lastObject];
-    STAssertEqualObjects(@"République Pré Botté", [republique0 name], @"First stop of route 64 shall be République");
+    STAssertEqualObjects([republique0 name], @"République Pré Botté", @"First stop of route 64 shall be République");
 
     //Vérification des arrêts direction 1
     NSOrderedSet* stops1 = [route64 stopsDirectionOne];
     STAssertNotNil(stops1, @"Stops route 64 direction 0 shall exists");
-    STAssertEquals(23U, [stops1 count], @"Stops route 64 direction 0 shall be 22");
+    STAssertEquals([stops1 count], 23U, @"Stops route 64 direction 0 shall be 22");
     Stop*  republique1 = [stops1 objectAtIndex:0];
-    STAssertEqualObjects(@"République Pré Botté", [republique1 name], @"Last stop of route 64 shall be République");
+    STAssertEqualObjects([republique1 name], @"République Pré Botté", @"Last stop of route 64 shall be République");
     Stop* timoniere1 = [stops1 lastObject];
-    STAssertEqualObjects(@"Timonière", [timoniere1 name], @"First stop of route 64 shall be Timonière");
+    STAssertEqualObjects([timoniere1 name], @"Timonière", @"First stop of route 64 shall be Timonière");
 }
 
 - (Route*) routeForId:(NSString*)routeId {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                                     substitutionVariables:@{@"id" : routeId}];
     
     NSError *error = nil;
-    NSArray* routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
 }
 

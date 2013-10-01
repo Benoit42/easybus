@@ -6,7 +6,10 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <SenTestingKit/SenTestingKit.h>
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "FavoritesManager.h"
 #import "GroupManager.h"
 #import "RoutesCsvReader.h"
@@ -14,58 +17,47 @@
 
 @interface FavoritesManagerTest : SenTestCase
 
-@property(nonatomic) RoutesCsvReader* _routesCsvReader;
-@property(nonatomic) StopsCsvReader* _stopsCsvReader;
+@property(nonatomic) NSManagedObjectModel* managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
+@property(nonatomic) RoutesCsvReader* routesCsvReader;
+@property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) GroupManager* groupManager;
-@property(nonatomic) FavoritesManager* _favoritesManager;
-@property(nonatomic) NSManagedObjectModel* _managedObjectModel;
-@property(nonatomic) NSManagedObjectContext* _managedObjectContext;
+@property(nonatomic) FavoritesManager* favoritesManager;
 
 @end
 
 @implementation FavoritesManagerTest
 
-@synthesize _favoritesManager, groupManager, _routesCsvReader, _stopsCsvReader, _managedObjectModel, _managedObjectContext;
+objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesManager", @"groupManager", @"routesCsvReader", @"stopsCsvReader")
+@synthesize managedObjectContext, managedObjectModel, favoritesManager, groupManager, routesCsvReader, stopsCsvReader;
 
 - (void)setUp
 {
     [super setUp];
-    
-    //Create managed context
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    STAssertNotNil(_managedObjectModel, @"Can not create managed object model from main bundle");
-    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
-    
-    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
-    NSError* error;
-    STAssertNotNil(store, @"Database error - %@ %@", [error description], [error debugDescription]);
 
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    _managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
 
-    //Tested class
-    _routesCsvReader = [[RoutesCsvReader alloc] initWithContext:_managedObjectContext];
-    _stopsCsvReader = [[StopsCsvReader alloc] initWithContext:_managedObjectContext];
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
     
     //load data
-    [_routesCsvReader loadData];
-    [_stopsCsvReader loadData];
+    [self.routesCsvReader loadData];
+    [self.stopsCsvReader loadData];
 
-    //Create class to test
-    groupManager = [[GroupManager alloc] initWithContext:_managedObjectContext];
-    _favoritesManager = [[FavoritesManager alloc] initWithContext:_managedObjectContext];
-    
     //Ajout du jeu de tests
     Route* route64 = [self routeForId:@"0064"];
     Route* route164 = [self routeForId:@"0164"];
     Stop* stopTimo = [self stopForId:@"4001"];
     Stop* stopRepu = [self stopForId:@"1167"];
-    [_favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
-    [_favoritesManager addFavorite:route64 stop:stopRepu direction:@"1"];
-    [_favoritesManager addFavorite:route164 stop:stopTimo direction:@"0"];
-    [_favoritesManager addFavorite:route164 stop:stopRepu direction:@"1"];
+    STAssertEquals([[self.favoritesManager favorites] count], 0U, @"Wrong number of favorites");
+    [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
+    [self.favoritesManager addFavorite:route64 stop:stopRepu direction:@"1"];
+    [self.favoritesManager addFavorite:route164 stop:stopTimo direction:@"0"];
+    [self.favoritesManager addFavorite:route164 stop:stopRepu direction:@"1"];
 }
 
 - (void)tearDown
@@ -74,76 +66,72 @@
 }
 
 //Test des favoris
-- (void)testFavorites
-{
+- (void)testFavorites {
     //Lecture des favoris
-    NSArray* favorites = [_favoritesManager favorites];
+    NSArray* favorites = [self.favoritesManager favorites];
     
     //Vérifications
-    STAssertEquals(4U, [favorites count], @"Wrong number of favorites");
+    STAssertEquals([favorites count], 4U, @"Wrong number of favorites");
 }
 
 //Test de l'ajout
-- (void)testAddFavorite
-{
+- (void)testAddFavorite {
     //Préparation des données
-    NSUInteger favCount = [[_favoritesManager favorites] count];
-    NSUInteger groupCount = [[groupManager groups] count];
+    NSUInteger favCount = [[self.favoritesManager favorites] count];
+    NSUInteger groupCount = [[self.groupManager groups] count];
 
     //Ajout d'un favori
     Route* route = [self routeForId:@"0200"];
     Stop* stop = [self stopForId:@"4001"];
-    [_favoritesManager addFavorite:route stop:stop direction:@"0"];
+    [self.favoritesManager addFavorite:route stop:stop direction:@"0"];
 
     //Vérifications
-    STAssertEquals(favCount+1, [[_favoritesManager favorites] count], @"Wrong number of favorites");
-    STAssertEquals(groupCount+1, [[groupManager groups] count], @"Wrong number of groups");
+    STAssertEquals([[self.favoritesManager favorites] count], favCount+1, @"Wrong number of favorites");
+    STAssertEquals([[self.groupManager groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon
-- (void)testAddFavoriteDoublon
-{
+- (void)testAddFavoriteDoublon {
     //Préparation des données
-    NSUInteger favCount = [[_favoritesManager favorites] count];
+    NSUInteger favCount = [[self.favoritesManager favorites] count];
     Route* route64 = [self routeForId:@"0064"];
     Stop* stopTimo = [self stopForId:@"4001"];
     
     //Ajout d'un favori
-    [_favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
+    [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
 
     //Vérifications
-    STAssertEquals(favCount, [[_favoritesManager favorites] count], @"Wrong number of favorites");
+    STAssertEquals([[self.favoritesManager favorites] count], favCount, @"Wrong number of favorites");
 }
 
 //Test de la suppression
-- (void)testRemoveFavorite
-{
+- (void)testRemoveFavorite {
     //Récupération d'un favori
-    NSUInteger favCount = [[_favoritesManager favorites] count];
-    Favorite* favorite = [[_favoritesManager favorites] lastObject];
+    NSUInteger favCount = [[self.favoritesManager favorites] count];
+    Favorite* favorite = [[self.favoritesManager favorites] lastObject];
 
     //Suppression du favori
-    [_favoritesManager removeFavorite:favorite];
+    [self.favoritesManager removeFavorite:favorite];
     
     //Vérifications
-    STAssertEquals(favCount-1, [[_favoritesManager favorites] count], @"Wrong number of favorites");
+    STAssertEquals([[self.favoritesManager favorites] count], favCount-1, @"Wrong number of favorites");
 }
 
 - (Route*) routeForId:(NSString*)routeId {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                               substitutionVariables:@{@"id" : routeId}];
     
     NSError *error = nil;
-    NSArray* routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
 }
 
 - (Stop*) stopForId:(NSString*)stopId {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
                                                               substitutionVariables:@{@"id" : stopId}];
     
     NSError *error = nil;
-    NSArray* stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
     return ([stops count] == 0) ? nil : [stops objectAtIndex:0];
 }
 

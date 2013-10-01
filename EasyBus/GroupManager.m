@@ -6,30 +6,26 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "GroupManager.h"
 
-@interface GroupManager()
-
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
-@end
-
 @implementation GroupManager
+objection_register_singleton(GroupManager)
 
+objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//constructeur
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext_ {
-    if ( self = [super init] ) {
-        self.managedObjectContext = managedObjectContext_;
-    }
-    return self;
-}
-
+//- (id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//    }
+//    
+//    return self;
+//}
+//
 #pragma manage groupes
 - (NSArray*) groups {
-    //    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
-    //    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllGroups"];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"terminus" ascending:YES]];
     
@@ -51,6 +47,9 @@
 }
 
 - (void) removeGroup:(Group*)group {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     //Suppression du groupe
     [self.managedObjectContext deleteObject:group];
 }

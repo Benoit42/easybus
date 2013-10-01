@@ -19,6 +19,5 @@
 @property (nonatomic, retain) GroupManager *groupManager;
 @property (nonatomic, retain) DeparturesManager *departuresManager;
 @property (nonatomic, retain) LocationManager *locationManager;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
 
 @end

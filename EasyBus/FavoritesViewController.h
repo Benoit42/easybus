@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "FavoritesManager.h"
 #import "GroupManager.h"
-#import "StaticDataManager.h"
 
 @interface FavoritesViewController : UITableViewController
 
-@property(retain, nonatomic) StaticDataManager* staticDataManager;
 @property(retain, nonatomic) FavoritesManager* favoritesManager;
-@property(retain, nonatomic) NSNumber* editing;
 @property (nonatomic, retain) GroupManager* groupManager;
+
+@property(retain, nonatomic) NSNumber* editing;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
 

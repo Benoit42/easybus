@@ -11,7 +11,8 @@
 
 @interface RoutesCsvReader : NSObject
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 - (void)loadData;
 
 @end

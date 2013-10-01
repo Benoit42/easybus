@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "FavoritesViewController.h"
 #import "FavoritesNavigationController.h"
 #import "LinesViewController.h"
@@ -14,10 +15,15 @@
 #import "Stop.h"
 #import "FavoriteCell.h"
 #import "StaticDataManager.h"
-
 @implementation FavoritesViewController
 
-@synthesize favoritesManager, staticDataManager, groupManager, addButton, editing;
+objection_requires(@"favoritesManager", @"groupManager")
+@synthesize favoritesManager, groupManager, addButton, editing;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -31,10 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Pré-conditions
+    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+
     // Initialize data
-    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
-    self.favoritesManager = ((FavoritesNavigationController*)self.navigationController).favoritesManager;
-    self.groupManager = ((FavoritesNavigationController*)self.navigationController).groupManager;
     self.editing = [NSNumber numberWithBool:FALSE];
 }
 

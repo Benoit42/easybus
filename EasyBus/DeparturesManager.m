@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "DeparturesManager.h"
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
@@ -29,12 +30,16 @@
 @end
 
 @implementation DeparturesManager
+objection_register_singleton(DeparturesManager)
+
+objection_requires(@"staticDataManager")
 @synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
 //constructeur
--(id)initWithStaticDataManager:(StaticDataManager*)staticDataManager_ {
+-(id)init {
     if ( self = [super init] ) {
-        self.staticDataManager = staticDataManager_;
+        //Préconditions
+//        NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
         
         _departures = [NSMutableArray new];
         _freshDepartures = [NSMutableArray new];

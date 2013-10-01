@@ -11,7 +11,7 @@
 
 @interface FavoritesManager : NSObject
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) favorites;
 - (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;

@@ -6,30 +6,27 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "FavoritesManager.h"
 #import "GroupManager.h"
 #import "Stop.h"
 #import "Route+RouteWithAdditions.h"
 #import "Group+GroupeWithAdditions.h"
 
-@interface FavoritesManager()
-
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
-@end
-
 @implementation FavoritesManager
+objection_register_singleton(FavoritesManager)
 
+objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//constructeur
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext_ {
-    if ( self = [super init] ) {
-        self.managedObjectContext = managedObjectContext_;
-    }
-    return self;
-}
-
+//- (id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//    }
+//    
+//    return self;
+//}
+//
 #pragma manage favorites
 - (NSArray*) favorites {
     NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];

@@ -6,31 +6,27 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
 #import "RoutesCsvReader.h"
 #import "CSVParser.h"
 #import "Route.h"
 
-@interface RoutesCsvReader()
-
-@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
-
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
-
-@end
-
 @implementation RoutesCsvReader
+objection_register_singleton(RoutesCsvReader)
 
-@synthesize _managedObjectContext;
+objection_requires(@"managedObjectContext")
+@synthesize managedObjectContext;
 
-
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext {
-    if ( self = [super init] ) {
-        //initialisation des membres
-        _managedObjectContext = managedObjectContext;
-    }
-    return self;
-}
+//constructeur
+//-(id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//    }
+//    
+//    return self;
+//}
 
 - (void)loadData {
     //Chargement des routes standards
@@ -60,8 +56,11 @@
 }
 
 - (void)receiveRecord:(NSDictionary *)aRecord {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     // Create and configure a new instance of the Route entity.
-    Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:_managedObjectContext];
+    Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
     route.id = [aRecord objectForKey:@"route_id"];
     route.shortName = [aRecord objectForKey:@"route_short_name"];
     route.longName = [aRecord objectForKey:@"route_long_name"];

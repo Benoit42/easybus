@@ -13,8 +13,4 @@
 
 @interface FavoriteInitViewController : UIViewController
 
-@property (nonatomic, retain) StaticDataManager* staticDataManager;
-@property (nonatomic, retain) FavoritesManager* favoritesManager;
-@property (nonatomic, retain) GroupManager* groupManager;
-
 @end

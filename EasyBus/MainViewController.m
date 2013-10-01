@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "MainViewController.h"
 #import "FavoritesNavigationController.h"
 #import "PageViewController.h"
@@ -14,7 +15,13 @@
 
 @implementation MainViewController
 
-@synthesize managedObjectContext, favoritesManager, groupManager, departuresManager, staticDataManager, locationManager;
+objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"locationManager")
+@synthesize favoritesManager, departuresManager, staticDataManager, locationManager;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning
@@ -25,6 +32,12 @@
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    //Pré-conditions
+    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
+    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
+    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSAssert(self.locationManager != nil, @"locationManager should not be nil");
 }
 
 #pragma mark - affichage
@@ -52,22 +65,6 @@
 }
 
 #pragma mark - Segues
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UIViewController* controller = [segue destinationViewController];
-    if ([[segue identifier] isEqualToString:@"initFavorite"]) {
-        ((FavoriteInitViewController*)controller).staticDataManager = self.staticDataManager;
-        ((FavoriteInitViewController*)controller).favoritesManager = self.favoritesManager;
-        ((FavoriteInitViewController*)controller).groupManager = self.groupManager;
-    }
-    else if ([[segue identifier] isEqualToString:@"showDepartures"]) {
-        ((PageViewController*)controller).staticDataManager = self.staticDataManager;
-        ((PageViewController*)controller).favoritesManager = self.favoritesManager;
-        ((PageViewController*)controller).groupManager = self.groupManager;
-        ((PageViewController*)controller).departuresManager = self.departuresManager;
-        ((PageViewController*)controller).locationManager = self.locationManager;
-    }
-}
-
 - (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
     if ([[segue identifier] isEqualToString:@"initFavorite"]) {
         //Rechargement des départs

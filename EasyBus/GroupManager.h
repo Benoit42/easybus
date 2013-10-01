@@ -11,7 +11,7 @@
 
 @interface GroupManager : NSObject
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) groups;
 - (void) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus;

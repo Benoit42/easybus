@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
 #import "FavoritesNavigationController.h"
@@ -25,11 +26,23 @@
 
 @implementation DeparturesViewController
 
+objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager")
 @synthesize favoritesManager, groupManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh, _refreshing;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Pré-conditions
+    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
+    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
+    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
     
     // Instanciates des data
     _refreshing = FALSE;
@@ -177,17 +190,6 @@
         }
     }
     return cell;
-}
-
-#pragma mark - Segues
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"addFavorite"]) {
-        FavoritesNavigationController* controller = (FavoritesNavigationController*)[segue destinationViewController];
-        controller.favoritesManager = self.favoritesManager;
-        controller.staticDataManager = self.staticDataManager;
-        controller.groupManager = self.groupManager;
-    }
 }
 
 @end

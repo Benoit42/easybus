@@ -6,44 +6,40 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <SenTestingKit/SenTestingKit.h>
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "StopsCsvReader.h"
 
 @interface StopsCsvReaderTest : SenTestCase
 
-@property(nonatomic) StopsCsvReader* _stopsCsvReader;
-@property(nonatomic) NSManagedObjectModel* _managedObjectModel;
-@property(nonatomic) NSManagedObjectContext* _managedObjectContext;
+@property(nonatomic) StopsCsvReader* stopsCsvReader;
+@property(nonatomic) NSManagedObjectModel* managedObjectModel;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
 @implementation StopsCsvReaderTest
 
-@synthesize _stopsCsvReader, _managedObjectModel, _managedObjectContext;
+objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvReader")
+@synthesize managedObjectModel, managedObjectContext, stopsCsvReader;
 
 - (void)setUp
 {
     [super setUp];
     
-    //Create managed context
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    STAssertNotNil(_managedObjectModel, @"Can not create managed object model from main bundle");
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
     
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    STAssertNotNil(persistentStoreCoordinator, @"Can not create persistent store coordinator");
-    
-    NSPersistentStore *store = [persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:0];
-    STAssertNotNil(store, @"Can not create In-Memory persistent store");
-    
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    _managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator;
-    
-    //Create tested class
-    _stopsCsvReader = [[StopsCsvReader alloc] initWithContext:_managedObjectContext];
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [_stopsCsvReader loadData];
-
+    [self.stopsCsvReader loadData];
 }
 
 - (void)tearDown
@@ -56,28 +52,28 @@
 - (void)testCountStops
 {
     NSError *error = nil;
-    NSFetchRequest *request = [_managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
-    NSArray *stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
+    NSArray *stops = [self.managedObjectContext executeFetchRequest:request error:&error];
 
-    STAssertEquals(1402U, [stops count], @"Wrong number of stops in stops.txt");
+    STAssertEquals([stops count], 1402U, @"Wrong number of stops in stops.txt");
 }
 
 //Vérification de l'arrêt Timonière
 - (void)testStopTimoniere
 {
     NSError *error = nil;
-    NSFetchRequest *request = [_managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
                                                               substitutionVariables:@{@"id" : @"4001"}];
-    NSArray* stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
     STAssertTrue([stops count] > 0 , @"Stop with id 4001 shall exists");
     Stop* timoniere = [stops objectAtIndex:0];
 
-    STAssertEqualObjects(@"4001", timoniere.id, @"Wrong id for route 0064");
-    STAssertEqualObjects(@"4001", timoniere.code, @"Wrong short name for route 0064");
-    STAssertEqualObjects(@"Timonière", timoniere.name, @"Wrong long name for route 0064");
-    STAssertEqualObjects(@"Acigné", timoniere.desc, @"Wrong from name for route 0064");
-    STAssertEqualObjects(@"48.13701918", timoniere.latitude, @"Wrong to name for route 0064");
-    STAssertEqualObjects(@"-1.52637517", timoniere.longitude, @"Wrong to name for route 0064");
+    STAssertEqualObjects(timoniere.id, @"4001", @"Wrong id for route 0064");
+    STAssertEqualObjects(timoniere.code, @"4001", @"Wrong short name for route 0064");
+    STAssertEqualObjects(timoniere.name, @"Timonière", @"Wrong long name for route 0064");
+    STAssertEqualObjects(timoniere.desc, @"Acigné", @"Wrong from name for route 0064");
+    STAssertEqualObjects(timoniere.latitude, @"48.13701918", @"Wrong to name for route 0064");
+    STAssertEqualObjects(timoniere.longitude, @"-1.52637517", @"Wrong to name for route 0064");
 }
 
 

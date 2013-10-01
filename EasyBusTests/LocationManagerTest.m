@@ -16,7 +16,7 @@
 @implementation LocationManagerTest : SenTestCase
 
 //Test de l'ajout
-- (void)testAddFavorite
+- (void)testDistanceComputation
 {
     //Instaciation des coordonnées
     CLLocation* maison = [[CLLocation alloc] initWithLatitude:+48.138149 longitude:-1.523640];

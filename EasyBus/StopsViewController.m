@@ -6,20 +6,27 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "StopsViewController.h"
 #import "FavoritesNavigationController.h"
 #import "StopCell.h"
 
 @implementation StopsViewController
 
+objection_requires(@"staticDataManager")
 @synthesize staticDataManager, _saveButton;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Initialize data
-    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
+    //Pré-conditions
+    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
 }
 
 - (void)didReceiveMemoryWarning

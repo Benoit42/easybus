@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EC3D1BC77C946278025727A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEC54415FE547A0B83EF926 /* libPods.a */; };
 		1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */; };
 		140513751746798B00345B1D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140513741746798B00345B1D /* CoreData.framework */; };
 		1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
 		1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 1407D67A1649B107002F37AD /* DirectionViewController.h */; };
+		140C799517F6C4C1007184C7 /* IoCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C799417F6C4C1007184C7 /* IoCModule.m */; };
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
 		140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */; };
 		140EA4F8163D974B00FB4A85 /* RoutesStopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F7163D974B00FB4A85 /* RoutesStopsCsvReader.m */; };
-		140EA4F9163D975100FB4A85 /* RoutesStopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F6163D974B00FB4A85 /* RoutesStopsCsvReader.h */; };
 		140EA4FC163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */; };
 		140EA7C2163DA76D00FB4A85 /* Pictogrammes_100\11.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */; };
 		140EA7C3163DA76D00FB4A85 /* Pictogrammes_100\150.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */; };
@@ -384,6 +385,7 @@
 		14B42DC61656BD5D0070AA9D /* Depart.h in Sources */ = {isa = PBXBuildFile; fileRef = 142340D8162E0ABA0095073C /* Depart.h */; };
 		14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */; };
 		14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B42DCF1656BF090070AA9D /* FavoritesViewController.m */; };
+		14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */; };
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -408,6 +410,7 @@
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
+		E15068B724C14E81AD7A0011 /* libPods-EasyBusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -421,10 +424,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AEC54415FE547A0B83EF926 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1405136C17465CD700345B1D /* EasyBus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyBus.xcdatamodel; sourceTree = "<group>"; };
 		140513741746798B00345B1D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1407D6771649B0EE002F37AD /* DirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionViewController.m; sourceTree = "<group>"; };
 		1407D67A1649B107002F37AD /* DirectionViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DirectionViewController.h; sourceTree = "<group>"; };
+		140C799317F6C4C1007184C7 /* IoCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoCModule.h; sourceTree = "<group>"; };
+		140C799417F6C4C1007184C7 /* IoCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IoCModule.m; sourceTree = "<group>"; };
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
 		140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReader.m; sourceTree = "<group>"; };
 		140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReaderTest.m; sourceTree = "<group>"; };
@@ -795,6 +801,8 @@
 		14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Favorite+FavoriteWithAdditions.m"; sourceTree = "<group>"; };
 		14B42DCE1656BF090070AA9D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		14B42DCF1656BF090070AA9D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoCModuleTest.m; path = ../EasyBus/IoCModuleTest.m; sourceTree = "<group>"; };
+		14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoCModuleTest.h; path = ../EasyBus/IoCModuleTest.h; sourceTree = "<group>"; };
 		14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DeparturesViewController.h; sourceTree = "<group>"; };
 		14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 		14C2E544168884B200E8A2FB /* LocationManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerTest.m; sourceTree = "<group>"; };
@@ -827,6 +835,9 @@
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyBusTests.xcconfig"; path = "Pods/Pods-EasyBusTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -840,6 +851,7 @@
 				14AD3C10162AF00400DF061A /* UIKit.framework in Frameworks */,
 				14AD3C12162AF00400DF061A /* Foundation.framework in Frameworks */,
 				14AD3C14162AF00400DF061A /* CoreGraphics.framework in Frameworks */,
+				0EC3D1BC77C946278025727A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +865,7 @@
 				14AD3C37162AF00400DF061A /* SenTestingKit.framework in Frameworks */,
 				14AD3C38162AF00400DF061A /* UIKit.framework in Frameworks */,
 				14AD3C39162AF00400DF061A /* Foundation.framework in Frameworks */,
+				E15068B724C14E81AD7A0011 /* libPods-EasyBusTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1214,6 +1227,8 @@
 				14AD3C3C162AF00400DF061A /* EasyBusTests */,
 				14AD3C0E162AF00400DF061A /* Frameworks */,
 				14AD3C0C162AF00400DF061A /* Products */,
+				7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */,
+				D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1235,6 +1250,8 @@
 				14AD3C11162AF00400DF061A /* Foundation.framework */,
 				14AD3C13162AF00400DF061A /* CoreGraphics.framework */,
 				14AD3C36162AF00400DF061A /* SenTestingKit.framework */,
+				0AEC54415FE547A0B83EF926 /* libPods.a */,
+				B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1242,11 +1259,13 @@
 		14AD3C15162AF00400DF061A /* EasyBus */ = {
 			isa = PBXGroup;
 			children = (
-				142342501635B8CD0095073C /* CSVParser */,
-				14AD3CB9162B225300DF061A /* modele */,
 				14AD3C1E162AF00400DF061A /* AppDelegate.h */,
 				14AD3C1F162AF00400DF061A /* AppDelegate.m */,
+				140C799317F6C4C1007184C7 /* IoCModule.h */,
+				140C799417F6C4C1007184C7 /* IoCModule.m */,
 				14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */,
+				142342501635B8CD0095073C /* CSVParser */,
+				14AD3CB9162B225300DF061A /* modele */,
 				14CF4331165D567500834A23 /* MainView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
 				14CF432E165CF26000834A23 /* LinesView */,
@@ -1283,6 +1302,8 @@
 		14AD3C3C162AF00400DF061A /* EasyBusTests */ = {
 			isa = PBXGroup;
 			children = (
+				14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */,
+				14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */,
 				14C2E544168884B200E8A2FB /* LocationManagerTest.m */,
 				14776D8617425290008C7E2E /* ZipArchiveTest.m */,
 				14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */,
@@ -1462,9 +1483,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14AD3C47162AF00400DF061A /* Build configuration list for PBXNativeTarget "EasyBus" */;
 			buildPhases = (
+				B6AEDA266F314CE89CC6301D /* Check Pods Manifest.lock */,
 				14AD3C07162AF00400DF061A /* Sources */,
 				14AD3C08162AF00400DF061A /* Frameworks */,
 				14AD3C09162AF00400DF061A /* Resources */,
+				048FCAAE59BE45C1838C851C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1479,10 +1502,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14AD3C4A162AF00400DF061A /* Build configuration list for PBXNativeTarget "EasyBusTests" */;
 			buildPhases = (
+				19FA6B589AE9467F929BA4A1 /* Check Pods Manifest.lock */,
 				14AD3C30162AF00400DF061A /* Sources */,
 				14AD3C31162AF00400DF061A /* Frameworks */,
 				14AD3C32162AF00400DF061A /* Resources */,
 				14AD3C33162AF00400DF061A /* ShellScript */,
+				05D60E18221349E5980F71DC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1856,6 +1881,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		048FCAAE59BE45C1838C851C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		05D60E18221349E5980F71DC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-EasyBusTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		14AD3C33162AF00400DF061A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1868,6 +1923,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		19FA6B589AE9467F929BA4A1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B6AEDA266F314CE89CC6301D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1892,9 +1977,9 @@
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
 				140EA4F8163D974B00FB4A85 /* RoutesStopsCsvReader.m in Sources */,
-				140EA4F9163D975100FB4A85 /* RoutesStopsCsvReader.h in Sources */,
 				140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */,
 				140EA850163F125600FB4A85 /* StopsViewController.h in Sources */,
+				140C799517F6C4C1007184C7 /* IoCModule.m in Sources */,
 				140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */,
 				1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */,
 				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
@@ -1953,6 +2038,7 @@
 				14776DCC17426CED008C7E2E /* unzip.c in Sources */,
 				14776DCE17426CED008C7E2E /* zip.c in Sources */,
 				14776DD017426CED008C7E2E /* ZipArchive.mm in Sources */,
+				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
 				14776DD3174270DA008C7E2E /* ZipArchive.h in Sources */,
 				14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
@@ -2042,6 +2128,7 @@
 		};
 		14AD3C48162AF00400DF061A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
@@ -2054,6 +2141,7 @@
 		};
 		14AD3C49162AF00400DF061A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
@@ -2066,6 +2154,7 @@
 		};
 		14AD3C4B162AF00400DF061A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2083,6 +2172,7 @@
 		};
 		14AD3C4C162AF00400DF061A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (

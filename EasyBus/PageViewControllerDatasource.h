@@ -17,11 +17,7 @@
 
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
 
-@property (nonatomic, retain) FavoritesManager *favoritesManager;
 @property (nonatomic, retain) GroupManager *groupManager;
-@property (nonatomic, retain) DeparturesManager *departuresManager;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
-@property (nonatomic, retain) LocationManager *locationDataManager;
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController;

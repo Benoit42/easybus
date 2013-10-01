@@ -6,38 +6,30 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
 #import "StaticDataLoader.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "RoutesStopsCsvReader.h"
 
-@interface StaticDataLoader()
-
-@property(nonatomic) RoutesCsvReader* _routesCsvReader;
-@property(nonatomic) RoutesStopsCsvReader* _routesStopsCsvReader;
-@property(nonatomic) StopsCsvReader* _stopsCsvReader;
-
-@property (nonatomic, retain, readonly) NSManagedObjectModel *_managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
-
-@end
-
 @implementation StaticDataLoader
+objection_register_singleton(StaticDataLoader)
 
-@synthesize _routesCsvReader, _routesStopsCsvReader, _stopsCsvReader;
-@synthesize _managedObjectModel, _managedObjectContext;
+objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsvReader", @"stopsCsvReader")
+@synthesize  managedObjectContext, routesCsvReader, routesStopsCsvReader, stopsCsvReader;
 
-#pragma mark init method
-- (id)initWithContext:(NSManagedObjectContext*)managedObjectContext {
-    if ( self = [super init] ) {
-        //initialisation des membres
-        _managedObjectContext = managedObjectContext;
-        _managedObjectModel = [[_managedObjectContext persistentStoreCoordinator] managedObjectModel];
-    }
-
-    return self;
-}
+//- (id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//        NSAssert(self.routesCsvReader != nil, @"routesCsvReader should not be nil");
+//        NSAssert(self.routesStopsCsvReader != nil, @"routesStopsCsvReader should not be nil");
+//        NSAssert(self.stopsCsvReader != nil, @"stopsCsvReader should not be nil");
+//    }
+//    
+//    return self;
+//}
 
 #pragma mark file loading method
 //Load all data
@@ -49,7 +41,7 @@
     
     //save data
     NSError* error = nil;
-    if (![_managedObjectContext save:&error]) {
+    if (![self.managedObjectContext save:&error]) {
         //Log
         NSLog(@"Database error while saving - %@ %@", [error description], [error debugDescription]);
     }
@@ -57,52 +49,55 @@
 
 //Clean and load routes
 - (void) loadRoutes {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
+    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
 
     NSError *error = nil;
-    NSArray *routes = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (routes == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
     
     for (NSManagedObject* route in routes) {
-        [_managedObjectContext deleteObject:route];
+        [self.managedObjectContext deleteObject:route];
     }
 
-    [_routesCsvReader loadData];
+    [self.routesCsvReader loadData];
 }
 
 //Clean and load stops
 - (void) loadStops {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
+    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSArray *stops = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *stops = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (stops == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
     
     for (NSManagedObject* stop in stops) {
-        [_managedObjectContext deleteObject:stop];
+        [self.managedObjectContext deleteObject:stop];
     }
 
-    [_stopsCsvReader loadData];
+    [self.stopsCsvReader loadData];
 }
 
 //Load route-stops
 - (void) loadRouteStops {
-    NSFetchRequest *request = [_managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
+    NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSArray *result = [_managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *result = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (result == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
     
-    [_routesStopsCsvReader loadData];
+    [self.routesStopsCsvReader loadData];
 }
 
 @end

@@ -6,29 +6,26 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
 #import "StopsCsvReader.h"
 #import "CSVParser.h"
 
-@interface StopsCsvReader()
-
-@property (nonatomic, retain, readonly) NSManagedObjectContext *_managedObjectContext;
-
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext;
-
-@end
-
 @implementation StopsCsvReader
+objection_register_singleton(StopsCsvReader)
 
-@synthesize _managedObjectContext;
+objection_requires(@"managedObjectContext")
+@synthesize managedObjectContext;
 
-- (id)initWithContext:(NSManagedObjectContext *)managedObjectContext {
-    if ( self = [super init] ) {
-        //initialisation des membres
-        _managedObjectContext = managedObjectContext;
-    }
-    return self;
-}
+//constructeur
+//-(id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//    }
+//
+//    return self;
+//}
 
 - (void)loadData {
     NSError* error = nil;
@@ -46,8 +43,11 @@
 }
 
 - (void)receiveRecord:(NSDictionary *)aRecord {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     // Create and configure a new instance of the Stop entity.
-    Stop* stop = (Stop*)[NSEntityDescription insertNewObjectForEntityForName:@"Stop" inManagedObjectContext:_managedObjectContext];
+    Stop* stop = (Stop*)[NSEntityDescription insertNewObjectForEntityForName:@"Stop" inManagedObjectContext:self.managedObjectContext];
     stop.id = [aRecord objectForKey:@"stop_id"];
     stop.code = [aRecord objectForKey:@"stop_code"];
     stop.name = [aRecord objectForKey:@"stop_name"];

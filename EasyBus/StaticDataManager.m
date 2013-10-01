@@ -6,47 +6,40 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
-#import "StaticDataManager.h"
-#import "RoutesCsvReader.h"
-#import "StopsCsvReader.h"
-#import "RoutesStopsCsvReader.h"
-#import "FavoritesManager.h"
+#import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
-
-@interface StaticDataManager()
-
-@property(nonatomic) RoutesCsvReader* _routesCsvReader;
-@property(nonatomic) RoutesStopsCsvReader* _routesStopsCsvReader;
-@property(nonatomic) StopsCsvReader* _stopsCsvReader;
-
-@end
+#import "StaticDataManager.h"
+#import "FavoritesManager.h"
 
 @implementation StaticDataManager
+objection_register_singleton(StaticDataManager)
 
-@synthesize _routesCsvReader, _routesStopsCsvReader, _stopsCsvReader;
-@synthesize managedObjectModel, managedObjectContext;
+objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsvReader", @"stopsCsvReader")
+@synthesize managedObjectContext, routesCsvReader, routesStopsCsvReader, stopsCsvReader;
 
 #pragma mark init method
-- (id)initWithContext:(NSManagedObjectContext*)context {
-    if ( self = [super init] ) {
-        //initialisation des membres
-        self.managedObjectContext = context;
-        self.managedObjectModel = [[context persistentStoreCoordinator] managedObjectModel];
-        _routesCsvReader = [[RoutesCsvReader alloc] initWithContext:self.managedObjectContext];
-        _stopsCsvReader = [[StopsCsvReader alloc] initWithContext:self.managedObjectContext];
-        _routesStopsCsvReader = [[RoutesStopsCsvReader alloc] initWithContext:self.managedObjectContext];
-    }
-    
-    return self;
-}
+//- (id)init {
+//    if ( self = [super init] ) {
+//        //Préconditions
+//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+//        NSAssert(self.routesCsvReader != nil, @"routesCsvReader should not be nil");
+//        NSAssert(self.routesStopsCsvReader != nil, @"routesStopsCsvReader should not be nil");
+//        NSAssert(self.stopsCsvReader != nil, @"stopsCsvReader should not be nil");
+//    }
+//    
+//    return self;
+//}
 
 #pragma mark file loading method
 - (void) reloadDatabase {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     //Delete all routes
     NSError * error = nil;
     NSArray * routes = [self routes];
     for (NSManagedObject * route in routes) {
-        [[self managedObjectContext] deleteObject:route];
+        [self.managedObjectContext deleteObject:route];
     }
     
     //Delete all stops
@@ -57,17 +50,21 @@
     }
 
     //load data
-    [_routesCsvReader loadData];
-    [_stopsCsvReader loadData];
-    [_routesStopsCsvReader loadData];
+    [self.routesCsvReader loadData];
+    [self.stopsCsvReader loadData];
+    [self.routesStopsCsvReader loadData];
 }
 
 #pragma mark Business methods
 - (NSArray*) routes {
-    NSFetchRequest *request = [[self managedObjectModel] fetchRequestTemplateForName:@"fetchAllRoutes"];
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
 
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
@@ -81,11 +78,15 @@
 }
 
 - (Route*) routeForId:(NSString*)routeId {
-    NSFetchRequest *request = [[self managedObjectModel] fetchRequestFromTemplateWithName:@"fetchRouteWithId"
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                                     substitutionVariables:@{@"id" : routeId}];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
@@ -102,10 +103,14 @@
 }
 
 - (NSArray*) stops {
-    NSFetchRequest *request = [[self managedObjectModel] fetchRequestTemplateForName:@"fetchAllStops"];
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
@@ -115,11 +120,15 @@
 }
 
 - (Stop*) stopForId:(NSString*)stopId {
-    NSFetchRequest *request = [[self managedObjectModel] fetchRequestFromTemplateWithName:@"fetchStopWithId"
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
                       substitutionVariables:@{@"id" : stopId}];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);

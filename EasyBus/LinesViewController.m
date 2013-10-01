@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "LinesViewController.h"
 #import "FavoritesNavigationController.h"
 #import "DirectionViewController.h"
@@ -13,14 +14,20 @@
 
 @implementation LinesViewController
 
+objection_requires(@"staticDataManager")
 @synthesize staticDataManager;
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Initialize data
-    self.staticDataManager = ((FavoritesNavigationController*)self.navigationController).staticDataManager;
+    //Pré-conditions
+    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
 
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
