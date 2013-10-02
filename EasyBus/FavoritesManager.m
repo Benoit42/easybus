@@ -77,6 +77,13 @@ objection_requires(@"managedObjectContext")
         newGroup.terminus = newFavorite.terminus;        
         [newGroup addFavoritesObject:newFavorite];
     }
+    
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 }
 
 - (void) removeFavorite:(Favorite*)favorite {

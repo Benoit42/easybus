@@ -58,18 +58,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     self.view.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:231.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    //Raffraichissement des données
-    NSArray* favorite = [favoritesManager favorites];
-    [self.departuresManager refreshDepartures:favorite];
-
-    //Création de la 1ère vue
-    [self reloadInputViews];
-    [self gotoNearestPage];
-}
-
 - (void)viewDidDisappear:(BOOL)animated {
     //Stop GPS
     [self.locationManager stopUpdatingLocation];

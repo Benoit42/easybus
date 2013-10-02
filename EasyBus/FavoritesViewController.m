@@ -200,6 +200,7 @@ objection_requires(@"favoritesManager", @"groupManager")
     NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
     [self.favoritesManager addFavorite:route stop:stop direction:direction];
     [((UITableView*)self.view) reloadData];
+    
 }
 
 @end

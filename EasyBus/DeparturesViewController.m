@@ -26,8 +26,8 @@
 
 @implementation DeparturesViewController
 
-objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager")
-@synthesize favoritesManager, groupManager, departuresManager, staticDataManager, page, _activityIndicator, _reloadButton, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh, _refreshing;
+objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager", @"locationManager")
+@synthesize favoritesManager, groupManager, departuresManager, staticDataManager, locationManager, page, _activityIndicator, _reloadButton, _direction, _info, _timeIntervalFormatter, _maxRows, _lastRefresh, _refreshing;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -88,11 +88,12 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
         [_info setText:infoText];
     }
     
-    //Compute refresh delay
+    //update departures
     NSTimeInterval interval = [[self.departuresManager _refreshDate] timeIntervalSinceNow];
     if (interval > 60) {
         //refresh si plus d'1 minute
         [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.locationManager startUpdatingLocation];
     }
 }
 
@@ -140,6 +141,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - Table view refresh control
 - (IBAction)_refreshAsked:(UIButton *)sender {
     [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+    [self.locationManager startUpdatingLocation];
 }
 
 #pragma mark - Table view data source

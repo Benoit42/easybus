@@ -11,6 +11,7 @@
 #import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataManager.h"
+#import "LocationManager.h"
 
 @interface DeparturesViewController : UITableViewController
 
@@ -18,6 +19,7 @@
 @property(strong, nonatomic) GroupManager* groupManager;
 @property(strong, nonatomic) DeparturesManager* departuresManager;
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
+@property (nonatomic, retain) LocationManager *locationManager;
 
 @property(nonatomic) NSInteger page;
 @property (weak, nonatomic) IBOutlet UILabel *_direction;
