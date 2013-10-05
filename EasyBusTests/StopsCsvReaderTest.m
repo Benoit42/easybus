@@ -54,6 +54,10 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     NSError *error = nil;
     NSFetchRequest *request = [self.managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     NSArray *stops = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 
     STAssertEquals([stops count], 1402U, @"Wrong number of stops in stops.txt");
 }

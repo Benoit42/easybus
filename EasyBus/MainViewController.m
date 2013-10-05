@@ -50,7 +50,8 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     
     //Check des données statiques
     if ([[self.staticDataManager routes] count] == 0) {
-        [self.staticDataManager reloadDatabase];
+        [self performSegueWithIdentifier:@"initFavorite" sender:self];
+        return;
     }
     
     //Check des favoris

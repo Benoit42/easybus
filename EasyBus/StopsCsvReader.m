@@ -17,17 +17,10 @@ objection_register_singleton(StopsCsvReader)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//constructeur
-//-(id)init {
-//    if ( self = [super init] ) {
-//        //Préconditions
-//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-//    }
-//
-//    return self;
-//}
-
 - (void)loadData {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     NSError* error = nil;
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
     
@@ -43,9 +36,6 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)receiveRecord:(NSDictionary *)aRecord {
-    //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-    
     // Create and configure a new instance of the Stop entity.
     Stop* stop = (Stop*)[NSEntityDescription insertNewObjectForEntityForName:@"Stop" inManagedObjectContext:self.managedObjectContext];
     stop.id = [aRecord objectForKey:@"stop_id"];

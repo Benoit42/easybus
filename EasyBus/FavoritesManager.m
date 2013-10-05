@@ -19,14 +19,6 @@ objection_register_singleton(FavoritesManager)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//- (id)init {
-//    if ( self = [super init] ) {
-//        //Préconditions
-//    }
-//    
-//    return self;
-//}
-//
 #pragma manage favorites
 - (NSArray*) favorites {
     NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
@@ -34,9 +26,13 @@ objection_requires(@"managedObjectContext")
 
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
     }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
@@ -53,6 +49,10 @@ objection_requires(@"managedObjectContext")
 
     NSError *error = nil;
     NSMutableArray *result = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
     if ([result count] > 0) {
         //Should be 0 or 1 item
         return [result objectAtIndex:0];
@@ -93,6 +93,13 @@ objection_requires(@"managedObjectContext")
     
     //Suppression du favori
     [self.managedObjectContext deleteObject:favorite];    
+    
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 }
 
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {

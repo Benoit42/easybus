@@ -53,9 +53,17 @@ objection_requires(@"staticDataManager")
     Route* firstRoute = [routes objectAtIndex:0];
     STAssertEqualObjects(@"0001", firstRoute.id, @"First route shall be 0001");
 
-
     Route* lastRoute = [routes lastObject];
     STAssertEqualObjects(@"0805", lastRoute.id, @"First route shall be 0805");
+}
+
+
+- (void)testRoute64
+{
+    Route* route64 = [self.staticDataManager routeForId:@"0064"];
+    STAssertNotNil(route64 , @"Route 64 shall exists");
+    STAssertEquals(route64.stopsDirectionZero.count, 22U, @"Wrong number of stops");
+    STAssertEquals(route64.stopsDirectionOne.count, 23U, @"Wrong number of stops");
 }
 
 

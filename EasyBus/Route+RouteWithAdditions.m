@@ -19,4 +19,23 @@
     }
 }
 
+- (void)addStop:(Stop*)stop forDirection:(NSString*)direction andSequence:(NSUInteger)sequence {
+    NSMutableOrderedSet* tempSet;
+    if ([direction isEqual: @"0"]) {
+        //[route insertObject:stop inStopsDirectionZeroAtIndex:0];
+        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionZero"];
+    }
+    else {
+        //[route insertObject:stop inStopsDirectionOneAtIndex:0];
+        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionOne"];
+    }
+    if (![tempSet containsObject:stop]) {
+        if (sequence < [tempSet count]) {
+            [tempSet insertObject:stop atIndex:sequence];
+        }
+        else {
+            [tempSet insertObject:stop atIndex:[tempSet count]];
+        }
+    }
+}
 @end

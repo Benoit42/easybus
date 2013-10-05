@@ -10,25 +10,16 @@
 #import <CoreData/CoreData.h>
 #import "StaticDataManager.h"
 #import "FavoritesManager.h"
+#import "Trip.h"
+#import "StopTime.h"
+#import "RouteStop.h"
+#import "Route+RouteWithAdditions.h"
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
 
-objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsvReader", @"stopsCsvReader")
-@synthesize managedObjectContext, routesCsvReader, routesStopsCsvReader, stopsCsvReader;
-
-#pragma mark init method
-//- (id)init {
-//    if ( self = [super init] ) {
-//        //Préconditions
-//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-//        NSAssert(self.routesCsvReader != nil, @"routesCsvReader should not be nil");
-//        NSAssert(self.routesStopsCsvReader != nil, @"routesStopsCsvReader should not be nil");
-//        NSAssert(self.stopsCsvReader != nil, @"stopsCsvReader should not be nil");
-//    }
-//    
-//    return self;
-//}
+objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader")
+@synthesize managedObjectContext, routesCsvReader, stopsCsvReader, tripsCsvReader, stopTimesCsvReader;
 
 #pragma mark file loading method
 - (void) reloadDatabase {
@@ -36,14 +27,12 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
     //Delete all routes
-    NSError * error = nil;
     NSArray * routes = [self routes];
     for (NSManagedObject * route in routes) {
         [self.managedObjectContext deleteObject:route];
     }
     
     //Delete all stops
-    error = nil;
     NSArray * stops = [self stops];
     for (NSManagedObject * stop in stops) {
         [[self managedObjectContext] deleteObject:stop];
@@ -52,7 +41,9 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     //load data
     [self.routesCsvReader loadData];
     [self.stopsCsvReader loadData];
-    [self.routesStopsCsvReader loadData];
+    [self.tripsCsvReader loadData];
+    [self.stopTimesCsvReader loadData];
+    [self computeStopsForRoutes];
 }
 
 #pragma mark Business methods
@@ -65,9 +56,13 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
 
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
     }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
@@ -87,12 +82,17 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
         return nil;
     }
-    else if ([mutableFetchResults count] == 0) {
+    
+    if ([mutableFetchResults count] == 0) {
         return nil;
     }
     else {
@@ -111,9 +111,13 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
     }
     
     return mutableFetchResults;
@@ -129,12 +133,16 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-        return nil;
     }
-    else if ([mutableFetchResults count] == 0) {
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    if ([mutableFetchResults count] == 0) {
         return nil;
     }
     else {
@@ -145,7 +153,6 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
 }
 
 // Return the stops for a route and a direction
-//TODO : optimiser ces accès
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction {
     NSOrderedSet* stops;
     if ([direction isEqual: @"0"]) {
@@ -156,6 +163,51 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"routesStopsCsv
     }
 
     return [stops array];
+}
+
+- (void) computeStopsForRoutes {
+    //Construction de l'association route/stop
+    NSArray* trips = self.tripsCsvReader.trips;
+    NSArray* stops = self.stopTimesCsvReader.stops;
+    NSMutableSet* routeStops = [[NSMutableSet alloc] init];
+    
+    int i=0, j=0;
+    while (i < trips.count) {
+        Trip* trip = trips[i];
+        while (j < stops.count) {
+            StopTime* stopTime = stops[j];
+            if ([trip.id compare:stopTime.tripId] == NSOrderedAscending) {
+                break;
+            }
+            else if ([trip.id compare:stopTime.tripId] == NSOrderedDescending) {
+                continue;
+            }
+            else {
+                //Les tripId matchent
+                RouteStop* routeStop = [[RouteStop alloc] init];
+                routeStop.routeId = trip.routeId;
+                routeStop.directionId = trip.directionId;
+                routeStop.stopId = stopTime.stopId;
+                routeStop.stopSequence = stopTime.stopSequence;
+                [routeStops addObject:routeStop];
+
+                //Incrément de boucle
+                j++;
+            }
+        }
+        
+        //Incrément de boucle
+        i++;
+    }
+    
+    //Mise des relations route-stop
+    [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, BOOL *stop) {
+        Route* route = [self routeForId:routeStop.routeId];
+        Stop* stopEntity = [self stopForId:routeStop.stopId];
+        int sequence = [routeStop.stopSequence intValue] - 1;
+        NSString* direction = routeStop.directionId;
+        [route addStop:stopEntity forDirection:direction andSequence:sequence];
+    }];
 }
 
 - (UIImage*) pictoForRouteId:(NSString*)routeId {

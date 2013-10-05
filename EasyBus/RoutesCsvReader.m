@@ -18,17 +18,10 @@ objection_register_singleton(RoutesCsvReader)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//constructeur
-//-(id)init {
-//    if ( self = [super init] ) {
-//        //Préconditions
-//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-//    }
-//    
-//    return self;
-//}
-
 - (void)loadData {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
     //Chargement des routes standards
     NSError* error = nil;
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
@@ -42,6 +35,18 @@ objection_requires(@"managedObjectContext")
      fieldNames:nil];
     [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
     
+    //Chargement des routes additionnelles
+    url = [[NSBundle mainBundle] URLForResource:@"routes_additionals" withExtension:@"txt"];
+    csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    
+    parser =
+    [[CSVParser alloc]
+     initWithString:csvString
+     separator:@","
+     hasHeader:YES
+     fieldNames:nil];
+    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+
     //Chargement des routes suplémentaires
     url = [[NSBundle mainBundle] URLForResource:@"routes_extras" withExtension:@"txt"];
     csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
@@ -56,9 +61,6 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)receiveRecord:(NSDictionary *)aRecord {
-    //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-    
     // Create and configure a new instance of the Route entity.
     Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
     route.id = [aRecord objectForKey:@"route_id"];

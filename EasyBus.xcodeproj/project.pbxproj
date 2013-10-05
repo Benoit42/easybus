@@ -16,7 +16,6 @@
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
 		140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */; };
-		140EA4F8163D974B00FB4A85 /* RoutesStopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F7163D974B00FB4A85 /* RoutesStopsCsvReader.m */; };
 		140EA4FC163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */; };
 		140EA7C2163DA76D00FB4A85 /* Pictogrammes_100\11.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */; };
 		140EA7C3163DA76D00FB4A85 /* Pictogrammes_100\150.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */; };
@@ -308,10 +307,9 @@
 		143F85081663492B0064B2F4 /* Pictogrammes_21\Ts81.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847C1663492B0064B2F4 /* Pictogrammes_21\Ts81.png */; };
 		143F85091663492B0064B2F4 /* Pictogrammes_21\Ts82.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */; };
 		143F850A1663492B0064B2F4 /* Pictogrammes_21\TTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */; };
+		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
 		147480041663D4DC0091FF49 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147480031663D4DC0091FF49 /* PageViewController.m */; };
 		1475C9FB17D7A0EF001323B7 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1475C9FA17D7A0EF001323B7 /* Favorite.m */; };
-		1475C9FE17D7A0EF001323B7 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1475C9FD17D7A0EF001323B7 /* Route.m */; };
-		1475CA0117D7A0EF001323B7 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1475CA0017D7A0EF001323B7 /* Stop.m */; };
 		1475CA0417D7A0EF001323B7 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 1475CA0317D7A0EF001323B7 /* Group.m */; };
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776D8717425290008C7E2E /* ZipArchiveTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14776D8617425290008C7E2E /* ZipArchiveTest.m */; };
@@ -343,8 +341,6 @@
 		14776DED17427B54008C7E2E /* routes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDB17427B54008C7E2E /* routes.txt */; };
 		14776DEE17427B54008C7E2E /* routes_extensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDC17427B54008C7E2E /* routes_extensions.txt */; };
 		14776DEF17427B54008C7E2E /* routes_extensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDC17427B54008C7E2E /* routes_extensions.txt */; };
-		14776DF017427B54008C7E2E /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDD17427B54008C7E2E /* routes_stops.txt */; };
-		14776DF117427B54008C7E2E /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDD17427B54008C7E2E /* routes_stops.txt */; };
 		14776DF217427B54008C7E2E /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDE17427B54008C7E2E /* stop_times.txt */; };
 		14776DF317427B54008C7E2E /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDE17427B54008C7E2E /* stop_times.txt */; };
 		14776DF417427B54008C7E2E /* stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DDF17427B54008C7E2E /* stops.txt */; };
@@ -402,6 +398,14 @@
 		14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF430716597FA500834A23 /* FavoriteCell.h */; };
 		14CF4341165EB44400834A23 /* StopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4340165EB44400834A23 /* StopCell.m */; };
 		14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4346165FEA3400834A23 /* DepartureCell.m */; };
+		14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */; };
+		14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */; };
+		14DDB96517FC7B4D000D1C5E /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB96417FC7B4D000D1C5E /* Stop.m */; };
+		14DDB96B17FC7B4E000D1C5E /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB96A17FC7B4E000D1C5E /* Route.m */; };
+		14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */; };
+		14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */; };
+		14DDB98117FCA933000D1C5E /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98017FCA933000D1C5E /* StopTime.m */; };
+		14DDB98417FCA933000D1C5E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* Trip.m */; };
 		14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
@@ -434,8 +438,6 @@
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
 		140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReader.m; sourceTree = "<group>"; };
 		140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReaderTest.m; sourceTree = "<group>"; };
-		140EA4F6163D974B00FB4A85 /* RoutesStopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = RoutesStopsCsvReader.h; sourceTree = "<group>"; };
-		140EA4F7163D974B00FB4A85 /* RoutesStopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesStopsCsvReader.m; sourceTree = "<group>"; };
 		140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesStopsCsvReaderTest.m; sourceTree = "<group>"; };
 		140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\11.png"; sourceTree = "<group>"; };
 		140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\150.png"; sourceTree = "<group>"; };
@@ -732,14 +734,12 @@
 		143F847C1663492B0064B2F4 /* Pictogrammes_21\Ts81.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\Ts81.png"; path = "21x21/Pictogrammes_21\\Ts81.png"; sourceTree = "<group>"; };
 		143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\Ts82.png"; path = "21x21/Pictogrammes_21\\Ts82.png"; sourceTree = "<group>"; };
 		143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\TTZ.png"; path = "21x21/Pictogrammes_21\\TTZ.png"; sourceTree = "<group>"; };
+		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
+		147168A0180086F200846AE6 /* RouteStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStop.m; sourceTree = "<group>"; };
 		147480021663D4DC0091FF49 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		147480031663D4DC0091FF49 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		1475C9F917D7A0EF001323B7 /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
 		1475C9FA17D7A0EF001323B7 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
-		1475C9FC17D7A0EF001323B7 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
-		1475C9FD17D7A0EF001323B7 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
-		1475C9FF17D7A0EF001323B7 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
-		1475CA0017D7A0EF001323B7 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		1475CA0217D7A0EF001323B7 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		1475CA0317D7A0EF001323B7 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		14776D7E17423022008C7E2E /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -765,7 +765,6 @@
 		14776DDA17427B54008C7E2E /* feed_info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = feed_info.txt; sourceTree = "<group>"; };
 		14776DDB17427B54008C7E2E /* routes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes.txt; sourceTree = "<group>"; };
 		14776DDC17427B54008C7E2E /* routes_extensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_extensions.txt; sourceTree = "<group>"; };
-		14776DDD17427B54008C7E2E /* routes_stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_stops.txt; sourceTree = "<group>"; };
 		14776DDE17427B54008C7E2E /* stop_times.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stop_times.txt; sourceTree = "<group>"; };
 		14776DDF17427B54008C7E2E /* stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stops.txt; sourceTree = "<group>"; };
 		14776DE017427B54008C7E2E /* stops_extensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stops_extensions.txt; sourceTree = "<group>"; };
@@ -824,6 +823,20 @@
 		14CF4340165EB44400834A23 /* StopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopCell.m; sourceTree = "<group>"; };
 		14CF4345165FEA3400834A23 /* DepartureCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DepartureCell.h; sourceTree = "<group>"; };
 		14CF4346165FEA3400834A23 /* DepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureCell.m; sourceTree = "<group>"; };
+		14DDB95817FC70BF000D1C5E /* TripsCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsCsvReader.h; sourceTree = "<group>"; };
+		14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsCsvReader.m; sourceTree = "<group>"; };
+		14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsReaderTest.m; sourceTree = "<group>"; };
+		14DDB96317FC7B4D000D1C5E /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
+		14DDB96417FC7B4D000D1C5E /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
+		14DDB96917FC7B4E000D1C5E /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		14DDB96A17FC7B4E000D1C5E /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimesCsvReader.m; sourceTree = "<group>"; };
+		14DDB96D17FC7BEB000D1C5E /* StopTimesCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimesCsvReader.h; sourceTree = "<group>"; };
+		14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimesCsvReaderTest.m; sourceTree = "<group>"; };
+		14DDB97F17FCA933000D1C5E /* StopTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTime.h; sourceTree = "<group>"; };
+		14DDB98017FCA933000D1C5E /* StopTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTime.m; sourceTree = "<group>"; };
+		14DDB98217FCA933000D1C5E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		14DDB98317FCA933000D1C5E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		14E2AD7017D2131600ED4546 /* FavoriteInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteInitViewController.h; sourceTree = "<group>"; };
 		14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteInitViewController.m; sourceTree = "<group>"; };
 		14E2AD7317D214E700ED4546 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -1209,7 +1222,6 @@
 				14776DDA17427B54008C7E2E /* feed_info.txt */,
 				14776DDB17427B54008C7E2E /* routes.txt */,
 				14776DDC17427B54008C7E2E /* routes_extensions.txt */,
-				14776DDD17427B54008C7E2E /* routes_stops.txt */,
 				14776DDE17427B54008C7E2E /* stop_times.txt */,
 				14776DDF17427B54008C7E2E /* stops.txt */,
 				14776DE017427B54008C7E2E /* stops_extensions.txt */,
@@ -1313,6 +1325,8 @@
 				141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */,
 				140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */,
 				140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */,
+				14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */,
+				14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */,
 				14AD3C3D162AF00400DF061A /* Supporting Files */,
 			);
 			path = EasyBusTests;
@@ -1354,12 +1368,12 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
+				14DDB96917FC7B4E000D1C5E /* Route.h */,
+				14DDB96A17FC7B4E000D1C5E /* Route.m */,
+				14DDB96317FC7B4D000D1C5E /* Stop.h */,
+				14DDB96417FC7B4D000D1C5E /* Stop.m */,
 				1475C9F917D7A0EF001323B7 /* Favorite.h */,
 				1475C9FA17D7A0EF001323B7 /* Favorite.m */,
-				1475C9FC17D7A0EF001323B7 /* Route.h */,
-				1475C9FD17D7A0EF001323B7 /* Route.m */,
-				1475C9FF17D7A0EF001323B7 /* Stop.h */,
-				1475CA0017D7A0EF001323B7 /* Stop.m */,
 				1475CA0217D7A0EF001323B7 /* Group.h */,
 				1475CA0317D7A0EF001323B7 /* Group.m */,
 				1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */,
@@ -1386,16 +1400,24 @@
 		14CF4313165BFF8900834A23 /* Lines&Stops */ = {
 			isa = PBXGroup;
 			children = (
+				14DDB98217FCA933000D1C5E /* Trip.h */,
+				14DDB98317FCA933000D1C5E /* Trip.m */,
+				14DDB97F17FCA933000D1C5E /* StopTime.h */,
+				14DDB98017FCA933000D1C5E /* StopTime.m */,
+				1471689F180086F200846AE6 /* RouteStop.h */,
+				147168A0180086F200846AE6 /* RouteStop.m */,
 				14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */,
 				14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */,
 				14CF432B165CDD3D00834A23 /* StaticDataManager.h */,
 				14CF432C165CDD3D00834A23 /* StaticDataManager.m */,
 				141EDDE617776FFF005DDC8C /* RoutesCsvReader.h */,
 				149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */,
-				140EA4F6163D974B00FB4A85 /* RoutesStopsCsvReader.h */,
-				140EA4F7163D974B00FB4A85 /* RoutesStopsCsvReader.m */,
 				140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */,
 				140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */,
+				14DDB95817FC70BF000D1C5E /* TripsCsvReader.h */,
+				14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */,
+				14DDB96D17FC7BEB000D1C5E /* StopTimesCsvReader.h */,
+				14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */,
 			);
 			name = "Lines&Stops";
 			sourceTree = "<group>";
@@ -1849,7 +1871,6 @@
 				14776DEA17427B54008C7E2E /* feed_info.txt in Resources */,
 				14776DEC17427B54008C7E2E /* routes.txt in Resources */,
 				14776DEE17427B54008C7E2E /* routes_extensions.txt in Resources */,
-				14776DF017427B54008C7E2E /* routes_stops.txt in Resources */,
 				14776DF217427B54008C7E2E /* stop_times.txt in Resources */,
 				14776DF417427B54008C7E2E /* stops.txt in Resources */,
 				14776DF617427B54008C7E2E /* stops_extensions.txt in Resources */,
@@ -1870,7 +1891,6 @@
 				14776DEB17427B54008C7E2E /* feed_info.txt in Resources */,
 				14776DED17427B54008C7E2E /* routes.txt in Resources */,
 				14776DEF17427B54008C7E2E /* routes_extensions.txt in Resources */,
-				14776DF117427B54008C7E2E /* routes_stops.txt in Resources */,
 				14776DF317427B54008C7E2E /* stop_times.txt in Resources */,
 				14776DF517427B54008C7E2E /* stops.txt in Resources */,
 				14776DF717427B54008C7E2E /* stops_extensions.txt in Resources */,
@@ -1976,10 +1996,10 @@
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
-				140EA4F8163D974B00FB4A85 /* RoutesStopsCsvReader.m in Sources */,
 				140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */,
 				140EA850163F125600FB4A85 /* StopsViewController.h in Sources */,
 				140C799517F6C4C1007184C7 /* IoCModule.m in Sources */,
+				14DDB98117FCA933000D1C5E /* StopTime.m in Sources */,
 				140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */,
 				1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */,
 				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
@@ -1987,8 +2007,10 @@
 				14CF430916597FA500834A23 /* FavoriteCell.m in Sources */,
 				14CF4311165BFF4000834A23 /* FavoritesManager.m in Sources */,
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
+				147168A1180086F200846AE6 /* RouteStop.m in Sources */,
 				14CF432D165CDD3D00834A23 /* StaticDataManager.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,
+				14DDB96B17FC7B4E000D1C5E /* Route.m in Sources */,
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
 				14CF433C165EB41200834A23 /* DirectionCell.h in Sources */,
 				14CF433D165EB41700834A23 /* LineCell.h in Sources */,
@@ -1998,10 +2020,12 @@
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
 				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
+				14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */,
 				14EF87EB167BBF370058607C /* LocationManager.m in Sources */,
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
+				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
 				14776DC717426CED008C7E2E /* ioapi.c in Sources */,
 				14776DC917426CED008C7E2E /* mztools.c in Sources */,
 				14776DCB17426CED008C7E2E /* unzip.c in Sources */,
@@ -2013,11 +2037,11 @@
 				14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */,
 				14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */,
 				14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */,
+				14DDB96517FC7B4D000D1C5E /* Stop.m in Sources */,
+				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
 				1475C9FB17D7A0EF001323B7 /* Favorite.m in Sources */,
-				1475C9FE17D7A0EF001323B7 /* Route.m in Sources */,
-				1475CA0117D7A0EF001323B7 /* Stop.m in Sources */,
 				1475CA0417D7A0EF001323B7 /* Group.m in Sources */,
 				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
 			);
@@ -2034,8 +2058,10 @@
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14776D8717425290008C7E2E /* ZipArchiveTest.m in Sources */,
 				14776DC817426CED008C7E2E /* ioapi.c in Sources */,
+				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
 				14776DCA17426CED008C7E2E /* mztools.c in Sources */,
 				14776DCC17426CED008C7E2E /* unzip.c in Sources */,
+				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
 				14776DCE17426CED008C7E2E /* zip.c in Sources */,
 				14776DD017426CED008C7E2E /* ZipArchive.mm in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,

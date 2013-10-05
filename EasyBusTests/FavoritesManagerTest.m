@@ -123,6 +123,10 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     
     NSError *error = nil;
     NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
     return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
 }
 
@@ -132,6 +136,10 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     
     NSError *error = nil;
     NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
     return ([stops count] == 0) ? nil : [stops objectAtIndex:0];
 }
 

@@ -15,15 +15,6 @@ objection_register_singleton(GroupManager)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-//- (id)init {
-//    if ( self = [super init] ) {
-//        //Préconditions
-//        NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-//    }
-//    
-//    return self;
-//}
-//
 #pragma manage groupes
 - (NSArray*) groups {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
@@ -31,9 +22,13 @@ objection_requires(@"managedObjectContext")
     
     NSError *error = nil;
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (mutableFetchResults == nil) {
+    if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
     }
     
     return mutableFetchResults;
@@ -44,6 +39,13 @@ objection_requires(@"managedObjectContext")
     Group* newGroupe = (Group*)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
     newGroupe.name =  name;
     newGroupe.terminus = terminus;
+
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 }
 
 - (void) removeGroup:(Group*)group {
@@ -52,6 +54,13 @@ objection_requires(@"managedObjectContext")
     
     //Suppression du groupe
     [self.managedObjectContext deleteObject:group];
+
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 }
 
 #pragma manage notifications

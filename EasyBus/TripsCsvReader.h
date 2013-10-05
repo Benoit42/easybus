@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Trip.h"
 
-@interface RoutesStopsCsvReader : NSObject
+@interface TripsCsvReader : NSObject
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic, retain) NSMutableArray* trips;
 
 - (void)loadData;
 

@@ -17,5 +17,4 @@
 - (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
 - (void) removeFavorite:(Favorite*)favorite;
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index;
-
 @end
