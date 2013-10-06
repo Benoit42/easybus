@@ -14,5 +14,6 @@
 @property(nonatomic, retain) NSMutableArray* stops;
 
 - (void)loadData;
+- (void)cleanUp;
 
 @end

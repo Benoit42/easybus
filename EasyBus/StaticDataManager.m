@@ -10,41 +10,13 @@
 #import <CoreData/CoreData.h>
 #import "StaticDataManager.h"
 #import "FavoritesManager.h"
-#import "Trip.h"
-#import "StopTime.h"
-#import "RouteStop.h"
 #import "Route+RouteWithAdditions.h"
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
 
-objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader")
-@synthesize managedObjectContext, routesCsvReader, stopsCsvReader, tripsCsvReader, stopTimesCsvReader;
-
-#pragma mark file loading method
-- (void) reloadDatabase {
-    //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-    
-    //Delete all routes
-    NSArray * routes = [self routes];
-    for (NSManagedObject * route in routes) {
-        [self.managedObjectContext deleteObject:route];
-    }
-    
-    //Delete all stops
-    NSArray * stops = [self stops];
-    for (NSManagedObject * stop in stops) {
-        [[self managedObjectContext] deleteObject:stop];
-    }
-
-    //load data
-    [self.routesCsvReader loadData];
-    [self.stopsCsvReader loadData];
-    [self.tripsCsvReader loadData];
-    [self.stopTimesCsvReader loadData];
-    [self computeStopsForRoutes];
-}
+objection_requires(@"managedObjectContext")
+@synthesize managedObjectContext;
 
 #pragma mark Business methods
 - (NSArray*) routes {
@@ -163,51 +135,6 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     }
 
     return [stops array];
-}
-
-- (void) computeStopsForRoutes {
-    //Construction de l'association route/stop
-    NSArray* trips = self.tripsCsvReader.trips;
-    NSArray* stops = self.stopTimesCsvReader.stops;
-    NSMutableSet* routeStops = [[NSMutableSet alloc] init];
-    
-    int i=0, j=0;
-    while (i < trips.count) {
-        Trip* trip = trips[i];
-        while (j < stops.count) {
-            StopTime* stopTime = stops[j];
-            if ([trip.id compare:stopTime.tripId] == NSOrderedAscending) {
-                break;
-            }
-            else if ([trip.id compare:stopTime.tripId] == NSOrderedDescending) {
-                continue;
-            }
-            else {
-                //Les tripId matchent
-                RouteStop* routeStop = [[RouteStop alloc] init];
-                routeStop.routeId = trip.routeId;
-                routeStop.directionId = trip.directionId;
-                routeStop.stopId = stopTime.stopId;
-                routeStop.stopSequence = stopTime.stopSequence;
-                [routeStops addObject:routeStop];
-
-                //Incrément de boucle
-                j++;
-            }
-        }
-        
-        //Incrément de boucle
-        i++;
-    }
-    
-    //Mise des relations route-stop
-    [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, BOOL *stop) {
-        Route* route = [self routeForId:routeStop.routeId];
-        Stop* stopEntity = [self stopForId:routeStop.stopId];
-        int sequence = [routeStop.stopSequence intValue] - 1;
-        NSString* direction = routeStop.directionId;
-        [route addStop:stopEntity forDirection:direction andSequence:sequence];
-    }];
 }
 
 - (UIImage*) pictoForRouteId:(NSString*)routeId {

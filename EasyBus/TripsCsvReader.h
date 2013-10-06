@@ -14,5 +14,6 @@
 @property(nonatomic, retain) NSMutableArray* trips;
 
 - (void)loadData;
+- (void)cleanUp;
 
 @end

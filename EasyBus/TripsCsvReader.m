@@ -49,4 +49,8 @@ objection_register_singleton(TripsCsvReader)
     [trips addObject:trip];
 }
 
+- (void)cleanUp {
+    trips = nil;
+}
+
 @end

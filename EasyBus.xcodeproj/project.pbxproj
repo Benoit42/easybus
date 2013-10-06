@@ -16,7 +16,6 @@
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
 		140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */; };
-		140EA4FC163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */; };
 		140EA7C2163DA76D00FB4A85 /* Pictogrammes_100\11.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */; };
 		140EA7C3163DA76D00FB4A85 /* Pictogrammes_100\150.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */; };
 		140EA7C4163DA76D00FB4A85 /* Pictogrammes_100\151.png in Resources */ = {isa = PBXBuildFile; fileRef = 140EA738163DA76D00FB4A85 /* Pictogrammes_100\151.png */; };
@@ -438,7 +437,6 @@
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
 		140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReader.m; sourceTree = "<group>"; };
 		140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReaderTest.m; sourceTree = "<group>"; };
-		140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesStopsCsvReaderTest.m; sourceTree = "<group>"; };
 		140EA736163DA76D00FB4A85 /* Pictogrammes_100\11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\11.png"; sourceTree = "<group>"; };
 		140EA737163DA76D00FB4A85 /* Pictogrammes_100\150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\150.png"; sourceTree = "<group>"; };
 		140EA738163DA76D00FB4A85 /* Pictogrammes_100\151.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\151.png"; sourceTree = "<group>"; };
@@ -1323,7 +1321,6 @@
 				14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */,
 				14A540FE17773E0700E18262 /* StaticDataManagerTest.m */,
 				141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */,
-				140EA4FB163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m */,
 				140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */,
 				14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */,
 				14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */,
@@ -2052,7 +2049,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */,
-				140EA4FC163D9A3B00FB4A85 /* RoutesStopsCsvReaderTest.m in Sources */,
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,

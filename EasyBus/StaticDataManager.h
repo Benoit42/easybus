@@ -7,24 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RoutesCsvReader.h"
-#import "StopsCsvReader.h"
-#import "TripsCsvReader.h"
-#import "StopTimesCsvReader.h"
+#import "Route.h"
+#import "Stop.h"
 
 @interface StaticDataManager : NSObject
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property(nonatomic) RoutesCsvReader* routesCsvReader;
-@property(nonatomic) StopsCsvReader* stopsCsvReader;
-@property(nonatomic) TripsCsvReader* tripsCsvReader;
-@property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 
 - (NSArray*) routes;
 - (Route*) routeForId:(NSString*)routeId;
+- (NSArray*) stops;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
-- (void) reloadDatabase;
 - (UIImage*) pictoForRouteId:(NSString*)routeId;
 
 @end

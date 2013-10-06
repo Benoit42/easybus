@@ -12,4 +12,5 @@
 
 - (NSString*)terminusForDirection:(NSString*)direction;
 - (void)addStop:(Stop*)stop forDirection:(NSString*)direction andSequence:(NSUInteger)sequence;
+
 @end

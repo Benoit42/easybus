@@ -54,4 +54,8 @@ objection_register_singleton(StopTimesCsvReader)
     [stops addObject:stopTime];
 }
 
+- (void)cleanUp {
+    stops = nil;
+}
+
 @end

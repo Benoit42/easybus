@@ -14,8 +14,8 @@
 
 @implementation LinesViewController
 
-objection_requires(@"staticDataManager")
-@synthesize staticDataManager;
+objection_requires(@"staticDataManager", @"staticDataLoader")
+@synthesize staticDataManager, staticDataLoader;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -28,6 +28,7 @@ objection_requires(@"staticDataManager")
 
     //Pré-conditions
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSAssert(self.staticDataLoader != nil, @"staticDataLoader should not be nil");
 
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -44,7 +45,7 @@ objection_requires(@"staticDataManager")
 
 #pragma mark - Refresh Keolis data
 -(void) updateData{
-    [self.staticDataManager reloadDatabase];
+    [self.staticDataLoader loadStaticData];
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
 }

@@ -86,4 +86,8 @@ objection_requires(@"managedObjectContext")
     route.toName = toName;
 }
 
+- (void)cleanUp {
+    //nothing
+}
+
 @end

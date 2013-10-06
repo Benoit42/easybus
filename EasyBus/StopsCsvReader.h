@@ -14,5 +14,6 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (void)loadData;
+- (void)cleanUp;
 
 @end

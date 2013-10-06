@@ -11,17 +11,19 @@
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "StaticDataManager.h"
+#import "StaticDataLoader.h"
 
 @interface StaticDataManagerTest : SenTestCase
 
 @property(nonatomic) StaticDataManager* staticDataManager;
+@property(nonatomic) StaticDataLoader* staticDataLoader;
 
 @end
 
 @implementation StaticDataManagerTest
 
-objection_requires(@"staticDataManager")
-@synthesize staticDataManager;
+objection_requires(@"staticDataManager", @"staticDataLoader")
+@synthesize staticDataManager, staticDataLoader;
 
 - (void)setUp
 {
@@ -37,7 +39,7 @@ objection_requires(@"staticDataManager")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.staticDataManager reloadDatabase];
+    [self.staticDataLoader loadStaticData];
 }
 
 - (void)tearDown {

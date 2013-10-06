@@ -21,6 +21,7 @@ objection_requires(@"managedObjectContext")
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
+    //Chargement des stops
     NSError* error = nil;
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
     
@@ -44,6 +45,10 @@ objection_requires(@"managedObjectContext")
     stop.desc = [aRecord objectForKey:@"stop_desc"];
     stop.latitude = [aRecord objectForKey:@"stop_lat"];
     stop.longitude = [aRecord objectForKey:@"stop_lon"];
+}
+
+- (void)cleanUp {
+    //nothing
 }
 
 @end
