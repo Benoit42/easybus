@@ -21,8 +21,11 @@ objection_register_singleton(TripsCsvReader)
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
     NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 
+    //Log
+    NSLog(@"Chargement des trajets");
+    
     //Allocation du dictionnaire
-    self.trips = [[NSMutableArray alloc] init];
+    self.trips = [[NSMutableArray alloc] initWithCapacity:23000U];
     
     //parsing du fichier
     CSVParser* parser =

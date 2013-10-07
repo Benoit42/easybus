@@ -22,6 +22,9 @@ objection_requires(@"managedObjectContext")
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
+    //Log
+    NSLog(@"Chargement des routes");
+    
     //Chargement des routes standards
     NSError* error = nil;
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];

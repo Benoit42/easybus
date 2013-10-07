@@ -12,6 +12,7 @@
 #import "StopsCsvReader.h"
 #import "TripsCsvReader.h"
 #import "StopTimesCsvReader.h"
+#import "StopSequence.h"
 
 @interface StaticDataLoader : NSObject
 

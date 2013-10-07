@@ -21,6 +21,9 @@ objection_requires(@"managedObjectContext")
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
+    //Log
+    NSLog(@"Chargement des stops");
+    
     //Chargement des stops
     NSError* error = nil;
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];

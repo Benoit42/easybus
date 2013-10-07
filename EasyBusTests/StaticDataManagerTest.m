@@ -25,8 +25,7 @@
 objection_requires(@"staticDataManager", @"staticDataLoader")
 @synthesize staticDataManager, staticDataLoader;
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     
     //IoC
@@ -47,8 +46,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 }
 
 //Vérification des routes
-- (void)testRoutes
-{
+- (void)testRoutes {
     NSArray* routes = [self.staticDataManager routes];
     STAssertTrue([routes count] > 0 , @"Routes shall exist");
 
@@ -60,12 +58,25 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 }
 
 
-- (void)testRoute64
-{
+- (void)testRoute64 {
     Route* route64 = [self.staticDataManager routeForId:@"0064"];
     STAssertNotNil(route64 , @"Route 64 shall exists");
-    STAssertEquals(route64.stopsDirectionZero.count, 22U, @"Wrong number of stops");
-    STAssertEquals(route64.stopsDirectionOne.count, 23U, @"Wrong number of stops");
+
+    NSArray* stopsDirectionZero = [self.staticDataManager stopsForRoute:route64 direction:@"0"];
+    STAssertEquals(stopsDirectionZero.count, 22U, @"Wrong number of stops");
+
+    NSArray* stopsDirectionOne = [self.staticDataManager stopsForRoute:route64 direction:@"1"];
+    STAssertEquals(stopsDirectionOne.count, 23U, @"Wrong number of stops");
+
+    Stop* republique1 = stopsDirectionZero[0];
+    STAssertEqualObjects(republique1.name, @"Timonière", @"Wrong stop name");
+    Stop* timoniere1 = stopsDirectionZero[21];
+    STAssertEqualObjects(timoniere1.name, @"République Pré Botté", @"Wrong stop name");
+
+    Stop* timoniere2 = stopsDirectionOne[0];
+    STAssertEqualObjects(timoniere2.name, @"République Pré Botté", @"Wrong stop name");
+    Stop* republique2 = stopsDirectionOne[22];
+    STAssertEqualObjects(republique2.name, @"Timonière", @"Wrong stop name");
 }
 
 

@@ -29,8 +29,6 @@ objection_requires(@"favoritesManager", @"groupManager")
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In FavoritesViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
 }
 
 #pragma mark - lifecycle

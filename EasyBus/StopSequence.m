@@ -1,22 +1,21 @@
 //
-//  Favorite.m
+//  StopSequence.m
 //  EasyBus
 //
 //  Created by Benoit on 06/10/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "Favorite.h"
-#import "Group.h"
+#import "StopSequence.h"
 #import "Route.h"
 #import "Stop.h"
 
 
-@implementation Favorite
+@implementation StopSequence
 
-@dynamic direction;
-@dynamic group;
-@dynamic route;
+@dynamic sequence;
 @dynamic stop;
+@dynamic routeDirectionZero;
+@dynamic routeDirectionOne;
 
 @end

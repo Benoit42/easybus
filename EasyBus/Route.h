@@ -2,14 +2,14 @@
 //  Route.h
 //  EasyBus
 //
-//  Created by Benoit on 02/10/13.
+//  Created by Benoit on 06/10/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Stop;
+@class StopSequence;
 
 @interface Route : NSManagedObject
 
@@ -18,30 +18,30 @@
 @property (nonatomic, retain) NSString * longName;
 @property (nonatomic, retain) NSString * shortName;
 @property (nonatomic, retain) NSString * toName;
-@property (nonatomic, retain) NSOrderedSet *stopsDirectionOne;
-@property (nonatomic, retain) NSOrderedSet *stopsDirectionZero;
+@property (nonatomic, retain) NSOrderedSet *stopsSequenceDirectionOne;
+@property (nonatomic, retain) NSOrderedSet *stopsSequenceDirectionZero;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Stop *)value inStopsDirectionOneAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromStopsDirectionOneAtIndex:(NSUInteger)idx;
-- (void)insertStopsDirectionOne:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeStopsDirectionOneAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInStopsDirectionOneAtIndex:(NSUInteger)idx withObject:(Stop *)value;
-- (void)replaceStopsDirectionOneAtIndexes:(NSIndexSet *)indexes withStopsDirectionOne:(NSArray *)values;
-- (void)addStopsDirectionOneObject:(Stop *)value;
-- (void)removeStopsDirectionOneObject:(Stop *)value;
-- (void)addStopsDirectionOne:(NSOrderedSet *)values;
-- (void)removeStopsDirectionOne:(NSOrderedSet *)values;
-- (void)insertObject:(Stop *)value inStopsDirectionZeroAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromStopsDirectionZeroAtIndex:(NSUInteger)idx;
-- (void)insertStopsDirectionZero:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInStopsDirectionZeroAtIndex:(NSUInteger)idx withObject:(Stop *)value;
-- (void)replaceStopsDirectionZeroAtIndexes:(NSIndexSet *)indexes withStopsDirectionZero:(NSArray *)values;
-- (void)addStopsDirectionZeroObject:(Stop *)value;
-- (void)removeStopsDirectionZeroObject:(Stop *)value;
-- (void)addStopsDirectionZero:(NSOrderedSet *)values;
-- (void)removeStopsDirectionZero:(NSOrderedSet *)values;
+- (void)insertObject:(StopSequence *)value inStopsSequenceDirectionOneAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromStopsSequenceDirectionOneAtIndex:(NSUInteger)idx;
+- (void)insertStopsSequenceDirectionOne:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeStopsSequenceDirectionOneAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInStopsSequenceDirectionOneAtIndex:(NSUInteger)idx withObject:(StopSequence *)value;
+- (void)replaceStopsSequenceDirectionOneAtIndexes:(NSIndexSet *)indexes withStopsSequenceDirectionOne:(NSArray *)values;
+- (void)addStopsSequenceDirectionOneObject:(StopSequence *)value;
+- (void)removeStopsSequenceDirectionOneObject:(StopSequence *)value;
+- (void)addStopsSequenceDirectionOne:(NSOrderedSet *)values;
+- (void)removeStopsSequenceDirectionOne:(NSOrderedSet *)values;
+- (void)insertObject:(StopSequence *)value inStopsSequenceDirectionZeroAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromStopsSequenceDirectionZeroAtIndex:(NSUInteger)idx;
+- (void)insertStopsSequenceDirectionZero:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeStopsSequenceDirectionZeroAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInStopsSequenceDirectionZeroAtIndex:(NSUInteger)idx withObject:(StopSequence *)value;
+- (void)replaceStopsSequenceDirectionZeroAtIndexes:(NSIndexSet *)indexes withStopsSequenceDirectionZero:(NSArray *)values;
+- (void)addStopsSequenceDirectionZeroObject:(StopSequence *)value;
+- (void)removeStopsSequenceDirectionZeroObject:(StopSequence *)value;
+- (void)addStopsSequenceDirectionZero:(NSOrderedSet *)values;
+- (void)removeStopsSequenceDirectionZero:(NSOrderedSet *)values;
 @end

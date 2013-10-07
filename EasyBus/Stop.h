@@ -2,14 +2,14 @@
 //  Stop.h
 //  EasyBus
 //
-//  Created by Benoit on 02/10/13.
+//  Created by Benoit on 06/10/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Route;
+@class StopSequence;
 
 @interface Stop : NSManagedObject
 
@@ -19,20 +19,14 @@
 @property (nonatomic, retain) NSString * latitude;
 @property (nonatomic, retain) NSString * longitude;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *routesDirectionOne;
-@property (nonatomic, retain) NSSet *routesDirectionsZero;
+@property (nonatomic, retain) NSSet *stopSequence;
 @end
 
 @interface Stop (CoreDataGeneratedAccessors)
 
-- (void)addRoutesDirectionOneObject:(Route *)value;
-- (void)removeRoutesDirectionOneObject:(Route *)value;
-- (void)addRoutesDirectionOne:(NSSet *)values;
-- (void)removeRoutesDirectionOne:(NSSet *)values;
-
-- (void)addRoutesDirectionsZeroObject:(Route *)value;
-- (void)removeRoutesDirectionsZeroObject:(Route *)value;
-- (void)addRoutesDirectionsZero:(NSSet *)values;
-- (void)removeRoutesDirectionsZero:(NSSet *)values;
+- (void)addStopSequenceObject:(StopSequence *)value;
+- (void)removeStopSequenceObject:(StopSequence *)value;
+- (void)addStopSequence:(NSSet *)values;
+- (void)removeStopSequence:(NSSet *)values;
 
 @end

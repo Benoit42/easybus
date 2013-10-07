@@ -25,8 +25,11 @@ objection_register_singleton(StopTimesCsvReader)
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"stop_times" withExtension:@"txt"];
     NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
     
+    //Log
+    NSLog(@"Chargement des horaires");
+    
     //Allocation du dictionnaire
-    self.stops = [[NSMutableArray alloc] init];
+    self.stops = [[NSMutableArray alloc] initWithCapacity:600000U];
 
     //parsing du fichier
     CSVParser* parser =
@@ -46,7 +49,7 @@ objection_register_singleton(StopTimesCsvReader)
 - (void)receiveRecord:(NSDictionary *)aRecord
 {
     // Create and configure a new instance of the StopTime entity.
-    StopTime* stopTime = [[StopTime alloc] init];;
+    StopTime* stopTime = [[StopTime alloc] init];
     stopTime.tripId = [aRecord objectForKey:@"trip_id"];
     stopTime.stopId= [aRecord objectForKey:@"stop_id"];
     stopTime.stopSequence = [NSNumber numberWithInt:[[aRecord objectForKey:@"stop_sequence"] intValue] - 1];

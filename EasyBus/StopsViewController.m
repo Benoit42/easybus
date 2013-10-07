@@ -32,8 +32,6 @@ objection_requires(@"staticDataManager")
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In StopsViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
 }
 
 #pragma mark - Table view data source

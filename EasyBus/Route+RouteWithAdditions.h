@@ -7,10 +7,11 @@
 //
 
 #import "Route.h"
+#import "StopSequence.h"
 
 @interface Route (RouteWithAdditions)
 
 - (NSString*)terminusForDirection:(NSString*)direction;
-- (void)addStop:(Stop*)stop forDirection:(NSString*)direction andSequence:(NSUInteger)sequence;
+- (void)addStop:(StopSequence*)stopSequence forDirection:(NSString*)direction;
 
 @end

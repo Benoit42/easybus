@@ -2,7 +2,7 @@
 //  Group.h
 //  EasyBus
 //
-//  Created by Benoit on 04/09/13.
+//  Created by Benoit on 06/10/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 

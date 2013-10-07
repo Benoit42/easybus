@@ -27,6 +27,10 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    
+    //Log
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Alerte" message:@"Alerte mémoire" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+	[alertView show];
 }
 
 #pragma mark - Initialisation

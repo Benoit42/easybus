@@ -48,7 +48,7 @@ objection_requires(@"stopTimesCsvReader")
 //Comptage des occurences
 - (void)testCountStopTimes {
     int count = [stopTimesCsvReader.stops count];
-    STAssertEquals(count, 589504, @"Wrong number of stopTimes in stop_times");
+    STAssertEquals(count, 589504, @"Wrong number of stopTimes in stop_times.txt");
 }
 
 @end

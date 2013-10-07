@@ -24,9 +24,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Memory warning" message:@"In FavoriteInitViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
 }
 
 @end

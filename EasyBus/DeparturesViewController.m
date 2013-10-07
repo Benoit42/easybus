@@ -100,8 +100,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - Saturation mémoire
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Alerte mémoire" message:@"Dans DeparturesViewController" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
 }
 
 #pragma mark - Gestion de la mise à jour des départs
