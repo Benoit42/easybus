@@ -129,6 +129,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     //Rechargement des départs
     NSArray* favorite = [favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
+    [self.locationManager startUpdatingLocation];
     
     //Rechargement des pages
     DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];

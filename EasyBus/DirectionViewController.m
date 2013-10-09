@@ -32,11 +32,6 @@ objection_requires(@"staticDataManager")
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

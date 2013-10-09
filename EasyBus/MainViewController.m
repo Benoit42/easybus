@@ -23,16 +23,6 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
-#pragma mark - Saturation mémoire
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-    //Log
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Alerte" message:@"Alerte mémoire" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-	[alertView show];
-}
-
 #pragma mark - Initialisation
 - (void)viewDidLoad {
     [super viewDidLoad];

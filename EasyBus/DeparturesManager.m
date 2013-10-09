@@ -240,6 +240,7 @@ objection_requires(@"staticDataManager")
 - (void)parserDidStartDocument:(NSXMLParser *)parser{
     //début du document
     _currentDate = nil;
+    _refreshDate = [NSDate date];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
@@ -276,8 +277,6 @@ objection_requires(@"staticDataManager")
             //création du départ
             Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:_direction delai:interval heure:departureDate];
             [_freshDepartures addObject:depart];
-            
-            _refreshDate = [NSDate date];
         }
     }
 }

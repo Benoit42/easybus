@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FavoritesManager.h"
+#import "DeparturesManager.h"
+#import "LocationManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) FavoritesManager *favoritesManager;
+@property (nonatomic, retain) DeparturesManager *departuresManager;
+@property (nonatomic, retain) LocationManager *locationManager;
 
 @property (strong, nonatomic) UIWindow *window;
 

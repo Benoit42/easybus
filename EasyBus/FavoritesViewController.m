@@ -25,12 +25,6 @@ objection_requires(@"favoritesManager", @"groupManager")
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
-#pragma mark - Saturation mémoire
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -136,39 +130,7 @@ objection_requires(@"favoritesManager", @"groupManager")
     return YES;
 }
 
-//- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-//    //Déplacement non autorisé à l'intérieur d'un groupe
-//    if (sourceIndexPath.section == proposedDestinationIndexPath.section) {
-//        return sourceIndexPath;
-//    }
-//    else {
-//        //on trie par n° de ligne
-//
-//        //Get source group
-//        Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
-//        
-//        //Get favorite
-//        Favorite* favorite = [[sourceGroup favorites] objectAtIndex:sourceIndexPath.row];
-//
-//        //Get destination group
-//        __block NSInteger index =proposedDestinationIndexPath.row;
-//        Group* destinationGroup = [[self.groupManager groups] objectAtIndex:proposedDestinationIndexPath.section];
-//        [destinationGroup.favorites enumerateObjectsUsingBlock:^(Favorite* favorite2, NSUInteger idx, BOOL *stop) {
-//            if ([favorite.route.id compare:favorite2.route.id] == NSOrderedDescending) {
-//                stop = true;
-//                index = idx;
-//            }
-//        }];
-//        
-//        NSIndexPath* computedDestinationIndexPath = [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row  inSection:proposedDestinationIndexPath.section];
-//        return computedDestinationIndexPath;
-//    }
-//}
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    //Begin animation
-//    [self.tableView beginUpdates];
-    
     //Get source group
     Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
     
@@ -187,9 +149,6 @@ objection_requires(@"favoritesManager", @"groupManager")
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         });
     }
-
-    //End animation
-//    [self.tableView endUpdates];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {

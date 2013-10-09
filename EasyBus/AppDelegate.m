@@ -15,8 +15,8 @@
 
 @implementation AppDelegate
 
-objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
+objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager", @"favoritesManager")
+@synthesize managedObjectContext, departuresManager, locationManager, favoritesManager;
 
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -39,6 +39,7 @@ objection_requires(@"managedObjectContext")
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -52,7 +53,7 @@ objection_requires(@"managedObjectContext")
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -63,6 +64,13 @@ objection_requires(@"managedObjectContext")
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //update departures
+    NSDate* refreshDate = [self.departuresManager _refreshDate];
+    if (refreshDate == nil || [refreshDate timeIntervalSinceNow] < -60) {
+        //refresh si plus d'1 minute
+        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -77,10 +85,10 @@ objection_requires(@"managedObjectContext")
     }
 }
 
-
-#pragma UIAlertView delegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //TODO : voir ce que l'on fait en cas d'erreur à l'init
+-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    //Log
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Alerte" message:@"Alerte mémoire" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+	[alertView show];
 }
 
 @end

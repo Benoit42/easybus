@@ -87,19 +87,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
         NSString* infoText = self._refreshing?@"":[[NSString alloc] initWithFormat:@"mis à jour à %@", maj];
         [_info setText:infoText];
     }
-    
-    //update departures
-    NSTimeInterval interval = [[self.departuresManager _refreshDate] timeIntervalSinceNow];
-    if (interval > 60) {
-        //refresh si plus d'1 minute
-        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
-        [self.locationManager startUpdatingLocation];
-    }
-}
-
-#pragma mark - Saturation mémoire
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Gestion de la mise à jour des départs

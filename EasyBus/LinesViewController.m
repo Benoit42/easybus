@@ -36,11 +36,6 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     self.refreshControl = refreshControl;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Refresh Keolis data
 -(void) updateData{
     [self.staticDataLoader loadStaticData];
