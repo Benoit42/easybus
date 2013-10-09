@@ -37,6 +37,15 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     //Inject dependencies
     [[JSObjection defaultInjector] injectDependencies:self];
     
+//    NSManagedObjectContext *importContext = [[NSManagedObjectContext alloc] init];
+//    NSPersistentStoreCoordinator *coordinator = self.staticDataManager.managedObjectContext.persistentStoreCoordinator;
+//    [importContext setPersistentStoreCoordinator:coordinator];
+//    [importContext setUndoManager:nil];
+//    self.staticDataManager.managedObjectContext = importContext;
+//    self.staticDataLoader.managedObjectContext = importContext;
+//    self.staticDataLoader.routesCsvReader.managedObjectContext = importContext;
+//    self.staticDataLoader.stopsCsvReader.managedObjectContext = importContext;
+    
     //Load data
     [self.staticDataLoader loadStaticData];
 }

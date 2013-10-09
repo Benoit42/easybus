@@ -27,11 +27,6 @@
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.favorites];
     [tempSet removeObject:value];
     self.favorites = tempSet;
-    
-    //Suppression du groupe s'il est vide
-    if ([self.favorites count] == 0) {
-        [self.managedObjectContext deleteObject:self];
-    }
 }
 
 @end

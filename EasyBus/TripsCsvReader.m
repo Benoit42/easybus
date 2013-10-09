@@ -7,8 +7,14 @@
 //
 
 #import <Objection/Objection.h>
+#import <CHCSVParser/CHCSVParser.h>
 #import "TripsCsvReader.h"
-#import "CSVParser.h"
+
+@interface TripsCsvReader() <CHCSVParserDelegate>
+
+@property (nonatomic, strong) NSMutableArray* row;
+
+@end
 
 @implementation TripsCsvReader
 objection_register_singleton(TripsCsvReader)
@@ -16,25 +22,20 @@ objection_register_singleton(TripsCsvReader)
 @synthesize trips;
 
 - (void)loadData {
-    //Chargement des arrêts standards
-    NSError* error = nil;
-    NSURL* url = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
-    NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-
-    //Log
+    //Chargement des horaires
     NSLog(@"Chargement des trajets");
     
     //Allocation du dictionnaire
-    self.trips = [[NSMutableArray alloc] initWithCapacity:23000U];
+    self.trips = [[NSMutableArray alloc] initWithCapacity:25000U];
     
     //parsing du fichier
-    CSVParser* parser =
-    [[CSVParser alloc]
-     initWithString:csvString
-     separator:@","
-     hasHeader:YES
-     fieldNames:nil];
-    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
+    self.row = [[NSMutableArray alloc] init];
+    NSURL* url = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
+    CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
+    p.sanitizesFields = YES;
+    [p setDelegate:self];
+    [p parse];
     
     //tri
     [trips sortUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
@@ -42,14 +43,31 @@ objection_register_singleton(TripsCsvReader)
     }];
 }
 
-- (void)receiveRecord:(NSDictionary *)aRecord {
-    // Create and configure a new instance of the Trip entity.
-    Trip* trip = [[Trip alloc] init];
-    trip.id = [aRecord objectForKey:@"trip_id"];
-    trip.routeId = [aRecord objectForKey:@"route_id"];
-    trip.directionId = [aRecord objectForKey:@"direction_id"];
-    
-    [trips addObject:trip];
+#pragma mark CHCSVParserDelegate methods
+- (void)parser:(CHCSVParser *)parser didBeginLine:(NSUInteger)recordNumber {
+    [self.row removeAllObjects];
+}
+
+- (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    if (lineNumber > 1 && self.row.count == 3) {
+        // Create and configure a new instance of the Trip entity.
+        Trip* trip = [[Trip alloc] init];
+        trip.id = self.row[0];
+        trip.routeId = self.row[1];
+        trip.directionId = self.row[2];
+        
+        [trips addObject:trip];
+    }
+}
+
+- (void)parser:(CHCSVParser *)parser didReadField:(NSString *)field atIndex:(NSInteger)fieldIndex {
+    if (fieldIndex == 0 || fieldIndex == 2 || fieldIndex == 4) {
+        [self.row addObject:field];
+    }
+}
+
+- (void)parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
+    NSLog(@"TripsCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)cleanUp {

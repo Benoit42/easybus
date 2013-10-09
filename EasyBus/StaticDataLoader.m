@@ -55,13 +55,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.stopTimesCsvReader loadData];
     [self matchRoutesAndStops];
     
-    //sauvegarde du contexte
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
-
     //clean-up
     [self.routesCsvReader cleanUp];
     [self.stopsCsvReader cleanUp];
@@ -70,7 +63,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 
     //Log
     NSLog(@"Fin du chargement des données");
-    
 }
 
 

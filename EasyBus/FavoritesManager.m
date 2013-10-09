@@ -77,13 +77,6 @@ objection_requires(@"managedObjectContext")
         newGroup.terminus = newFavorite.terminus;        
         [newGroup addFavoritesObject:newFavorite];
     }
-    
-    //sauvegarde du contexte
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
 }
 
 - (void) removeFavorite:(Favorite*)favorite {
@@ -93,13 +86,6 @@ objection_requires(@"managedObjectContext")
     
     //Suppression du favori
     [self.managedObjectContext deleteObject:favorite];    
-    
-    //sauvegarde du contexte
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
 }
 
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {

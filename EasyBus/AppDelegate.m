@@ -15,12 +15,16 @@
 
 @implementation AppDelegate
 
+objection_requires(@"managedObjectContext")
+@synthesize managedObjectContext;
+
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //IoC
     JSObjectionInjector *injector = [JSObjection createInjector:[[IoCModule alloc] init]];
     [JSObjection setDefaultInjector:injector];
+    [[JSObjection defaultInjector] injectDependencies:self];
     
     //Instanciation du Controleur racine
     //TODO : est-ce nécessaire ?
@@ -41,6 +45,14 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -56,6 +68,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
+    //sauvegarde du contexte
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
 }
 
 

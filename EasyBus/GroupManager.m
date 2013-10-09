@@ -40,12 +40,6 @@ objection_requires(@"managedObjectContext")
     newGroupe.name =  name;
     newGroupe.terminus = terminus;
 
-    //sauvegarde du contexte
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
 }
 
 - (void) removeGroup:(Group*)group {
@@ -54,13 +48,6 @@ objection_requires(@"managedObjectContext")
     
     //Suppression du groupe
     [self.managedObjectContext deleteObject:group];
-
-    //sauvegarde du contexte
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
 }
 
 #pragma manage notifications

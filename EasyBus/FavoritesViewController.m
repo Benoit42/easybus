@@ -18,7 +18,7 @@
 @implementation FavoritesViewController
 
 objection_requires(@"favoritesManager", @"groupManager")
-@synthesize favoritesManager, groupManager, addButton, editing;
+@synthesize favoritesManager, groupManager, addButton;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -38,9 +38,6 @@ objection_requires(@"favoritesManager", @"groupManager")
     //Pré-conditions
     NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-
-    // Initialize data
-    self.editing = [NSNumber numberWithBool:FALSE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -139,10 +136,39 @@ objection_requires(@"favoritesManager", @"groupManager")
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    //begin editing update
-    [self.tableView beginUpdates];
+//- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+//    //Déplacement non autorisé à l'intérieur d'un groupe
+//    if (sourceIndexPath.section == proposedDestinationIndexPath.section) {
+//        return sourceIndexPath;
+//    }
+//    else {
+//        //on trie par n° de ligne
+//
+//        //Get source group
+//        Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
+//        
+//        //Get favorite
+//        Favorite* favorite = [[sourceGroup favorites] objectAtIndex:sourceIndexPath.row];
+//
+//        //Get destination group
+//        __block NSInteger index =proposedDestinationIndexPath.row;
+//        Group* destinationGroup = [[self.groupManager groups] objectAtIndex:proposedDestinationIndexPath.section];
+//        [destinationGroup.favorites enumerateObjectsUsingBlock:^(Favorite* favorite2, NSUInteger idx, BOOL *stop) {
+//            if ([favorite.route.id compare:favorite2.route.id] == NSOrderedDescending) {
+//                stop = true;
+//                index = idx;
+//            }
+//        }];
+//        
+//        NSIndexPath* computedDestinationIndexPath = [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row  inSection:proposedDestinationIndexPath.section];
+//        return computedDestinationIndexPath;
+//    }
+//}
 
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    //Begin animation
+//    [self.tableView beginUpdates];
+    
     //Get source group
     Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
     
@@ -154,36 +180,38 @@ objection_requires(@"favoritesManager", @"groupManager")
 
     //Move favorite
     [favoritesManager moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+
     if (sourceGroup.favorites.count == 0) {
-        NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(sourceIndexPath.section, 1)];
-        [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [groupManager removeGroup:sourceGroup];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        });
     }
 
-    //end editing update
-    [self.tableView endUpdates];
+    //End animation
+//    [self.tableView endUpdates];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
-    [self.tableView setEditing:YES animated:YES];
-    [addButton setTitle:@"Fin"];
-    self.editing = [NSNumber numberWithBool:TRUE];
+    if (!self.tableView.isEditing) {
+        [self.tableView setEditing:YES animated:YES];
+        [addButton setTitle:@"Fin"];
+    }
 }
 
 - (IBAction)addButtonPressed:(id)sender {
-    if (self.editing.boolValue == TRUE) {
+    if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
         [addButton setTitle:@"+"];
-        self.editing = [NSNumber numberWithBool:FALSE];
     }
 }
 
 #pragma mark - Segues
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ([identifier isEqualToString:@"chooseLine"]) {
-        if (self.editing.boolValue == YES) {
+        if (self.tableView.isEditing) {
             [self.tableView setEditing:NO animated:YES];
             [addButton setTitle:@"+"];
-            self.editing = [NSNumber numberWithBool:NO];
             return FALSE;
         }
     }
