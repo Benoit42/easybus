@@ -355,8 +355,6 @@
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
 		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
-		149DEFF11638214E002D9D79 /* CSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1423424D1635B8C70095073C /* CSVParser.m */; };
-		149DEFF216382151002D9D79 /* CSVParser.h in Sources */ = {isa = PBXBuildFile; fileRef = 1423424C1635B8C70095073C /* CSVParser.h */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* StaticDataManagerTest.m */; };
 		14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */; };
@@ -589,8 +587,6 @@
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
 		1423423A1631F4020095073C /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
-		1423424C1635B8C70095073C /* CSVParser.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = CSVParser.h; sourceTree = "<group>"; };
-		1423424D1635B8C70095073C /* CSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVParser.m; sourceTree = "<group>"; };
 		1427D500166BEFC7002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
 		1427D501166BEFC7002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
 		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
@@ -1181,15 +1177,6 @@
 			name = 21x21;
 			sourceTree = "<group>";
 		};
-		142342501635B8CD0095073C /* CSVParser */ = {
-			isa = PBXGroup;
-			children = (
-				1423424C1635B8C70095073C /* CSVParser.h */,
-				1423424D1635B8C70095073C /* CSVParser.m */,
-			);
-			name = CSVParser;
-			sourceTree = "<group>";
-		};
 		147168A81801A38A00846AE6 /* DataLoaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1288,7 +1275,6 @@
 				14AD3C1F162AF00400DF061A /* AppDelegate.m */,
 				140C799317F6C4C1007184C7 /* IoCModule.h */,
 				140C799417F6C4C1007184C7 /* IoCModule.m */,
-				142342501635B8CD0095073C /* CSVParser */,
 				14AD3CB9162B225300DF061A /* modele */,
 				14CF4331165D567500834A23 /* MainView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
@@ -2008,8 +1994,6 @@
 				14AD3C20162AF00400DF061A /* AppDelegate.m in Sources */,
 				14AD3C2F162AF00400DF061A /* LinesViewController.m in Sources */,
 				142340DA162E0ABA0095073C /* Depart.m in Sources */,
-				149DEFF11638214E002D9D79 /* CSVParser.m in Sources */,
-				149DEFF216382151002D9D79 /* CSVParser.h in Sources */,
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,

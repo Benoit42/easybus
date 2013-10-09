@@ -36,11 +36,6 @@ objection_register_singleton(TripsCsvReader)
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
-    
-    //tri
-    [trips sortUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
-        return [trip1.id compare:trip2.id];
-    }];
 }
 
 #pragma mark CHCSVParserDelegate methods

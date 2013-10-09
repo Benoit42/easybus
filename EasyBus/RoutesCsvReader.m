@@ -8,9 +8,15 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
+#import <CHCSVParser/CHCSVParser.h>
 #import "RoutesCsvReader.h"
-#import "CSVParser.h"
 #import "Route.h"
+
+@interface RoutesCsvReader() <CHCSVParserDelegate>
+
+@property (nonatomic, strong) NSMutableArray* row;
+
+@end
 
 @implementation RoutesCsvReader
 objection_register_singleton(RoutesCsvReader)
@@ -22,71 +28,70 @@ objection_requires(@"managedObjectContext")
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
-    //Log
+    //Chargement des routes
     NSLog(@"Chargement des routes");
     
-    //Chargement des routes standards
-    NSError* error = nil;
+    //parsing du fichier
+    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
+    self.row = [[NSMutableArray alloc] init];
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
-    NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    
-    CSVParser* parser =
-    [[CSVParser alloc]
-     initWithString:csvString
-     separator:@","
-     hasHeader:YES
-     fieldNames:nil];
-    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
-    
-    //Chargement des routes additionnelles
-    url = [[NSBundle mainBundle] URLForResource:@"routes_additionals" withExtension:@"txt"];
-    csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    
-    parser =
-    [[CSVParser alloc]
-     initWithString:csvString
-     separator:@","
-     hasHeader:YES
-     fieldNames:nil];
-    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+    CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
+    p.sanitizesFields = YES;
+    [p setDelegate:self];
+    [p parse];
 
-    //Chargement des routes suplémentaires
-    url = [[NSBundle mainBundle] URLForResource:@"routes_extras" withExtension:@"txt"];
-    csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    
-    parser =
-    [[CSVParser alloc]
-     initWithString:csvString
-     separator:@","
-     hasHeader:YES
-     fieldNames:nil];
-    [parser parseRowsForReceiver:self selector:@selector(receiveRecord:)];
+    //parsing du fichier
+    url = [[NSBundle mainBundle] URLForResource:@"routes_additionals" withExtension:@"txt"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
+        p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
+        p.sanitizesFields = YES;
+        [p setDelegate:self];
+        [p parse];
+    }
 }
 
-- (void)receiveRecord:(NSDictionary *)aRecord {
-    // Create and configure a new instance of the Route entity.
-    Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
-    route.id = [aRecord objectForKey:@"route_id"];
-    route.shortName = [aRecord objectForKey:@"route_short_name"];
-    route.longName = [aRecord objectForKey:@"route_long_name"];
-    
-    //Calcul des libellés des départs et arrivée
-    //Exemple : "Rennes (République) <> Acigné"
-    //Split sur le <> et suppression de la partie entre parenthèses
-    NSArray* subs = [route.longName componentsSeparatedByString:@"<>"];
-    NSString* fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : @"Départ inconnu";
-    NSString* toName = ([subs count] > 1) ? [subs objectAtIndex:1] : @"Arrivée inconnue";
-        
-    subs = [fromName componentsSeparatedByString:@"("];
-    fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : fromName;
-    fromName = [fromName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-    
-    subs = [toName componentsSeparatedByString:@"("];
-    toName = ([subs count] > 0) ? [subs objectAtIndex:0] : toName;
-    toName = [toName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+#pragma mark CHCSVParserDelegate methods
+- (void)parser:(CHCSVParser *)parser didBeginLine:(NSUInteger)recordNumber {
+    [self.row removeAllObjects];
+}
 
-    route.fromName = fromName;
-    route.toName = toName;
+- (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    if (lineNumber > 1 && self.row.count == 3) {
+        // Create and configure a new instance of the Route entity.
+        Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
+        route.id = self.row[0];
+        route.shortName = self.row[1];
+        route.longName = self.row[2];
+        
+        //Calcul des libellés des départs et arrivée
+        //Exemple : "Rennes (République) <> Acigné"
+        //Split sur le <> et suppression de la partie entre parenthèses
+        NSArray* subs = [route.longName componentsSeparatedByString:@"<>"];
+        NSString* fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : @"Départ inconnu";
+        NSString* toName = ([subs count] > 1) ? [subs objectAtIndex:1] : @"Arrivée inconnue";
+        
+        subs = [fromName componentsSeparatedByString:@"("];
+        fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : fromName;
+        fromName = [fromName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        
+        subs = [toName componentsSeparatedByString:@"("];
+        toName = ([subs count] > 0) ? [subs objectAtIndex:0] : toName;
+        toName = [toName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        
+        route.fromName = fromName;
+        route.toName = toName;
+    }
+}
+
+- (void)parser:(CHCSVParser *)parser didReadField:(NSString *)field atIndex:(NSInteger)fieldIndex {
+    // route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+    if (fieldIndex == 0 || fieldIndex == 2 || fieldIndex == 3) {
+        [self.row addObject:field];
+    }
+}
+
+- (void)parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
+    NSLog(@"TripsCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)cleanUp {

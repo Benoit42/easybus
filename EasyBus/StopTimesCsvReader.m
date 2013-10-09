@@ -58,7 +58,7 @@ objection_register_singleton(StopTimesCsvReader)
         StopTime* stopTime = [[StopTime alloc] init];
         stopTime.tripId = self.row[0];
         stopTime.stopId= self.row[1];
-        stopTime.stopSequence = self.row[2];
+        stopTime.stopSequence = [NSNumber numberWithInteger:[self.row[2] integerValue]];
         
         [stops addObject:stopTime];
     }
