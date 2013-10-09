@@ -10,7 +10,7 @@
 #import "FavoritesManager.h"
 #import "GroupManager.h"
 
-@interface FavoritesViewController : UITableViewController
+@interface FavoritesViewController : UITableViewController <UIGestureRecognizerDelegate>
 
 @property(retain, nonatomic) FavoritesManager* favoritesManager;
 @property (nonatomic, retain) GroupManager* groupManager;

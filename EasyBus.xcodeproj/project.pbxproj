@@ -315,20 +315,7 @@
 		147168CE1801DB7200846AE6 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168CD1801DB7200846AE6 /* Route.m */; };
 		147480041663D4DC0091FF49 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147480031663D4DC0091FF49 /* PageViewController.m */; };
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
-		14776D8717425290008C7E2E /* ZipArchiveTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14776D8617425290008C7E2E /* ZipArchiveTest.m */; };
 		14776D95174264A4008C7E2E /* test.zip in Resources */ = {isa = PBXBuildFile; fileRef = 14776D93174264A4008C7E2E /* test.zip */; };
-		14776DC717426CED008C7E2E /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DBD17426CED008C7E2E /* ioapi.c */; };
-		14776DC817426CED008C7E2E /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DBD17426CED008C7E2E /* ioapi.c */; };
-		14776DC917426CED008C7E2E /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DBF17426CED008C7E2E /* mztools.c */; };
-		14776DCA17426CED008C7E2E /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DBF17426CED008C7E2E /* mztools.c */; };
-		14776DCB17426CED008C7E2E /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC117426CED008C7E2E /* unzip.c */; };
-		14776DCC17426CED008C7E2E /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC117426CED008C7E2E /* unzip.c */; };
-		14776DCD17426CED008C7E2E /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC317426CED008C7E2E /* zip.c */; };
-		14776DCE17426CED008C7E2E /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC317426CED008C7E2E /* zip.c */; };
-		14776DCF17426CED008C7E2E /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC617426CED008C7E2E /* ZipArchive.mm */; };
-		14776DD017426CED008C7E2E /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC617426CED008C7E2E /* ZipArchive.mm */; };
-		14776DD117426D27008C7E2E /* ZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC517426CED008C7E2E /* ZipArchive.h */; };
-		14776DD3174270DA008C7E2E /* ZipArchive.h in Sources */ = {isa = PBXBuildFile; fileRef = 14776DC517426CED008C7E2E /* ZipArchive.h */; };
 		14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776DE217427B54008C7E2E /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DD617427B54008C7E2E /* agency.txt */; };
 		14776DE317427B54008C7E2E /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DD617427B54008C7E2E /* agency.txt */; };
@@ -751,17 +738,6 @@
 		14776D84174251DE008C7E2E /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		14776D8617425290008C7E2E /* ZipArchiveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchiveTest.m; sourceTree = "<group>"; };
 		14776D93174264A4008C7E2E /* test.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = test.zip; sourceTree = "<group>"; };
-		14776DBC17426CED008C7E2E /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		14776DBD17426CED008C7E2E /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		14776DBE17426CED008C7E2E /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		14776DBF17426CED008C7E2E /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
-		14776DC017426CED008C7E2E /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		14776DC117426CED008C7E2E /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		14776DC217426CED008C7E2E /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		14776DC317426CED008C7E2E /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		14776DC417426CED008C7E2E /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		14776DC517426CED008C7E2E /* ZipArchive.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ZipArchive.h; sourceTree = "<group>"; };
-		14776DC617426CED008C7E2E /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
 		14776DD617427B54008C7E2E /* agency.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agency.txt; sourceTree = "<group>"; };
 		14776DD717427B54008C7E2E /* calendar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar.txt; sourceTree = "<group>"; };
 		14776DD817427B54008C7E2E /* calendar_dates.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar_dates.txt; sourceTree = "<group>"; };
@@ -1186,32 +1162,6 @@
 			name = DataLoaderView;
 			sourceTree = "<group>";
 		};
-		14776DBA17426CED008C7E2E /* ZipArchive */ = {
-			isa = PBXGroup;
-			children = (
-				14776DBB17426CED008C7E2E /* minizip */,
-				14776DC517426CED008C7E2E /* ZipArchive.h */,
-				14776DC617426CED008C7E2E /* ZipArchive.mm */,
-			);
-			path = ZipArchive;
-			sourceTree = "<group>";
-		};
-		14776DBB17426CED008C7E2E /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				14776DBC17426CED008C7E2E /* crypt.h */,
-				14776DBD17426CED008C7E2E /* ioapi.c */,
-				14776DBE17426CED008C7E2E /* ioapi.h */,
-				14776DBF17426CED008C7E2E /* mztools.c */,
-				14776DC017426CED008C7E2E /* mztools.h */,
-				14776DC117426CED008C7E2E /* unzip.c */,
-				14776DC217426CED008C7E2E /* unzip.h */,
-				14776DC317426CED008C7E2E /* zip.c */,
-				14776DC417426CED008C7E2E /* zip.h */,
-			);
-			path = minizip;
-			sourceTree = "<group>";
-		};
 		14776DD517427B54008C7E2E /* GTFS-20130103 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1234,7 +1184,6 @@
 			isa = PBXGroup;
 			children = (
 				140513741746798B00345B1D /* CoreData.framework */,
-				14776DBA17426CED008C7E2E /* ZipArchive */,
 				14AD3C15162AF00400DF061A /* EasyBus */,
 				14AD3C3C162AF00400DF061A /* EasyBusTests */,
 				14AD3C0E162AF00400DF061A /* Frameworks */,
@@ -2028,14 +1977,8 @@
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
-				14776DC717426CED008C7E2E /* ioapi.c in Sources */,
 				147168AD1801C9F100846AE6 /* Group.m in Sources */,
-				14776DC917426CED008C7E2E /* mztools.c in Sources */,
 				147168C81801DB7100846AE6 /* StopSequence.m in Sources */,
-				14776DCB17426CED008C7E2E /* unzip.c in Sources */,
-				14776DCD17426CED008C7E2E /* zip.c in Sources */,
-				14776DCF17426CED008C7E2E /* ZipArchive.mm in Sources */,
-				14776DD117426D27008C7E2E /* ZipArchive.h in Sources */,
 				1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */,
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
 				14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */,
@@ -2056,16 +1999,9 @@
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
-				14776D8717425290008C7E2E /* ZipArchiveTest.m in Sources */,
-				14776DC817426CED008C7E2E /* ioapi.c in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
-				14776DCA17426CED008C7E2E /* mztools.c in Sources */,
-				14776DCC17426CED008C7E2E /* unzip.c in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
-				14776DCE17426CED008C7E2E /* zip.c in Sources */,
-				14776DD017426CED008C7E2E /* ZipArchive.mm in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
-				14776DD3174270DA008C7E2E /* ZipArchive.h in Sources */,
 				14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
 				14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */,
