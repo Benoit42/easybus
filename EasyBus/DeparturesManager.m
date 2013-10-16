@@ -21,6 +21,7 @@
 @property(nonatomic) NSString* _direction;
 @property(nonatomic) NSString* _headsign;
 @property(nonatomic) NSString* _currentDate;
+@property(nonatomic) NSString* accurate;
 @property(nonatomic) NSString* _departureDate;
 @property(nonatomic) NSMutableArray* _freshDepartures;
 
@@ -33,7 +34,7 @@
 objection_register_singleton(DeparturesManager)
 
 objection_requires(@"staticDataManager")
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
+@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, accurate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
 //constructeur
 -(id)init {
@@ -104,7 +105,7 @@ objection_requires(@"staticDataManager")
 
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
-                static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
+            static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
             
             //compute path
             NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
@@ -256,6 +257,7 @@ objection_requires(@"staticDataManager")
         //début d'un départ
         _departureDate = nil;
         _headsign = [attributeDict objectForKey:(@"headsign")];
+        accurate = attributeDict[@"accurate"];
     }
 }
 
@@ -269,13 +271,14 @@ objection_requires(@"staticDataManager")
             NSDate* departureDate = [self xsdDateTimeToNSDate:_departureDate];
             NSTimeInterval interval = [departureDate timeIntervalSinceDate:currentDate];
             interval = interval <0 ? 0 : interval;
+            BOOL isRealTime = [accurate isEqualToString:@"1"];
             
             //Recherche de la route et de l'arrêt
             Route* route = [self.staticDataManager routeForId:_route];
             Stop* stop = [self.staticDataManager stopForId:_stop];
             
             //création du départ
-            Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:_direction delai:interval heure:departureDate];
+            Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:_direction delai:interval heure:departureDate isRealTime:isRealTime];
             [_freshDepartures addObject:depart];
         }
     }
@@ -297,7 +300,9 @@ objection_requires(@"staticDataManager")
     else if ([_currentNode isEqualToString:@"departure"] ) {
         _departureDate = string;
     }
-    
+    else if ([_currentNode isEqualToString:@"departure"] ) {
+        _departureDate = string;
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {

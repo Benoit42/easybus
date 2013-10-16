@@ -21,7 +21,7 @@
 @property(nonatomic) NSUInteger _maxRows;
 @property(nonatomic) NSDate* _lastRefresh;
 @property(nonatomic) BOOL _refreshing;
-
+@property(nonatomic) UIColor * starGreen;
 @end
 
 @implementation DeparturesViewController
@@ -67,6 +67,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     //Mise à jour des widgets
     [_activityIndicator stopAnimating];
     [_info setText:@""];
+    self.starGreen = [UIColor colorWithRed:41/255.0f green:232/255.0f blue:184/255.0f alpha:1.0f];
 }
 
 #pragma mark - affichage
@@ -165,7 +166,9 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
             [[(DepartureCell*)cell _picto] setImage:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
+            [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?self.starGreen:UIColor.blackColor];
             [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
+            
         }
     }
     else {

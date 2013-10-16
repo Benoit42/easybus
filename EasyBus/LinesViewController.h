@@ -10,7 +10,7 @@
 #import "StaticDataManager.h"
 #import "StaticDataLoader.h"
 
-@interface LinesViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LinesViewController : UITableViewController
 
 @property(strong, nonatomic) StaticDataManager* staticDataManager;
 @property(strong, nonatomic) StaticDataLoader* staticDataLoader;

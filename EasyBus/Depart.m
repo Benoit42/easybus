@@ -16,9 +16,9 @@
 
 @implementation Depart
 
-@synthesize route, stop, _direction, _delai, _heure;
+@synthesize route, stop, _direction, _delai, _heure, isRealTime;
 
-- (id)initWithRoute:(Route*)route_ stop:(Stop*)stop_ direction:(NSString*)direction delai:(NSTimeInterval)delai heure:(NSDate*)heure {
+- (id)initWithRoute:(Route*)route_ stop:(Stop*)stop_ direction:(NSString*)direction delai:(NSTimeInterval)delai heure:(NSDate*)heure isRealTime:(BOOL)isRealTime_ {
     self = [super init];
     if (self) {
         self.route = route_;
@@ -26,6 +26,7 @@
         self._direction = direction;
         self._delai = delai;
         self._heure = heure;
+        self.isRealTime = isRealTime_;
     }
     return self;
 }
