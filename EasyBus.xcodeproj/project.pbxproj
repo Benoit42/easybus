@@ -157,6 +157,12 @@
 		140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84E163DBD5900FB4A85 /* StopsViewController.m */; };
 		140EA850163F125600FB4A85 /* StopsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84D163DBD5800FB4A85 /* StopsViewController.h */; };
 		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
+		14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */; };
+		14148BA0180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */; };
+		14148BA1180C5C85005DDAF9 /* AsyncTestCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */; };
+		14148BA2180C5C85005DDAF9 /* AsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */; };
+		14148BA3180E64A6005DDAF9 /* GtfsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */; };
+		14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14148B96180AC634005DDAF9 /* XCTest.framework */; };
 		1414E1AA166DD7230013E9A1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1414E1A9166DD7230013E9A1 /* arrow.png */; };
 		1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */; };
 		141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */; };
@@ -357,7 +363,6 @@
 		14AD3C26162AF00400DF061A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14AD3C25162AF00400DF061A /* Default-568h@2x.png */; };
 		14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */; };
 		14AD3C2F162AF00400DF061A /* LinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C2E162AF00400DF061A /* LinesViewController.m */; };
-		14AD3C37162AF00400DF061A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C36162AF00400DF061A /* SenTestingKit.framework */; };
 		14AD3C38162AF00400DF061A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C0F162AF00400DF061A /* UIKit.framework */; };
 		14AD3C39162AF00400DF061A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C11162AF00400DF061A /* Foundation.framework */; };
 		14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C1E162AF00400DF061A /* AppDelegate.h */; };
@@ -397,6 +402,8 @@
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
 		14E4014D17E041AA00EA7B00 /* Pictogrammes_100\1.png in Resources */ = {isa = PBXBuildFile; fileRef = 14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */; };
+		14E4590118105F2500E2401A /* GtfsPublishData.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4590018105F2500E2401A /* GtfsPublishData.m */; };
+		14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* GtfsPublishDataTmp.m */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -415,6 +422,8 @@
 
 /* Begin PBXFileReference section */
 		0AEC54415FE547A0B83EF926 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1404E19F1805BD1D005026C2 /* GtfsUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsUpdateManager.h; sourceTree = "<group>"; };
+		1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsUpdateManager.m; sourceTree = "<group>"; };
 		1405136C17465CD700345B1D /* EasyBus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyBus.xcdatamodel; sourceTree = "<group>"; };
 		140513741746798B00345B1D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1407D6771649B0EE002F37AD /* DirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionViewController.m; sourceTree = "<group>"; };
@@ -566,6 +575,13 @@
 		140EA84E163DBD5900FB4A85 /* StopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsViewController.m; sourceTree = "<group>"; };
 		140EA851163F287000FB4A85 /* FavoritesNavigationController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoritesNavigationController.h; sourceTree = "<group>"; };
 		140EA852163F287000FB4A85 /* FavoritesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesNavigationController.m; sourceTree = "<group>"; };
+		14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsUpdateManagerTest.m; sourceTree = "<group>"; };
+		14148B96180AC634005DDAF9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+AsyncPerformBlock.m"; path = "../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/NSObject+AsyncPerformBlock.m"; sourceTree = "<group>"; };
+		14148B9C180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+AsyncPerformBlock.h"; path = "../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/NSObject+AsyncPerformBlock.h"; sourceTree = "<group>"; };
+		14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncTestCaseTest.m; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCaseTest.m; sourceTree = "<group>"; };
+		14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncTestCase.m; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCase.m; sourceTree = "<group>"; };
+		14148B9F180C5C85005DDAF9 /* AsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncTestCase.h; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCase.h; sourceTree = "<group>"; };
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDepartureCell.h; sourceTree = "<group>"; };
 		1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDepartureCell.m; sourceTree = "<group>"; };
@@ -771,8 +787,7 @@
 		14AD3C25162AF00400DF061A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		14AD3C2D162AF00400DF061A /* LinesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = LinesViewController.h; sourceTree = "<group>"; };
 		14AD3C2E162AF00400DF061A /* LinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinesViewController.m; sourceTree = "<group>"; };
-		14AD3C35162AF00400DF061A /* EasyBusTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyBusTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14AD3C36162AF00400DF061A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		14AD3C35162AF00400DF061A /* EasyBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EasyBusTests-Info.plist"; sourceTree = "<group>"; };
 		14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route+RouteWithAdditions.h"; sourceTree = "<group>"; };
 		14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route+RouteWithAdditions.m"; sourceTree = "<group>"; };
@@ -821,6 +836,10 @@
 		14E2AD8017D64A9000ED4546 /* GroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupManager.m; sourceTree = "<group>"; };
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
 		14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\1.png"; sourceTree = "<group>"; };
+		14E458FF18105F2500E2401A /* GtfsPublishData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsPublishData.h; sourceTree = "<group>"; };
+		14E4590018105F2500E2401A /* GtfsPublishData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsPublishData.m; sourceTree = "<group>"; };
+		14E459021810695900E2401A /* GtfsPublishDataTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsPublishDataTmp.h; sourceTree = "<group>"; };
+		14E459031810695900E2401A /* GtfsPublishDataTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsPublishDataTmp.m; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -834,12 +853,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				140513751746798B00345B1D /* CoreData.framework in Frameworks */,
-				14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */,
-				14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */,
-				14AD3C10162AF00400DF061A /* UIKit.framework in Frameworks */,
 				14AD3C12162AF00400DF061A /* Foundation.framework in Frameworks */,
+				14AD3C10162AF00400DF061A /* UIKit.framework in Frameworks */,
+				140513751746798B00345B1D /* CoreData.framework in Frameworks */,
+				14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */,
 				14AD3C14162AF00400DF061A /* CoreGraphics.framework in Frameworks */,
+				14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */,
 				0EC3D1BC77C946278025727A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -848,12 +867,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				141EDDFE177B535A005DDC8C /* CoreData.framework in Frameworks */,
-				14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */,
-				14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */,
-				14AD3C37162AF00400DF061A /* SenTestingKit.framework in Frameworks */,
-				14AD3C38162AF00400DF061A /* UIKit.framework in Frameworks */,
 				14AD3C39162AF00400DF061A /* Foundation.framework in Frameworks */,
+				14AD3C38162AF00400DF061A /* UIKit.framework in Frameworks */,
+				141EDDFE177B535A005DDC8C /* CoreData.framework in Frameworks */,
+				14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */,
+				14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */,
+				14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */,
 				E15068B724C14E81AD7A0011 /* libPods-EasyBusTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1197,7 +1216,7 @@
 			isa = PBXGroup;
 			children = (
 				14AD3C0B162AF00400DF061A /* EasyBus.app */,
-				14AD3C35162AF00400DF061A /* EasyBusTests.octest */,
+				14AD3C35162AF00400DF061A /* EasyBusTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1210,7 +1229,7 @@
 				14AD3C0F162AF00400DF061A /* UIKit.framework */,
 				14AD3C11162AF00400DF061A /* Foundation.framework */,
 				14AD3C13162AF00400DF061A /* CoreGraphics.framework */,
-				14AD3C36162AF00400DF061A /* SenTestingKit.framework */,
+				14148B96180AC634005DDAF9 /* XCTest.framework */,
 				0AEC54415FE547A0B83EF926 /* libPods.a */,
 				B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */,
 			);
@@ -1261,6 +1280,11 @@
 		14AD3C3C162AF00400DF061A /* EasyBusTests */ = {
 			isa = PBXGroup;
 			children = (
+				14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */,
+				14148B9C180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.h */,
+				14148B9F180C5C85005DDAF9 /* AsyncTestCase.h */,
+				14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */,
+				14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */,
 				14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */,
 				14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */,
 				14C2E544168884B200E8A2FB /* LocationManagerTest.m */,
@@ -1273,6 +1297,7 @@
 				140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */,
 				14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */,
 				14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */,
+				14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */,
 				14AD3C3D162AF00400DF061A /* Supporting Files */,
 			);
 			path = EasyBusTests;
@@ -1314,6 +1339,8 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
+				14E458FF18105F2500E2401A /* GtfsPublishData.h */,
+				14E4590018105F2500E2401A /* GtfsPublishData.m */,
 				147168CC1801DB7200846AE6 /* Route.h */,
 				147168CD1801DB7200846AE6 /* Route.m */,
 				147168C91801DB7200846AE6 /* Stop.h */,
@@ -1366,6 +1393,10 @@
 				14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */,
 				14DDB96D17FC7BEB000D1C5E /* StopTimesCsvReader.h */,
 				14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */,
+				14E459021810695900E2401A /* GtfsPublishDataTmp.h */,
+				14E459031810695900E2401A /* GtfsPublishDataTmp.m */,
+				1404E19F1805BD1D005026C2 /* GtfsUpdateManager.h */,
+				1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */,
 			);
 			name = "Lines&Stops";
 			sourceTree = "<group>";
@@ -1488,8 +1519,8 @@
 			);
 			name = EasyBusTests;
 			productName = EasyBusTests;
-			productReference = 14AD3C35162AF00400DF061A /* EasyBusTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 14AD3C35162AF00400DF061A /* EasyBusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1968,6 +1999,7 @@
 				14CF4341165EB44400834A23 /* StopCell.m in Sources */,
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				147168B61801C9F200846AE6 /* Favorite.m in Sources */,
+				14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
 				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
@@ -1976,6 +2008,7 @@
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
+				14148BA3180E64A6005DDAF9 /* GtfsUpdateManager.m in Sources */,
 				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
 				147168AD1801C9F100846AE6 /* Group.m in Sources */,
 				147168C81801DB7100846AE6 /* StopSequence.m in Sources */,
@@ -1988,6 +2021,7 @@
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
 				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
+				14E4590118105F2500E2401A /* GtfsPublishData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1998,13 +2032,17 @@
 				140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */,
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
+				14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
+				14148BA2180C5C85005DDAF9 /* AsyncTestCase.m in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
 				14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
+				14148BA0180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m in Sources */,
 				14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */,
+				14148BA1180C5C85005DDAF9 /* AsyncTestCaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2092,6 +2130,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBus/EasyBus-Info.plist";
@@ -2105,6 +2147,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBus/EasyBus-Info.plist";
@@ -2120,15 +2166,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBusTests/EasyBusTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -2138,15 +2184,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBusTests/EasyBusTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

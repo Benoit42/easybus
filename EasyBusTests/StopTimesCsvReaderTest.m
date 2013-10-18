@@ -8,13 +8,13 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <CHCSVParser/CHCSVParser.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "StopTimesCsvReader.h"
-@interface StopTimesCsvReaderTest : SenTestCase
 
+@interface StopTimesCsvReaderTest : XCTestCase
 
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 
@@ -50,7 +50,7 @@ objection_requires(@"stopTimesCsvReader")
 //Comptage des occurences
 - (void)testCountStopTimes {
     int count = [stopTimesCsvReader.stops count];
-    STAssertEquals(count, 589504, @"Wrong number of stopTimes in stop_times.txt");
+    XCTAssertEqual(count, 589504, @"Wrong number of stopTimes in stop_times.txt");
 }
 
 @end

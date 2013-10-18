@@ -7,12 +7,12 @@
 //
 
 #import <Objection/Objection.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "RoutesCsvReader.h"
 
-@interface RoutesCsvReaderTest : SenTestCase
+@interface RoutesCsvReaderTest : XCTestCase
 
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) NSManagedObjectModel* managedObjectModel;
@@ -54,7 +54,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     NSArray *routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     
     int count = [routes count];
-    STAssertEquals(count, 93, @"Wrong number of routes in routes.txt");
+    XCTAssertEqual(count, 93, @"Wrong number of routes in routes.txt");
 }
 
 //Vérification de la ligne 64
@@ -64,14 +64,14 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
                                                                     substitutionVariables:@{@"id" : @"0064"}];
     NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
-    STAssertTrue([routes count] > 0 , @"Route with id 0064 shall exists");
+    XCTAssertTrue([routes count] > 0 , @"Route with id 0064 shall exists");
     Route* route64 = [routes objectAtIndex:0];
     
-    STAssertEqualObjects(@"0064", route64.id, @"Wrong id for route 0064");
-    STAssertEqualObjects(@"64", route64.shortName, @"Wrong short name for route 0064");
-    STAssertEqualObjects(@"Rennes (République) <> Acigné", route64.longName, @"Wrong long name for route 0064");
-    STAssertEqualObjects(@"Rennes", route64.fromName, @"Wrong from name for route 0064");
-    STAssertEqualObjects(@"Acigné", route64.toName, @"Wrong to name for route 0064");
+    XCTAssertEqualObjects(@"0064", route64.id, @"Wrong id for route 0064");
+    XCTAssertEqualObjects(@"64", route64.shortName, @"Wrong short name for route 0064");
+    XCTAssertEqualObjects(@"Rennes (République) <> Acigné", route64.longName, @"Wrong long name for route 0064");
+    XCTAssertEqualObjects(@"Rennes", route64.fromName, @"Wrong from name for route 0064");
+    XCTAssertEqualObjects(@"Acigné", route64.toName, @"Wrong to name for route 0064");
 }
 
 @end

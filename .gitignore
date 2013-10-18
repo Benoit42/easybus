@@ -80,3 +80,5 @@ Pods/Pods.xcodeproj/xcuserdata/benoit.xcuserdatad/xcschemes/Pods-EasyBusTests.xc
 Pods/Pods.xcodeproj/xcuserdata/benoit.xcuserdatad/xcschemes/Pods-Objection.xcscheme
 Pods/Pods.xcodeproj/xcuserdata/benoit.xcuserdatad/xcschemes/Pods.xcscheme
 Pods/Pods.xcodeproj/xcuserdata/benoit.xcuserdatad/xcschemes/xcschememanagement.plist
+Pods/AFNetworking
+Pods

@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LocationManagerTest : SenTestCase
+@interface LocationManagerTest : XCTestCase
 
 @end
 
-@implementation LocationManagerTest : SenTestCase
+@implementation LocationManagerTest : XCTestCase
 
 //Test de l'ajout
 - (void)testDistanceComputation
@@ -31,8 +31,8 @@
     CLLocationDistance bureauCloscourtel = [bureau distanceFromLocation:closcourtel];
     
     //Vérification
-    STAssertTrue(maisonTimoniere < maisonCloscourtel, @"Error in distance computing");
-    STAssertTrue(bureauCloscourtel < bureauTimoniere, @"Error in distance computing");
+    XCTAssertTrue(maisonTimoniere < maisonCloscourtel, @"Error in distance computing");
+    XCTAssertTrue(bureauCloscourtel < bureauTimoniere, @"Error in distance computing");
 }
 
 @end

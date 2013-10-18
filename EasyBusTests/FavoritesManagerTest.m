@@ -7,7 +7,7 @@
 //
 
 #import <Objection/Objection.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "FavoritesManager.h"
@@ -15,7 +15,7 @@
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 
-@interface FavoritesManagerTest : SenTestCase
+@interface FavoritesManagerTest : XCTestCase
 
 @property(nonatomic) NSManagedObjectModel* managedObjectModel;
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
@@ -53,7 +53,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     Route* route164 = [self routeForId:@"0164"];
     Stop* stopTimo = [self stopForId:@"4001"];
     Stop* stopRepu = [self stopForId:@"1167"];
-    STAssertEquals([[self.favoritesManager favorites] count], 0U, @"Wrong number of favorites");
+    XCTAssertEqual([[self.favoritesManager favorites] count], 0U, @"Wrong number of favorites");
     [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
     [self.favoritesManager addFavorite:route64 stop:stopRepu direction:@"1"];
     [self.favoritesManager addFavorite:route164 stop:stopTimo direction:@"0"];
@@ -71,7 +71,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     NSArray* favorites = [self.favoritesManager favorites];
     
     //Vérifications
-    STAssertEquals([favorites count], 4U, @"Wrong number of favorites");
+    XCTAssertEqual([favorites count], 4U, @"Wrong number of favorites");
 }
 
 //Test de l'ajout
@@ -86,8 +86,8 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     [self.favoritesManager addFavorite:route stop:stop direction:@"0"];
 
     //Vérifications
-    STAssertEquals([[self.favoritesManager favorites] count], favCount+1, @"Wrong number of favorites");
-    STAssertEquals([[self.groupManager groups] count], groupCount+1, @"Wrong number of groups");
+    XCTAssertEqual([[self.favoritesManager favorites] count], favCount+1, @"Wrong number of favorites");
+    XCTAssertEqual([[self.groupManager groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon
@@ -101,7 +101,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
 
     //Vérifications
-    STAssertEquals([[self.favoritesManager favorites] count], favCount, @"Wrong number of favorites");
+    XCTAssertEqual([[self.favoritesManager favorites] count], favCount, @"Wrong number of favorites");
 }
 
 //Test de la suppression
@@ -114,7 +114,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     [self.favoritesManager removeFavorite:favorite];
     
     //Vérifications
-    STAssertEquals([[self.favoritesManager favorites] count], favCount-1, @"Wrong number of favorites");
+    XCTAssertEqual([[self.favoritesManager favorites] count], favCount-1, @"Wrong number of favorites");
 }
 
 - (Route*) routeForId:(NSString*)routeId {

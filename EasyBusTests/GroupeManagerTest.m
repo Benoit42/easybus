@@ -7,12 +7,12 @@
 //
 
 #import <Objection/Objection.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "GroupManager.h"
 
-@interface GroupManagerTest : SenTestCase
+@interface GroupManagerTest : XCTestCase
 
 @property(nonatomic) GroupManager* groupManager;
 
@@ -53,7 +53,7 @@ objection_requires(@"groupManager")
     NSArray* groups = [self.groupManager groups];
     
     //Vérifications
-    STAssertEquals([groups count], 2U, @"Wrong number of groups");
+    XCTAssertEqual([groups count], 2U, @"Wrong number of groups");
 }
 
 //Test de la suppression
@@ -62,7 +62,7 @@ objection_requires(@"groupManager")
     //Ajout du jeu de tests
     [self.groupManager addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
     [self.groupManager addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
-    STAssertEquals([[self.groupManager groups] count], 2U, @"Wrong number of groups");
+    XCTAssertEqual([[self.groupManager groups] count], 2U, @"Wrong number of groups");
     
     //Récupération d'un groupe
     NSArray* groups = [self.groupManager groups];
@@ -72,7 +72,7 @@ objection_requires(@"groupManager")
     [self.groupManager removeGroup:group];
     
     //Vérifications
-    STAssertEquals([[self.groupManager groups] count], 1U, @"Wrong number of groups");
+    XCTAssertEqual([[self.groupManager groups] count], 1U, @"Wrong number of groups");
 }
 
 @end

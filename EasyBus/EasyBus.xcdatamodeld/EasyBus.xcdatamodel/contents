@@ -11,6 +11,13 @@
         <attribute name="terminus" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Favorite" inverseName="group" inverseEntity="Favorite" syncable="YES"/>
     </entity>
+    <entity name="GtfsPublishData" representedClassName="GtfsPublishData" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="publishDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
         <attribute name="fromName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
@@ -44,6 +51,7 @@
     <elements>
         <element name="Favorite" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GtfsPublishData" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Route" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Stop" positionX="0" positionY="0" width="0" height="0"/>
         <element name="StopSequence" positionX="0" positionY="0" width="0" height="0"/>

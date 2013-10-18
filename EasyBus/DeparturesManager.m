@@ -300,9 +300,6 @@ objection_requires(@"staticDataManager")
     else if ([_currentNode isEqualToString:@"departure"] ) {
         _departureDate = string;
     }
-    else if ([_currentNode isEqualToString:@"departure"] ) {
-        _departureDate = string;
-    }
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {

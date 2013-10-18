@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DeparturesManager.h"
 #import "Favorite.h"
 
-@interface DeparturesManagerTest : SenTestCase
+@interface DeparturesManagerTest : XCTestCase
 
 @property(nonatomic) DeparturesManager* _departuresManager;
 

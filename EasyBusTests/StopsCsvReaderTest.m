@@ -7,12 +7,12 @@
 //
 
 #import <Objection/Objection.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "StopsCsvReader.h"
 
-@interface StopsCsvReaderTest : SenTestCase
+@interface StopsCsvReaderTest : XCTestCase
 
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) NSManagedObjectModel* managedObjectModel;
@@ -59,7 +59,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
 
-    STAssertEquals([stops count], 1402U, @"Wrong number of stops in stops.txt");
+    XCTAssertEqual([stops count], 1402U, @"Wrong number of stops in stops.txt");
 }
 
 //Vérification de l'arrêt Timonière
@@ -69,15 +69,15 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
                                                               substitutionVariables:@{@"id" : @"4001"}];
     NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
-    STAssertTrue([stops count] > 0 , @"Stop with id 4001 shall exists");
+    XCTAssertTrue([stops count] > 0 , @"Stop with id 4001 shall exists");
     Stop* timoniere = [stops objectAtIndex:0];
 
-    STAssertEqualObjects(timoniere.id, @"4001", @"Wrong id for route 0064");
-    STAssertEqualObjects(timoniere.code, @"4001", @"Wrong short name for route 0064");
-    STAssertEqualObjects(timoniere.name, @"Timonière", @"Wrong long name for route 0064");
-    STAssertEqualObjects(timoniere.desc, @"Acigné", @"Wrong from name for route 0064");
-    STAssertEqualObjects(timoniere.latitude, @"48.13701918", @"Wrong to name for route 0064");
-    STAssertEqualObjects(timoniere.longitude, @"-1.52637517", @"Wrong to name for route 0064");
+    XCTAssertEqualObjects(timoniere.id, @"4001", @"Wrong id for route 0064");
+    XCTAssertEqualObjects(timoniere.code, @"4001", @"Wrong short name for route 0064");
+    XCTAssertEqualObjects(timoniere.name, @"Timonière", @"Wrong long name for route 0064");
+    XCTAssertEqualObjects(timoniere.desc, @"Acigné", @"Wrong from name for route 0064");
+    XCTAssertEqualObjects(timoniere.latitude, @"48.13701918", @"Wrong to name for route 0064");
+    XCTAssertEqualObjects(timoniere.longitude, @"-1.52637517", @"Wrong to name for route 0064");
 }
 
 

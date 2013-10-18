@@ -7,12 +7,12 @@
 //
 
 #import <Objection/Objection.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "TripsCsvReader.h"
 
-@interface TripsCsvReaderTest : SenTestCase
+@interface TripsCsvReaderTest : XCTestCase
 
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
 
@@ -48,18 +48,18 @@ objection_requires(@"tripsCsvReader")
 //Comptage des occurences
 - (void)testCountTrips {
     int count = [self.tripsCsvReader.trips count];
-    STAssertEquals(count, 22388, @"Wrong number of trips in trips.txt");
+    XCTAssertEqual(count, 22388, @"Wrong number of trips in trips.txt");
 }
 
 //Vérification de la ligne 64
 - (void)testTrips1 {
     NSArray* trips = self.tripsCsvReader.trips;
-    STAssertTrue([trips count] > 0 , @"Trip with id 1 shall exists");
+    XCTAssertTrue([trips count] > 0 , @"Trip with id 1 shall exists");
     Trip* trip1 = [trips objectAtIndex:0];
     
-    STAssertEqualObjects(trip1.id, @"1", @"Wrong id");
-    STAssertEqualObjects(trip1.routeId, @"0052", @"Wrong route_id");
-    STAssertEqualObjects(trip1.directionId, @"0", @"Wrong direction_id");
+    XCTAssertEqualObjects(trip1.id, @"1", @"Wrong id");
+    XCTAssertEqualObjects(trip1.routeId, @"0052", @"Wrong route_id");
+    XCTAssertEqualObjects(trip1.directionId, @"0", @"Wrong direction_id");
 }
 
 @end
