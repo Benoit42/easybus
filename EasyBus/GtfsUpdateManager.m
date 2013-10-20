@@ -100,8 +100,11 @@ objection_requires(@"managedObjectContext")
         if (self.publishDate && self.startDate && self.endDate && self.version && self.url) {
             // Create and configure a new instance of the Route entity.
             NSDate* now = [NSDate date];
-            NSDate* tmpStartDate = [_xsdDateFormatter dateFromString: self.startDate];
-            NSDate* tmpEndDate = [_xsdDateFormatter dateFromString: self.endDate];
+            NSDate* tmpStartDate = [_xsdDateFormatter dateFromString: self.startDate]; //00:00:00
+            NSDate* tmpEndDate = [_xsdDateFormatter dateFromString: self.endDate]; // 00:00:00 -> 23:59:59
+            NSDateComponents *comps = [[NSDateComponents alloc] init];
+            [comps setDay:1];
+            tmpEndDate = [[NSCalendar currentCalendar] dateByAddingComponents:comps toDate:tmpEndDate  options:0];
 
             if ([tmpStartDate compare:now] == NSOrderedAscending && [tmpEndDate compare:now] == NSOrderedDescending) {
                 // Create and configure a new instance of GtfsPublishDataTmp.
