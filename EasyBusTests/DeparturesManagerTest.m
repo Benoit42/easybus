@@ -6,23 +6,38 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import <XCTest/XCTest.h>
+#import "AsyncTestCase.h"
+#import "IoCModule.h"
+#import "IoCModuleTest.h"
 #import "DeparturesManager.h"
 #import "Favorite.h"
+#import "NSURLProtocolStub.h"
 
-@interface DeparturesManagerTest : XCTestCase
+@interface DeparturesManagerTest : AsyncTestCase
 
-@property(nonatomic) DeparturesManager* _departuresManager;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
+@property(nonatomic) DeparturesManager* departuresManager;
 
 @end
 
 @implementation DeparturesManagerTest
-@synthesize _departuresManager;
+objection_requires(@"managedObjectContext", @"departuresManager")
+@synthesize managedObjectContext, departuresManager;
 
 - (void)setUp
 {
     [super setUp];
-    _departuresManager = [DeparturesManager new];
+    
+    //IoC
+    JSObjectionModule* iocModule = [[IoCModule alloc] init];
+    JSObjectionModule* iocModuleTest = [[IoCModuleTest alloc] init];
+    JSObjectionInjector *injector = [JSObjection createInjectorWithModules:iocModule, iocModuleTest, nil];
+    [JSObjection setDefaultInjector:injector];
+    
+    //Inject dependencies
+    [[JSObjection defaultInjector] injectDependencies:self];
 }
 
 - (void)tearDown
@@ -31,16 +46,23 @@
 }
 
 //Test du cas droit
-/*- (void)testLoadDeparturesFromKeolis
+- (void)testGetDepartures
 {
-    //Création des favoris
-    Favorite* fav1 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a1" libArret:@"Clos Courtel" direction:@"0" libDirection:@"Acigné" lat:0.0 lon:0.0];
-    Favorite* fav2 = [[Favorite alloc] initWithName:@"0064" libLigne:@"Rennes-Acigné" arret:@"a2" libArret:@"Timonière" direction:@"1" libDirection:@"Rennes" lat:0.0 lon:0.0];
-    NSArray* favorites = [[NSArray alloc] initWithObjects:fav1, fav2, nil];
+    //Stub de l'url des départs
+    [NSURLProtocol registerClass:[NSURLProtocolStub class]];
+    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures" toResource:@"getbusnextdepartures.xml"];
     
+    //Création des favoris
+    Favorite* fav1 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
+
     //Recherche des départs
-    [_departuresManager refreshDepartures:favorites];
-    STAssertEquals(7, (int)[[_departuresManager getDepartures] count], @"Wrong number of departures");
-}*/
+    [self runTestWithBlock:^{
+        [self.departuresManager refreshDepartures:@[fav1]];
+    }
+    waitingForNotifications:@[@"departuresUpdateSucceeded"]
+               withTimeout:5
+     ];
+    XCTAssertEqual(7, (int)[[self.departuresManager getDepartures] count], @"Wrong number of departures");
+}
 
 @end

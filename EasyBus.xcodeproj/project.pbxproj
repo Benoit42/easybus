@@ -158,9 +158,6 @@
 		140EA850163F125600FB4A85 /* StopsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84D163DBD5800FB4A85 /* StopsViewController.h */; };
 		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
 		14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */; };
-		14148BA0180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */; };
-		14148BA1180C5C85005DDAF9 /* AsyncTestCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */; };
-		14148BA2180C5C85005DDAF9 /* AsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */; };
 		14148BA3180E64A6005DDAF9 /* GtfsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */; };
 		14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14148B96180AC634005DDAF9 /* XCTest.framework */; };
 		1414E1AA166DD7230013E9A1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1414E1A9166DD7230013E9A1 /* arrow.png */; };
@@ -168,7 +165,6 @@
 		141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */; };
 		141EDDFE177B535A005DDC8C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140513741746798B00345B1D /* CoreData.framework */; };
 		142340DA162E0ABA0095073C /* Depart.m in Sources */ = {isa = PBXBuildFile; fileRef = 142340D9162E0ABA0095073C /* Depart.m */; };
-		1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1423423A1631F4020095073C /* getbusnextdepartures.xml */; };
 		1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D500166BEFC7002083A7 /* logo-STAR@2x.png */; };
 		1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D501166BEFC7002083A7 /* logo-STAR.png */; };
 		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
@@ -397,6 +393,12 @@
 		14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */; };
 		14DDB98117FCA933000D1C5E /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98017FCA933000D1C5E /* StopTime.m */; };
 		14DDB98417FCA933000D1C5E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* Trip.m */; };
+		14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A01813E4F50034226A /* AsyncTestCase.m */; };
+		14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A11813E4F50034226A /* AsyncTestCaseTest.m */; };
+		14E128A61813E5310034226A /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
+		14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A9181447810034226A /* NSURLProtocolStub.m */; };
+		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
+		14E128BF1814FB350034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
@@ -577,11 +579,6 @@
 		140EA852163F287000FB4A85 /* FavoritesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesNavigationController.m; sourceTree = "<group>"; };
 		14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsUpdateManagerTest.m; sourceTree = "<group>"; };
 		14148B96180AC634005DDAF9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+AsyncPerformBlock.m"; path = "../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/NSObject+AsyncPerformBlock.m"; sourceTree = "<group>"; };
-		14148B9C180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+AsyncPerformBlock.h"; path = "../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/NSObject+AsyncPerformBlock.h"; sourceTree = "<group>"; };
-		14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncTestCaseTest.m; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCaseTest.m; sourceTree = "<group>"; };
-		14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncTestCase.m; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCase.m; sourceTree = "<group>"; };
-		14148B9F180C5C85005DDAF9 /* AsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncTestCase.h; path = ../../../../../var/folders/bn/wbd_cz7j2091ztyhqdfhftkh0000gr/T/com.apple.mail/com.apple.mail.drag/AsyncTestCase.h; sourceTree = "<group>"; };
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDepartureCell.h; sourceTree = "<group>"; };
 		1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoDepartureCell.m; sourceTree = "<group>"; };
@@ -589,7 +586,6 @@
 		141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReaderTest.m; sourceTree = "<group>"; };
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
-		1423423A1631F4020095073C /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		1427D500166BEFC7002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
 		1427D501166BEFC7002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
 		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
@@ -828,6 +824,15 @@
 		14DDB98017FCA933000D1C5E /* StopTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTime.m; sourceTree = "<group>"; };
 		14DDB98217FCA933000D1C5E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		14DDB98317FCA933000D1C5E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		14E1289F1813E4F40034226A /* AsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncTestCase.h; sourceTree = "<group>"; };
+		14E128A01813E4F50034226A /* AsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncTestCase.m; sourceTree = "<group>"; };
+		14E128A11813E4F50034226A /* AsyncTestCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncTestCaseTest.m; sourceTree = "<group>"; };
+		14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AsyncPerformBlock.h"; sourceTree = "<group>"; };
+		14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AsyncPerformBlock.m"; sourceTree = "<group>"; };
+		14E128A71814476D0034226A /* NSURLProtocolStubTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLProtocolStubTests.m; sourceTree = "<group>"; };
+		14E128A9181447810034226A /* NSURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLProtocolStub.m; sourceTree = "<group>"; };
+		14E128AA181447810034226A /* NSURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLProtocolStub.h; sourceTree = "<group>"; };
+		14E128BD18145C6F0034226A /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		14E2AD7017D2131600ED4546 /* FavoriteInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteInitViewController.h; sourceTree = "<group>"; };
 		14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteInitViewController.m; sourceTree = "<group>"; };
 		14E2AD7317D214E700ED4546 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -1265,7 +1270,6 @@
 				1427D501166BEFC7002083A7 /* logo-STAR.png */,
 				147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */,
 				147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */,
-				1423423A1631F4020095073C /* getbusnextdepartures.xml */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
 				14AD3C1B162AF00400DF061A /* main.m */,
@@ -1280,11 +1284,14 @@
 		14AD3C3C162AF00400DF061A /* EasyBusTests */ = {
 			isa = PBXGroup;
 			children = (
-				14148B9B180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m */,
-				14148B9C180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.h */,
-				14148B9F180C5C85005DDAF9 /* AsyncTestCase.h */,
-				14148B9E180C5C85005DDAF9 /* AsyncTestCase.m */,
-				14148B9D180C5C85005DDAF9 /* AsyncTestCaseTest.m */,
+				14E1289F1813E4F40034226A /* AsyncTestCase.h */,
+				14E128A01813E4F50034226A /* AsyncTestCase.m */,
+				14E128A11813E4F50034226A /* AsyncTestCaseTest.m */,
+				14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */,
+				14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */,
+				14E128AA181447810034226A /* NSURLProtocolStub.h */,
+				14E128A9181447810034226A /* NSURLProtocolStub.m */,
+				14E128A71814476D0034226A /* NSURLProtocolStubTests.m */,
 				14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */,
 				14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */,
 				14C2E544168884B200E8A2FB /* LocationManagerTest.m */,
@@ -1306,6 +1313,7 @@
 		14AD3C3D162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
 				14776D93174264A4008C7E2E /* test.zip */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
 			);
@@ -1561,7 +1569,6 @@
 				14AD3C24162AF00400DF061A /* Default@2x.png in Resources */,
 				14AD3C26162AF00400DF061A /* Default-568h@2x.png in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
-				1423423B1631F4020095073C /* getbusnextdepartures.xml in Resources */,
 				140EA7C2163DA76D00FB4A85 /* Pictogrammes_100\11.png in Resources */,
 				140EA7C3163DA76D00FB4A85 /* Pictogrammes_100\150.png in Resources */,
 				140EA7C4163DA76D00FB4A85 /* Pictogrammes_100\151.png in Resources */,
@@ -1824,6 +1831,7 @@
 				143F84F81663492B0064B2F4 /* Pictogrammes_21\Ts37.png in Resources */,
 				143F84F91663492B0064B2F4 /* Pictogrammes_21\Ts41.png in Resources */,
 				143F84FA1663492B0064B2F4 /* Pictogrammes_21\Ts42.png in Resources */,
+				14E128BF1814FB350034226A /* getbusnextdepartures.xml in Resources */,
 				143F84FB1663492B0064B2F4 /* Pictogrammes_21\Ts43.png in Resources */,
 				143F84FC1663492B0064B2F4 /* Pictogrammes_21\Ts44.png in Resources */,
 				143F84FD1663492B0064B2F4 /* Pictogrammes_21\Ts45.png in Resources */,
@@ -1864,6 +1872,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */,
 				14776D95174264A4008C7E2E /* test.zip in Resources */,
 				14776DE317427B54008C7E2E /* agency.txt in Resources */,
 				14776DE517427B54008C7E2E /* calendar.txt in Resources */,
@@ -2031,18 +2040,19 @@
 			files = (
 				140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */,
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
+				14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
 				14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
-				14148BA2180C5C85005DDAF9 /* AsyncTestCase.m in Sources */,
+				14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */,
+				14E128A61813E5310034226A /* NSObject+AsyncPerformBlock.m in Sources */,
+				14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
 				14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
-				14148BA0180C5C85005DDAF9 /* NSObject+AsyncPerformBlock.m in Sources */,
 				14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */,
-				14148BA1180C5C85005DDAF9 /* AsyncTestCaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

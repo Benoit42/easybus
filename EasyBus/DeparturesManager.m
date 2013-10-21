@@ -97,52 +97,39 @@ objection_requires(@"staticDataManager")
         //Lancement du traitement
         [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
         
-        // Call Keolis
-        BOOL real = TRUE;
-        if (real) {
-            //Appel réel vers kéolis
-            _isRequesting = TRUE;
+        //Appel réel vers kéolis
+        _isRequesting = TRUE;
 
-            // Create the request an parse the XML
-            static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
-            static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
+        // Create the request an parse the XML
+        static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
+        static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
+        
+        //compute path
+        NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
+        for (int i=0; i<[favorites count] && i<10; i++) {
+            //Get bus
+            Favorite* favorite = [favorites objectAtIndex:i];
             
-            //compute path
-            NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
-            for (int i=0; i<[favorites count] && i<10; i++) {
-                //Get bus
-                Favorite* favorite = [favorites objectAtIndex:i];
-                
-                //Compute path
-                [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
-            }
-            
-            //Send request
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-            NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
-                                                      cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                  timeoutInterval:60.0];
-            NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
-            if (theConnection) {
-                // Create the NSMutableData to hold the received data.
-                // receivedData is an instance variable declared elsewhere.
-                _receivedData = [NSMutableData new];
-            } else {
-                //lance la notification d'erreur
-                @throw [NSException
-                 exceptionWithName:@"ConnectionException"
-                 reason:@"Unable to contact Keolis server"
-                 userInfo:nil];
-            }
+            //Compute path
+            [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
         }
-        else {
-            //Utilisation d'un fichier pour les tests
-            NSString* filePath = [[NSBundle mainBundle] pathForResource:@"getbusnextdepartures" ofType:@"xml"];
-            NSData* xmlData = [NSData dataWithContentsOfFile:filePath];
-            [self parseData:xmlData];
-            
-            //lance la notification departuresUpdated
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateSucceeded" object:self];
+        
+        //Send request
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
+                                                  cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                              timeoutInterval:60.0];
+        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+        if (theConnection) {
+            // Create the NSMutableData to hold the received data.
+            // receivedData is an instance variable declared elsewhere.
+            _receivedData = [NSMutableData new];
+        } else {
+            //lance la notification d'erreur
+            @throw [NSException
+             exceptionWithName:@"ConnectionException"
+             reason:@"Unable to contact Keolis server"
+             userInfo:nil];
         }
     }
     @catch (NSException * e) {
