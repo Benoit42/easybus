@@ -15,6 +15,7 @@
 @property(nonatomic, retain) GtfsPublishDataTmp* publishEntry;
 
 
--(void)refreshData;
+-(void)refreshPublishData;
+-(void)downloadFile:(NSString*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
 
 @end

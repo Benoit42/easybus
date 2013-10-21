@@ -46,7 +46,8 @@ objection_requires(@"managedObjectContext")
     return self;
 }
 
--(void)refreshData {
+#pragma mark refreshPublishData methods
+-(void)refreshPublishData {
     if (!self.isRequesting) {
         //Lancement du traitement
         [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateStarted" object:self];
@@ -79,6 +80,28 @@ objection_requires(@"managedObjectContext")
     else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateSucceeded" object:self];
     }
+}
+
+#pragma mark downloadFile methods
+-(void)downloadFile:(NSString*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:fileUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil
+                                                                  destination:nil
+                                                            completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                if (!error) {
+                                                                    success([filePath path]);
+                                                                }
+                                                                else {
+                                                                    [[NSFileManager defaultManager] removeItemAtPath:[filePath path] error:nil];
+                                                                    failure(error);
+                                                                }
+                                                            }];
+    [downloadTask resume];
 }
 
 #pragma mark NSXMLParserDelegate methods

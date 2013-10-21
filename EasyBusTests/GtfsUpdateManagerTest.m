@@ -43,15 +43,36 @@ objection_requires(@"gtfsUpdateManager")
     [super tearDown];
 }
 
-- (void)testExample {
+- (void)testPublishDate {
     [self runTestWithBlock:^{
-        [gtfsUpdateManager refreshData];
+        [gtfsUpdateManager refreshPublishData];
     }
     waitingForNotifications:@[@"gtfsUpdateSucceeded"]
                withTimeout:500
     ];
 
     XCTAssertNotNil(gtfsUpdateManager.publishEntry , @"GTFS publish entry should exists");
+}
+
+- (void)testDownloadFile {
+    [self runTestWithBlock:^{
+        [gtfsUpdateManager refreshPublishData];
+    }
+   waitingForNotifications:@[@"gtfsUpdateSucceeded"]
+               withTimeout:5
+     ];
+
+    [self runTestWithBlock:^{
+        [gtfsUpdateManager downloadFile:gtfsUpdateManager.publishEntry.url
+            withSuccessBlock:^(NSString *filePath) {
+                XCTAssertNotNil(filePath , @"GTFS file path should not be nil");
+                XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:filePath] , @"GTFS file path should not be nil");
+                [self blockTestCompletedWithBlock:nil];
+        } andFailureBlock:^(NSError *error) {
+            XCTFail(@"Download shouldn't have failed");
+            [self blockTestCompletedWithBlock:nil];
+        }];
+    }];
 }
 
 @end
