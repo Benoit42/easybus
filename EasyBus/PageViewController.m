@@ -51,8 +51,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 
     // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:@"departuresUpdateStarted" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:@"locationFound" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
     
     // Couleur de fond vert Star
     self.view.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:231.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
