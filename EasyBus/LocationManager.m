@@ -15,9 +15,9 @@ objection_register_singleton(LocationManager)
 @synthesize locationManager, currentLocation;
 
 //Déclaration des notifications
-NSString *locationStarted = @"locationStarted";
-NSString *locationCanceled = @"locationCanceled";
-NSString *locationFound = @"locationFound";
+NSString* const locationStarted = @"locationStarted";
+NSString* const locationCanceled = @"locationCanceled";
+NSString* const locationFound = @"locationFound";
 
 #pragma singleton & init
 //constructeur
