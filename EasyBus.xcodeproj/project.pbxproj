@@ -343,6 +343,7 @@
 		14776DF917427B54008C7E2E /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DE117427B54008C7E2E /* trips.txt */; };
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
+		1480588218170E5100D26A8B /* test.zip in Resources */ = {isa = PBXBuildFile; fileRef = 14776D93174264A4008C7E2E /* test.zip */; };
 		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* StaticDataManagerTest.m */; };
@@ -1837,6 +1838,7 @@
 				143F84FD1663492B0064B2F4 /* Pictogrammes_21\Ts45.png in Resources */,
 				143F84FE1663492B0064B2F4 /* Pictogrammes_21\Ts46.png in Resources */,
 				143F84FF1663492B0064B2F4 /* Pictogrammes_21\Ts51.png in Resources */,
+				1480588218170E5100D26A8B /* test.zip in Resources */,
 				143F85001663492B0064B2F4 /* Pictogrammes_21\Ts52.png in Resources */,
 				143F85011663492B0064B2F4 /* Pictogrammes_21\Ts53.png in Resources */,
 				143F85021663492B0064B2F4 /* Pictogrammes_21\Ts54.png in Resources */,

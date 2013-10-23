@@ -17,5 +17,6 @@
 
 -(void)refreshPublishData;
 -(void)downloadFile:(NSString*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
+-(void)unzipFile:(NSString*)zipFilePath withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
 
 @end

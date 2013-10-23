@@ -75,4 +75,20 @@ objection_requires(@"gtfsUpdateManager")
     }];
 }
 
+- (void)testUnzipFile {
+    NSString* fromPath = [[[NSBundle mainBundle] URLForResource:@"test" withExtension:@"zip"] path];
+
+    [self runTestWithBlock:^{
+        [gtfsUpdateManager unzipFile:fromPath
+            withSuccessBlock:^(NSString* outputPath) {
+                NSString* testFile = [outputPath stringByAppendingPathComponent:@"test.rtf"];
+                XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:testFile], @"Unzipped file %@ should exist", testFile);
+                [self blockTestCompletedWithBlock:nil];
+            } andFailureBlock:^(NSError *error) {
+                XCTFail(@"Unzipping shouldn't have failed");
+                [self blockTestCompletedWithBlock:nil];
+            }];
+    }];
+}
+
 @end

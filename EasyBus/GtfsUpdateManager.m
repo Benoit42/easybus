@@ -9,6 +9,7 @@
 #import <Objection/Objection.h>
 #import <AFNetworking/AFNetworking.h>
 #import "GtfsUpdateManager.h"
+#import <ZipArchive/ZipArchive.h>
 
 @interface GtfsUpdateManager() <NSXMLParserDelegate>
 
@@ -103,6 +104,24 @@ objection_requires(@"managedObjectContext")
                                                             }];
     [downloadTask resume];
 }
+
+#pragma mark unzip file methods
+-(void)unzipFile:(NSString*)zipFilePath withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure{
+    ZipArchive *za = [[ZipArchive alloc] init];
+
+    NSString* outputPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[[zipFilePath lastPathComponent] stringByDeletingPathExtension]];
+    if( [za UnzipOpenFile:zipFilePath] ) {
+        if( [za UnzipFileTo:outputPath overWrite:YES] != NO ) {
+            success(outputPath);
+            //do something
+        }
+        else {
+            NSError* error = [[NSError alloc] initWithDomain:@"Unzipping" code:1 userInfo:@{@"reason": [NSString stringWithFormat:@"Unable to unzip %@", zipFilePath]}];
+            failure(error);
+        }
+        
+        [za UnzipCloseFile];
+    }}
 
 #pragma mark NSXMLParserDelegate methods
 - (void)parserDidStartDocument:(NSXMLParser *)parser{
