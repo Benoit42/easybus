@@ -11,6 +11,8 @@
 
 @interface GroupManager : NSObject
 
+FOUNDATION_EXPORT NSString* const updateGroups;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) groups;

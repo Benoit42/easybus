@@ -14,6 +14,11 @@ objection_register_singleton(LocationManager)
 
 @synthesize locationManager, currentLocation;
 
+//Déclaration des notifications
+NSString *locationStarted = @"locationStarted";
+NSString *locationCanceled = @"locationCanceled";
+NSString *locationFound = @"locationFound";
+
 #pragma singleton & init
 //constructeur
 -(id)init {
@@ -31,12 +36,12 @@ objection_register_singleton(LocationManager)
 - (void) startUpdatingLocation {
     [locationManager startUpdatingLocation];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"locationStarted" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:locationStarted object:self];
 }
 
 - (void) stopUpdatingLocation {
     [locationManager stopUpdatingLocation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"locationCanceled" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:locationCanceled object:self];
 }
 
 // Démarrage de la localisation
@@ -58,7 +63,7 @@ objection_register_singleton(LocationManager)
         currentLocation = location;
 
         //lance la notification de localisation
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"locationFound" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:locationFound object:self];
 
         // Then stop location manager
         [locationManager stopUpdatingLocation];

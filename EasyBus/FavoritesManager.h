@@ -11,6 +11,8 @@
 
 @interface FavoritesManager : NSObject
 
+FOUNDATION_EXPORT NSString* const updateFavorites;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) favorites;

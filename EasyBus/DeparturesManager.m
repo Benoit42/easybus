@@ -36,6 +36,11 @@ objection_register_singleton(DeparturesManager)
 objection_requires(@"staticDataManager")
 @synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, accurate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
+//Déclaration des notifications
+NSString* const departuresUpdateStarted = @"departuresUpdateStarted";
+NSString* const departuresUpdateFailed = @"departuresUpdateFailed";
+NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
+
 //constructeur
 -(id)init {
     if ( self = [super init] ) {
@@ -95,7 +100,7 @@ objection_requires(@"staticDataManager")
     
     @try {
         //Lancement du traitement
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateStarted" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
         
         //Appel réel vers kéolis
         _isRequesting = TRUE;
@@ -134,7 +139,7 @@ objection_requires(@"staticDataManager")
     }
     @catch (NSException * e) {
         //lance la notification d'erreur
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
 
         //Request is not running
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -168,7 +173,7 @@ objection_requires(@"staticDataManager")
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     //lance la notification d'erreur
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
 
     //Request is not running
     _isRequesting = FALSE;
@@ -190,11 +195,11 @@ objection_requires(@"staticDataManager")
         [self parseData:_receivedData];
         
         //lance la notification departuresUpdated
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateSucceeded" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
     }
     @catch (NSException *exception) {
         //lance la notification d'erreur
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
     
         //Log
         NSLog(@"Data parsing failed! Error - %@ %@", [exception description], [exception debugDescription]);
@@ -291,7 +296,7 @@ objection_requires(@"staticDataManager")
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
     //lance la notification d'erreur
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"departuresUpdateFailed" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
     
     //Log
     NSLog(@"XML parsing failed! Error - %@ %@", [parseError description], [parseError debugDescription]);

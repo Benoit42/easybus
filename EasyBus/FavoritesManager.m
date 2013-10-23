@@ -19,6 +19,9 @@ objection_register_singleton(FavoritesManager)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
+//Déclaration des notifications
+NSString *const updateFavorites = @"updateFavorites";
+
 #pragma manage favorites
 - (NSArray*) favorites {
     NSManagedObjectModel *managedObjectModel = [[self.managedObjectContext persistentStoreCoordinator] managedObjectModel];
@@ -96,7 +99,7 @@ objection_requires(@"managedObjectContext")
 #pragma manage notifications
 - (void) sendUpdateNotification {
     //lance la notification favoritesUpdated
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateFavorites" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
 }
 
 @end

@@ -13,6 +13,10 @@
 
 @interface DeparturesManager : NSObject <NSXMLParserDelegate>
 
+FOUNDATION_EXPORT NSString* const departuresUpdateStarted;
+FOUNDATION_EXPORT NSString* const departuresUpdateFailed;
+FOUNDATION_EXPORT NSString* const departuresUpdateSucceeded;
+
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
 
 @property(nonatomic) NSMutableData* _receivedData;

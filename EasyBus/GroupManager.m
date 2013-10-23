@@ -15,6 +15,9 @@ objection_register_singleton(GroupManager)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
+//Déclaration des notifications
+NSString *const updateGroups = @"updateGroups";
+
 #pragma manage groupes
 - (NSArray*) groups {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
@@ -53,7 +56,7 @@ objection_requires(@"managedObjectContext")
 #pragma manage notifications
 - (void) sendUpdateNotification {
     //lance la notification favoritesUpdated
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateGroups" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateGroups object:self];
 }
 
 @end

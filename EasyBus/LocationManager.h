@@ -11,6 +11,10 @@
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
+FOUNDATION_EXPORT NSString* const locationStarted;
+FOUNDATION_EXPORT NSString* const locationCanceled;
+FOUNDATION_EXPORT NSString* const locationFound;
+
 @property(nonatomic) CLLocationManager* locationManager;
 @property(nonatomic) CLLocation* currentLocation;
 
