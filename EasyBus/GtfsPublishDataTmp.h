@@ -13,7 +13,7 @@
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSDate * publishDate;
 @property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) NSURL * url;
 @property (nonatomic, retain) NSString * version;
 
 @end

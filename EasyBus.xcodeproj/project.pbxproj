@@ -308,6 +308,8 @@
 		143F85081663492B0064B2F4 /* Pictogrammes_21\Ts81.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847C1663492B0064B2F4 /* Pictogrammes_21\Ts81.png */; };
 		143F85091663492B0064B2F4 /* Pictogrammes_21\Ts82.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */; };
 		143F850A1663492B0064B2F4 /* Pictogrammes_21\TTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */; };
+		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
+		146CC04518181FDA005A7F66 /* GTFS-20131017.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS-20131017.zip */; };
 		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
 		147168A71801A38000846AE6 /* DataLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A61801A38000846AE6 /* DataLoaderViewController.m */; };
 		147168AD1801C9F100846AE6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168AC1801C9F100846AE6 /* Group.m */; };
@@ -317,7 +319,6 @@
 		147168CE1801DB7200846AE6 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168CD1801DB7200846AE6 /* Route.m */; };
 		147480041663D4DC0091FF49 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147480031663D4DC0091FF49 /* PageViewController.m */; };
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
-		14776D95174264A4008C7E2E /* test.zip in Resources */ = {isa = PBXBuildFile; fileRef = 14776D93174264A4008C7E2E /* test.zip */; };
 		14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776DE217427B54008C7E2E /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DD617427B54008C7E2E /* agency.txt */; };
 		14776DE317427B54008C7E2E /* agency.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DD617427B54008C7E2E /* agency.txt */; };
@@ -343,7 +344,6 @@
 		14776DF917427B54008C7E2E /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14776DE117427B54008C7E2E /* trips.txt */; };
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
-		1480588218170E5100D26A8B /* test.zip in Resources */ = {isa = PBXBuildFile; fileRef = 14776D93174264A4008C7E2E /* test.zip */; };
 		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* StaticDataManagerTest.m */; };
@@ -399,7 +399,6 @@
 		14E128A61813E5310034226A /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
 		14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A9181447810034226A /* NSURLProtocolStub.m */; };
 		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
-		14E128BF1814FB350034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
@@ -730,6 +729,8 @@
 		143F847C1663492B0064B2F4 /* Pictogrammes_21\Ts81.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\Ts81.png"; path = "21x21/Pictogrammes_21\\Ts81.png"; sourceTree = "<group>"; };
 		143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\Ts82.png"; path = "21x21/Pictogrammes_21\\Ts82.png"; sourceTree = "<group>"; };
 		143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\TTZ.png"; path = "21x21/Pictogrammes_21\\TTZ.png"; sourceTree = "<group>"; };
+		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
+		146CC04318181FDA005A7F66 /* GTFS-20131017.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "GTFS-20131017.zip"; sourceTree = "<group>"; };
 		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
 		147168A0180086F200846AE6 /* RouteStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStop.m; sourceTree = "<group>"; };
 		147168A51801A38000846AE6 /* DataLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoaderViewController.h; sourceTree = "<group>"; };
@@ -750,7 +751,6 @@
 		14776D7F17423022008C7E2E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14776D84174251DE008C7E2E /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		14776D8617425290008C7E2E /* ZipArchiveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchiveTest.m; sourceTree = "<group>"; };
-		14776D93174264A4008C7E2E /* test.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = test.zip; sourceTree = "<group>"; };
 		14776DD617427B54008C7E2E /* agency.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agency.txt; sourceTree = "<group>"; };
 		14776DD717427B54008C7E2E /* calendar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar.txt; sourceTree = "<group>"; };
 		14776DD817427B54008C7E2E /* calendar_dates.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar_dates.txt; sourceTree = "<group>"; };
@@ -1314,9 +1314,10 @@
 		14AD3C3D162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				146CC04318181FDA005A7F66 /* GTFS-20131017.zip */,
 				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
-				14776D93174264A4008C7E2E /* test.zip */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
+				146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1832,13 +1833,11 @@
 				143F84F81663492B0064B2F4 /* Pictogrammes_21\Ts37.png in Resources */,
 				143F84F91663492B0064B2F4 /* Pictogrammes_21\Ts41.png in Resources */,
 				143F84FA1663492B0064B2F4 /* Pictogrammes_21\Ts42.png in Resources */,
-				14E128BF1814FB350034226A /* getbusnextdepartures.xml in Resources */,
 				143F84FB1663492B0064B2F4 /* Pictogrammes_21\Ts43.png in Resources */,
 				143F84FC1663492B0064B2F4 /* Pictogrammes_21\Ts44.png in Resources */,
 				143F84FD1663492B0064B2F4 /* Pictogrammes_21\Ts45.png in Resources */,
 				143F84FE1663492B0064B2F4 /* Pictogrammes_21\Ts46.png in Resources */,
 				143F84FF1663492B0064B2F4 /* Pictogrammes_21\Ts51.png in Resources */,
-				1480588218170E5100D26A8B /* test.zip in Resources */,
 				143F85001663492B0064B2F4 /* Pictogrammes_21\Ts52.png in Resources */,
 				143F85011663492B0064B2F4 /* Pictogrammes_21\Ts53.png in Resources */,
 				143F85021663492B0064B2F4 /* Pictogrammes_21\Ts54.png in Resources */,
@@ -1875,17 +1874,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */,
-				14776D95174264A4008C7E2E /* test.zip in Resources */,
 				14776DE317427B54008C7E2E /* agency.txt in Resources */,
 				14776DE517427B54008C7E2E /* calendar.txt in Resources */,
 				14776DE717427B54008C7E2E /* calendar_dates.txt in Resources */,
 				14776DE917427B54008C7E2E /* csv_db.sql in Resources */,
 				14776DEB17427B54008C7E2E /* feed_info.txt in Resources */,
 				14776DED17427B54008C7E2E /* routes.txt in Resources */,
+				146CC04518181FDA005A7F66 /* GTFS-20131017.zip in Resources */,
 				14776DEF17427B54008C7E2E /* routes_extensions.txt in Resources */,
 				14776DF317427B54008C7E2E /* stop_times.txt in Resources */,
 				14776DF517427B54008C7E2E /* stops.txt in Resources */,
 				14776DF717427B54008C7E2E /* stops_extensions.txt in Resources */,
+				146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */,
 				14776DF917427B54008C7E2E /* trips.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

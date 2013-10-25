@@ -64,30 +64,25 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 
     Route* lastRoute = [routes lastObject];
     XCTAssertEqualObjects(@"0805", lastRoute.id, @"First route shall be 0805");
-}
 
-
-- (void)testRoute64 {
     Route* route64 = [self.staticDataManager routeForId:@"0064"];
     XCTAssertNotNil(route64 , @"Route 64 shall exists");
-
+    
     NSArray* stopsDirectionZero = [self.staticDataManager stopsForRoute:route64 direction:@"0"];
     XCTAssertEqual(stopsDirectionZero.count, 22U, @"Wrong number of stops");
-
+    
     NSArray* stopsDirectionOne = [self.staticDataManager stopsForRoute:route64 direction:@"1"];
     XCTAssertEqual(stopsDirectionOne.count, 23U, @"Wrong number of stops");
-
+    
     Stop* republique1 = stopsDirectionZero[0];
     XCTAssertEqualObjects(republique1.name, @"Timonière", @"Wrong stop name");
     Stop* timoniere1 = stopsDirectionZero[21];
     XCTAssertEqualObjects(timoniere1.name, @"République Pré Botté", @"Wrong stop name");
-
+    
     Stop* timoniere2 = stopsDirectionOne[0];
     XCTAssertEqualObjects(timoniere2.name, @"République Pré Botté", @"Wrong stop name");
     Stop* republique2 = stopsDirectionOne[22];
     XCTAssertEqualObjects(republique2.name, @"Timonière", @"Wrong stop name");
 }
-
-
 
 @end

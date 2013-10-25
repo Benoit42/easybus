@@ -12,7 +12,7 @@
 #import "GtfsUpdateManager.h"
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
-
+#import "NSURLProtocolStub.h"
 
 @interface GtfsUpdateManagerTest : AsyncTestCase
 
@@ -36,6 +36,12 @@ objection_requires(@"gtfsUpdateManager")
     
     //Inject dependencies
     [[JSObjection defaultInjector] injectDependencies:self];
+    
+    //Mock network resources
+    [NSURLProtocol registerClass:[NSURLProtocolStub class]];
+    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" toResource:@"gtfsUpdateFeed.xml"];
+    [NSURLProtocolStub configureUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" withHeaders:@{@"Content-Type": @"application/atom-xml; charset=utf-8"}];
+    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/GTFS-20131017.zip" toResource:@"GTFS-20131017.zip"];
 }
 
 - (void)tearDown {
@@ -45,25 +51,20 @@ objection_requires(@"gtfsUpdateManager")
 
 - (void)testPublishDate {
     [self runTestWithBlock:^{
-        [gtfsUpdateManager refreshPublishData];
-    }
-    waitingForNotifications:@[@"gtfsUpdateSucceeded"]
-               withTimeout:500
-    ];
-
-    XCTAssertNotNil(gtfsUpdateManager.publishEntry , @"GTFS publish entry should exists");
+        [gtfsUpdateManager refreshPublishDataWithSuccessBlock:^(NSURL *fileUrl) {
+            XCTAssertNotNil(gtfsUpdateManager.publishEntry , @"GTFS publish entry should exists");
+            [self blockTestCompletedWithBlock:nil];
+        } andFailureBlock:^(NSError *error) {
+            XCTFail(@"Refreshing publish date shouldn't have failed");
+            [self blockTestCompletedWithBlock:nil];
+        } ];
+    }];
 }
 
-- (void)testDownloadFile {
+- (void)testDownloadGtfsFile {
+    NSURL* url = [NSURL URLWithString:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/GTFS-20131017.zip" relativeToURL:nil];
     [self runTestWithBlock:^{
-        [gtfsUpdateManager refreshPublishData];
-    }
-   waitingForNotifications:@[@"gtfsUpdateSucceeded"]
-               withTimeout:5
-     ];
-
-    [self runTestWithBlock:^{
-        [gtfsUpdateManager downloadFile:gtfsUpdateManager.publishEntry.url
+        [gtfsUpdateManager downloadFile:url
             withSuccessBlock:^(NSString *filePath) {
                 XCTAssertNotNil(filePath , @"GTFS file path should not be nil");
                 XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:filePath] , @"GTFS file path should not be nil");
@@ -76,12 +77,18 @@ objection_requires(@"gtfsUpdateManager")
 }
 
 - (void)testUnzipFile {
-    NSString* fromPath = [[[NSBundle mainBundle] URLForResource:@"test" withExtension:@"zip"] path];
+    NSString* fromPath = [[[NSBundle mainBundle] URLForResource:@"GTFS-20131017" withExtension:@"zip"] path];
 
     [self runTestWithBlock:^{
         [gtfsUpdateManager unzipFile:fromPath
             withSuccessBlock:^(NSString* outputPath) {
-                NSString* testFile = [outputPath stringByAppendingPathComponent:@"test.rtf"];
+                NSString* testFile = [outputPath stringByAppendingPathComponent:@"routes.txt"];
+                XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:testFile], @"Unzipped file %@ should exist", testFile);
+                testFile = [outputPath stringByAppendingPathComponent:@"stops.txt"];
+                XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:testFile], @"Unzipped file %@ should exist", testFile);
+                testFile = [outputPath stringByAppendingPathComponent:@"trips.txt"];
+                XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:testFile], @"Unzipped file %@ should exist", testFile);
+                testFile = [outputPath stringByAppendingPathComponent:@"stop_times.txt"];
                 XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:testFile], @"Unzipped file %@ should exist", testFile);
                 [self blockTestCompletedWithBlock:nil];
             } andFailureBlock:^(NSError *error) {

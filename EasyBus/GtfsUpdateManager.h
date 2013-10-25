@@ -11,12 +11,19 @@
 
 @interface GtfsUpdateManager : NSObject
 
+FOUNDATION_EXPORT NSString* const gtfsUpdateStarted;
+FOUNDATION_EXPORT NSString* const gtfsUpdateSucceeded;
+FOUNDATION_EXPORT NSString* const gtfsUpdateFailed;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic, retain) GtfsPublishDataTmp* publishEntry;
 
 
--(void)refreshPublishData;
--(void)downloadFile:(NSString*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
+- (void)loadData;
+- (void)cleanUp;
+
+-(void)refreshPublishDataWithSuccessBlock:(void(^)(NSURL* fileUrl))success andFailureBlock:(void(^)(NSError* error))failure;
+-(void)downloadFile:(NSURL*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
 -(void)unzipFile:(NSString*)zipFilePath withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure;
 
 @end

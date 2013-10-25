@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -524,8 +524,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vB-l2-kvt">
-                                <rect key="frame" x="112" y="262" width="95" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vB-l2-kvt">
+                                <rect key="frame" x="113" y="262" width="95" height="32"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="95" id="LcH-2u-CG9"/>
@@ -538,7 +538,7 @@
                                     <segue destination="PdJ-v8-E1m" kind="modal" identifier="addFavorite" modalTransitionStyle="flipHorizontal" id="zfA-1C-RAa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-DW-F2R">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-DW-F2R">
                                 <rect key="frame" x="20" y="125" width="280" height="112"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Aucun favori. 
@@ -550,7 +550,12 @@ Ajoutez-en en appuyant sur  le bouton ci-dessous.</string>
                         </subviews>
                         <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jjd-DW-F2R" secondAttribute="trailing" constant="20" symbolic="YES" id="YET-Gb-nwQ"/>
+                            <constraint firstItem="jjd-DW-F2R" firstAttribute="top" secondItem="Gsa-pl-deu" secondAttribute="bottom" constant="105" id="YyG-8m-jpn"/>
+                            <constraint firstItem="0vB-l2-kvt" firstAttribute="top" secondItem="jjd-DW-F2R" secondAttribute="bottom" constant="25" id="fD0-Df-4Es"/>
                             <constraint firstItem="0vB-l2-kvt" firstAttribute="top" secondItem="6R0-Kp-SV6" secondAttribute="top" constant="262" id="kaH-tw-AwB"/>
+                            <constraint firstItem="jjd-DW-F2R" firstAttribute="leading" secondItem="6R0-Kp-SV6" secondAttribute="leading" constant="20" symbolic="YES" id="ouJ-mS-ovZ"/>
+                            <constraint firstItem="jjd-DW-F2R" firstAttribute="centerX" secondItem="0vB-l2-kvt" secondAttribute="centerX" id="wKC-NZ-8ab"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LHT-7k-s31"/>
@@ -595,6 +600,6 @@ Ajoutez-en en appuyant sur  le bouton ci-dessous.</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uvr-gy-4ki"/>
+        <segue reference="zfA-1C-RAa"/>
     </inferredMetricsTieBreakers>
 </document>

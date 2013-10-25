@@ -31,6 +31,11 @@ objection_register_singleton(GtfsUpdateManager)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext, publishEntry, publishDate, startDate, endDate, version, url;
 
+//Déclaration des notifications
+NSString* const gtfsUpdateStarted = @"gtfsUpdateStarted";
+NSString* const gtfsUpdateSucceeded = @"gtfsUpdateSucceeded";
+NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
+
 //constructeur
 -(id)init {
     if ( self = [super init] ) {
@@ -47,49 +52,58 @@ objection_requires(@"managedObjectContext")
     return self;
 }
 
-#pragma mark refreshPublishData methods
--(void)refreshPublishData {
-    if (!self.isRequesting) {
-        //Lancement du traitement
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateStarted" object:self];
+- (void)loadData {
 
-        self.isRequesting = TRUE;
-        self.publishDate = nil;
-        self.startDate = nil;
-        self.endDate = nil;
-        self.version = nil;
-        self.publishDate = nil;
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
-        [manager GET:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed"
-            parameters:nil
-            success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
-                    //Parse response
-                    [xmlParser setDelegate:self];
-                    [xmlParser parse];
-                
-                //lance la notification departuresUpdated
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateSucceeded" object:self];
-                self.isRequesting = FALSE;
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 NSLog(@"Error: %@", error);
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateFailed" object:self];
-                self.isRequesting = FALSE;
-            }];
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"gtfsUpdateSucceeded" object:self];
-    }
+}
+
+- (void)cleanUp {
+}
+
+#pragma mark refreshPublishData methods
+-(void)refreshPublishDataWithSuccessBlock:(void(^)(NSURL* fileUrl))success andFailureBlock:(void(^)(NSError* error))failure {
+    //Lancement du traitement
+    [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateStarted object:self];
+
+    self.isRequesting = TRUE;
+    self.publishDate = nil;
+    self.startDate = nil;
+    self.endDate = nil;
+    self.version = nil;
+    self.publishDate = nil;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/atom-xml"];
+    
+    [manager GET:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed"
+        parameters:nil
+        success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
+                //Parse response
+                [xmlParser setDelegate:self];
+                [xmlParser parse];
+
+            //succès
+            self.isRequesting = FALSE;
+            success(publishEntry.url);
+            
+            //lance la notification departuresUpdated
+            [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceeded object:self];
+        }
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+
+            //failure
+            self.isRequesting = FALSE;
+            failure(error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateFailed object:self];
+        }];
 }
 
 #pragma mark downloadFile methods
--(void)downloadFile:(NSString*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure {
+-(void)downloadFile:(NSURL*)fileUrl withSuccessBlock:(void(^)(NSString* filePath))success andFailureBlock:(void(^)(NSError* error))failure {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    NSURL *URL = [NSURL URLWithString:fileUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:fileUrl];
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil
                                                                   destination:nil
@@ -131,7 +145,7 @@ objection_requires(@"managedObjectContext")
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     self.currentNode = elementName;
     if ([elementName isEqualToString:@"link"] && [attributeDict[@"rel"] isEqualToString:@"enclosure"]) {
-        self.url = attributeDict[@"href"];
+        self.url = attributeDict[@"href"] ;
     }
 }
 
@@ -155,7 +169,7 @@ objection_requires(@"managedObjectContext")
                 self.publishEntry.startDate = tmpStartDate;
                 self.publishEntry.endDate = tmpEndDate;
                 self.publishEntry.version = self.version;
-                self.publishEntry.url = self.url;
+                self.publishEntry.url = [NSURL URLWithString:self.url];
                 
                 //Stop parsing
                 [parser abortParsing];

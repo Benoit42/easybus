@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:gtfs="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed/1.0">
+    <title>Keolis Rennes - Données théoriques GTFS des lignes de bus du réseau STAR</title>
+    <id>http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed</id>
+    <link href="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" type="application/atom-xml" rel="self"/>
+    <link href="http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html" type="text/html" rel="alternate"/>
+    <author>
+        <name>Keolis Rennes</name>
+    </author>
+    <updated>2013-10-22T18:07:32+02:00</updated>
+    <gtfs:lang>FR</gtfs:lang>
+    <entry>
+        <id>cid:GTFS-20131017</id>
+        <title type="text">Mise à jour GTFS</title>
+        <content type="html"><![CDATA[<p> Horaires d'hiver 2013/2014 - Version 2.0 - Vacances de Toussaint (semaine 1) (valables du 21/10/2013 au 27/10/2013)</p>]]></content>
+        <link href="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/GTFS-20131017.zip" type="application/zip" rel="enclosure" title="GTFS-20131017.zip" length="2785619"/>
+        <link href="http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html" type="text/html" rel="alternate"/>
+        <updated>2013-10-17T18:04:48+02:00</updated>
+        <published>2013-10-17T18:04:48+02:00</published>
+        <gtfs:start>2013-10-21</gtfs:start>
+        <gtfs:end>2013-10-27</gtfs:end>
+        <gtfs:version>Horaires d'hiver 2013/2014 - Version 2.0 - Vacances de Toussaint (semaine 1)</gtfs:version>
+    </entry>
+    <entry>
+        <id>cid:GTFS-20131022</id>
+        <title type="text">Mise à jour GTFS</title>
+        <content type="html"><![CDATA[<p> Horaires d'hiver 2013/2014 - Version 2.1 - Vacances de Toussaint (semaine 2) (valables du 28/10/2013 au 03/11/2013)</p>]]></content>
+        <link href="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/GTFS-20131022.zip" type="application/zip" rel="enclosure" title="GTFS-20131022.zip" length="2477838"/>
+        <link href="http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html" type="text/html" rel="alternate"/>
+        <updated>2013-10-22T18:07:32+02:00</updated>
+        <published>2013-10-22T18:07:32+02:00</published>
+        <gtfs:start>2013-10-28</gtfs:start>
+        <gtfs:end>2013-11-03</gtfs:end>
+        <gtfs:version>Horaires d'hiver 2013/2014 - Version 2.1 - Vacances de Toussaint (semaine 2)</gtfs:version>
+    </entry>
+</feed>

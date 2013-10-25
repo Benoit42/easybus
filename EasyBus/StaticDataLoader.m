@@ -32,7 +32,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSAssert(self.stopTimesCsvReader != nil, @"managedObjectContext should not be nil");
     
     //Log
-    NSLog(@"Démarrage du chargement des données");
+    NSLog(@"Démarrage du traitement des données");
     
     //Delete all routes
     NSLog(@"Suppression des routes");

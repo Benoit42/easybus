@@ -6,95 +6,127 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
-            timestampString = "404228268.920064"
+            timestampString = "404332768.61918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-testUnzipFile"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-setUp"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
-            timestampString = "404228270.259657"
+            timestampString = "404332770.655739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-testUnzipFile"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-tearDown"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
-            timestampString = "404228495.517669"
+            timestampString = "404374631.493405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-testUnzipFile"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-testPublishDate"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[GtfsUpdateManagerTest testPublishDate]_block_invoke_2"
+                  moduleName = "EasyBusTests"
+                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsUpdateManagerTest.m"
+                  timestampString = "404392605.375979"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "61">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[GtfsUpdateManagerTest testPublishDate]_block_invoke_2"
+                  moduleName = "EasyBusTests"
+                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsUpdateManagerTest.m"
+                  timestampString = "404392605.376324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "482">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
+            timestampString = "404374632.933317"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-testPublishDate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
-            timestampString = "404228374.032601"
+            filePath = "EasyBus/GtfsUpdateManager.m"
+            timestampString = "404392544.402081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "-testUnzipFile"
+            landmarkName = "-refreshPublishDataWithSuccessBlock:andFailureBlock:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[GtfsUpdateManagerTest testUnzipFile]"
-                  moduleName = "EasyBusTests"
-                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsUpdateManagerTest.m"
-                  timestampString = "404228496.222378"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "199">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[GtfsUpdateManagerTest testUnzipFile]_block_invoke"
-                  moduleName = "EasyBusTests"
-                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsUpdateManagerTest.m"
-                  timestampString = "404228496.222754"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyBusTests/GtfsUpdateManagerTest.m"
+            timestampString = "404392866.128166"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-testDownloadGtfsFile"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
