@@ -21,7 +21,7 @@ objection_register_singleton(TripsCsvReader)
 
 @synthesize trips;
 
-- (void)loadData {
+- (void)loadData:(NSURL*)url {
     //Chargement des horaires
     NSLog(@"Chargement des trajets");
     
@@ -31,7 +31,6 @@ objection_register_singleton(TripsCsvReader)
     //parsing du fichier
     //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
-    NSURL* url = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;
     [p setDelegate:self];

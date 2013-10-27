@@ -13,7 +13,7 @@
 
 @property(nonatomic, retain) NSMutableArray* stops;
 
-- (void)loadData;
+- (void)loadData:(NSURL*)url;
 - (void)cleanUp;
 
 @end

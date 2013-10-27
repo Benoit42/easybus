@@ -39,7 +39,8 @@ objection_requires(@"stopTimesCsvReader")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.stopTimesCsvReader loadData];
+    NSURL* stopTimesUrl = [[NSBundle mainBundle] URLForResource:@"stop_times" withExtension:@"txt"];
+    [self.stopTimesCsvReader loadData:stopTimesUrl];
 }
 
 - (void)tearDown

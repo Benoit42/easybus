@@ -39,7 +39,8 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.routesCsvReader loadData];
+    NSURL* routesUrl = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
+    [self.routesCsvReader loadData:routesUrl];
 }
 
 - (void)tearDown

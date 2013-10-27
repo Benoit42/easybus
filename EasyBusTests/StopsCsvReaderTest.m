@@ -39,7 +39,8 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.stopsCsvReader loadData];
+    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
+    [self.stopsCsvReader loadData:stopsUrl];
 }
 
 - (void)tearDown

@@ -37,7 +37,8 @@ objection_requires(@"tripsCsvReader")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.tripsCsvReader loadData];
+    NSURL* tripsUrl = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
+    [self.tripsCsvReader loadData:tripsUrl];
 }
 
 - (void)tearDown

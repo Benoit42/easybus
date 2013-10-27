@@ -45,8 +45,10 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //load data
-    [self.routesCsvReader loadData];
-    [self.stopsCsvReader loadData];
+    NSURL* routesUrl = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
+    [self.routesCsvReader loadData:routesUrl];
+    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
+    [self.stopsCsvReader loadData:stopsUrl];
 
     //Ajout du jeu de tests
     Route* route64 = [self routeForId:@"0064"];

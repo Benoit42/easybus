@@ -13,7 +13,7 @@
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-- (void)loadData;
+- (void)loadData:(NSURL*)url;
 - (void)cleanUp;
 
 @end

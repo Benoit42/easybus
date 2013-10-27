@@ -14,8 +14,8 @@
 
 @implementation LinesViewController
 
-objection_requires(@"staticDataManager", @"staticDataLoader")
-@synthesize staticDataManager, staticDataLoader;
+objection_requires(@"staticDataManager", @"gtfsDownloadManager")
+@synthesize staticDataManager, gtfsDownloadManager;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -28,7 +28,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 
     //Pré-conditions
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
-    NSAssert(self.staticDataLoader != nil, @"staticDataLoader should not be nil");
+    NSAssert(self.gtfsDownloadManager != nil, @"gtfsDownloadManager should not be nil");
 
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -38,9 +38,27 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 
 #pragma mark - Refresh Keolis data
 -(void) updateData{
-    [self.staticDataLoader loadStaticData];
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
+    NSOperation* op = [NSBlockOperation blockOperationWithBlock:^{
+        [self.gtfsDownloadManager checkUpdateWithDate:[NSDate date]
+            withSuccessBlock:^(BOOL uppdateNeeded) {
+                if (uppdateNeeded) {
+                    [self.gtfsDownloadManager loadData:^{
+                        [self.refreshControl endRefreshing];
+                        [self.tableView reloadData];
+                    } andFailureBlock:^(NSError *error) {
+                        [self.refreshControl endRefreshing];
+                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement des données GTFS" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [alert show];
+                    }];
+                }
+            } andFailureBlock:^(NSError *error) {
+                [self.refreshControl endRefreshing];
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement des données de mise à jour" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alert show];
+            }];
+    }];
+    
+    [op start];    
 }
 
 #pragma mark - Table view data source

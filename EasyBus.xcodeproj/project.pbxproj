@@ -157,8 +157,8 @@
 		140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84E163DBD5900FB4A85 /* StopsViewController.m */; };
 		140EA850163F125600FB4A85 /* StopsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84D163DBD5800FB4A85 /* StopsViewController.h */; };
 		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
-		14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */; };
-		14148BA3180E64A6005DDAF9 /* GtfsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */; };
+		14148B94180AC32C005DDAF9 /* GtfsDownloadManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */; };
+		14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404E1A01805BD1D005026C2 /* GtfsDownloadManager.m */; };
 		14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14148B96180AC634005DDAF9 /* XCTest.framework */; };
 		1414E1AA166DD7230013E9A1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1414E1A9166DD7230013E9A1 /* arrow.png */; };
 		1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */; };
@@ -309,7 +309,7 @@
 		143F85091663492B0064B2F4 /* Pictogrammes_21\Ts82.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */; };
 		143F850A1663492B0064B2F4 /* Pictogrammes_21\TTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
-		146CC04518181FDA005A7F66 /* GTFS-20131017.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS-20131017.zip */; };
+		146CC04518181FDA005A7F66 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
 		147168A71801A38000846AE6 /* DataLoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A61801A38000846AE6 /* DataLoaderViewController.m */; };
 		147168AD1801C9F100846AE6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168AC1801C9F100846AE6 /* Group.m */; };
@@ -372,6 +372,10 @@
 		14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */; };
 		14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B42DCF1656BF090070AA9D /* FavoritesViewController.m */; };
 		14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */; };
+		14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
+		14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
+		14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
+		14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -404,8 +408,9 @@
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
 		14E4014D17E041AA00EA7B00 /* Pictogrammes_100\1.png in Resources */ = {isa = PBXBuildFile; fileRef = 14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */; };
-		14E4590118105F2500E2401A /* GtfsPublishData.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4590018105F2500E2401A /* GtfsPublishData.m */; };
 		14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* GtfsPublishDataTmp.m */; };
+		14EEF354181AF41600C1C061 /* GtfsPublishData.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EEF353181AF41600C1C061 /* GtfsPublishData.m */; };
+		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -424,8 +429,8 @@
 
 /* Begin PBXFileReference section */
 		0AEC54415FE547A0B83EF926 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1404E19F1805BD1D005026C2 /* GtfsUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsUpdateManager.h; sourceTree = "<group>"; };
-		1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsUpdateManager.m; sourceTree = "<group>"; };
+		1404E19F1805BD1D005026C2 /* GtfsDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsDownloadManager.h; sourceTree = "<group>"; };
+		1404E1A01805BD1D005026C2 /* GtfsDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsDownloadManager.m; sourceTree = "<group>"; };
 		1405136C17465CD700345B1D /* EasyBus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyBus.xcdatamodel; sourceTree = "<group>"; };
 		140513741746798B00345B1D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1407D6771649B0EE002F37AD /* DirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionViewController.m; sourceTree = "<group>"; };
@@ -577,7 +582,7 @@
 		140EA84E163DBD5900FB4A85 /* StopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsViewController.m; sourceTree = "<group>"; };
 		140EA851163F287000FB4A85 /* FavoritesNavigationController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoritesNavigationController.h; sourceTree = "<group>"; };
 		140EA852163F287000FB4A85 /* FavoritesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesNavigationController.m; sourceTree = "<group>"; };
-		14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsUpdateManagerTest.m; sourceTree = "<group>"; };
+		14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsDownloadManagerTest.m; sourceTree = "<group>"; };
 		14148B96180AC634005DDAF9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoDepartureCell.h; sourceTree = "<group>"; };
@@ -730,7 +735,7 @@
 		143F847D1663492B0064B2F4 /* Pictogrammes_21\Ts82.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\Ts82.png"; path = "21x21/Pictogrammes_21\\Ts82.png"; sourceTree = "<group>"; };
 		143F847E1663492B0064B2F4 /* Pictogrammes_21\TTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pictogrammes_21\\TTZ.png"; path = "21x21/Pictogrammes_21\\TTZ.png"; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
-		146CC04318181FDA005A7F66 /* GTFS-20131017.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "GTFS-20131017.zip"; sourceTree = "<group>"; };
+		146CC04318181FDA005A7F66 /* GTFS.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = GTFS.zip; sourceTree = "<group>"; };
 		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
 		147168A0180086F200846AE6 /* RouteStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteStop.m; sourceTree = "<group>"; };
 		147168A51801A38000846AE6 /* DataLoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoaderViewController.h; sourceTree = "<group>"; };
@@ -842,10 +847,11 @@
 		14E2AD8017D64A9000ED4546 /* GroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupManager.m; sourceTree = "<group>"; };
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
 		14E4014C17E041AA00EA7B00 /* Pictogrammes_100\1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pictogrammes_100\\1.png"; sourceTree = "<group>"; };
-		14E458FF18105F2500E2401A /* GtfsPublishData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsPublishData.h; sourceTree = "<group>"; };
-		14E4590018105F2500E2401A /* GtfsPublishData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsPublishData.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* GtfsPublishDataTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsPublishDataTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* GtfsPublishDataTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsPublishDataTmp.m; sourceTree = "<group>"; };
+		14EEF352181AF41600C1C061 /* GtfsPublishData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GtfsPublishData.h; sourceTree = "<group>"; };
+		14EEF353181AF41600C1C061 /* GtfsPublishData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsPublishData.m; sourceTree = "<group>"; };
+		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1305,7 +1311,7 @@
 				140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */,
 				14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */,
 				14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */,
-				14148B93180AC32C005DDAF9 /* GtfsUpdateManagerTest.m */,
+				14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */,
 				14AD3C3D162AF00400DF061A /* Supporting Files */,
 			);
 			path = EasyBusTests;
@@ -1314,10 +1320,11 @@
 		14AD3C3D162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				146CC04318181FDA005A7F66 /* GTFS-20131017.zip */,
+				146CC04318181FDA005A7F66 /* GTFS.zip */,
 				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
 				146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */,
+				14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1349,8 +1356,8 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
-				14E458FF18105F2500E2401A /* GtfsPublishData.h */,
-				14E4590018105F2500E2401A /* GtfsPublishData.m */,
+				14EEF352181AF41600C1C061 /* GtfsPublishData.h */,
+				14EEF353181AF41600C1C061 /* GtfsPublishData.m */,
 				147168CC1801DB7200846AE6 /* Route.h */,
 				147168CD1801DB7200846AE6 /* Route.m */,
 				147168C91801DB7200846AE6 /* Stop.h */,
@@ -1405,8 +1412,8 @@
 				14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */,
 				14E459021810695900E2401A /* GtfsPublishDataTmp.h */,
 				14E459031810695900E2401A /* GtfsPublishDataTmp.m */,
-				1404E19F1805BD1D005026C2 /* GtfsUpdateManager.h */,
-				1404E1A01805BD1D005026C2 /* GtfsUpdateManager.m */,
+				1404E19F1805BD1D005026C2 /* GtfsDownloadManager.h */,
+				1404E1A01805BD1D005026C2 /* GtfsDownloadManager.m */,
 			);
 			name = "Lines&Stops";
 			sourceTree = "<group>";
@@ -1568,6 +1575,7 @@
 			files = (
 				14AD3C1A162AF00400DF061A /* InfoPlist.strings in Resources */,
 				14AD3C22162AF00400DF061A /* Default.png in Resources */,
+				14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */,
 				14AD3C24162AF00400DF061A /* Default@2x.png in Resources */,
 				14AD3C26162AF00400DF061A /* Default-568h@2x.png in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
@@ -1623,6 +1631,7 @@
 				140EA7F3163DA76D00FB4A85 /* Pictogrammes_100\33.png in Resources */,
 				140EA7F4163DA76D00FB4A85 /* Pictogrammes_100\34.png in Resources */,
 				140EA7F5163DA76D00FB4A85 /* Pictogrammes_100\35.png in Resources */,
+				14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */,
 				140EA7F6163DA76D00FB4A85 /* Pictogrammes_100\4.png in Resources */,
 				140EA7F7163DA76D00FB4A85 /* Pictogrammes_100\40.png in Resources */,
 				140EA7F8163DA76D00FB4A85 /* Pictogrammes_100\41.png in Resources */,
@@ -1762,7 +1771,9 @@
 				143F84B01663492B0064B2F4 /* Pictogrammes_21\151.png in Resources */,
 				143F84B11663492B0064B2F4 /* Pictogrammes_21\152.png in Resources */,
 				143F84B21663492B0064B2F4 /* Pictogrammes_21\153.png in Resources */,
+				14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */,
 				143F84B31663492B0064B2F4 /* Pictogrammes_21\154.png in Resources */,
+				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */,
 				143F84B41663492B0064B2F4 /* Pictogrammes_21\155.png in Resources */,
 				143F84B51663492B0064B2F4 /* Pictogrammes_21\156.png in Resources */,
 				143F84B61663492B0064B2F4 /* Pictogrammes_21\157.png in Resources */,
@@ -1880,7 +1891,8 @@
 				14776DE917427B54008C7E2E /* csv_db.sql in Resources */,
 				14776DEB17427B54008C7E2E /* feed_info.txt in Resources */,
 				14776DED17427B54008C7E2E /* routes.txt in Resources */,
-				146CC04518181FDA005A7F66 /* GTFS-20131017.zip in Resources */,
+				146CC04518181FDA005A7F66 /* GTFS.zip in Resources */,
+				14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */,
 				14776DEF17427B54008C7E2E /* routes_extensions.txt in Resources */,
 				14776DF317427B54008C7E2E /* stop_times.txt in Resources */,
 				14776DF517427B54008C7E2E /* stops.txt in Resources */,
@@ -1974,6 +1986,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				147168CB1801DB7200846AE6 /* Stop.m in Sources */,
+				14EEF354181AF41600C1C061 /* GtfsPublishData.m in Sources */,
 				14B42DC61656BD5D0070AA9D /* Depart.h in Sources */,
 				14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */,
 				14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */,
@@ -2019,7 +2032,7 @@
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
-				14148BA3180E64A6005DDAF9 /* GtfsUpdateManager.m in Sources */,
+				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
 				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
 				147168AD1801C9F100846AE6 /* Group.m in Sources */,
 				147168C81801DB7100846AE6 /* StopSequence.m in Sources */,
@@ -2032,7 +2045,6 @@
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
 				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
-				14E4590118105F2500E2401A /* GtfsPublishData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2044,7 +2056,7 @@
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
 				14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
-				14148B94180AC32C005DDAF9 /* GtfsUpdateManagerTest.m in Sources */,
+				14148B94180AC32C005DDAF9 /* GtfsDownloadManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
 				14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */,
@@ -2142,10 +2154,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBus/EasyBus-Info.plist";
@@ -2159,10 +2167,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EasyBus/EasyBus-Prefix.pch";
 				INFOPLIST_FILE = "EasyBus/EasyBus-Info.plist";

@@ -15,7 +15,6 @@
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="publishDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
@@ -48,6 +47,7 @@
     <fetchRequest name="fetchAllGroups" entity="Group"/>
     <fetchRequest name="fetchAllRoutes" entity="Route"/>
     <fetchRequest name="fetchAllStops" entity="Stop"/>
+    <fetchRequest name="fetchGtfsPublishData" entity="GtfsPublishData"/>
     <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
     <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
     <elements>

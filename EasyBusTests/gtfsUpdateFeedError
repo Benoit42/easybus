@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:gtfs="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed/1.0">
+    <title>Keolis Rennes - Données théoriques GTFS des lignes de bus du réseau STAR</title>
+    <id>http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed</id>
+    <link href="http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" type="application/atom-xml" rel="self"/>
+    <link href="http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html" type="text/html" rel="alternate"/>
+    <author>
+        <name>Keolis Rennes</name>

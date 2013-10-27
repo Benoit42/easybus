@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "StaticDataManager.h"
-#import "StaticDataLoader.h"
+#import "GtfsDownloadManager.h"
 
 @interface LinesViewController : UITableViewController
 
 @property(strong, nonatomic) StaticDataManager* staticDataManager;
-@property(strong, nonatomic) StaticDataLoader* staticDataLoader;
+@property(strong, nonatomic) GtfsDownloadManager* gtfsDownloadManager;
 
 @end

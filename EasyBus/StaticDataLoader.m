@@ -22,7 +22,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 @synthesize managedObjectContext, staticDataManager, routesCsvReader, stopsCsvReader, tripsCsvReader, stopTimesCsvReader;
 
 #pragma mark file loading method
-- (void) loadStaticData {
+- (void)loadData:(NSURL*)directory {
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
@@ -49,10 +49,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     }
     
     //load data
-    [self.routesCsvReader loadData];
-    [self.stopsCsvReader loadData];
-    [self.tripsCsvReader loadData];
-    [self.stopTimesCsvReader loadData];
+    NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
+    [self.routesCsvReader loadData:routesUrl];
+    NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
+    [self.stopsCsvReader loadData:stopsUrl];
+    NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
+    [self.tripsCsvReader loadData:tripsUrl];
+    NSURL* stopTimesUrl = [NSURL URLWithString:@"stop_times.txt" relativeToURL:directory];
+    [self.stopTimesCsvReader loadData:stopTimesUrl];
     [self matchRoutesAndStops];
     
     //clean-up

@@ -21,7 +21,7 @@ objection_register_singleton(StopTimesCsvReader)
 
 @synthesize stops;
 
-- (void)loadData {
+- (void)loadData:(NSURL*)url {
     //Chargement des horaires
     NSLog(@"Chargement des horaires");
     
@@ -31,7 +31,6 @@ objection_register_singleton(StopTimesCsvReader)
     //Lecture du fichier
     //Question : pourquoi est-il plus rapide de lire préalablement le fichier ?
     NSError* error;
-    NSURL* url = [[NSBundle mainBundle] URLForResource:@"stop_times" withExtension:@"txt"];
     NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 
     //parsing du fichier

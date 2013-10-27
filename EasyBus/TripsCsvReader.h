@@ -13,7 +13,7 @@
 
 @property(nonatomic, retain) NSMutableArray* trips;
 
-- (void)loadData;
+- (void)loadData:(NSURL*)url;
 - (void)cleanUp;
 
 @end

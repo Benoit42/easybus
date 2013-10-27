@@ -24,7 +24,7 @@ objection_register_singleton(RoutesCsvReader)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
-- (void)loadData {
+- (void)loadData:(NSURL*)url {
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
@@ -34,7 +34,6 @@ objection_requires(@"managedObjectContext")
     //parsing du fichier
     //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
-    NSURL* url = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;
     [p setDelegate:self];

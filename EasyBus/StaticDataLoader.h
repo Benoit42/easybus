@@ -23,6 +23,6 @@
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 
-- (void) loadStaticData;
+- (void)loadData:(NSURL*)directory;
 
 @end
