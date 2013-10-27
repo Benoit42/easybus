@@ -162,7 +162,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
             Depart* depart = [departures objectAtIndex:departureIndex];
         
             //update cell
-            UIImage* picto = [staticDataManager pictoForRouteId:depart.route.id];
+            UIImage* picto = [staticDataManager picto100ForRouteId:depart.route.id];
             [[(DepartureCell*)cell _picto] setImage:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];

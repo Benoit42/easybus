@@ -51,6 +51,8 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //load data
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
     [self.routesCsvReader loadData:routesUrl];
+    NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
+    [self.routesCsvReader loadData:additionnalsRoutesUrl];
     NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
     [self.stopsCsvReader loadData:stopsUrl];
     NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];

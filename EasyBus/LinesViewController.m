@@ -87,7 +87,7 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        UIImage* picto = [staticDataManager pictoForRouteId:route.shortName];
+        UIImage* picto = [staticDataManager picto100ForRouteId:route.id];
         [cell._picto setImage:picto];
         [cell._libLigne setText:route.longName];
         return cell;

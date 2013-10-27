@@ -14,11 +14,11 @@
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
 #import "FavoriteCell.h"
-#import "StaticDataManager.h"
+
 @implementation FavoritesViewController
 
-objection_requires(@"favoritesManager", @"groupManager")
-@synthesize favoritesManager, groupManager, addButton;
+objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
+@synthesize favoritesManager, groupManager, staticDataManager, addButton;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -92,7 +92,7 @@ objection_requires(@"favoritesManager", @"groupManager")
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        UIImage *picto =  [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [favorite.route.id intValue]] ofType:@"png"]];
+        UIImage *picto = [self.staticDataManager picto100ForRouteId:favorite.route.id];
         [cell._picto setImage:picto];
         [cell._libArret setText:favorite.stop.name];
         [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];

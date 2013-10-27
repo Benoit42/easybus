@@ -137,8 +137,8 @@ objection_requires(@"managedObjectContext")
     return stops;
 }
 
-- (UIImage*) pictoForRouteId:(NSString*)routeId {
-    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Pictogrammes_100\\%i", [routeId intValue]] ofType:@"png"]];
+- (UIImage*) picto100ForRouteId:(NSString*)routeId {
+    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:routeId ofType:@"png" inDirectory:@"Pictogrammes_100x100"]];
 }
 
 @end

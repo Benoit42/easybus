@@ -40,7 +40,7 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     //Check des données statiques
     if ([[self.staticDataManager routes] count] == 0) {
