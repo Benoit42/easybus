@@ -132,10 +132,12 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
                         //End
                         [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceeded object:self];
                         self.isRequesting = FALSE;
+                        success();
                         
                         //CleanUp
                         [[NSFileManager defaultManager]removeItemAtURL:zipFileUrl error:nil];
                         [[NSFileManager defaultManager] removeItemAtURL:outputDirectory error:nil];
+                        
                     } andFailureBlock:^(NSError *error) {
                         //CleanUp
                         [[NSFileManager defaultManager]removeItemAtURL:zipFileUrl error:nil];
