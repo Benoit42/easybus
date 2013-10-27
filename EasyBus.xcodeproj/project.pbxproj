@@ -27,8 +27,6 @@
 		141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */; };
 		141EDDFE177B535A005DDC8C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140513741746798B00345B1D /* CoreData.framework */; };
 		142340DA162E0ABA0095073C /* Depart.m in Sources */ = {isa = PBXBuildFile; fileRef = 142340D9162E0ABA0095073C /* Depart.m */; };
-		1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D500166BEFC7002083A7 /* logo-STAR@2x.png */; };
-		1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 1427D501166BEFC7002083A7 /* logo-STAR.png */; };
 		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
 		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
@@ -50,6 +48,10 @@
 		14A3E664181D821D00C7D6FE /* Pictogrammes_100x100 in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E663181D821D00C7D6FE /* Pictogrammes_100x100 */; };
 		14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E667181D8BD500C7D6FE /* Default@2x.png */; };
 		14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */; };
+		14A3E66E181DA22400C7D6FE /* icon120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E66C181DA22400C7D6FE /* icon120@2x.png */; };
+		14A3E672181DA4D400C7D6FE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E671181DA4D400C7D6FE /* icon.png */; };
+		14A3E674181DA51100C7D6FE /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E673181DA51100C7D6FE /* icon80@2x.png */; };
+		14A3E676181DA54200C7D6FE /* icon58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E675181DA54200C7D6FE /* icon58@2x.png */; };
 		14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* StaticDataManagerTest.m */; };
 		14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */; };
 		14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4345165FEA3400834A23 /* DepartureCell.h */; };
@@ -154,8 +156,6 @@
 		141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReaderTest.m; sourceTree = "<group>"; };
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
-		1427D500166BEFC7002083A7 /* logo-STAR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR@2x.png"; sourceTree = "<group>"; };
-		1427D501166BEFC7002083A7 /* logo-STAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-STAR.png"; sourceTree = "<group>"; };
 		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
 		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
@@ -188,6 +188,10 @@
 		14A3E663181D821D00C7D6FE /* Pictogrammes_100x100 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pictogrammes_100x100; sourceTree = "<group>"; };
 		14A3E667181D8BD500C7D6FE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		14A3E66C181DA22400C7D6FE /* icon120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon120@2x.png"; sourceTree = "<group>"; };
+		14A3E671181DA4D400C7D6FE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		14A3E673181DA51100C7D6FE /* icon80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon80@2x.png"; sourceTree = "<group>"; };
+		14A3E675181DA54200C7D6FE /* icon58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon58@2x.png"; sourceTree = "<group>"; };
 		14A540FE17773E0700E18262 /* StaticDataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataManagerTest.m; sourceTree = "<group>"; };
 		14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataLoader.h; sourceTree = "<group>"; };
 		14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoader.m; sourceTree = "<group>"; };
@@ -374,8 +378,10 @@
 			children = (
 				14A3E663181D821D00C7D6FE /* Pictogrammes_100x100 */,
 				1414E1A9166DD7230013E9A1 /* arrow.png */,
-				1427D500166BEFC7002083A7 /* logo-STAR@2x.png */,
-				1427D501166BEFC7002083A7 /* logo-STAR.png */,
+				14A3E671181DA4D400C7D6FE /* icon.png */,
+				14A3E66C181DA22400C7D6FE /* icon120@2x.png */,
+				14A3E673181DA51100C7D6FE /* icon80@2x.png */,
+				14A3E675181DA54200C7D6FE /* icon58@2x.png */,
 				147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */,
 				147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
@@ -683,18 +689,20 @@
 				14AD3C22162AF00400DF061A /* Default.png in Resources */,
 				14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
+				14A3E672181DA4D400C7D6FE /* icon.png in Resources */,
 				14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */,
 				1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */,
 				14A3E664181D821D00C7D6FE /* Pictogrammes_100x100 in Resources */,
 				14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */,
+				14A3E674181DA51100C7D6FE /* icon80@2x.png in Resources */,
 				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */,
 				147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */,
+				14A3E676181DA54200C7D6FE /* icon58@2x.png in Resources */,
 				147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */,
-				1427D502166BEFC7002083A7 /* logo-STAR@2x.png in Resources */,
 				14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */,
 				14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */,
-				1427D503166BEFC7002083A7 /* logo-STAR.png in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,
+				14A3E66E181DA22400C7D6FE /* icon120@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,7 +937,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -950,7 +958,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
