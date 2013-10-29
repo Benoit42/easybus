@@ -309,6 +309,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14405C8818204F9300843B20 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */,
+				14CF4331165D567500834A23 /* MainView */,
+				14CF4329165CCE7900834A23 /* FavoritesView */,
+				14CF432E165CF26000834A23 /* LinesView */,
+				14CF432F165CF26E00834A23 /* DirectionView */,
+				14CF4330165CF27800834A23 /* StopsView */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
 		147168A81801A38A00846AE6 /* DataLoaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,12 +375,9 @@
 				14AD3C1F162AF00400DF061A /* AppDelegate.m */,
 				140C799317F6C4C1007184C7 /* IoCModule.h */,
 				140C799417F6C4C1007184C7 /* IoCModule.m */,
-				14AD3CB9162B225300DF061A /* modele */,
-				14CF4331165D567500834A23 /* MainView */,
-				14CF4329165CCE7900834A23 /* FavoritesView */,
-				14CF432E165CF26000834A23 /* LinesView */,
-				14CF432F165CF26E00834A23 /* DirectionView */,
-				14CF4330165CF27800834A23 /* StopsView */,
+				14AD3CB9162B225300DF061A /* Modele */,
+				14C4197F176CD03E00F7DF72 /* Business */,
+				14405C8818204F9300843B20 /* User Interface */,
 				14AD3C16162AF00400DF061A /* Supporting Files */,
 			);
 			path = EasyBus;
@@ -436,30 +446,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		14AD3CB9162B225300DF061A /* modele */ = {
-			isa = PBXGroup;
-			children = (
-				14C4197F176CD03E00F7DF72 /* CoreData */,
-				14CF4312165BFF7F00834A23 /* Favorites */,
-				14CF4313165BFF8900834A23 /* Lines&Stops */,
-				14AD3DE3162C96BE00DF061A /* Departures */,
-				14EF87E7167BBF030058607C /* Location */,
-			);
-			name = modele;
-			sourceTree = "<group>";
-		};
-		14AD3DE3162C96BE00DF061A /* Departures */ = {
-			isa = PBXGroup;
-			children = (
-				14CF431F165C25A600834A23 /* DeparturesManager.h */,
-				14CF4320165C25A600834A23 /* DeparturesManager.m */,
-				142340D8162E0ABA0095073C /* Depart.h */,
-				142340D9162E0ABA0095073C /* Depart.m */,
-			);
-			name = Departures;
-			sourceTree = "<group>";
-		};
-		14C4197F176CD03E00F7DF72 /* CoreData */ = {
+		14AD3CB9162B225300DF061A /* Modele */ = {
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
@@ -482,7 +469,29 @@
 				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
 				14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */,
 			);
-			name = CoreData;
+			name = Modele;
+			sourceTree = "<group>";
+		};
+		14AD3DE3162C96BE00DF061A /* Departures */ = {
+			isa = PBXGroup;
+			children = (
+				14CF431F165C25A600834A23 /* DeparturesManager.h */,
+				14CF4320165C25A600834A23 /* DeparturesManager.m */,
+				142340D8162E0ABA0095073C /* Depart.h */,
+				142340D9162E0ABA0095073C /* Depart.m */,
+			);
+			name = Departures;
+			sourceTree = "<group>";
+		};
+		14C4197F176CD03E00F7DF72 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				14AD3DE3162C96BE00DF061A /* Departures */,
+				14CF4312165BFF7F00834A23 /* Favorites */,
+				14CF4313165BFF8900834A23 /* Lines&Stops */,
+				14EF87E7167BBF030058607C /* Location */,
+			);
+			name = Business;
 			sourceTree = "<group>";
 		};
 		14CF4312165BFF7F00834A23 /* Favorites */ = {
@@ -577,7 +586,6 @@
 		14CF4331165D567500834A23 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */,
 				14E2AD7317D214E700ED4546 /* MainViewController.h */,
 				14E2AD7417D214E700ED4546 /* MainViewController.m */,
 				147480021663D4DC0091FF49 /* PageViewController.h */,
