@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "FavoritesViewController.h"
 #import "FavoritesNavigationController.h"
 #import "LinesViewController.h"
@@ -92,8 +93,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        UIImage *picto = [self.staticDataManager picto100ForRouteId:favorite.route.id];
-        [cell._picto setImage:picto];
+        NSURL *picto = [self.staticDataManager pictoUrl100ForRouteId:favorite.route];
+        [cell._picto setImageWithURL:picto];
         [cell._libArret setText:favorite.stop.name];
         [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
         return cell;

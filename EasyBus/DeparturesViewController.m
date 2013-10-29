@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
 #import "FavoritesNavigationController.h"
@@ -162,8 +163,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
             Depart* depart = [departures objectAtIndex:departureIndex];
         
             //update cell
-            UIImage* picto = [staticDataManager picto100ForRouteId:depart.route.id];
-            [[(DepartureCell*)cell _picto] setImage:picto];
+            NSURL* picto = [staticDataManager pictoUrl100ForRouteId:depart.route];
+            [[(DepartureCell*)cell _picto] setImageWithURL:picto];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
             [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?self.starGreen:UIColor.blackColor];
