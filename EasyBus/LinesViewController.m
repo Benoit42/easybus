@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "LinesViewController.h"
 #import "FavoritesNavigationController.h"
 #import "DirectionViewController.h"
@@ -87,8 +88,8 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        UIImage* picto = [staticDataManager picto100ForRouteId:route.id];
-        [cell._picto setImage:picto];
+        NSURL* picto = [staticDataManager pictoUrl100ForRouteId:route];
+        [cell._picto setImageWithURL:picto];
         [cell._libLigne setText:route.longName];
         return cell;
     }
