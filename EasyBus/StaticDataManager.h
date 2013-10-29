@@ -19,6 +19,7 @@
 - (NSArray*) stops;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
+- (NSURL*) pictoUrl100ForRouteId:(NSString*)routeId;
 - (UIImage*) picto100ForRouteId:(NSString*)routeId;
 
 @end

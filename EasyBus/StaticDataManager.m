@@ -137,6 +137,13 @@ objection_requires(@"managedObjectContext")
     return stops;
 }
 
+- (NSURL*) pictoUrl100ForRouteId:(NSString*)routeId {
+    NSUInteger routeNum = [routeId integerValue];
+    NSString* url = [NSString stringWithFormat:@"http://data.keolis-rennes.com/fileadmin/documents/Picto_lignes/Pictos_lignes_100x100/L%i.png", routeNum];
+    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [NSURL URLWithString:encodedUrl];
+}
+
 - (UIImage*) picto100ForRouteId:(NSString*)routeId {
     return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:routeId ofType:@"png" inDirectory:@"Pictogrammes_100x100"]];
 }
