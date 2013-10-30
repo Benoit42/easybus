@@ -14,6 +14,7 @@
 
 @interface RoutesCsvReader() <CHCSVParserDelegate>
 
+@property (nonatomic, strong) NSDictionary* currentRoutes;
 @property (nonatomic, strong) NSMutableArray* row;
 
 @end
@@ -30,6 +31,7 @@ objection_requires(@"managedObjectContext")
     
     //Chargement des routes
     NSLog(@"Chargement des routes");
+    self.currentRoutes = [self routes];
     
     //parsing du fichier
     //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
@@ -38,15 +40,6 @@ objection_requires(@"managedObjectContext")
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
-
-    //parsing du fichier
-    url = [[NSBundle mainBundle] URLForResource:@"routes_additionals" withExtension:@"txt"];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
-        p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
-        p.sanitizesFields = YES;
-        [p setDelegate:self];
-        [p parse];
-    }
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -56,8 +49,14 @@ objection_requires(@"managedObjectContext")
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
     if (lineNumber > 1 && self.row.count == 3) {
-        // Create and configure a new instance of the Route entity.
-        Route* route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
+        //Get route in database
+        Route* route = [self.currentRoutes objectForKey:self.row[0]];
+        if (route == nil) {
+            // Create Route entity if needed
+            route = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
+        }
+        
+        //Configure Route entity
         route.id = self.row[0];
         route.shortName = self.row[1];
         route.longName = self.row[2];
@@ -95,6 +94,33 @@ objection_requires(@"managedObjectContext")
 
 - (void)cleanUp {
     //nothing
+}
+
+#pragma mark Business methods
+- (NSDictionary*) routes {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
+    
+    NSError *error = nil;
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [mutableFetchResults enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        [dict setObject:route forKey:route.id];
+    }];
+    
+    return dict;
 }
 
 @end

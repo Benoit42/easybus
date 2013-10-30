@@ -2,12 +2,13 @@
 //  Route.m
 //  EasyBus
 //
-//  Created by Benoit on 06/10/13.
+//  Created by Benoit on 30/10/2013.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
 #import "Route.h"
-#import "StopSequence.h"
+#import "Favorite.h"
+#import "Stop.h"
 
 
 @implementation Route
@@ -17,7 +18,8 @@
 @dynamic longName;
 @dynamic shortName;
 @dynamic toName;
-@dynamic stopsSequenceDirectionOne;
-@dynamic stopsSequenceDirectionZero;
+@dynamic favorites;
+@dynamic stopsDirectionOne;
+@dynamic stopsDirectionZero;
 
 @end

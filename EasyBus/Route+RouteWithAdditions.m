@@ -8,7 +8,6 @@
 
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
-#import "StopSequence.h"
 
 @implementation Route (RouteWithAdditions)
 
@@ -21,33 +20,18 @@
     }
 }
 
-//- (void)addStop:(StopSequence*)stopSequence forDirection:(NSString*)direction {
-//    if ([direction isEqual: @"0"]) {
-//        [self insertStopsDirectionZero:@[stopSequence] atIndexes:[NSIndexSet indexSetWithIndex:sequence]];
-//    }
-//    else {
-//        [self insertStopsDirectionOne:@[stopSequence] atIndexes:[NSIndexSet indexSetWithIndex:sequence]];
-//    }
-//}
-
-- (void)addStop:(StopSequence*)stopSequence forDirection:(NSString*)direction {
-    NSMutableOrderedSet* tempSet;
+- (void)addStop:(Stop*)stop forSequence:(NSNumber*)sequence forDirection:(NSString*)direction {    NSMutableOrderedSet* tempSet;
     if ([direction isEqualToString: @"0"]) {
         //[route insertObject:stop inStopsDirectionZeroAtIndex:0];
-        tempSet = [self mutableOrderedSetValueForKey:@"stopsSequenceDirectionZero"];
+        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionZero"];
     }
     else {
         //[route insertObject:stop inStopsDirectionOneAtIndex:0];
-        tempSet = [self mutableOrderedSetValueForKey:@"stopsSequenceDirectionOne"];
+        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionOne"];
     }
 
     //Ajout de l'arrêt
-    [tempSet addObject:stopSequence];
-    
-    //Tri
-    [tempSet sortUsingComparator:^NSComparisonResult(StopSequence* stop1, StopSequence* stop2) {
-        return [stop1.sequence compare:stop2.sequence];
-    }];
+    [tempSet addObject:stop];
 }
 
 @end

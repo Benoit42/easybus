@@ -11,7 +11,6 @@
 #import "StaticDataManager.h"
 #import "FavoritesManager.h"
 #import "Route+RouteWithAdditions.h"
-#import "StopSequence.h"
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
@@ -127,14 +126,8 @@ objection_requires(@"managedObjectContext")
 
 // Return the stops for a route and a direction
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction {
-    NSOrderedSet* stopSequences = ([direction isEqual: @"0"])?[route stopsSequenceDirectionZero]:[route stopsSequenceDirectionOne];
-
-    NSMutableArray* stops = [[NSMutableArray alloc] init];
-    [stopSequences enumerateObjectsUsingBlock:^(StopSequence* stopSequence, NSUInteger idx, BOOL *stop) {
-        [stops addObject:stopSequence.stop];
-    }];
-
-    return stops;
+    NSOrderedSet* stops = ([direction isEqual: @"0"])?[route stopsDirectionZero]:[route stopsDirectionOne];
+    return [stops array];
 }
 
 - (NSURL*) pictoUrl100ForRouteId:(Route*)route {

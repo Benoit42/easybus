@@ -24,8 +24,8 @@
         <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="route" inverseEntity="Favorite" syncable="YES"/>
-        <relationship name="stopsSequenceDirectionOne" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="StopSequence" inverseName="routeDirectionOne" inverseEntity="StopSequence" syncable="YES"/>
-        <relationship name="stopsSequenceDirectionZero" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="StopSequence" inverseName="routeDirectionZero" inverseEntity="StopSequence" syncable="YES"/>
+        <relationship name="stopsDirectionOne" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
+        <relationship name="stopsDirectionZero" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
     </entity>
     <entity name="Stop" representedClassName="Stop" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,13 +35,7 @@
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="stop" inverseEntity="Favorite" syncable="YES"/>
-        <relationship name="stopSequence" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="StopSequence" inverseName="stop" inverseEntity="StopSequence" syncable="YES"/>
-    </entity>
-    <entity name="StopSequence" representedClassName="StopSequence" syncable="YES">
-        <attribute name="sequence" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="routeDirectionOne" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="stopsSequenceDirectionOne" inverseEntity="Route" syncable="YES"/>
-        <relationship name="routeDirectionZero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="stopsSequenceDirectionZero" inverseEntity="Route" syncable="YES"/>
-        <relationship name="stop" maxCount="1" deletionRule="Deny" destinationEntity="Stop" inverseName="stopSequence" inverseEntity="Stop" syncable="YES"/>
+        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Route" syncable="YES"/>
     </entity>
     <fetchRequest name="fetchAllFavorites" entity="Favorite"/>
     <fetchRequest name="fetchAllGroups" entity="Group"/>
@@ -56,6 +50,5 @@
         <element name="GtfsPublishData" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Route" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Stop" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StopSequence" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

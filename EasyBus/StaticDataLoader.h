@@ -12,7 +12,6 @@
 #import "StopsCsvReader.h"
 #import "TripsCsvReader.h"
 #import "StopTimesCsvReader.h"
-#import "StopSequence.h"
 
 @interface StaticDataLoader : NSObject
 
@@ -24,5 +23,8 @@
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 
 - (void)loadData:(NSURL*)directory;
+
+//Privé
+- (void) matchTrips:(NSArray*)trips andStops:(NSArray*)stops;
 
 @end

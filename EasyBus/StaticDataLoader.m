@@ -34,20 +34,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //Log
     NSLog(@"Démarrage du traitement des données");
     
-    //Delete all routes
-    NSLog(@"Suppression des routes");
-    NSArray * routes = [self.staticDataManager routes];
-    for (NSManagedObject * route in routes) {
-        [self.managedObjectContext deleteObject:route];
-    }
-    
-    //Delete all stops
-    NSLog(@"Suppression des arrêts");
-    NSArray * stops = [self.staticDataManager stops];
-    for (NSManagedObject * stop in stops) {
-        [self.managedObjectContext deleteObject:stop];
-    }
-    
     //load data
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
     [self.routesCsvReader loadData:routesUrl];
@@ -59,7 +45,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.tripsCsvReader loadData:tripsUrl];
     NSURL* stopTimesUrl = [NSURL URLWithString:@"stop_times.txt" relativeToURL:directory];
     [self.stopTimesCsvReader loadData:stopTimesUrl];
-    [self matchRoutesAndStops];
+    [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
     
     //clean-up
     [self.routesCsvReader cleanUp];
@@ -71,31 +57,40 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Fin du chargement des données");
 }
 
-
 // Association route/stop
-- (void) matchRoutesAndStops {
-    NSMutableSet* routeStopsSet = [self computeRouteStopsSet];
-    [self matchRouteStops:routeStopsSet];
-}
-
-- (NSMutableSet*) computeRouteStopsSet {
+- (void) matchTrips:(NSArray*)trips andStops:(NSArray*)stops {
     //Pré-conditions
-    NSAssert(self.tripsCsvReader != nil, @"tripsCsvReader should not be nil");
-    NSAssert(self.stopTimesCsvReader != nil, @"stopTimesCsvReader should not be nil");
+    NSAssert(trips != nil, @"tripsCsvReader should not be nil");
+    NSAssert(stops != nil, @"stopTimesCsvReader should not be nil");
     
     //Log
-    NSLog(@"Association route/arrêts 1/2");
+    NSLog(@"Association route/arrêts");
 
     //Préparation des données
-    NSArray* trips = self.tripsCsvReader.trips;
-    [trips sortedArrayUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
+    trips = [trips sortedArrayUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
         return [trip1.id compare:trip2.id];
     }];
-    NSArray* stops = self.stopTimesCsvReader.stops;
-    [stops sortedArrayUsingComparator:^NSComparisonResult(StopTime* st1, StopTime* st2) {
-        return [st1.tripId compare:st2.tripId];
+    stops = [stops sortedArrayUsingComparator:^NSComparisonResult(StopTime* st1, StopTime* st2) {
+        NSComparisonResult compareTrips = [st1.tripId compare:st2.tripId];
+        if (compareTrips == NSOrderedSame) {
+            return [st1.stopSequence compare:st2.stopSequence];
+        }
+        else {
+            return compareTrips;
+        }
     }];
-    NSMutableSet* routeStops = [[NSMutableSet alloc] init];
+    
+    //Pre-fetching
+    NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        [routesDictionnary setObject:route forKey:route.id];
+    }];
+    
+    NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+        [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
+    }];
+    
     
     //Matching route/stop
     int i=0, j=0;
@@ -111,12 +106,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             }
             else {
                 //Les tripId matchent
-                RouteStop* routeStop = [[RouteStop alloc] init];
-                routeStop.routeId = trip.routeId;
-                routeStop.directionId = trip.directionId;
-                routeStop.stopId = stopTime.stopId;
-                routeStop.stopSequence = stopTime.stopSequence;
-                [routeStops addObject:routeStop];
+                Route* route = [routesDictionnary objectForKey:trip.routeId];
+                Stop* stop = [stopsDictionnary objectForKey:stopTime.stopId];
+                NSString* direction = trip.directionId;
+                NSNumber* sequence = stopTime.stopSequence;
+                [route addStop:stop forSequence:sequence forDirection:direction];
                 
                 //Incrément de boucle
                 j++;
@@ -128,35 +122,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     }
     
     //Retour
-    return routeStops;
-}
-
-// Association route/stop
-- (void) matchRouteStops:(NSSet*)routeStopsSet {
-    //Log
-    NSLog(@"Association route/arrêts 2/2");
-    
-    //Pre-fetching
-    NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
-        [routesDictionnary setObject:route forKey:route.id];
-    }];
-    
-    NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
-        [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
-    }];
-    
-    //Mise des relations route-stop
-    [routeStopsSet enumerateObjectsUsingBlock:^(RouteStop* routeStop, BOOL *stop) {
-        Route* route = [routesDictionnary objectForKey:routeStop.routeId];
-        Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
-        NSString* direction = routeStop.directionId;
-        StopSequence* stopSequence = (StopSequence *)[NSEntityDescription insertNewObjectForEntityForName:@"StopSequence" inManagedObjectContext:self.managedObjectContext];
-        stopSequence.sequence = routeStop.stopSequence;
-        stopSequence.stop = stopEntity;
-        [route addStop:stopSequence forDirection:direction];
-    }];
+    return;
 }
 
 @end
