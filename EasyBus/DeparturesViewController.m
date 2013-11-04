@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
 #import "FavoritesNavigationController.h"
@@ -93,36 +94,42 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
 #pragma mark - Gestion de la mise à jour des départs
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
-    // start indicator
-    [_activityIndicator startAnimating];
-    
-    //message
-    _refreshing = TRUE;
-    [_info setText:@""];
+    [self performBlockOnMainThread:^{
+        // start indicator
+        [_activityIndicator startAnimating];
+        
+        //message
+        _refreshing = TRUE;
+        [_info setText:@""];
+    }];
 }
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
-    // stop indicator
-    [_activityIndicator stopAnimating];
-
-    // Refresh view
-    [(UITableView*)self.view reloadData];
-
-    //message
-    _refreshing = FALSE;
-    NSString* maj = [_timeIntervalFormatter stringFromDate:[NSDate date]];
-    [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+    [self performBlockOnMainThread:^{
+        // stop indicator
+        [_activityIndicator stopAnimating];
+        
+        // Refresh view
+        [(UITableView*)self.view reloadData];
+        
+        //message
+        _refreshing = FALSE;
+        NSString* maj = [_timeIntervalFormatter stringFromDate:[NSDate date]];
+        [_info setText:[[NSString alloc] initWithFormat:@"mis à jour à %@", maj]];
+    }];
 }
 
 - (void)departuresUpdateFailed:(NSNotification *)notification {
-    // stop indicator
-    [_activityIndicator stopAnimating];
-    [_reloadButton setHidden:FALSE];
-    
-    //message
-    _refreshing = FALSE;
-    [_info setText:@"erreur lors de la mise à jour des départs"];
+    [self performBlockOnMainThread:^{
+        // stop indicator
+        [_activityIndicator stopAnimating];
+        [_reloadButton setHidden:FALSE];
+        
+        //message
+        _refreshing = FALSE;
+        [_info setText:@"erreur lors de la mise à jour des départs"];
+    }];
 }
 
 #pragma mark - Table view refresh control

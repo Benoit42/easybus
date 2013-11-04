@@ -4,6 +4,7 @@ pod 'Objection', '~> 1.2'
 pod 'CHCSVParser', '~> 2.0'
 pod 'AFNetworking', '~> 2.0'
 pod 'ZipArchive', '~> 1.2'
+pod 'SWRevealViewController', '~> 1.0'
 
 target :EasyBusTests, :exclusive => true do
     pod 'Objection', '~> 1.2'

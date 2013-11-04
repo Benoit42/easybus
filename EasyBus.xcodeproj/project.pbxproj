@@ -12,6 +12,7 @@
 		140513751746798B00345B1D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140513741746798B00345B1D /* CoreData.framework */; };
 		1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
 		1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 1407D67A1649B107002F37AD /* DirectionViewController.h */; };
+		140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
 		140C799517F6C4C1007184C7 /* IoCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C799417F6C4C1007184C7 /* IoCModule.m */; };
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
@@ -103,7 +104,6 @@
 		14DDB98417FCA933000D1C5E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* Trip.m */; };
 		14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A01813E4F50034226A /* AsyncTestCase.m */; };
 		14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A11813E4F50034226A /* AsyncTestCaseTest.m */; };
-		14E128A61813E5310034226A /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
 		14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A9181447810034226A /* NSURLProtocolStub.m */; };
 		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */; };
@@ -248,8 +248,8 @@
 		14E1289F1813E4F40034226A /* AsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncTestCase.h; sourceTree = "<group>"; };
 		14E128A01813E4F50034226A /* AsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncTestCase.m; sourceTree = "<group>"; };
 		14E128A11813E4F50034226A /* AsyncTestCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncTestCaseTest.m; sourceTree = "<group>"; };
-		14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AsyncPerformBlock.h"; sourceTree = "<group>"; };
-		14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AsyncPerformBlock.m"; sourceTree = "<group>"; };
+		14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+AsyncPerformBlock.h"; path = "EasyBusTests/NSObject+AsyncPerformBlock.h"; sourceTree = SOURCE_ROOT; };
+		14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+AsyncPerformBlock.m"; path = "EasyBusTests/NSObject+AsyncPerformBlock.m"; sourceTree = SOURCE_ROOT; };
 		14E128A71814476D0034226A /* NSURLProtocolStubTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLProtocolStubTests.m; sourceTree = "<group>"; };
 		14E128A9181447810034226A /* NSURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLProtocolStub.m; sourceTree = "<group>"; };
 		14E128AA181447810034226A /* NSURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLProtocolStub.h; sourceTree = "<group>"; };
@@ -310,13 +310,23 @@
 			isa = PBXGroup;
 			children = (
 				14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */,
-				14CF4331165D567500834A23 /* MainView */,
+				14405C921822373700843B20 /* StartingView */,
+				14CF4331165D567500834A23 /* DeparturesView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
 				14CF432E165CF26000834A23 /* LinesView */,
 				14CF432F165CF26E00834A23 /* DirectionView */,
 				14CF4330165CF27800834A23 /* StopsView */,
 			);
 			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		14405C921822373700843B20 /* StartingView */ = {
+			isa = PBXGroup;
+			children = (
+				14E2AD7317D214E700ED4546 /* MainViewController.h */,
+				14E2AD7417D214E700ED4546 /* MainViewController.m */,
+			);
+			name = StartingView;
 			sourceTree = "<group>";
 		};
 		147168A81801A38A00846AE6 /* DataLoaderView */ = {
@@ -372,6 +382,8 @@
 				14AD3C1F162AF00400DF061A /* AppDelegate.m */,
 				140C799317F6C4C1007184C7 /* IoCModule.h */,
 				140C799417F6C4C1007184C7 /* IoCModule.m */,
+				14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */,
+				14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */,
 				14AD3CB9162B225300DF061A /* Modele */,
 				14C4197F176CD03E00F7DF72 /* Business */,
 				14405C8818204F9300843B20 /* User Interface */,
@@ -407,8 +419,6 @@
 				14E1289F1813E4F40034226A /* AsyncTestCase.h */,
 				14E128A01813E4F50034226A /* AsyncTestCase.m */,
 				14E128A11813E4F50034226A /* AsyncTestCaseTest.m */,
-				14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */,
-				14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */,
 				14E128AA181447810034226A /* NSURLProtocolStub.h */,
 				14E128A9181447810034226A /* NSURLProtocolStub.m */,
 				14E128A71814476D0034226A /* NSURLProtocolStubTests.m */,
@@ -578,11 +588,9 @@
 			name = StopsView;
 			sourceTree = "<group>";
 		};
-		14CF4331165D567500834A23 /* MainView */ = {
+		14CF4331165D567500834A23 /* DeparturesView */ = {
 			isa = PBXGroup;
 			children = (
-				14E2AD7317D214E700ED4546 /* MainViewController.h */,
-				14E2AD7417D214E700ED4546 /* MainViewController.m */,
 				147480021663D4DC0091FF49 /* PageViewController.h */,
 				147480031663D4DC0091FF49 /* PageViewController.m */,
 				143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */,
@@ -594,7 +602,7 @@
 				1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */,
 				1414E1AC166E6F380013E9A1 /* NoDepartureCell.m */,
 			);
-			name = MainView;
+			name = DeparturesView;
 			sourceTree = "<group>";
 		};
 		14EF87E7167BBF030058607C /* Location */ = {
@@ -824,6 +832,7 @@
 				14DDB98117FCA933000D1C5E /* StopTime.m in Sources */,
 				140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */,
 				1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */,
+				140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */,
 				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
 				14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */,
 				14CF430916597FA500834A23 /* FavoriteCell.m in Sources */,
@@ -876,7 +885,6 @@
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
 				14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */,
-				14E128A61813E5310034226A /* NSObject+AsyncPerformBlock.m in Sources */,
 				14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */,
 				14405C91182175BF00843B20 /* StaticDataLoaderTest.m in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
