@@ -13,6 +13,9 @@
 		1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
 		1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 1407D67A1649B107002F37AD /* DirectionViewController.h */; };
 		140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
+		140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140AA0DE18283801008EFF54 /* MenuViewController.m */; };
+		140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140AA0E1182968FA008EFF54 /* RevealViewController.m */; };
+		140AA0EA18297990008EFF54 /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140AA0E918297990008EFF54 /* menu-icon.png */; };
 		140C799517F6C4C1007184C7 /* IoCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C799417F6C4C1007184C7 /* IoCModule.m */; };
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
@@ -106,7 +109,6 @@
 		14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A11813E4F50034226A /* AsyncTestCaseTest.m */; };
 		14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A9181447810034226A /* NSURLProtocolStub.m */; };
 		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
-		14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
@@ -137,6 +139,11 @@
 		140513741746798B00345B1D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1407D6771649B0EE002F37AD /* DirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionViewController.m; sourceTree = "<group>"; };
 		1407D67A1649B107002F37AD /* DirectionViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DirectionViewController.h; sourceTree = "<group>"; };
+		140AA0DD18283801008EFF54 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		140AA0DE18283801008EFF54 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		140AA0E0182968FA008EFF54 /* RevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevealViewController.h; sourceTree = "<group>"; };
+		140AA0E1182968FA008EFF54 /* RevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevealViewController.m; sourceTree = "<group>"; };
+		140AA0E918297990008EFF54 /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		140C799317F6C4C1007184C7 /* IoCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoCModule.h; sourceTree = "<group>"; };
 		140C799417F6C4C1007184C7 /* IoCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IoCModule.m; sourceTree = "<group>"; };
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
@@ -254,8 +261,6 @@
 		14E128A9181447810034226A /* NSURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLProtocolStub.m; sourceTree = "<group>"; };
 		14E128AA181447810034226A /* NSURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLProtocolStub.h; sourceTree = "<group>"; };
 		14E128BD18145C6F0034226A /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
-		14E2AD7017D2131600ED4546 /* FavoriteInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteInitViewController.h; sourceTree = "<group>"; };
-		14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteInitViewController.m; sourceTree = "<group>"; };
 		14E2AD7317D214E700ED4546 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		14E2AD7417D214E700ED4546 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		14E2AD7F17D64A8F00ED4546 /* GroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupManager.h; sourceTree = "<group>"; };
@@ -325,6 +330,10 @@
 			children = (
 				14E2AD7317D214E700ED4546 /* MainViewController.h */,
 				14E2AD7417D214E700ED4546 /* MainViewController.m */,
+				140AA0DD18283801008EFF54 /* MenuViewController.h */,
+				140AA0DE18283801008EFF54 /* MenuViewController.m */,
+				140AA0E0182968FA008EFF54 /* RevealViewController.h */,
+				140AA0E1182968FA008EFF54 /* RevealViewController.m */,
 			);
 			name = StartingView;
 			sourceTree = "<group>";
@@ -396,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				1414E1A9166DD7230013E9A1 /* arrow.png */,
+				140AA0E918297990008EFF54 /* menu-icon.png */,
 				14A3E671181DA4D400C7D6FE /* icon.png */,
 				14A3E66C181DA22400C7D6FE /* icon120@2x.png */,
 				14A3E673181DA51100C7D6FE /* icon80@2x.png */,
@@ -546,8 +556,6 @@
 				140EA852163F287000FB4A85 /* FavoritesNavigationController.m */,
 				14B42DCE1656BF090070AA9D /* FavoritesViewController.h */,
 				14B42DCF1656BF090070AA9D /* FavoritesViewController.m */,
-				14E2AD7017D2131600ED4546 /* FavoriteInitViewController.h */,
-				14E2AD7117D2131600ED4546 /* FavoriteInitViewController.m */,
 				14CF430716597FA500834A23 /* FavoriteCell.h */,
 				14CF430816597FA500834A23 /* FavoriteCell.m */,
 			);
@@ -709,6 +717,7 @@
 				147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */,
 				14A3E676181DA54200C7D6FE /* icon58@2x.png in Resources */,
 				147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */,
+				140AA0EA18297990008EFF54 /* menu-icon.png in Resources */,
 				14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */,
 				14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,
@@ -851,6 +860,7 @@
 				14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */,
 				14405C8E182173FE00843B20 /* Stop.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
+				140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
 				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
 				14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */,
@@ -860,12 +870,12 @@
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
 				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
+				140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */,
 				147168AD1801C9F100846AE6 /* Group.m in Sources */,
 				1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */,
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
 				14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */,
 				14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */,
-				14E2AD7217D2131600ED4546 /* FavoriteInitViewController.m in Sources */,
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,

@@ -65,7 +65,7 @@ objection_register_singleton(TripsCsvReader)
 }
 
 - (void)cleanUp {
-    trips = nil;
+    self.trips = nil;
 }
 
 @end

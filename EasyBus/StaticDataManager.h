@@ -21,4 +21,6 @@
 - (Stop*) stopForId:(NSString*)stopId;
 - (NSURL*) pictoUrl100ForRouteId:(Route*)route;
 
+- (BOOL)isDataLoaded;
+
 @end

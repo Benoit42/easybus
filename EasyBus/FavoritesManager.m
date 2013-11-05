@@ -79,6 +79,9 @@ NSString *const updateFavorites = @"updateFavorites";
         newGroup.name =  newFavorite.stop.name;
         newGroup.terminus = newFavorite.terminus;        
         [newGroup addFavoritesObject:newFavorite];
+        
+        //Post notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
     }
 }
 
@@ -89,16 +92,16 @@ NSString *const updateFavorites = @"updateFavorites";
     
     //Suppression du favori
     [self.managedObjectContext deleteObject:favorite];    
+
+    //Post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
 }
 
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {
     [sourceGroup removeFavoritesObject:favorite];
     [destinationGroup insertObject:favorite inFavoritesAtIndex:index];
-}
 
-#pragma manage notifications
-- (void) sendUpdateNotification {
-    //lance la notification favoritesUpdated
+    //Post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
 }
 

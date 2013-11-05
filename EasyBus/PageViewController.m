@@ -54,7 +54,11 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
-    
+
+    // Abonnement au notifications des favoris
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
+
     // Couleur de fond vert Star
     self.view.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:231.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
 }
@@ -126,15 +130,10 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self gotoNearestPage];
 }
 
-- (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
-    //Rechargement des départs
+#pragma mark - refreshing departures
+- (void)favoritesUpdated:(NSNotification *)notification {
     NSArray* favorite = [favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
-    [self.locationManager startUpdatingLocation];
-    
-    //Rechargement des pages
-    DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
-    [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 
 @end

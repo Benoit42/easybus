@@ -76,7 +76,8 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)cleanUp {
-    //nothing
+    self.currentStops = nil;
+    self.row = nil;
 }
 
 - (NSDictionary*) stops {

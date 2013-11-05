@@ -10,7 +10,6 @@
 #import "MainViewController.h"
 #import "FavoritesNavigationController.h"
 #import "PageViewController.h"
-#import "FavoriteInitViewController.h"
 #import "FavoritesManager.h"
 
 @implementation MainViewController
@@ -43,30 +42,13 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidAppear:animated];
     
     //Check des données statiques
-    if ([[self.staticDataManager routes] count] == 0) {
-        [self performSegueWithIdentifier:@"initFavorite" sender:self];
-        return;
-    }
-    
-    //Check des favoris
-    NSArray* favorites = [favoritesManager favorites];
-    if ([favorites count] == 0 ) {
-        //ecran de démarrage sans favoris
-        [self performSegueWithIdentifier:@"initFavorite" sender:self];
-    }
-    else {
-        [self performSegueWithIdentifier:@"showDepartures" sender:self];
-    }
-}
-
-#pragma mark - Segues
-- (IBAction)unwindFromAlternate:(UIStoryboardSegue *)segue {
-    if ([[segue identifier] isEqualToString:@"initFavorite"]) {
-        //Rechargement des départs
-        NSArray* favorite = [favoritesManager favorites];
-        [departuresManager refreshDepartures:favorite];
-        [self performSegueWithIdentifier:@"showDepartures" sender:self];
-    }
+    [self performSegueWithIdentifier:@"start" sender:self];
+//    if ([self.staticDataManager] isDataLoaded]) {
+//        [self performSegueWithIdentifier:@"showDepartures" sender:self];
+//    }
+//    else {
+//        charger ici les données avec une barre de progression
+//    }
 }
 
 @end

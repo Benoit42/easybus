@@ -93,7 +93,8 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)cleanUp {
-    //nothing
+    self.currentRoutes = nil;
+    self.row = nil;
 }
 
 #pragma mark Business methods

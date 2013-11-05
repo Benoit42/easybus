@@ -19,6 +19,10 @@ objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
 #pragma mark Business methods
+- (BOOL)isDataLoaded {
+    return self.routes.count > 0;
+}
+
 - (NSArray*) routes {
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
