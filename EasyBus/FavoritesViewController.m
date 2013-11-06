@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "RevealViewController.h"
 #import "FavoritesViewController.h"
 #import "FavoritesNavigationController.h"
 #import "LinesViewController.h"

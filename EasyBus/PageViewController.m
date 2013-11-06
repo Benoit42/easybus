@@ -134,6 +134,10 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 - (void)favoritesUpdated:(NSNotification *)notification {
     NSArray* favorite = [favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
+
+    //Rechargement des pages
+    DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
+    [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 
 @end

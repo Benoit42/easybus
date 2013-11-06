@@ -7,7 +7,7 @@
 //
 
 #import "MenuViewController.h"
-#import <SWRevealViewController/SWRevealViewController.h>
+#import "RevealViewController.h"
 
 @interface MenuViewController ()
 
@@ -46,19 +46,16 @@
 }
 
 #pragma mark - Segues
-#pragma mark - Segues
 - (IBAction)unwindFromDepartures:(UIStoryboardSegue *)segue {
     //Affichage du menu
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController toggleViews];
 }
-
 
 - (IBAction)unwindFromFavorites:(UIStoryboardSegue *)segue {
     //Affichage des départs en front
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = departuresPageViewController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController toggleViews];
 }
 
 @end

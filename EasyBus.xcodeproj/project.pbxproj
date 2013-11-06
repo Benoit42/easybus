@@ -15,7 +15,6 @@
 		140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A51813E5310034226A /* NSObject+AsyncPerformBlock.m */; };
 		140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140AA0DE18283801008EFF54 /* MenuViewController.m */; };
 		140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140AA0E1182968FA008EFF54 /* RevealViewController.m */; };
-		140AA0EA18297990008EFF54 /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140AA0E918297990008EFF54 /* menu-icon.png */; };
 		140C799517F6C4C1007184C7 /* IoCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C799417F6C4C1007184C7 /* IoCModule.m */; };
 		140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */; };
 		140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */; };
@@ -36,6 +35,7 @@
 		14405C8B182173FD00843B20 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C8A182173FD00843B20 /* Route.m */; };
 		14405C8E182173FE00843B20 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C8D182173FE00843B20 /* Stop.m */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderTest.m */; };
+		146161BE182A220C0012A1CE /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 146161BD182A220C0012A1CE /* menu-icon.png */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
 		146CC04518181FDA005A7F66 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
@@ -143,7 +143,6 @@
 		140AA0DE18283801008EFF54 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		140AA0E0182968FA008EFF54 /* RevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevealViewController.h; sourceTree = "<group>"; };
 		140AA0E1182968FA008EFF54 /* RevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevealViewController.m; sourceTree = "<group>"; };
-		140AA0E918297990008EFF54 /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		140C799317F6C4C1007184C7 /* IoCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IoCModule.h; sourceTree = "<group>"; };
 		140C799417F6C4C1007184C7 /* IoCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IoCModule.m; sourceTree = "<group>"; };
 		140EA4E2163D8C7B00FB4A85 /* StopsCsvReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsCsvReader.h; sourceTree = "<group>"; };
@@ -169,6 +168,7 @@
 		14405C8C182173FE00843B20 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
 		14405C8D182173FE00843B20 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderTest.m; sourceTree = "<group>"; };
+		146161BD182A220C0012A1CE /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
 		146CC04318181FDA005A7F66 /* GTFS.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = GTFS.zip; sourceTree = "<group>"; };
 		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
@@ -405,7 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				1414E1A9166DD7230013E9A1 /* arrow.png */,
-				140AA0E918297990008EFF54 /* menu-icon.png */,
+				146161BD182A220C0012A1CE /* menu-icon.png */,
 				14A3E671181DA4D400C7D6FE /* icon.png */,
 				14A3E66C181DA22400C7D6FE /* icon120@2x.png */,
 				14A3E673181DA51100C7D6FE /* icon80@2x.png */,
@@ -717,7 +717,7 @@
 				147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */,
 				14A3E676181DA54200C7D6FE /* icon58@2x.png in Resources */,
 				147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */,
-				140AA0EA18297990008EFF54 /* menu-icon.png in Resources */,
+				146161BE182A220C0012A1CE /* menu-icon.png in Resources */,
 				14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */,
 				14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,

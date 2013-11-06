@@ -238,13 +238,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" fixedFrame="YES" text="vers Acigné" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" fixedFrame="YES" text="vers Acigné" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="241" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Vl-Bin">
                                     <rect key="frame" x="59" y="19" width="241" height="45"/>
-                                    <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="36"/>
+                                    <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="30"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVI-vm-yCB">
-                                    <rect key="frame" x="13" y="31" width="38" height="21"/>
+                                    <rect key="frame" x="11" y="27" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" image="menu-icon.png"/>
@@ -455,13 +455,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Favoris" id="C9V-FM-g7v">
                         <barButtonItem key="leftBarButtonItem" image="menu-icon.png" style="plain" id="dk2-Hn-uFH">
-                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="pbR-qA-2ps" kind="unwind" unwindAction="unwindFromFavorites:" id="Gum-PT-REy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="NhG-pG-WqA">
-                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="6" kind="push" identifier="chooseLine" id="lGa-TG-ddM"/>
                             </connections>
@@ -708,7 +708,7 @@
         <image name="0064.png" width="100" height="100"/>
         <image name="UIButtonBarRefresh.png" width="18" height="22"/>
         <image name="icon.png" width="60" height="60"/>
-        <image name="menu-icon.png" width="34" height="21"/>
+        <image name="menu-icon.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "RevealViewController.h"
 #import "NSObject+AsyncPerformBlock.h"
 #import "DeparturesViewController.h"
 #import "PageViewController.h"
