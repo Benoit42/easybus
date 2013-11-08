@@ -8,7 +8,6 @@
         <!--Main View Controller-->
         <scene sceneID="5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MainViewController" id="2" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2hM-MG-oO6"/>
@@ -47,6 +46,7 @@
                         <segue destination="En8-64-d6j" kind="modal" identifier="start" modalTransitionStyle="crossDissolve" id="0Jq-yW-bK2"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-304" y="102"/>
         </scene>
@@ -344,7 +344,7 @@
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F71-1i-4e1">
-                                        <rect key="frame" x="11" y="27" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="19" width="50" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -460,7 +460,16 @@
                                 <segue destination="pbR-qA-2ps" kind="unwind" unwindAction="unwindFromFavorites:" id="Gum-PT-REy"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="modifier" style="plain" id="28J-5T-uOa">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="modifyButtonPressed:" destination="AUf-pe-BZM" id="HfG-Ih-fX7"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="modifyButton" destination="28J-5T-uOa" id="q0N-Nx-UI2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTo-FJ-dj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="pbR-qA-2ps" userLabel="Exit" sceneMemberID="exit"/>
@@ -563,7 +572,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lignes" id="eaM-pH-P0D">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" id="abf-Ro-GDY">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" width="50" id="abf-Ro-GDY">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="PVg-Ce-K7m" kind="unwind" unwindAction="unwindFromLines:" id="9JM-qq-6hM"/>
                             </connections>

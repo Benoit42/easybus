@@ -17,6 +17,8 @@
 @property (nonatomic, retain) GroupManager* groupManager;
 @property (nonatomic, retain) StaticDataManager* staticDataManager;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *modifyButton;
+
+- (IBAction)modifyButtonPressed:(id)sender;
 
 @end

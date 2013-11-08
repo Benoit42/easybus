@@ -153,14 +153,18 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
-        [self.addButton setTitle:@"Fin"];
+        [self.modifyButton setTitle:@"fin"];
     }
 }
 
-- (IBAction)addButtonPressed:(id)sender {
+- (IBAction)modifyButtonPressed:(id)sender {
     if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
-        [self.addButton setTitle:@"+"];
+        [self.modifyButton setTitle:@"modifier"];
+    }
+    else {
+        [self.tableView setEditing:YES animated:YES];
+        [self.modifyButton setTitle:@"fin"];
     }
 }
 
@@ -169,7 +173,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     if ([identifier isEqualToString:@"chooseLine"]) {
         if (self.tableView.isEditing) {
             [self.tableView setEditing:NO animated:YES];
-            [self.addButton setTitle:@"+"];
+            [self.modifyButton setTitle:@"modifier"];
             return FALSE;
         }
     }

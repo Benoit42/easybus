@@ -22,13 +22,16 @@
 
 @end
 
-@implementation DeparturesTableViewController
+@implementation DeparturesTableViewController {
+    UIFont* refreshLabelFont;
+}
 
 objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
+    refreshLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
 }
 
 #pragma mark - Initialisation
@@ -62,11 +65,12 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     
     //Pull to refresh
     self.refreshControl  = [[UIRefreshControl alloc] init];
-//    self.refreshControl.backgroundColor = [UIColor lightGrayColor];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"tirer pour raffraîchir"];
-    NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
-    NSString* message = [NSString stringWithFormat:@"mis à jour à %@", date];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:message];
+
+    NSString* message = @"tirer pour raffraîchir";
+    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+    self.refreshControl.attributedTitle = attributedMessage;
+
     [self.refreshControl  addTarget:nil action:@selector(refreshDepartures) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -76,7 +80,10 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self.refreshControl endRefreshing];
     
     //message
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"mise à jour en cours..."];
+    NSString* message = @"mise à jour en cours...";
+    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+    self.refreshControl.attributedTitle = attributedMessage;
 }
 
 #pragma mark - Stuff for refreshing view
@@ -87,7 +94,13 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     //message
     NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
     NSString* message = [NSString stringWithFormat:@"mis à jour à %@", date];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:message];
+
+    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+    self.refreshControl.attributedTitle = attributedMessage;
+    
+    //refresh table view
+    [self.tableView reloadData];
 }
 
 - (void)departuresUpdateFailed:(NSNotification *)notification {
@@ -95,7 +108,10 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self.refreshControl endRefreshing];
     
     //message
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"erreur lors de la mise à jour des départs"];
+    NSString* message = @"échec de la mise à jour";
+    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+    self.refreshControl.attributedTitle = attributedMessage;
 }
 
 #pragma mark - Table view refresh control
