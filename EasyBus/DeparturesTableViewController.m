@@ -93,7 +93,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     
     //message
     NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
-    NSString* message = [NSString stringWithFormat:@"mis à jour à %@", date];
+    NSString* message = date?[NSString stringWithFormat:@"mis à jour à %@", date]:@"tirer pour raffraîchir";
 
     NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
     [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];

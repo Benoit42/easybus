@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <AFNetworking/AFNetworking.h>
 #import "DeparturesManager.h"
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
@@ -99,9 +100,6 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
     }
     
     @try {
-        //Lancement du traitement
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
-        
         //Appel réel vers kéolis
         _isRequesting = TRUE;
 
@@ -119,23 +117,40 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
             [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
         }
         
-        //Send request
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:path]
-                                                  cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                              timeoutInterval:60.0];
-        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
-        if (theConnection) {
-            // Create the NSMutableData to hold the received data.
-            // receivedData is an instance variable declared elsewhere.
-            _receivedData = [NSMutableData new];
-        } else {
-            //lance la notification d'erreur
-            @throw [NSException
-             exceptionWithName:@"ConnectionException"
-             reason:@"Unable to contact Keolis server"
-             userInfo:nil];
-        }
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
+        
+        //Lancement du traitement
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
+        
+        //New departures array
+        [_freshDepartures removeAllObjects];
+        
+        [manager GET:path
+          parameters:nil
+             success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
+                 //Parse response
+                 [xmlParser setDelegate:self];
+                 [xmlParser parse];
+                 
+                 //Sort data
+                 NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                     return [(Depart*)a _delai] > [(Depart*)b _delai];
+                 }];
+                 [_departures removeAllObjects];
+                 [_departures addObjectsFromArray:sortedDeparts];
+                 
+                 //Notification
+                 [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 //failure
+                 NSLog(@"Error: %@", [error debugDescription]);
+
+                 //lance la notification d'erreur
+                 [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+             }];
     }
     @catch (NSException * e) {
         //lance la notification d'erreur
@@ -143,90 +158,14 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 
         //Request is not running
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        _isRequesting = FALSE;
         
         //Log
         NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
     }
-}
-
-#pragma mark NSURLConnection methods
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    // This method is called when the server has determined that it
-    // has enough information to create the NSURLResponse.
-    
-    // It can be called multiple times, for example in the case of a
-    // redirect, so each time we reset the data.
-    
-    // receivedData is an instance variable declared elsewhere.
-    [_receivedData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // Append the new data to receivedData.
-    // receivedData is an instance variable declared elsewhere.
-    [_receivedData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    //lance la notification d'erreur
-    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
-
-    //Request is not running
-    _isRequesting = FALSE;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-    //Log
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);    
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    @try {
-        //Network is not running
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-        //Parse received data
-        [self parseData:_receivedData];
-        
-        //lance la notification departuresUpdated
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
-    }
-    @catch (NSException *exception) {
-        //lance la notification d'erreur
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
-    
-        //Log
-        NSLog(@"Data parsing failed! Error - %@ %@", [exception description], [exception debugDescription]);
-    }
     @finally {
-        //Request is not running
-        _isRequesting = FALSE;
+        //End
+        self._isRequesting = FALSE;
     }
-}
-
-#pragma mark XML parsing
-- (void)parseData:(NSData *)data
-{
-    //New departures array
-    [_freshDepartures removeAllObjects];
-        
-    //Parse response
-    NSXMLParser* xmlParser = [[NSXMLParser alloc] initWithData:data];
-    [xmlParser setDelegate:self];
-    [xmlParser parse];
-    
-    //Sort data
-    NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        return [(Depart*)a _delai] > [(Depart*)b _delai];
-    }];
-    [_departures removeAllObjects];
-    [_departures addObjectsFromArray:sortedDeparts];
 }
 
 #pragma mark NSXMLParserDelegate methods
