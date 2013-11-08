@@ -16,6 +16,7 @@
 @implementation MenuViewController {
     UIViewController* departuresPageViewController;
     UIViewController* favoritesNavigationController;
+    UIViewController* linesNavigationController;
 }
 
 
@@ -29,8 +30,11 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
+    linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
 }
 
 - (IBAction)favoritesButton:(id)sender {
@@ -39,7 +43,13 @@
     [swRevealViewController revealToggleAnimated:YES];
 }
 
-- (IBAction)organizeFavotitesButton:(id)sender {
+- (IBAction)linesButton:(id)sender {
+    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
+    swRevealViewController.frontViewController = linesNavigationController;
+    [swRevealViewController revealToggleAnimated:YES];
+}
+
+- (IBAction)organizeButton:(id)sender {
     SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
     swRevealViewController.frontViewController = favoritesNavigationController;
     [swRevealViewController revealToggleAnimated:YES];
@@ -48,6 +58,12 @@
 #pragma mark - Segues
 - (IBAction)unwindFromDepartures:(UIStoryboardSegue *)segue {
     //Affichage du menu
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController toggleViews];
+}
+
+- (IBAction)unwindFromLines:(UIStoryboardSegue *)segue {
+    //Affichage des départs en front
     RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
     [revealViewController toggleViews];
 }

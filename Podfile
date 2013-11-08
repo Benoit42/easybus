@@ -7,6 +7,6 @@ pod 'ZipArchive', '~> 1.2'
 pod 'SWRevealViewController', '~> 1.0'
 
 target :EasyBusTests, :exclusive => true do
-    pod 'Objection', '~> 1.2'
+#  pod 'Objection', '~> 1.2'
   # pod 'OCMock', '~> 1.2'
 end

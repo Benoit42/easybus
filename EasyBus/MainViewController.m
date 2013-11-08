@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import "MainViewController.h"
-#import "FavoritesNavigationController.h"
 #import "PageViewController.h"
 #import "FavoritesManager.h"
 

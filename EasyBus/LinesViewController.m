@@ -9,14 +9,13 @@
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "LinesViewController.h"
-#import "FavoritesNavigationController.h"
-#import "DirectionViewController.h"
+#import "LinesNavigationController.h"
+#import "FavoritesManager.h"
 #import "LineCell.h"
 
 @implementation LinesViewController
 
-objection_requires(@"staticDataManager", @"gtfsDownloadManager")
-@synthesize staticDataManager, gtfsDownloadManager;
+objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -88,7 +87,7 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        NSURL* picto = [staticDataManager pictoUrl100ForRouteId:route];
+        NSURL* picto = [self.staticDataManager pictoUrl100ForRouteId:route];
         [cell._picto setImageWithURL:picto];
         [cell._libLigne setText:route.longName];
         return cell;
@@ -102,7 +101,16 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
     Route* route = [[self.staticDataManager routes] objectAtIndex:indexPath.row];
 
     //get the current favorite fromnav controler and update it
-    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute = route;
+    ((LinesNavigationController*)self.navigationController).currentFavoriteRoute = route;
+}
+
+#pragma mark ajout du favoris
+- (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
+    //Create the favorite
+    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
+    Stop* stop = ((LinesNavigationController*)self.navigationController).currentFavoriteStop;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
+    [self.favoritesManager addFavorite:route stop:stop direction:direction];
 }
 
 @end

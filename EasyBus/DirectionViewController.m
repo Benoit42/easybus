@@ -8,7 +8,7 @@
 
 #import <Objection/Objection.h>
 #import "DirectionViewController.h"
-#import "FavoritesNavigationController.h"
+#import "LinesNavigationController.h"
 #import "StopsViewController.h"
 #import "DirectionCell.h"
 #import "Route+RouteWithAdditions.h"
@@ -53,7 +53,7 @@ objection_requires(@"staticDataManager")
         DirectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         //get the favorite fromnav controler
-        Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
+        Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
 
         //add departure
         NSString* libelle = [route terminusForDirection:[NSString stringWithFormat:@"%i", indexPath.row]];
@@ -67,7 +67,7 @@ objection_requires(@"staticDataManager")
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the favorite fromnav controler
-    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection = [NSString stringWithFormat:@"%i", indexPath.row];
+    ((LinesNavigationController*)self.navigationController).currentFavoriteDirection = [NSString stringWithFormat:@"%i", indexPath.row];
 }
 
 @end

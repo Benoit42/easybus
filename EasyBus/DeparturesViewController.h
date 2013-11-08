@@ -13,20 +13,11 @@
 #import "StaticDataManager.h"
 #import "LocationManager.h"
 
-@interface DeparturesViewController : UITableViewController
+@interface DeparturesViewController : UIViewController
 
-@property(strong, nonatomic) FavoritesManager* favoritesManager;
 @property(strong, nonatomic) GroupManager* groupManager;
-@property(strong, nonatomic) DeparturesManager* departuresManager;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
-@property (nonatomic, retain) LocationManager *locationManager;
-
 @property(nonatomic) NSInteger page;
-@property (weak, nonatomic) IBOutlet UILabel *_direction;
-@property (weak, nonatomic) IBOutlet UILabel *_info;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *_activityIndicator;
-@property (weak, nonatomic) IBOutlet UIButton *_reloadButton;
 
-- (IBAction)_refreshAsked:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *direction;
 
 @end

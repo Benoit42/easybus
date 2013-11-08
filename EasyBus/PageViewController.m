@@ -8,10 +8,10 @@
 
 #import <Objection/Objection.h>
 #import "NSObject+AsyncPerformBlock.h"
+#import "Constants.h"
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
 #import "DeparturesViewController.h"
-#import "FavoritesNavigationController.h"
 #import "LocationManager.h"
 #import "Stop.h"
 
@@ -60,7 +60,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 
     // Couleur de fond vert Star
-    self.view.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:231.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
+    self.view.backgroundColor = Constants.starGreenColor;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

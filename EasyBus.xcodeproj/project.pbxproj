@@ -21,7 +21,6 @@
 		140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */; };
 		140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84E163DBD5900FB4A85 /* StopsViewController.m */; };
 		140EA850163F125600FB4A85 /* StopsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA84D163DBD5800FB4A85 /* StopsViewController.h */; };
-		140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140EA852163F287000FB4A85 /* FavoritesNavigationController.m */; };
 		14148B94180AC32C005DDAF9 /* GtfsDownloadManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */; };
 		14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404E1A01805BD1D005026C2 /* GtfsDownloadManager.m */; };
 		14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14148B96180AC634005DDAF9 /* XCTest.framework */; };
@@ -36,6 +35,9 @@
 		14405C8E182173FE00843B20 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C8D182173FE00843B20 /* Stop.m */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderTest.m */; };
 		146161BE182A220C0012A1CE /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 146161BD182A220C0012A1CE /* menu-icon.png */; };
+		146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C2182AAA860012A1CE /* DeparturesTableViewController.m */; };
+		146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C5182B70AC0012A1CE /* LinesNavigationController.m */; };
+		146161CC182C160B0012A1CE /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161CB182C160B0012A1CE /* Constants.m */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
 		146CC04518181FDA005A7F66 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
@@ -70,7 +72,6 @@
 		14AD3C38162AF00400DF061A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C0F162AF00400DF061A /* UIKit.framework */; };
 		14AD3C39162AF00400DF061A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AD3C11162AF00400DF061A /* Foundation.framework */; };
 		14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C1E162AF00400DF061A /* AppDelegate.h */; };
-		14ADC8FB1649C5D700B50FA2 /* FavoritesNavigationController.h in Sources */ = {isa = PBXBuildFile; fileRef = 140EA851163F287000FB4A85 /* FavoritesNavigationController.h */; };
 		14ADC8FC1649C5D700B50FA2 /* LinesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C2D162AF00400DF061A /* LinesViewController.h */; };
 		14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
 		14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */; };
@@ -150,8 +151,6 @@
 		140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsCsvReaderTest.m; sourceTree = "<group>"; };
 		140EA84D163DBD5800FB4A85 /* StopsViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = StopsViewController.h; sourceTree = "<group>"; };
 		140EA84E163DBD5900FB4A85 /* StopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopsViewController.m; sourceTree = "<group>"; };
-		140EA851163F287000FB4A85 /* FavoritesNavigationController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoritesNavigationController.h; sourceTree = "<group>"; };
-		140EA852163F287000FB4A85 /* FavoritesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesNavigationController.m; sourceTree = "<group>"; };
 		14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GtfsDownloadManagerTest.m; sourceTree = "<group>"; };
 		14148B96180AC634005DDAF9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1414E1A9166DD7230013E9A1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -169,6 +168,12 @@
 		14405C8D182173FE00843B20 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderTest.m; sourceTree = "<group>"; };
 		146161BD182A220C0012A1CE /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
+		146161C1182AAA860012A1CE /* DeparturesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesTableViewController.h; sourceTree = "<group>"; };
+		146161C2182AAA860012A1CE /* DeparturesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesTableViewController.m; sourceTree = "<group>"; };
+		146161C4182B70AC0012A1CE /* LinesNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinesNavigationController.h; sourceTree = "<group>"; };
+		146161C5182B70AC0012A1CE /* LinesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinesNavigationController.m; sourceTree = "<group>"; };
+		146161CA182C160B0012A1CE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		146161CB182C160B0012A1CE /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
 		146CC04318181FDA005A7F66 /* GTFS.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = GTFS.zip; sourceTree = "<group>"; };
 		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
@@ -319,8 +324,9 @@
 				14CF4331165D567500834A23 /* DeparturesView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
 				14CF432E165CF26000834A23 /* LinesView */,
-				14CF432F165CF26E00834A23 /* DirectionView */,
 				14CF4330165CF27800834A23 /* StopsView */,
+				14CF432F165CF26E00834A23 /* DirectionView */,
+				147168A81801A38A00846AE6 /* DataLoaderView */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -389,6 +395,8 @@
 			children = (
 				14AD3C1E162AF00400DF061A /* AppDelegate.h */,
 				14AD3C1F162AF00400DF061A /* AppDelegate.m */,
+				146161CA182C160B0012A1CE /* Constants.h */,
+				146161CB182C160B0012A1CE /* Constants.m */,
 				140C799317F6C4C1007184C7 /* IoCModule.h */,
 				140C799417F6C4C1007184C7 /* IoCModule.m */,
 				14E128A41813E5310034226A /* NSObject+AsyncPerformBlock.h */,
@@ -552,8 +560,6 @@
 		14CF4329165CCE7900834A23 /* FavoritesView */ = {
 			isa = PBXGroup;
 			children = (
-				140EA851163F287000FB4A85 /* FavoritesNavigationController.h */,
-				140EA852163F287000FB4A85 /* FavoritesNavigationController.m */,
 				14B42DCE1656BF090070AA9D /* FavoritesViewController.h */,
 				14B42DCF1656BF090070AA9D /* FavoritesViewController.m */,
 				14CF430716597FA500834A23 /* FavoriteCell.h */,
@@ -565,11 +571,12 @@
 		14CF432E165CF26000834A23 /* LinesView */ = {
 			isa = PBXGroup;
 			children = (
+				146161C4182B70AC0012A1CE /* LinesNavigationController.h */,
+				146161C5182B70AC0012A1CE /* LinesNavigationController.m */,
 				14AD3C2D162AF00400DF061A /* LinesViewController.h */,
 				14AD3C2E162AF00400DF061A /* LinesViewController.m */,
 				14CF4332165EB10500834A23 /* LineCell.h */,
 				14CF4333165EB10500834A23 /* LineCell.m */,
-				147168A81801A38A00846AE6 /* DataLoaderView */,
 			);
 			name = LinesView;
 			sourceTree = "<group>";
@@ -605,6 +612,8 @@
 				143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */,
 				14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */,
 				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
+				146161C1182AAA860012A1CE /* DeparturesTableViewController.h */,
+				146161C2182AAA860012A1CE /* DeparturesTableViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
 				14CF4346165FEA3400834A23 /* DepartureCell.m */,
 				1414E1AB166E6F380013E9A1 /* NoDepartureCell.h */,
@@ -823,7 +832,6 @@
 				14B42DC61656BD5D0070AA9D /* Depart.h in Sources */,
 				14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */,
 				14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */,
-				14ADC8FB1649C5D700B50FA2 /* FavoritesNavigationController.h in Sources */,
 				14ADC8FC1649C5D700B50FA2 /* LinesViewController.h in Sources */,
 				14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */,
 				14AD3C1C162AF00400DF061A /* main.m in Sources */,
@@ -839,7 +847,6 @@
 				140EA850163F125600FB4A85 /* StopsViewController.h in Sources */,
 				140C799517F6C4C1007184C7 /* IoCModule.m in Sources */,
 				14DDB98117FCA933000D1C5E /* StopTime.m in Sources */,
-				140EA853163F287100FB4A85 /* FavoritesNavigationController.m in Sources */,
 				1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */,
 				140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */,
 				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
@@ -851,9 +858,12 @@
 				14CF432D165CDD3D00834A23 /* StaticDataManager.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
+				146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */,
 				14CF433C165EB41200834A23 /* DirectionCell.h in Sources */,
+				146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */,
 				14CF433D165EB41700834A23 /* LineCell.h in Sources */,
 				14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */,
+				146161CC182C160B0012A1CE /* Constants.m in Sources */,
 				14CF4341165EB44400834A23 /* StopCell.m in Sources */,
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				147168B61801C9F200846AE6 /* Favorite.m in Sources */,

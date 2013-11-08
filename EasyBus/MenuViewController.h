@@ -11,6 +11,7 @@
 @interface MenuViewController : UITableViewController
 
 - (IBAction)favoritesButton:(id)sender;
-- (IBAction)organizeFavotitesButton:(id)sender;
+- (IBAction)linesButton:(id)sender;
+- (IBAction)organizeButton:(id)sender;
 
 @end

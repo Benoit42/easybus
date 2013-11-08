@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FavoritesManager.h"
 #import "StaticDataManager.h"
 #import "GtfsDownloadManager.h"
 
 @interface LinesViewController : UITableViewController
 
+@property(strong, nonatomic) FavoritesManager* favoritesManager;
 @property(strong, nonatomic) StaticDataManager* staticDataManager;
 @property(strong, nonatomic) GtfsDownloadManager* gtfsDownloadManager;
 

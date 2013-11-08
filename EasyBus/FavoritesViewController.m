@@ -9,7 +9,6 @@
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "FavoritesViewController.h"
-#import "FavoritesNavigationController.h"
 #import "LinesViewController.h"
 #import "Favorite.h"
 #import "Route+RouteWithAdditions.h"
@@ -19,7 +18,6 @@
 @implementation FavoritesViewController
 
 objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
-@synthesize favoritesManager, groupManager, staticDataManager, addButton;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -142,11 +140,11 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     Group* destinationGroup = [[self.groupManager groups] objectAtIndex:destinationIndexPath.section];
 
     //Move favorite
-    [favoritesManager moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+    [self.favoritesManager moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
     if (sourceGroup.favorites.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^() {
-            [groupManager removeGroup:sourceGroup];
+            [self.groupManager removeGroup:sourceGroup];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         });
     }
@@ -155,14 +153,14 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
-        [addButton setTitle:@"Fin"];
+        [self.addButton setTitle:@"Fin"];
     }
 }
 
 - (IBAction)addButtonPressed:(id)sender {
     if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
-        [addButton setTitle:@"+"];
+        [self.addButton setTitle:@"+"];
     }
 }
 
@@ -171,21 +169,12 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     if ([identifier isEqualToString:@"chooseLine"]) {
         if (self.tableView.isEditing) {
             [self.tableView setEditing:NO animated:YES];
-            [addButton setTitle:@"+"];
+            [self.addButton setTitle:@"+"];
             return FALSE;
         }
     }
     
     return TRUE;
-}
-
-- (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
-    //Create the favorite
-    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
-    Stop* stop = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteStop;
-    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
-    [self.favoritesManager addFavorite:route stop:stop direction:direction];
-    [((UITableView*)self.view) reloadData];
 }
 
 @end

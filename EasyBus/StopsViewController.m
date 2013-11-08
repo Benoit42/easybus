@@ -8,7 +8,7 @@
 
 #import <Objection/Objection.h>
 #import "StopsViewController.h"
-#import "FavoritesNavigationController.h"
+#import "LinesNavigationController.h"
 #import "StopCell.h"
 
 @implementation StopsViewController
@@ -37,8 +37,8 @@ objection_requires(@"staticDataManager")
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //get the current route and direction
-    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
-    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     // Return the number of rows in the section
     return [[self.staticDataManager stopsForRoute:route direction:direction] count];
@@ -46,8 +46,8 @@ objection_requires(@"staticDataManager")
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the current route and direction
-    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
-    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     //get stop list
     NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
@@ -70,15 +70,15 @@ objection_requires(@"staticDataManager")
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the current route and direction
-    Route* route = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteRoute;
-    NSString* direction = ((FavoritesNavigationController*)self.navigationController)._currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     //get the current stop
     NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
     Stop* stop = [stops objectAtIndex:indexPath.row];
     
     // update it the current favorite
-    ((FavoritesNavigationController*)self.navigationController)._currentFavoriteStop = stop;
+    ((LinesNavigationController*)self.navigationController).currentFavoriteStop = stop;
     
     // activate save button
     [_saveButton setEnabled:YES];
