@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
+#import <Objection/Objection.h>
 #import "MenuViewController.h"
 #import "RevealViewController.h"
 
@@ -20,6 +21,8 @@
     UIViewController* creditsNavigationController;
 }
 
+objection_requires(@"favoritesManager")
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -27,6 +30,12 @@
     favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
     linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
     creditsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
+    
+    //Si pas de favoris, on passe sur la liste des lignes
+    if (self.favoritesManager.favorites.count == 0) {
+        SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
+        swRevealViewController.frontViewController = linesNavigationController;
+    }   
 }
 
 - (IBAction)favoritesButton:(id)sender {

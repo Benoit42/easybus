@@ -32,12 +32,7 @@ objection_requires(@"groupManager")
 {
     //Pré-conditions
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    
-    // Return the data view controller for the given index.
-    int groupesCount = [[groupManager groups] count];
-    if (groupesCount == 0 || (index >= groupesCount)) {
-        return nil;
-    }
+    NSAssert(self.groupManager.groups.count > 0, @"There should be almost 1 group");
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;

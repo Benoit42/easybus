@@ -61,6 +61,9 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
     // Couleur de fond vert Star
     self.view.backgroundColor = Constants.starGreenColor;
+    
+    //Refresh departures
+    [self refreshDepartures];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -119,6 +122,17 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self scrollToPage:index];
 }
 
+#pragma mark - refreshing departures
+- (void)refreshDepartures {
+    //Raffraichissement des départs
+    NSArray* favorite = [favoritesManager favorites];
+    [self.departuresManager refreshDepartures:favorite];
+    
+    //Rechargement des pages
+    DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
+    [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+}
+
 #pragma mark - refreshing location
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     [locationManager startUpdatingLocation];
@@ -135,13 +149,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - refreshing departures
 - (void)favoritesUpdated:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
-        //Raffraichissement des départs
-        NSArray* favorite = [favoritesManager favorites];
-        [self.departuresManager refreshDepartures:favorite];
-        
-        //Rechargement des pages
-        DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
-        [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        [self refreshDepartures];
     }];
 }
 
