@@ -102,7 +102,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
     @try {
         //Appel réel vers kéolis
         _isRequesting = TRUE;
-
+        
         // Create the request an parse the XML
         static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
         static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
@@ -143,26 +143,28 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                  
                  //Notification
                  [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
+
+                 //End
+                 self._isRequesting = FALSE;
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 //failure
+                 //Log
                  NSLog(@"Error: %@", [error debugDescription]);
 
                  //lance la notification d'erreur
                  [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+                 
+                 //End
+                 self._isRequesting = FALSE;
              }];
     }
     @catch (NSException * e) {
+        //Log
+        NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
+
         //lance la notification d'erreur
         [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
 
-        //Request is not running
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-        //Log
-        NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
-    }
-    @finally {
         //End
         self._isRequesting = FALSE;
     }

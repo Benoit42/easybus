@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "DeparturesTableViewController.h"
 #import "Constants.h"
 #import "DeparturesViewController.h"
@@ -76,47 +77,52 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
 #pragma mark - Gestion de la mise à jour des départs
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
-    // stop indicator
-    [self.refreshControl endRefreshing];
-    
-    //message
-    NSString* message = @"mise à jour en cours...";
-    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
+    [self performBlockOnMainThread:^{
+        //message
+        NSString* message = @"mise à jour en cours...";
+        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+        self.refreshControl.attributedTitle = attributedMessage;
+    }];
 }
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
-    // stop indicator
-    [self.refreshControl endRefreshing];
-    
-    //message
-    NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
-    NSString* message = date?[NSString stringWithFormat:@"mis à jour à %@", date]:@"tirer pour raffraîchir";
+    [self performBlockOnMainThread:^{
+        // stop indicator
+        [self.refreshControl endRefreshing];
+        
+        //message
+        NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
+        NSString* message = date?[NSString stringWithFormat:@"mis à jour à %@", date]:@"tirer pour raffraîchir";
 
-    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
-    
-    //refresh table view
-    [self.tableView reloadData];
+        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+        self.refreshControl.attributedTitle = attributedMessage;
+        
+        //refresh table view
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)departuresUpdateFailed:(NSNotification *)notification {
-    // stop indicator
-    [self.refreshControl endRefreshing];
-    
-    //message
-    NSString* message = @"échec de la mise à jour";
-    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
+    [self performBlockOnMainThread:^{
+        // stop indicator
+        [self.refreshControl endRefreshing];
+        
+        //message
+        NSString* message = @"échec de la mise à jour";
+        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+        self.refreshControl.attributedTitle = attributedMessage;
+    }];
 }
 
 #pragma mark - Table view refresh control
 - (void) refreshDepartures {
-    [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+    [self performBlockInBackground:^{
+        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+    }];
 }
 
 #pragma mark - Table view data source

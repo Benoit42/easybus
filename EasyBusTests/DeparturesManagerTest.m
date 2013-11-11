@@ -50,7 +50,9 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 {
     //Stub de l'url des départs
     [NSURLProtocol registerClass:[NSURLProtocolStub class]];
-    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures" toResource:@"getbusnextdepartures.xml"];
+    NSString* url = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures";
+    [NSURLProtocolStub bindUrl:url toResource:@"getbusnextdepartures.xml"];
+    [NSURLProtocolStub configureUrl:url withHeaders:@{@"Content-Type": @"application/xml; charset=UTF-8"}];
     
     //Création des favoris
     Favorite* fav1 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];

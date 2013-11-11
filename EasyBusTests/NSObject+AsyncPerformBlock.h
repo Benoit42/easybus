@@ -11,7 +11,6 @@
 @interface NSObject (AsyncPerformBlock)
 
 -(void)performBlockOnMainThread:(void(^)(void))block;
-
--(void)fireBlockOnMainThread:(void(^)(void))block;
+-(void)performBlockInBackground:(void(^)(void))block;
 
 @end

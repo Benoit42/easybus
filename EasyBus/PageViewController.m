@@ -126,18 +126,23 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
 #pragma mark - Notification de localisation
 - (void)locationFound:(NSNotification *)notification {
-    //Move page view to nearest groupe
-    [self gotoNearestPage];
+    [self performBlockOnMainThread:^{
+        //Move page view to nearest groupe
+        [self gotoNearestPage];
+    }];
 }
 
 #pragma mark - refreshing departures
 - (void)favoritesUpdated:(NSNotification *)notification {
-    NSArray* favorite = [favoritesManager favorites];
-    [self.departuresManager refreshDepartures:favorite];
-
-    //Rechargement des pages
-    DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
-    [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self performBlockOnMainThread:^{
+        //Raffraichissement des départs
+        NSArray* favorite = [favoritesManager favorites];
+        [self.departuresManager refreshDepartures:favorite];
+        
+        //Rechargement des pages
+        DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
+        [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    }];
 }
 
 @end

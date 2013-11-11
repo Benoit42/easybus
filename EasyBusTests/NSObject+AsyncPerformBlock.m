@@ -11,13 +11,16 @@
 @implementation NSObject (AsyncPerformBlock)
 
 -(void)performBlockOnMainThread:(void(^)(void))block{
-    block = [block copy];
-    
-    [self performSelectorOnMainThread:@selector(fireBlockOnMainThread:) withObject:block waitUntilDone:FALSE];
+    // If you then need to execute something making sure it's on the main thread (updating the UI for example)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        block();
+    });
 }
 
--(void)fireBlockOnMainThread:(void(^)(void))block{
-    block();
+-(void)performBlockInBackground:(void(^)(void))block{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        block();
+    });
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "NSObject+AsyncPerformBlock.h"
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import "IoCModule.h"
 #import "MainViewController.h"
 #import "FavoritesManager.h"
@@ -32,6 +34,10 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     MainViewController *rootViewController = (MainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"MainViewController"];
     self.window.rootViewController = rootViewController;
     
+    //Network activity indicator
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
+    //End
     return YES;
 }
 							
@@ -67,9 +73,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     //update departures
     NSDate* refreshDate = [self.departuresManager _refreshDate];
     if (refreshDate == nil || [refreshDate timeIntervalSinceNow] < -60) {
-        //refresh si plus d'1 minute
-        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
-        [self.locationManager startUpdatingLocation];
+        [self performBlockInBackground:^{
+            //refresh si plus d'1 minute
+            [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+            [self.locationManager startUpdatingLocation];
+        }];
     }
 }
 
