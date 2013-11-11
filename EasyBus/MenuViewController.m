@@ -17,16 +17,7 @@
     UIViewController* departuresPageViewController;
     UIViewController* favoritesNavigationController;
     UIViewController* linesNavigationController;
-}
-
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    UIViewController* creditsNavigationController;
 }
 
 - (void)viewDidLoad {
@@ -35,6 +26,7 @@
     departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
     linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
+    creditsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
 }
 
 - (IBAction)favoritesButton:(id)sender {
@@ -55,6 +47,12 @@
     [swRevealViewController revealToggleAnimated:YES];
 }
 
+- (IBAction)creditsButton:(id)sender {
+    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
+    swRevealViewController.frontViewController = creditsNavigationController;
+    [swRevealViewController revealToggleAnimated:YES];
+}
+
 #pragma mark - Segues
 - (IBAction)unwindFromDepartures:(UIStoryboardSegue *)segue {
     //Affichage du menu
@@ -69,6 +67,12 @@
 }
 
 - (IBAction)unwindFromFavorites:(UIStoryboardSegue *)segue {
+    //Affichage des départs en front
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController toggleViews];
+}
+
+- (IBAction)unwindFromCredits:(UIStoryboardSegue *)segue {
     //Affichage des départs en front
     RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
     [revealViewController toggleViews];

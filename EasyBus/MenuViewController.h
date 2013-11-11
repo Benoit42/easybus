@@ -13,5 +13,6 @@
 - (IBAction)favoritesButton:(id)sender;
 - (IBAction)linesButton:(id)sender;
 - (IBAction)organizeButton:(id)sender;
+- (IBAction)creditsButton:(id)sender;
 
 @end
