@@ -116,6 +116,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         if (group.favorites.count == 0) {
+            [self.groupManager removeGroup:group];
             NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
             [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
         }
