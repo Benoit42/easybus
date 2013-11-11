@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 #import <CHCSVParser/CHCSVParser.h>
 #import "StopsCsvReader.h"
 
@@ -60,8 +61,7 @@ objection_requires(@"managedObjectContext")
         stop.code = self.row[1];
         stop.name = self.row[2];
         stop.desc = self.row[3];
-        stop.latitude = self.row[4];
-        stop.longitude = self.row[5];
+        stop.location = [[CLLocation alloc] initWithLatitude:[self.row[4] doubleValue] longitude:[self.row[5] doubleValue]];
     }
 }
 

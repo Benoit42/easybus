@@ -55,7 +55,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     NSArray *routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     
     int count = [routes count];
-    XCTAssertEqual(count, 93, @"Wrong number of routes in routes.txt");
+    XCTAssertEqual(count, 94, @"Wrong number of routes in routes.txt");
 }
 
 //Vérification de la ligne 64

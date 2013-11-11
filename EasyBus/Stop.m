@@ -2,7 +2,7 @@
 //  Stop.m
 //  EasyBus
 //
-//  Created by Benoit on 30/10/2013.
+//  Created by Benoit on 11/11/2013.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
@@ -16,8 +16,7 @@
 @dynamic code;
 @dynamic desc;
 @dynamic id;
-@dynamic latitude;
-@dynamic longitude;
+@dynamic location;
 @dynamic name;
 @dynamic favorites;
 @dynamic routes;

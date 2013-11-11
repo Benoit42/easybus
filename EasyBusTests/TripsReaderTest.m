@@ -49,7 +49,7 @@ objection_requires(@"tripsCsvReader")
 //Comptage des occurences
 - (void)testCountTrips {
     int count = [self.tripsCsvReader.trips count];
-    XCTAssertEqual(count, 22388, @"Wrong number of trips in trips.txt");
+    XCTAssertEqual(count, 23677, @"Wrong number of trips in trips.txt");
 }
 
 //Vérification de la ligne 64
@@ -59,7 +59,7 @@ objection_requires(@"tripsCsvReader")
     Trip* trip1 = [trips objectAtIndex:0];
     
     XCTAssertEqualObjects(trip1.id, @"1", @"Wrong id");
-    XCTAssertEqualObjects(trip1.routeId, @"0052", @"Wrong route_id");
+    XCTAssertEqualObjects(trip1.routeId, @"0001", @"Wrong route_id");
     XCTAssertEqualObjects(trip1.directionId, @"0", @"Wrong direction_id");
 }
 

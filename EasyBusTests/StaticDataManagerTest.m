@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <CoreLocation/CoreLocation.h>
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
@@ -54,7 +55,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     XCTAssertEqualObjects(@"0001", firstRoute.id, @"First route shall be 0001");
 
     Route* lastRoute = [routes lastObject];
-    XCTAssertEqualObjects(@"0805", lastRoute.id, @"First route shall be 0805");
+    XCTAssertEqualObjects(@"0806", lastRoute.id, @"First route shall be 0805");
 
     Route* route64 = [self.staticDataManager routeForId:@"0064"];
     XCTAssertNotNil(route64 , @"Route 64 shall exists");
@@ -74,6 +75,23 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     XCTAssertEqualObjects(timoniere2.name, @"République Pré Botté", @"Wrong stop name");
     Stop* republique2 = stopsDirectionOne[22];
     XCTAssertEqualObjects(republique2.name, @"Timonière", @"Wrong stop name");
+}
+
+//Vérification des arrêts
+- (void)testStops {
+    NSArray* stops = [self.staticDataManager stops];
+    XCTAssertTrue([stops count] > 0 , @"Stops shall exist");
+}
+
+//Vérification des arrêts proches
+- (void)testNearStops {
+    CLLocation *timonière = [[CLLocation alloc] initWithLatitude:48.136990f longitude:-1.526347f];
+    NSArray* stops = [self.staticDataManager nearStopsFrom:timonière quantity:3];
+    XCTAssertTrue([stops count] == 3 , @"Thre should be 3 stops");
+    
+    XCTAssertEqualObjects(((Stop*)stops[0]).id, @"4001", @"Wrong near stop 0"); //Timmonière
+    XCTAssertEqualObjects(((Stop*)stops[1]).id, @"4013", @"Wrong near stop 1"); //Verdaudais
+    XCTAssertEqualObjects(((Stop*)stops[2]).id, @"4002", @"Wrong near stop 2"); //Verdaudais
 }
 
 @end

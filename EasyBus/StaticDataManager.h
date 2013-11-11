@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Route.h"
 #import "Stop.h"
 
@@ -19,6 +20,7 @@
 - (NSArray*) stops;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
+- (NSArray*) nearStopsFrom:(CLLocation*)location quantity:(NSInteger)quantity;
 - (NSURL*) pictoUrl100ForRouteId:(Route*)route;
 
 - (BOOL)isDataLoaded;

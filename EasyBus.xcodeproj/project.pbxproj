@@ -32,7 +32,6 @@
 		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
 		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		14405C8B182173FD00843B20 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C8A182173FD00843B20 /* Route.m */; };
-		14405C8E182173FE00843B20 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C8D182173FE00843B20 /* Stop.m */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderTest.m */; };
 		146161BE182A220C0012A1CE /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 146161BD182A220C0012A1CE /* menu-icon.png */; };
 		146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C2182AAA860012A1CE /* DeparturesTableViewController.m */; };
@@ -52,6 +51,18 @@
 		147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342A166A05A8008FE719 /* UIButtonBarRefresh.png */; };
 		147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */; };
 		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
+		149D4ED818314CD400A19117 /* routes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED418314CD400A19117 /* routes.txt */; };
+		149D4ED918314CD400A19117 /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED518314CD400A19117 /* stop_times.txt */; };
+		149D4EDA18314CD400A19117 /* stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED618314CD400A19117 /* stops.txt */; };
+		149D4EDB18314CD400A19117 /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED718314CD400A19117 /* trips.txt */; };
+		149D4EDC18314CD900A19117 /* routes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED418314CD400A19117 /* routes.txt */; };
+		149D4EDD18314CD900A19117 /* stop_times.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED518314CD400A19117 /* stop_times.txt */; };
+		149D4EDE18314CD900A19117 /* stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED618314CD400A19117 /* stops.txt */; };
+		149D4EDF18314CD900A19117 /* trips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4ED718314CD400A19117 /* trips.txt */; };
+		149D4EE118314D1700A19117 /* routes_additionals.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4EE018314D1700A19117 /* routes_additionals.txt */; };
+		149D4EE218314D1700A19117 /* routes_additionals.txt in Resources */ = {isa = PBXBuildFile; fileRef = 149D4EE018314D1700A19117 /* routes_additionals.txt */; };
+		149D4EE51831600300A19117 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D4EE41831600300A19117 /* Stop.m */; };
+		149D4EE61831600300A19117 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D4EE41831600300A19117 /* Stop.m */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E667181D8BD500C7D6FE /* Default@2x.png */; };
 		14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */; };
@@ -166,8 +177,6 @@
 		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		14405C89182173FD00843B20 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		14405C8A182173FD00843B20 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
-		14405C8C182173FE00843B20 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
-		14405C8D182173FE00843B20 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderTest.m; sourceTree = "<group>"; };
 		146161BD182A220C0012A1CE /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		146161C1182AAA860012A1CE /* DeparturesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesTableViewController.h; sourceTree = "<group>"; };
@@ -199,6 +208,13 @@
 		147C342B166A05A8008FE719 /* UIButtonBarRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarRefresh@2x.png"; sourceTree = "<group>"; };
 		1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+GroupeWithAdditions.h"; sourceTree = "<group>"; };
 		1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+GroupeWithAdditions.m"; sourceTree = "<group>"; };
+		149D4ED418314CD400A19117 /* routes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = routes.txt; path = GTFS/routes.txt; sourceTree = "<group>"; };
+		149D4ED518314CD400A19117 /* stop_times.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stop_times.txt; path = GTFS/stop_times.txt; sourceTree = "<group>"; };
+		149D4ED618314CD400A19117 /* stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stops.txt; path = GTFS/stops.txt; sourceTree = "<group>"; };
+		149D4ED718314CD400A19117 /* trips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = trips.txt; path = GTFS/trips.txt; sourceTree = "<group>"; };
+		149D4EE018314D1700A19117 /* routes_additionals.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = routes_additionals.txt; path = GTFS/routes_additionals.txt; sourceTree = "<group>"; };
+		149D4EE31831600300A19117 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
+		149D4EE41831600300A19117 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
 		14A3E667181D8BD500C7D6FE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -478,6 +494,11 @@
 		14AD3C3D162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				149D4ED418314CD400A19117 /* routes.txt */,
+				149D4EE018314D1700A19117 /* routes_additionals.txt */,
+				149D4ED518314CD400A19117 /* stop_times.txt */,
+				149D4ED618314CD400A19117 /* stops.txt */,
+				149D4ED718314CD400A19117 /* trips.txt */,
 				146CC04318181FDA005A7F66 /* GTFS.zip */,
 				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
@@ -491,8 +512,8 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
-				14405C8C182173FE00843B20 /* Stop.h */,
-				14405C8D182173FE00843B20 /* Stop.m */,
+				149D4EE31831600300A19117 /* Stop.h */,
+				149D4EE41831600300A19117 /* Stop.m */,
 				14405C89182173FD00843B20 /* Route.h */,
 				14405C8A182173FD00843B20 /* Route.m */,
 				14EEF352181AF41600C1C061 /* GtfsPublishData.h */,
@@ -731,7 +752,9 @@
 			files = (
 				14AD3C1A162AF00400DF061A /* InfoPlist.strings in Resources */,
 				14AD3C22162AF00400DF061A /* Default.png in Resources */,
+				149D4EDD18314CD900A19117 /* stop_times.txt in Resources */,
 				14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */,
+				149D4EDE18314CD900A19117 /* stops.txt in Resources */,
 				146161D118310F520012A1CE /* mentions.html in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
 				14A3E672181DA4D400C7D6FE /* icon.png in Resources */,
@@ -739,14 +762,17 @@
 				1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */,
 				14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */,
 				14A3E674181DA51100C7D6FE /* icon80@2x.png in Resources */,
+				149D4EDC18314CD900A19117 /* routes.txt in Resources */,
 				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */,
 				147C342C166A05A8008FE719 /* UIButtonBarRefresh.png in Resources */,
 				14A3E676181DA54200C7D6FE /* icon58@2x.png in Resources */,
 				147C342D166A05A8008FE719 /* UIButtonBarRefresh@2x.png in Resources */,
+				149D4EE118314D1700A19117 /* routes_additionals.txt in Resources */,
 				146161BE182A220C0012A1CE /* menu-icon.png in Resources */,
 				14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */,
 				14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,
+				149D4EDF18314CD900A19117 /* trips.txt in Resources */,
 				14A3E66E181DA22400C7D6FE /* icon120@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -755,10 +781,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				149D4ED818314CD400A19117 /* routes.txt in Resources */,
+				149D4EDB18314CD400A19117 /* trips.txt in Resources */,
 				14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */,
 				146CC04518181FDA005A7F66 /* GTFS.zip in Resources */,
 				14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */,
+				149D4EE218314D1700A19117 /* routes_additionals.txt in Resources */,
+				149D4EDA18314CD400A19117 /* stops.txt in Resources */,
 				146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */,
+				149D4ED918314CD400A19117 /* stop_times.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,7 +916,6 @@
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				147168B61801C9F200846AE6 /* Favorite.m in Sources */,
 				14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */,
-				14405C8E182173FE00843B20 /* Stop.m in Sources */,
 				146161D51831120C0012A1CE /* CreditsWebViewController.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */,
@@ -908,6 +938,7 @@
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
 				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
+				149D4EE51831600300A19117 /* Stop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +953,7 @@
 				14148B94180AC32C005DDAF9 /* GtfsDownloadManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
 				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
+				149D4EE61831600300A19117 /* Stop.m in Sources */,
 				14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */,
 				14E128A31813E4F50034226A /* AsyncTestCaseTest.m in Sources */,
 				14405C91182175BF00843B20 /* StaticDataLoaderTest.m in Sources */,

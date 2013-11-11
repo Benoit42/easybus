@@ -110,8 +110,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     for (int i=0; i<[groupes count]; i++) {
         Group* groupe = [groupes objectAtIndex:i];
         Favorite* firstFavorite = [[groupe favorites] objectAtIndex:0];
-        CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[firstFavorite.stop.latitude doubleValue] longitude:[firstFavorite.stop.longitude doubleValue]];
-        CLLocationDistance currentDistance = [stopLocation distanceFromLocation:currentLocation];
+        CLLocationDistance currentDistance = [firstFavorite.stop.location distanceFromLocation:currentLocation];
         if (currentDistance < minDistance) {
             index = i;
             minDistance = currentDistance;
