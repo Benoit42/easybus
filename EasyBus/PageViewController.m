@@ -22,9 +22,7 @@
 @end
 
 @implementation PageViewController
-
-objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"locationManager")
-@synthesize favoritesManager, groupManager, departuresManager, locationManager, _datasource;
+objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"locationManager", @"pageDataSource")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -36,19 +34,16 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [super viewDidLoad];
     
     //Pré-conditions
-    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
-    NSAssert(self.locationManager != nil, @"locationManager should not be nil");
-
-	// Do any additional setup after loading the view, typically from a nib.
-    // Configure the page view controller and add it as a child view controller.
-    _datasource = [[JSObjection defaultInjector] getObject:[PageViewControllerDatasource class]];
+    NSParameterAssert(self.favoritesManager != nil);
+    NSParameterAssert(self.groupManager != nil);
+    NSParameterAssert(self.departuresManager != nil);
+    NSParameterAssert(self.locationManager != nil);
+    NSParameterAssert(self.pageDataSource != nil);
 
     //Set delegate and datasource
     self.delegate = self;
-    self.dataSource = _datasource;
-    DeparturesViewController *startingViewController = [_datasource viewControllerAtIndex:0 storyboard:self.storyboard];
+    self.dataSource = self.pageDataSource;
+    DeparturesViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
 
     // Abonnement au notifications des départs
@@ -78,15 +73,15 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
         int increment = (page>currentPage)?1:-1;
         int nextPage = currentPage+increment;
         UIPageViewControllerNavigationDirection direction = (increment == 1)?UIPageViewControllerNavigationDirectionForward:UIPageViewControllerNavigationDirectionReverse;
-        UIViewController *currentViewController = [_datasource viewControllerAtIndex:currentPage storyboard:self.storyboard];
+        UIViewController *currentViewController = [self.pageDataSource viewControllerAtIndex:currentPage storyboard:self.storyboard];
         for (int i=nextPage; i!=page+increment; i+=increment) {
             //Move to page
             UIViewController *nextViewController;
             if (increment == 1) {
-                nextViewController = [_datasource pageViewController:self viewControllerAfterViewController:currentViewController];
+                nextViewController = [self.pageDataSource pageViewController:self viewControllerAfterViewController:currentViewController];
             }
             else {
-                nextViewController = [_datasource pageViewController:self viewControllerBeforeViewController:currentViewController];
+                nextViewController = [self.pageDataSource pageViewController:self viewControllerBeforeViewController:currentViewController];
                 
             }
             dispatch_sync(dispatch_get_global_queue(
@@ -104,7 +99,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
-    NSArray* groupes = [groupManager groups];
+    NSArray* groupes = [self.groupManager groups];
     double minDistance = MAXFLOAT;
     int index = -1;
     for (int i=0; i<[groupes count]; i++) {
@@ -124,7 +119,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - refreshing departures
 - (void)refreshDepartures {
     //Raffraichissement des départs
-    NSArray* favorite = [favoritesManager favorites];
+    NSArray* favorite = [self.favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
     
     //Rechargement des pages
@@ -134,7 +129,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
 #pragma mark - refreshing location
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
-    [locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 }
 
 #pragma mark - Notification de localisation
