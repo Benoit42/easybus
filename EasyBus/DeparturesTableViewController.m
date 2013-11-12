@@ -128,16 +128,11 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section plus header and footer
-    // always header + footer + iphone5->5, other->4
-    NSArray* groupes = [self.groupManager groups];
+    // Return the number of rows in the section
     NSInteger page = ((DeparturesViewController*)self.parentViewController).page;
-    if (page < [groupes count]) {
-        return _maxRows;
-    }
-    else {
-        return 0;
-    }
+    Group* groupe = [[self.groupManager groups] objectAtIndex:page];
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
+    return departures.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
