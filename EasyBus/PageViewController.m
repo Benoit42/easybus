@@ -11,9 +11,7 @@
 #import "Constants.h"
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
-#import "DeparturesViewController.h"
-#import "LocationManager.h"
-#import "Stop.h"
+#import "FavoritesManager.h"
 
 @interface PageViewController()
 
@@ -22,7 +20,7 @@
 @end
 
 @implementation PageViewController
-objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"locationManager", @"pageDataSource")
+objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -34,36 +32,25 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [super viewDidLoad];
     
     //Pré-conditions
-    NSParameterAssert(self.favoritesManager != nil);
     NSParameterAssert(self.groupManager != nil);
-    NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.locationManager != nil);
     NSParameterAssert(self.pageDataSource != nil);
 
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self.pageDataSource;
-    DeparturesViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
-    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
-
-    // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
+    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
+    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 
     // Abonnement au notifications des favoris
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 
+    // Abonnement au notifications de localisation
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
+
     // Couleur de fond vert Star
     self.view.backgroundColor = Constants.starGreenColor;
-    
-    //Refresh departures
-    [self refreshDepartures];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    //Stop GPS
-    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)scrollToPage:(NSInteger)page {
@@ -116,20 +103,13 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self scrollToPage:index];
 }
 
-#pragma mark - refreshing departures
-- (void)refreshDepartures {
-    //Raffraichissement des départs
-    NSArray* favorite = [self.favoritesManager favorites];
-    [self.departuresManager refreshDepartures:favorite];
-    
-    //Rechargement des pages
-    DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
-    [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-}
-
-#pragma mark - refreshing location
-- (void)departuresUpdatedStarted:(NSNotification *)notification {
-    [self.locationManager startUpdatingLocation];
+#pragma mark - favorite or group updated
+- (void)favoritesUpdated:(NSNotification *)notification {
+    [self performBlockOnMainThread:^{
+        //Rechargement des pages
+        DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
+        [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    }];
 }
 
 #pragma mark - Notification de localisation
@@ -137,13 +117,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [self performBlockOnMainThread:^{
         //Move page view to nearest groupe
         [self gotoNearestPage];
-    }];
-}
-
-#pragma mark - refreshing departures
-- (void)favoritesUpdated:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
-        [self refreshDepartures];
     }];
 }
 

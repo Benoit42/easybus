@@ -8,10 +8,10 @@
 
 #import <Objection/Objection.h>
 #import "DeparturesViewController.h"
+#import "DeparturesTableViewController.h"
 
 @implementation DeparturesViewController
-
-objection_requires(@"groupManager")
+objection_register(DeparturesViewController);
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -23,7 +23,7 @@ objection_requires(@"groupManager")
     [super viewDidLoad];
     
     //Pré-conditions
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    NSParameterAssert(self.group != nil);
 }
 
 #pragma mark - affichage
@@ -31,11 +31,13 @@ objection_requires(@"groupManager")
     [super viewWillAppear:animated];
 
     //update header
-    NSArray* groups = [self.groupManager groups];
-    if (self.page < [groups count]) {
-        Group* group = [groups objectAtIndex:self.page];
-        [self.direction setText:[NSString stringWithFormat:@"vers %@", group.terminus]];
-    }
+    [self.direction setText:[NSString stringWithFormat:@"vers %@", self.group.terminus]];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"tableView"]) {
+        ((DeparturesTableViewController*)segue.destinationViewController).group = self.group;
+    }
+}
 @end

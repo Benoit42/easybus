@@ -30,6 +30,13 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
     NSAssert(self.locationManager != nil, @"locationManager should not be nil");
+
+    // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
+
+    // Abonnement au notifications des favoris
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 }
 
 #pragma mark - affichage
@@ -48,6 +55,18 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
 //    else {
 //        charger ici les données avec une barre de progression
 //    }
+}
+
+#pragma mark - refreshing departures
+- (void)favoritesUpdated:(NSNotification *)notification {
+    //Raffraichissement des départs
+    NSArray* favorite = [self.favoritesManager favorites];
+    [self.departuresManager refreshDepartures:favorite];
+}
+
+#pragma mark - refreshing location
+- (void)departuresUpdatedStarted:(NSNotification *)notification {
+    [self.locationManager startUpdatingLocation];
 }
 
 @end

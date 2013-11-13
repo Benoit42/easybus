@@ -37,17 +37,11 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     [super viewDidAppear:animated];
     
     //Si aucun favori, passage direct à l'écran des lignes
-    NSArray* favorites = [self.favoritesManager favorites];
-    if ([favorites count] == 0) {
-        [self performSegueWithIdentifier: @"chooseLine" sender: self];
-    }
-    else {
-        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                              initWithTarget:self action:@selector(handleLongPress:)];
-        lpgr.minimumPressDuration = 1.0; //seconds
-        lpgr.delegate = self;
-        [self.tableView addGestureRecognizer:lpgr];
-    }
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
 }
 
 #pragma mark - Table view data source
@@ -91,8 +85,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        NSURL *picto = [self.staticDataManager pictoUrl100ForRouteId:favorite.route];
-        [cell._picto setImageWithURL:picto];
+        [cell._picto setImageWithURL:favorite.route.pictoUrl];
         [cell._libArret setText:favorite.stop.name];
         [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
         return cell;

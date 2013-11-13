@@ -63,26 +63,8 @@ objection_requires(@"favoritesManager")
 }
 
 #pragma mark - Segues
-- (IBAction)unwindFromDepartures:(UIStoryboardSegue *)segue {
+- (IBAction)unwindToMenu:(UIStoryboardSegue *)segue {
     //Affichage du menu
-    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
-    [revealViewController toggleViews];
-}
-
-- (IBAction)unwindFromLines:(UIStoryboardSegue *)segue {
-    //Affichage des départs en front
-    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
-    [revealViewController toggleViews];
-}
-
-- (IBAction)unwindFromFavorites:(UIStoryboardSegue *)segue {
-    //Affichage des départs en front
-    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
-    [revealViewController toggleViews];
-}
-
-- (IBAction)unwindFromCredits:(UIStoryboardSegue *)segue {
-    //Affichage des départs en front
     RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
     [revealViewController toggleViews];
 }

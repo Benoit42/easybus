@@ -27,7 +27,8 @@
     UIFont* refreshLabelFont;
 }
 
-objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager")
+objection_requires(@"departuresManager")
+//objection_initializer(initWithMake:model:)
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -40,10 +41,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [super viewDidLoad];
     
     //Pré-conditions
-    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSParameterAssert(self.group != nil);
+    NSParameterAssert(self.departuresManager != nil);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -121,7 +120,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 #pragma mark - Table view refresh control
 - (void) refreshDepartures {
     [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.departuresManager refreshDepartures:self.group.favorites.array];
     }];
 }
 
@@ -129,9 +128,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section
-    NSInteger page = ((DeparturesViewController*)self.parentViewController).page;
-    Group* groupe = [[self.groupManager groups] objectAtIndex:page];
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
     return departures.count;
 }
 
@@ -141,9 +138,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     UITableViewCell* cell;
     
     //get departures
-    NSInteger page = ((DeparturesViewController*)self.parentViewController).page;
-    Group* groupe = [[self.groupManager groups] objectAtIndex:page];
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
     if (indexPath.row < [departures count] ){
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -154,8 +149,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
             Depart* depart = [departures objectAtIndex:departureIndex];
             
             //update cell
-            NSURL* picto = [self.staticDataManager pictoUrl100ForRouteId:depart.route];
-            [[(DepartureCell*)cell _picto] setImageWithURL:picto];
+            [[(DepartureCell*)cell _picto] setImageWithURL:depart.route.pictoUrl];
             NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
             [[(DepartureCell*)cell _delai] setText:libDelai];
             [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];

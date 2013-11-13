@@ -165,11 +165,4 @@ objection_requires(@"managedObjectContext")
     return [sortedStops subarrayWithRange:NSMakeRange(0, MIN(quantity, sortedStops.count))];
 }
 
-
-- (NSURL*) pictoUrl100ForRouteId:(Route*)route {
-    NSString* url = [NSString stringWithFormat:@"http://data.keolis-rennes.com/fileadmin/documents/Picto_lignes/Pictos_lignes_100x100/L%@.png", route.shortName];
-    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return [NSURL URLWithString:encodedUrl];
-}
-
 @end

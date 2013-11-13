@@ -12,6 +12,7 @@
 #import "LinesNavigationController.h"
 #import "FavoritesManager.h"
 #import "LineCell.h"
+#import "Route+RouteWithAdditions.m"
 
 @implementation LinesViewController
 
@@ -87,8 +88,7 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        NSURL* picto = [self.staticDataManager pictoUrl100ForRouteId:route];
-        [cell._picto setImageWithURL:picto];
+        [cell._picto setImageWithURL:route.pictoUrl];
         [cell._libLigne setText:route.longName];
         return cell;
     }

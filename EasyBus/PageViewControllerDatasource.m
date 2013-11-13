@@ -32,7 +32,6 @@ objection_requires(@"groupManager")
 {
     //Pré-conditions
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    NSAssert(self.groupManager.groups.count > 0, @"There should be almost 1 group");
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
@@ -44,7 +43,9 @@ objection_requires(@"groupManager")
         
         if (viewController == nil) {
             //Le view controler n'existe pas encore
+            Group* group = self.groupManager.groups[index];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+            ((DeparturesViewController*)viewController).group = group;
             ((DeparturesViewController*)viewController).page = index;
             [self.departuresViewControlers insertObject:viewController atIndex:index];
         }
@@ -56,7 +57,7 @@ objection_requires(@"groupManager")
 - (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController
 {
     // Return the index of the given data view controller.
-    return viewController.page;
+    return [self.departuresViewControlers indexOfObject:viewController];
 }
 
 #pragma mark - Page View Controller Data Source

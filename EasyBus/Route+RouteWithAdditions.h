@@ -13,5 +13,6 @@
 
 - (NSString*)terminusForDirection:(NSString*)direction;
 - (void)addStop:(Stop*)stop forSequence:(NSNumber*)sequence forDirection:(NSString*)direction;
+- (NSURL*) pictoUrl;
 
 @end

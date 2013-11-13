@@ -7,17 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FavoritesManager.h"
-#import "GroupManager.h"
+#import "Group.h"
 #import "DeparturesManager.h"
-#import "StaticDataManager.h"
-#import "LocationManager.h"
 
 @interface DeparturesTableViewController : UITableViewController
 
-@property(strong, nonatomic) FavoritesManager* favoritesManager;
-@property(strong, nonatomic) GroupManager* groupManager;
+@property(strong, nonatomic) Group* group;
 @property(strong, nonatomic) DeparturesManager* departuresManager;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
 
 @end

@@ -7,16 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FavoritesManager.h"
-#import "GroupManager.h"
-#import "DeparturesManager.h"
-#import "StaticDataManager.h"
-#import "LocationManager.h"
+#import "Group.h"
 
 @interface DeparturesViewController : UIViewController
 
-@property(strong, nonatomic) GroupManager* groupManager;
 @property(nonatomic) NSInteger page;
+@property(strong, nonatomic) Group* group;
 
 @property (weak, nonatomic) IBOutlet UILabel *direction;
 

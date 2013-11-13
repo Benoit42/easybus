@@ -34,4 +34,10 @@
     [tempSet addObject:stop];
 }
 
+- (NSURL*) pictoUrl {
+    NSString* url = [NSString stringWithFormat:@"http://data.keolis-rennes.com/fileadmin/documents/Picto_lignes/Pictos_lignes_100x100/L%@.png", self.shortName];
+    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [NSURL URLWithString:encodedUrl];
+}
+
 @end
