@@ -10,10 +10,6 @@
 #import "MenuViewController.h"
 #import "RevealViewController.h"
 
-@interface MenuViewController ()
-
-@end
-
 @implementation MenuViewController {
     UIViewController* departuresPageViewController;
     UIViewController* favoritesNavigationController;
@@ -22,6 +18,11 @@
 }
 
 objection_requires(@"favoritesManager")
+
+#pragma mark - IoC
+- (void)awakeFromNib {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,7 +36,7 @@ objection_requires(@"favoritesManager")
     if (self.favoritesManager.favorites.count == 0) {
         SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
         swRevealViewController.frontViewController = linesNavigationController;
-    }   
+    }
 }
 
 - (IBAction)favoritesButton:(id)sender {

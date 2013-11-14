@@ -31,12 +31,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     //Pré-conditions
     NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //Si aucun favori, passage direct à l'écran des lignes
+    //Ajout long press gesture
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 1.0; //seconds
