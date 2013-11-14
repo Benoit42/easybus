@@ -64,14 +64,15 @@ objection_requires(@"departuresManager")
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailed object:nil];
     
     //Pull to refresh
-    self.refreshControl  = [[UIRefreshControl alloc] init];
+    UIRefreshControl* refreshControl  = [[UIRefreshControl alloc] init];
 
     NSString* message = @"tirer pour raffraîchir";
     NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
     [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
-
-    [self.refreshControl  addTarget:nil action:@selector(refreshDepartures) forControlEvents:UIControlEventValueChanged];
+    refreshControl.attributedTitle = attributedMessage;
+    refreshControl.backgroundColor = [Constants veryLightGreyColor];
+    [refreshControl  addTarget:nil action:@selector(refreshDepartures) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
 #pragma mark - Gestion de la mise à jour des départs

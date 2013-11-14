@@ -11,5 +11,6 @@
 @interface Constants : NSObject
 
 + (UIColor *)starGreenColor;
++ (UIColor *)veryLightGreyColor;
 
 @end
