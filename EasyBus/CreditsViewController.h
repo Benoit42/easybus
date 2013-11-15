@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreditsWebViewController : UIViewController
+@interface CreditsViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 

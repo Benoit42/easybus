@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "CreditsWebViewController.h"
+#import "CreditsViewController.h"
 
-@interface CreditsWebViewController ()
+@interface CreditsViewController ()
 
 @end
 
-@implementation CreditsWebViewController
+@implementation CreditsViewController
 
 - (void)viewDidLoad
 {

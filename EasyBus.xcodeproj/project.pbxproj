@@ -38,7 +38,7 @@
 		146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C5182B70AC0012A1CE /* LinesNavigationController.m */; };
 		146161CC182C160B0012A1CE /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161CB182C160B0012A1CE /* Constants.m */; };
 		146161D118310F520012A1CE /* mentions.html in Resources */ = {isa = PBXBuildFile; fileRef = 146161D018310F520012A1CE /* mentions.html */; };
-		146161D51831120C0012A1CE /* CreditsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161D41831120C0012A1CE /* CreditsWebViewController.m */; };
+		146161D51831120C0012A1CE /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161D41831120C0012A1CE /* CreditsViewController.m */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
 		146CC04518181FDA005A7F66 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		147168A1180086F200846AE6 /* RouteStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 147168A0180086F200846AE6 /* RouteStop.m */; };
@@ -186,8 +186,8 @@
 		146161CA182C160B0012A1CE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		146161CB182C160B0012A1CE /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		146161D018310F520012A1CE /* mentions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = mentions.html; sourceTree = "<group>"; };
-		146161D31831120C0012A1CE /* CreditsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsWebViewController.h; sourceTree = "<group>"; };
-		146161D41831120C0012A1CE /* CreditsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsWebViewController.m; sourceTree = "<group>"; };
+		146161D31831120C0012A1CE /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		146161D41831120C0012A1CE /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
 		146CC04318181FDA005A7F66 /* GTFS.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = GTFS.zip; sourceTree = "<group>"; };
 		1471689F180086F200846AE6 /* RouteStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteStop.h; sourceTree = "<group>"; };
@@ -368,8 +368,8 @@
 		146161D2183111D00012A1CE /* CreditsWebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				146161D31831120C0012A1CE /* CreditsWebViewController.h */,
-				146161D41831120C0012A1CE /* CreditsWebViewController.m */,
+				146161D31831120C0012A1CE /* CreditsViewController.h */,
+				146161D41831120C0012A1CE /* CreditsViewController.m */,
 			);
 			name = CreditsWebViewController;
 			sourceTree = "<group>";
@@ -916,7 +916,7 @@
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				147168B61801C9F200846AE6 /* Favorite.m in Sources */,
 				14E459041810695900E2401A /* GtfsPublishDataTmp.m in Sources */,
-				146161D51831120C0012A1CE /* CreditsWebViewController.m in Sources */,
+				146161D51831120C0012A1CE /* CreditsViewController.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
