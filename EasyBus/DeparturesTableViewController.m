@@ -33,7 +33,7 @@ objection_requires(@"departuresManager")
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
-    refreshLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
+    refreshLabelFont = [UIFont fontWithName:@"Heiti TC" size:15.0f];
 }
 
 #pragma mark - Initialisation
@@ -48,15 +48,6 @@ objection_requires(@"departuresManager")
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
-    
-    //check resolution
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if (screenBounds.size.height == 480) {
-        self.maxRows = 4;
-    }
-    else {
-        self.maxRows = 5;
-    }
     
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
@@ -129,8 +120,9 @@ objection_requires(@"departuresManager")
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section
+    // If no departures, still 1 row to indicate no departures
     NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
-    return departures.count;
+    return MAX(departures.count, 1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,19 +136,15 @@ objection_requires(@"departuresManager")
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         
-        NSInteger departureIndex = indexPath.row;
-        if (departureIndex < [departures count]) {
-            //get departure
-            Depart* depart = [departures objectAtIndex:departureIndex];
-            
-            //update cell
-            [[(DepartureCell*)cell _picto] setImageWithURL:depart.route.pictoUrl];
-            NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
-            [[(DepartureCell*)cell _delai] setText:libDelai];
-            [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];
-            [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
-            
-        }
+        //get departure
+        Depart* depart = [departures objectAtIndex:indexPath.row];
+        
+        //update cell
+        [[(DepartureCell*)cell _picto] setImageWithURL:depart.route.pictoUrl];
+        NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
+        [[(DepartureCell*)cell _delai] setText:libDelai];
+        [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];
+        [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
     }
     else {
         // no departure row
@@ -166,6 +154,8 @@ objection_requires(@"departuresManager")
             [[(NoDepartureCell*)cell _message] setText:nil];
         }
     }
+
+    //Retour
     return cell;
 }
 
