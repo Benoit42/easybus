@@ -669,7 +669,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="mYl-2J-4Cv">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="mYl-2J-4Cv">
                                             <rect key="frame" x="20" y="4" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="SQh-im-Uxg"/>
