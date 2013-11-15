@@ -419,10 +419,10 @@
             </objects>
             <point key="canvasLocation" x="761" y="2138"/>
         </scene>
-        <!--Credits Web View Controller-->
+        <!--Credits View Controller-->
         <scene sceneID="sBa-Bz-lMB">
             <objects>
-                <viewController id="ybT-RI-UOE" customClass="CreditsWebViewController" sceneMemberID="viewController">
+                <viewController id="ybT-RI-UOE" customClass="CreditsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yfm-Fy-mVW"/>
                         <viewControllerLayoutGuide type="bottom" id="WzT-zP-B6b"/>
@@ -434,7 +434,7 @@
                             <webView contentMode="scaleToFill" fixedFrame="YES" allowsInlineMediaPlayback="NO" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLH-B5-hZL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="ybT-RI-UOE" id="wcc-1W-82y"/>
