@@ -106,7 +106,18 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //Log
     NSLog(@"Association route/arrêts");
 
-    //Préparation des données
+    //Pre-fetching
+    NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        [routesDictionnary setObject:route forKey:route.id];
+    }];
+    
+    NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+        [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
+    }];
+    
+    //Tri des données
     trips = [trips sortedArrayUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
         return [trip1.id compare:trip2.id];
     }];
@@ -119,18 +130,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             return compareTrips;
         }
     }];
-    
-    //Pre-fetching
-    NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
-        [routesDictionnary setObject:route forKey:route.id];
-    }];
-    
-    NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
-        [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
-    }];
-    
     
     //Matching route/stop
     int i=0, j=0;
@@ -149,7 +148,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
                 Route* route = [routesDictionnary objectForKey:trip.routeId];
                 Stop* stop = [stopsDictionnary objectForKey:stopTime.stopId];
                 NSString* direction = trip.directionId;
-                NSNumber* sequence = stopTime.stopSequence;
+                NSNumber* sequence = [NSNumber numberWithInt:([stopTime.stopSequence integerValue] - 1)];
                 [route addStop:stop forSequence:sequence forDirection:direction];
                 
                 //Incrément de boucle
@@ -183,11 +182,29 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
     }];
     
+    //Tri des données
+    routeStops = [routeStops sortedArrayUsingComparator:^NSComparisonResult(RouteStop* rs1, RouteStop* rs2) {
+        NSComparisonResult compareRoutes = [rs1.routeId compare:rs2.routeId];
+        if (compareRoutes == NSOrderedSame) {
+            NSComparisonResult compareDirection = [rs1.directionId compare:rs2.directionId];
+            if (compareDirection == NSOrderedSame) {
+                return [rs1.stopSequence compare:rs2.stopSequence];
+            }
+            else {
+                return compareDirection;
+            }
+        }
+        else {
+            return compareRoutes;
+        }
+    }];
+
+    //Matching route/stop
     [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, NSUInteger idx, BOOL *stop) {
         Route* route = [routesDictionnary objectForKey:routeStop.routeId];
         Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
         NSString* direction = routeStop.directionId;
-        NSNumber* sequence = routeStop.stopSequence;
+        NSNumber* sequence = [NSNumber numberWithInt:([routeStop.stopSequence integerValue] - 1)];
         [route addStop:stopEntity forSequence:sequence forDirection:direction];
     }];
         
