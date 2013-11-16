@@ -1,5 +1,5 @@
 //
-//  StopTimesCsvReader.h
+//  RouteStopsCsvReader.h
 //  EasyBus
 //
 //  Created by Benoit on 28/10/12.
@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StopTime.h"
+#import "RouteStop.h"
 
-@interface StopTimesCsvReader : NSObject
+@interface RoutesStopsCsvReader : NSObject
 
-@property(nonatomic, retain) NSMutableArray* stops;
+@property(nonatomic, retain) NSMutableArray* routesStops;
 
 - (void)loadData:(NSURL*)url;
 - (void)cleanUp;

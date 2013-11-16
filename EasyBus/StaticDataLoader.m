@@ -15,24 +15,26 @@
 #import "RouteStop.h"
 #import "Route+RouteWithAdditions.h"
 
+NSString *const dataLoadingProgress = @"dataLoadingProgress";
+NSString *const dataLoadingFinished = @"dataLoadingFinished";
+
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
 
-objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader")
-@synthesize managedObjectContext, staticDataManager, routesCsvReader, stopsCsvReader, tripsCsvReader, stopTimesCsvReader;
+objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader")
 
 #pragma mark file loading method
-- (void)loadData:(NSURL*)directory {
+- (void)loadDataFromWeb:(NSURL*)directory {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
-    NSAssert(self.routesCsvReader != nil, @"routesCsvReader should not be nil");
-    NSAssert(self.stopsCsvReader != nil, @"stopsCsvReader should not be nil");
-    NSAssert(self.tripsCsvReader != nil, @"tripsCsvReader should not be nil");
-    NSAssert(self.stopTimesCsvReader != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
+    NSParameterAssert(self.staticDataManager != nil);
+    NSParameterAssert(self.routesCsvReader != nil);
+    NSParameterAssert(self.stopsCsvReader != nil);
+    NSParameterAssert(self.tripsCsvReader != nil);
+    NSParameterAssert(self.stopTimesCsvReader != nil);
     
     //Log
-    NSLog(@"Démarrage du traitement des données");
+    NSLog(@"Démarrage du chargement des données web");
     
     //load data
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
@@ -52,9 +54,47 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.stopsCsvReader cleanUp];
     [self.tripsCsvReader cleanUp];
     [self.stopTimesCsvReader cleanUp];
+    
+    //Post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
 
     //Log
-    NSLog(@"Fin du chargement des données");
+    NSLog(@"Fin du chargement des données web");
+}
+
+#pragma mark file loading method
+- (void)loadDataFromLocalFiles:(NSURL*)directory {
+    //Pré-conditions
+    NSParameterAssert(self.managedObjectContext != nil);
+    NSParameterAssert(self.staticDataManager != nil);
+    NSParameterAssert(self.routesCsvReader != nil);
+    NSParameterAssert(self.stopsCsvReader != nil);
+    NSParameterAssert(self.routesStopsCsvReader != nil);
+    
+    //Log
+    NSLog(@"Démarrage du chargement des données locales");
+    
+    //load data
+    NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
+    [self.routesCsvReader loadData:routesUrl];
+    NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
+    [self.routesCsvReader loadData:additionnalsRoutesUrl];
+    NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
+    [self.stopsCsvReader loadData:stopsUrl];
+    NSURL* routesStops = [NSURL URLWithString:@"routes_stops.txt" relativeToURL:directory];
+    [self.routesStopsCsvReader loadData:routesStops];
+    [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
+    
+    //clean-up
+    [self.routesCsvReader cleanUp];
+    [self.stopsCsvReader cleanUp];
+    [self.routesStopsCsvReader cleanUp];
+    
+    //Post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
+    
+    //Log
+    NSLog(@"Fin du chargement des données locales");
 }
 
 // Association route/stop
@@ -121,6 +161,36 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         i++;
     }
     
+    //Retour
+    return;
+}
+
+- (void) matchRoutesAndStops:(NSArray*)routeStops {
+    //Pré-conditions
+    NSParameterAssert(routeStops != nil);
+    
+    //Log
+    NSLog(@"Association route/arrêts");
+    
+    //Pre-fetching
+    NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        [routesDictionnary setObject:route forKey:route.id];
+    }];
+    
+    NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
+    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+        [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
+    }];
+    
+    [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, NSUInteger idx, BOOL *stop) {
+        Route* route = [routesDictionnary objectForKey:routeStop.routeId];
+        Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
+        NSString* direction = routeStop.directionId;
+        NSNumber* sequence = routeStop.stopSequence;
+        [route addStop:stopEntity forSequence:sequence forDirection:direction];
+    }];
+        
     //Retour
     return;
 }

@@ -11,6 +11,7 @@
 #import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataManager.h"
+#import "StaticDataLoader.h"
 #import "LocationManager.h"
 
 @interface MainViewController : UIViewController
@@ -18,6 +19,7 @@
 @property (nonatomic, retain) FavoritesManager *favoritesManager;
 @property (nonatomic, retain) DeparturesManager *departuresManager;
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
+@property (nonatomic, retain) StaticDataLoader *staticDataLoader;
 @property (nonatomic, retain) LocationManager *locationManager;
 
 @end

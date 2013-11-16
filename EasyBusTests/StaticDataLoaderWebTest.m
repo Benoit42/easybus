@@ -11,15 +11,16 @@
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "StaticDataLoader.h"
+#import "NSMutableArray+Randomize.h"
 
-@interface StaticDataLoaderTest : XCTestCase
+@interface StaticDataLoaderWebTest : XCTestCase
 
 @property(nonatomic) StaticDataLoader* staticDataLoader;
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
-@implementation StaticDataLoaderTest
+@implementation StaticDataLoaderWebTest
 
 objection_requires(@"managedObjectContext", @"staticDataLoader")
 
@@ -157,16 +158,8 @@ objection_requires(@"managedObjectContext", @"staticDataLoader")
     NSMutableArray* stopTimes = [@[stopTime101, stopTime102, stopTime103, stopTime111, stopTime112, stopTime113, stopTime201, stopTime202, stopTime203, stopTime211, stopTime212, stopTime213] mutableCopy];
 
     //Randomize arrays
-    for (int i = 0; i < trips.count; i++) {
-        int randomInt1 = arc4random() % [trips count];
-        int randomInt2 = arc4random() % [trips count];
-        [trips exchangeObjectAtIndex:randomInt1 withObjectAtIndex:randomInt2];
-    }
-    for (int i = 0; i < stopTimes.count; i++) {
-        int randomInt1 = arc4random() % [stopTimes count];
-        int randomInt2 = arc4random() % [stopTimes count];
-        [stopTimes exchangeObjectAtIndex:randomInt1 withObjectAtIndex:randomInt2];
-    }
+    [trips randomize];
+    [stopTimes randomize];
 
     //Match trips and stopTimes
     [self.staticDataLoader matchTrips:trips andStops:stopTimes];

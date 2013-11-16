@@ -13,8 +13,7 @@
 
 @implementation MainViewController
 
-objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"locationManager")
-@synthesize favoritesManager, departuresManager, staticDataManager, locationManager;
+objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"staticDataLoader", @"locationManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -26,10 +25,15 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidLoad];
 
     //Pré-conditions
-    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
-    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
-    NSAssert(self.locationManager != nil, @"locationManager should not be nil");
+    NSParameterAssert(self.favoritesManager != nil);
+    NSParameterAssert(self.departuresManager != nil);
+    NSParameterAssert(self.staticDataManager != nil);
+    NSParameterAssert(self.staticDataLoader != nil);
+    NSParameterAssert(self.locationManager != nil);
+
+    // Abonnement au notifications de chargement des données
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingProgress:) name:dataLoadingProgress object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingFinished:) name:dataLoadingFinished object:nil];
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
@@ -48,13 +52,26 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidAppear:animated];
     
     //Check des données statiques
+    if ([self.staticDataManager isDataLoaded]) {
+        [self performSegueWithIdentifier:@"start" sender:self];
+    }
+    else {
+        [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
+    }
+}
+
+#pragma mark - managing data loading
+- (void)dataLoadingProgress:(NSNotification *)notification {
+    //TODO : barre de progression
+}
+
+- (void)dataLoadingFinished:(NSNotification *)notification {
+    //Désabonnement des notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingProgress object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingFinished object:nil];
+    
+    //Affichage du menu
     [self performSegueWithIdentifier:@"start" sender:self];
-//    if ([self.staticDataManager] isDataLoaded]) {
-//        [self performSegueWithIdentifier:@"showDepartures" sender:self];
-//    }
-//    else {
-//        charger ici les données avec une barre de progression
-//    }
 }
 
 #pragma mark - refreshing departures

@@ -117,7 +117,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
                 [self unzipFile:zipFileUrl
                     withSuccessBlock:^(NSURL *outputDirectory) {
                         //Process GTFS data
-                        [staticDataLoader loadData:outputDirectory];
+                        [staticDataLoader loadDataFromWeb:outputDirectory];
 
                         //Store GTFS infos
                         GtfsPublishData* gtfsPublishData = [self gtfsPublishData];

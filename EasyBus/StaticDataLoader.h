@@ -12,6 +12,11 @@
 #import "StopsCsvReader.h"
 #import "TripsCsvReader.h"
 #import "StopTimesCsvReader.h"
+#import "RoutesStopsCsvReader.h"
+
+//Déclaration des notifications
+FOUNDATION_EXPORT NSString *const dataLoadingProgress;
+FOUNDATION_EXPORT NSString *const dataLoadingFinished;
 
 @interface StaticDataLoader : NSObject
 
@@ -21,10 +26,13 @@
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
+@property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
 
-- (void)loadData:(NSURL*)directory;
+- (void)loadDataFromWeb:(NSURL*)directory;
+- (void)loadDataFromLocalFiles:(NSURL*)directory;
 
 //Privé
 - (void) matchTrips:(NSArray*)trips andStops:(NSArray*)stops;
+- (void) matchRoutesAndStops:(NSArray*)routeStops;
 
 @end
