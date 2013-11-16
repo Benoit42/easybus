@@ -39,6 +39,10 @@ objection_requires(@"managedObjectContext")
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
+
+    //Clean-up
+    self.currentStops = nil;
+    self.row = nil;
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -75,8 +79,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)cleanUp {
-    self.currentStops = nil;
-    self.row = nil;
+    //Nothing
 }
 
 - (NSDictionary*) stops {

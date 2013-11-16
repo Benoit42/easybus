@@ -27,9 +27,13 @@ objection_register_singleton(RoutesStopsCsvReader)
     //Allocation du dictionnaire
     self.routesStops = [[NSMutableArray alloc] initWithCapacity:5000U];
     
+    //Lecture du fichier
+    //Question : pourquoi est-il plus rapide de lire préalablement le fichier ?
+    NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    
     //parsing du fichier
     self.row = [[NSMutableArray alloc] init];
-    CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
+    CHCSVParser * p = [[CHCSVParser alloc] initWithCSVString:csvString];
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];

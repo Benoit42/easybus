@@ -39,6 +39,10 @@ objection_requires(@"managedObjectContext")
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
+    
+    //Clean-up
+    self.currentRoutes = nil;
+    self.row = nil;
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -92,8 +96,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)cleanUp {
-    self.currentRoutes = nil;
-    self.row = nil;
+    //Nothing
 }
 
 #pragma mark Business methods
