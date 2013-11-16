@@ -34,7 +34,6 @@ objection_requires(@"managedObjectContext")
     self.currentStops = [self stops];
 
     //parsing du fichier
-    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;

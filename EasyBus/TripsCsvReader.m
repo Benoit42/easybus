@@ -29,7 +29,6 @@ objection_register_singleton(TripsCsvReader)
     self.trips = [[NSMutableArray alloc] initWithCapacity:25000U];
     
     //parsing du fichier
-    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;
