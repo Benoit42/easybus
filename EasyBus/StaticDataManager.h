@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Route.h"
 #import "Stop.h"
+#import "FeedInfo.h"
 
 @interface StaticDataManager : NSObject
 
@@ -21,7 +22,7 @@
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
 - (NSArray*) nearStopsFrom:(CLLocation*)location quantity:(NSInteger)quantity;
-
+- (FeedInfo*) feedInfo;
 - (BOOL)isDataLoaded;
 
 @end

@@ -15,6 +15,7 @@
     UIViewController* favoritesNavigationController;
     UIViewController* linesNavigationController;
     UIViewController* creditsNavigationController;
+    UIViewController* feedInfoNavigationViewController;
 }
 
 objection_requires(@"favoritesManager")
@@ -31,6 +32,7 @@ objection_requires(@"favoritesManager")
     favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
     linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
     creditsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
+    feedInfoNavigationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedInfoNavigationController"];
     
     //Si pas de favoris, on passe sur la liste des lignes
     if (self.favoritesManager.favorites.count == 0) {
@@ -60,6 +62,12 @@ objection_requires(@"favoritesManager")
 - (IBAction)creditsButton:(id)sender {
     SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
     swRevealViewController.frontViewController = creditsNavigationController;
+    [swRevealViewController revealToggleAnimated:YES];
+}
+
+- (IBAction)feedInfoButton:(id)sender {
+    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
+    swRevealViewController.frontViewController = feedInfoNavigationViewController;
     [swRevealViewController revealToggleAnimated:YES];
 }
 

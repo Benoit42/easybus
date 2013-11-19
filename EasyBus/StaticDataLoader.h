@@ -13,6 +13,7 @@
 #import "TripsCsvReader.h"
 #import "StopTimesCsvReader.h"
 #import "RoutesStopsCsvReader.h"
+#import "FeedInfoCsvReader.h"
 
 //Déclaration des notifications
 FOUNDATION_EXPORT NSString *const dataLoadingProgress;
@@ -27,6 +28,7 @@ FOUNDATION_EXPORT NSString *const dataLoadingFinished;
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 @property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
+@property(nonatomic) FeedInfoCsvReader* feedInfoCsvReader;
 
 - (void)loadDataFromWeb:(NSURL*)directory;
 - (void)loadDataFromLocalFiles:(NSURL*)directory;

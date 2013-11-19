@@ -1,15 +1,15 @@
 //
-//  GtfsPublishData.m
+//  FeedInfo.m
 //  EasyBus
 //
-//  Created by Benoit on 25/10/2013.
+//  Created by Benoit on 16/11/2013.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "GtfsPublishData.h"
+#import "FeedInfo.h"
 
 
-@implementation GtfsPublishData
+@implementation FeedInfo
 
 @dynamic endDate;
 @dynamic publishDate;

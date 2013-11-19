@@ -10,7 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <ZipArchive/ZipArchive.h>
 #import "GtfsDownloadManager.h"
-#import "GtfsPublishData.h"
+#import "FeedInfo.h"
 
 @interface GtfsDownloadManager() <NSXMLParserDelegate>
 
@@ -25,13 +25,14 @@
 @property(nonatomic, retain) NSString * version;
 @property(nonatomic, retain) NSString * url;
 
+@property(nonatomic, retain) NSURL * downloadUrl;
+
 @end
 
 @implementation GtfsDownloadManager
 objection_register_singleton(GtfsDownloadManager)
 
 objection_requires(@"managedObjectContext", @"staticDataLoader")
-@synthesize managedObjectContext, staticDataLoader, publishEntry, startDate, endDate, version, url;
 
 //Déclaration des notifications
 NSString* const gtfsUpdateStarted = @"gtfsUpdateStarted";
@@ -67,10 +68,10 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
     @try {
         //Get GTFS file infos
         [self refreshPublishDataForDate:date
-        withSuccessBlock:^() {
+        withSuccessBlock:^(FeedInfoTmp* newFeedInfo) {
             //Check if update needed
-            GtfsPublishData* currentGtfsPublishData = [self gtfsPublishData];
-            BOOL updateNeeded =  (self.publishEntry != nil) && ((currentGtfsPublishData == nil) || [currentGtfsPublishData.publishDate compare:self.publishEntry.publishDate] == NSOrderedAscending);
+            self.downloadUrl = newFeedInfo.url;
+            BOOL updateNeeded =  (newFeedInfo) && (newFeedInfo.url) && (([date compare:newFeedInfo.startDate] == NSOrderedDescending)|| ([date compare:newFeedInfo.endDate] == NSOrderedAscending));
             success(updateNeeded);
 
             //End
@@ -96,9 +97,9 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
     }
 }
 
--(void)loadData:(void(^)())success andFailureBlock:(void(^)(NSError* error))failure {
+-(void)downloadDataWithSuccessBlock:(void(^)())success andFailureBlock:(void(^)(NSError* error))failure {
     //Préconditions
-    NSAssert(self.publishEntry.url != nil, @"publishEntry should not be nil");
+    NSParameterAssert(self.downloadUrl != nil);
     
     //Non concurrence
     if (self.isRequesting) {
@@ -111,23 +112,13 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
 
     @try {
         //Download update
-        [self downloadFile:self.publishEntry.url
+        [self downloadFile:self.downloadUrl
             withSuccessBlock:^(NSURL *zipFileUrl) {
                 //Unzip GTFS data
                 [self unzipFile:zipFileUrl
                     withSuccessBlock:^(NSURL *outputDirectory) {
                         //Process GTFS data
-                        [staticDataLoader loadDataFromWeb:outputDirectory];
-
-                        //Store GTFS infos
-                        GtfsPublishData* gtfsPublishData = [self gtfsPublishData];
-                        if (gtfsPublishData == nil) {
-                            gtfsPublishData = (GtfsPublishData *)[NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-                        }
-                        gtfsPublishData.publishDate = self.publishEntry.publishDate;
-                        gtfsPublishData.startDate = self.publishEntry.startDate;
-                        gtfsPublishData.endDate = self.publishEntry.endDate;
-                        gtfsPublishData.version = self.publishEntry.version;
+                        [self.staticDataLoader loadDataFromWeb:outputDirectory];
 
                         //End
                         [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceeded object:self];
@@ -166,7 +157,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
 }
 
 #pragma mark "private" methods
--(void)refreshPublishDataForDate:(NSDate*)date withSuccessBlock:(void(^)())success andFailureBlock:(void(^)(NSError* error))failure {
+-(void)refreshPublishDataForDate:(NSDate*)date withSuccessBlock:(void(^)(FeedInfoTmp*))success andFailureBlock:(void(^)(NSError* error))failure {
     //Préconditions
     NSAssert(date != nil, @"date should not be nil");
     
@@ -179,7 +170,6 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
     self.endDate = nil;
     self.version = nil;
     self.publishDate = nil;
-    self.publishEntry = nil;
     self.publishEntries = [[NSMutableArray alloc] init];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -194,16 +184,17 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
                 [xmlParser parse];
             
                 //Get correct entry
-                [self.publishEntries enumerateObjectsUsingBlock:^(GtfsPublishDataTmp* entry, NSUInteger idx, BOOL *stop) {
+                __block FeedInfoTmp* newFeedInfo;
+                [self.publishEntries enumerateObjectsUsingBlock:^(FeedInfoTmp* entry, NSUInteger idx, BOOL *stop) {
                     if ([entry.startDate compare:date] == NSOrderedAscending && [entry.endDate compare:date] == NSOrderedDescending) {
-                        self.publishEntry = entry;
+                        newFeedInfo = entry;
                         stop = TRUE;
                     }
                 }];
 
             //succès
             self.isRequesting = FALSE;
-            success();
+            success(newFeedInfo);
             
             //lance la notification departuresUpdated
             [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceeded object:self];
@@ -310,7 +301,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
             [comps setDay:1];
             tmpEndDate = [[NSCalendar currentCalendar] dateByAddingComponents:comps toDate:tmpEndDate  options:0];
             
-            GtfsPublishDataTmp* tmpPublishEntry = [[GtfsPublishDataTmp alloc] init];
+            FeedInfoTmp* tmpPublishEntry = [[FeedInfoTmp alloc] init];
             tmpPublishEntry.publishDate = [_xsdDateTimeFormatter dateFromString: self.publishDate];;
             tmpPublishEntry.startDate = tmpStartDate;
             tmpPublishEntry.endDate = tmpEndDate;
@@ -337,27 +328,6 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
     else if ([_currentNode isEqualToString:@"gtfs:version"] ) {
         self.version = string;
     }
-}
-
-- (GtfsPublishData*) gtfsPublishData {
-    //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
-    
-    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
-    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchGtfsPublishData"];
-    
-    NSError *error = nil;
-    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
-    if (error) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
-    if (fetchResults == nil) {
-        //Log
-        NSLog(@"Error, resultSet should not be nil");
-    }
-    
-    return (fetchResults.count>0)?fetchResults[0]:nil;
 }
 
 @end

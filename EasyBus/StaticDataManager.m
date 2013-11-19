@@ -12,6 +12,7 @@
 #import "StaticDataManager.h"
 #import "FavoritesManager.h"
 #import "Route+RouteWithAdditions.h"
+#import "FeedInfo.h"
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
@@ -163,6 +164,27 @@ objection_requires(@"managedObjectContext")
     }];
     
     return [sortedStops subarrayWithRange:NSMakeRange(0, MIN(quantity, sortedStops.count))];
+}
+
+- (FeedInfo*) feedInfo {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchFeedInfo"];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (fetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    return (fetchResults.count>0)?fetchResults[0]:nil;
 }
 
 @end

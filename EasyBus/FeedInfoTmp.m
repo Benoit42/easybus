@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "GtfsPublishDataTmp.h"
+#import "FeedInfoTmp.h"
 
-@implementation GtfsPublishDataTmp
+@implementation FeedInfoTmp
 
 @synthesize publishDate, startDate, endDate, version, url;
 

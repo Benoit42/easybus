@@ -92,7 +92,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
-    NSLog(@"TripsCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
+    NSLog(@"RoutesCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)cleanUp {

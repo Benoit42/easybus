@@ -30,36 +30,6 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
     //Pré-conditions
     NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
     NSAssert(self.gtfsDownloadManager != nil, @"gtfsDownloadManager should not be nil");
-
-    //Pull to refresh
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:nil action:@selector(updateData) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refreshControl;
-}
-
-#pragma mark - Refresh Keolis data
--(void) updateData{
-    NSOperation* op = [NSBlockOperation blockOperationWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:[NSDate date]
-            withSuccessBlock:^(BOOL uppdateNeeded) {
-                if (uppdateNeeded) {
-                    [self.gtfsDownloadManager loadData:^{
-                        [self.refreshControl endRefreshing];
-                        [self.tableView reloadData];
-                    } andFailureBlock:^(NSError *error) {
-                        [self.refreshControl endRefreshing];
-                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement des données GTFS" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        [alert show];
-                    }];
-                }
-            } andFailureBlock:^(NSError *error) {
-                [self.refreshControl endRefreshing];
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Erreur" message:@"Erreur lors du chargement des données de mise à jour" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                [alert show];
-            }];
-    }];
-    
-    [op start];    
 }
 
 #pragma mark - Table view data source

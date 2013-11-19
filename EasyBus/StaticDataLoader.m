@@ -21,7 +21,7 @@ NSString *const dataLoadingFinished = @"dataLoadingFinished";
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
 
-objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader")
+objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader")
 
 #pragma mark file loading method
 - (void)loadDataFromWeb:(NSURL*)directory {
@@ -32,11 +32,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSParameterAssert(self.stopsCsvReader != nil);
     NSParameterAssert(self.tripsCsvReader != nil);
     NSParameterAssert(self.stopTimesCsvReader != nil);
+    NSParameterAssert(self.feedInfoCsvReader != nil);
     
     //Log
     NSLog(@"Démarrage du chargement des données web");
     
     //load data
+    NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
+    [self.feedInfoCsvReader loadData:feedInfosUrl];
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
     [self.routesCsvReader loadData:routesUrl];
     NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
@@ -50,6 +53,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
     
     //clean-up
+    [self.feedInfoCsvReader cleanUp];
     [self.routesCsvReader cleanUp];
     [self.stopsCsvReader cleanUp];
     [self.tripsCsvReader cleanUp];
@@ -75,6 +79,8 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Démarrage du chargement des données locales");
     
     //load data
+    NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
+    [self.feedInfoCsvReader loadData:feedInfosUrl];
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
     [self.routesCsvReader loadData:routesUrl];
     NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
