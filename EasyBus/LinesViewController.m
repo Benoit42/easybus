@@ -32,6 +32,14 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
     NSAssert(self.gtfsDownloadManager != nil, @"gtfsDownloadManager should not be nil");
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if (self.favoritesManager.favorites.count == 0) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Favoris" message:@"Choisissez une ligne, un arrêt et une direction, puis appuyez sur 'Sauver'" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+}
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

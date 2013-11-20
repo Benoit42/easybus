@@ -17,30 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2vJ-8r-mHV">
-                                <rect key="frame" x="137" y="312" width="37" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="WGW-pJ-wSm"/>
-                                </constraints>
-                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EasyBus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="541-mq-d1D">
-                                <rect key="frame" x="20" y="172" width="280" height="85"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EasyBus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="541-mq-d1D">
+                                <rect key="frame" x="20" y="101" width="280" height="157"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="61"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qns-tp-33w">
+                                <rect key="frame" x="142" y="265" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="GUw-m7-Rha" firstAttribute="top" secondItem="2vJ-8r-mHV" secondAttribute="bottom" constant="219" id="0jO-if-YfM"/>
-                            <constraint firstItem="2vJ-8r-mHV" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="137" id="HZl-b6-YWr"/>
-                            <constraint firstItem="2vJ-8r-mHV" firstAttribute="top" secondItem="541-mq-d1D" secondAttribute="bottom" constant="55" id="RGT-iF-kri"/>
-                            <constraint firstItem="541-mq-d1D" firstAttribute="top" secondItem="2hM-MG-oO6" secondAttribute="bottom" constant="152" id="Rbs-nT-T4P"/>
-                            <constraint firstItem="541-mq-d1D" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" id="d0S-rL-yAe"/>
-                            <constraint firstAttribute="trailing" secondItem="541-mq-d1D" secondAttribute="trailing" constant="20" symbolic="YES" id="uJr-eW-CO4"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
                         <segue destination="En8-64-d6j" kind="modal" identifier="start" modalTransitionStyle="crossDissolve" id="0Jq-yW-bK2"/>
@@ -83,7 +72,7 @@
                         <sections>
                             <tableViewSection id="ysP-FP-JYB">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Dh-iy-BfJ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="6Dh-iy-BfJ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Dh-iy-BfJ" id="hnt-dW-SFd">
@@ -101,20 +90,23 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mes bus" id="HgB-Ez-ZR4">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mes bus" id="HgB-Ez-ZR4">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgB-Ez-ZR4" id="w9A-8T-Ydt">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlb-ZQ-b11">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlb-ZQ-b11">
                                                     <rect key="frame" x="20" y="7" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
                                                     <state key="normal" title="mes bus">
                                                         <color key="titleColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="favoritesButton:" destination="sTh-WR-Gyi" eventType="touchUpInside" id="Kl7-St-Fem"/>
@@ -132,20 +124,32 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="lignes" id="caj-9v-ijf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="données keolis" id="xAS-fd-KNw">
                                         <rect key="frame" x="0.0" y="88" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xAS-fd-KNw" id="6jL-tE-PSm">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="lignes" id="caj-9v-ijf">
+                                        <rect key="frame" x="0.0" y="132" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="caj-9v-ijf" id="Uav-qy-xPv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoN-5p-iHT">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoN-5p-iHT">
                                                     <rect key="frame" x="20" y="7" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
                                                     <state key="normal" title="lignes">
                                                         <color key="titleColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="linesButton:" destination="sTh-WR-Gyi" eventType="touchUpInside" id="pUN-Wg-Xs6"/>
@@ -163,20 +167,23 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="organiser" id="5n1-Ku-AdN">
-                                        <rect key="frame" x="0.0" y="132" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="organiser" id="5n1-Ku-AdN">
+                                        <rect key="frame" x="0.0" y="176" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5n1-Ku-AdN" id="h3U-MR-Veg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ItL-Pf-0rz">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ItL-Pf-0rz">
                                                     <rect key="frame" x="20" y="7" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
                                                     <state key="normal" title="organiser">
                                                         <color key="titleColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="organizeButton:" destination="sTh-WR-Gyi" eventType="touchUpInside" id="xe9-QJ-t6Z"/>
@@ -194,14 +201,14 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="données keolis" id="n8G-HT-hfe">
-                                        <rect key="frame" x="0.0" y="176" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="données keolis" id="n8G-HT-hfe">
+                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n8G-HT-hfe" id="bQH-46-afY">
+                                        <tableViewCellContentView key="contentView" hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n8G-HT-hfe" id="bQH-46-afY">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-hD-oYh">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-hD-oYh">
                                                     <rect key="frame" x="20" y="7" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
@@ -226,19 +233,22 @@
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="mentions" id="qZb-qx-nY9">
-                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="264" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qZb-qx-nY9" id="HQH-ba-wIn">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gal-v2-qbC">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gal-v2-qbC">
                                                     <rect key="frame" x="20" y="6" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
-                                                    <state key="normal" title="mentions">
+                                                    <state key="normal" title="a propos">
                                                         <color key="titleColor" red="0.270588249" green="0.90588241820000004" blue="0.73333334920000004" alpha="1" colorSpace="deviceRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="creditsButton:" destination="sTh-WR-Gyi" eventType="touchUpInside" id="GxT-X5-MoY"/>
@@ -264,6 +274,10 @@
                             <outlet property="delegate" destination="sTh-WR-Gyi" id="4gD-Q8-ubz"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="favoritesButton" destination="xlb-ZQ-b11" id="uF4-uD-GMc"/>
+                        <outlet property="organizeButton" destination="ItL-Pf-0rz" id="XmK-PN-Hf3"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZj-2f-kZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -550,8 +564,8 @@
                             <webView contentMode="scaleToFill" fixedFrame="YES" allowsInlineMediaPlayback="NO" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLH-B5-hZL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="ybT-RI-UOE" id="wcc-1W-82y"/>
                                 </connections>

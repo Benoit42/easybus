@@ -65,7 +65,6 @@
 		149D4EE61831600300A19117 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D4EE41831600300A19117 /* Stop.m */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E667181D8BD500C7D6FE /* Default@2x.png */; };
-		14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */; };
 		14A3E66E181DA22400C7D6FE /* icon120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E66C181DA22400C7D6FE /* icon120@2x.png */; };
 		14A3E672181DA4D400C7D6FE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E671181DA4D400C7D6FE /* icon.png */; };
 		14A3E674181DA51100C7D6FE /* icon80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A3E673181DA51100C7D6FE /* icon80@2x.png */; };
@@ -139,6 +138,7 @@
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
 		14E459041810695900E2401A /* FeedInfoTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* FeedInfoTmp.m */; };
+		14EA883A183D498400A781D4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EA8839183D498400A781D4 /* Default-568h@2x.png */; };
 		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
@@ -228,7 +228,6 @@
 		149D4EE41831600300A19117 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
 		14A3E667181D8BD500C7D6FE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		14A3E66C181DA22400C7D6FE /* icon120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon120@2x.png"; sourceTree = "<group>"; };
 		14A3E671181DA4D400C7D6FE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		14A3E673181DA51100C7D6FE /* icon80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon80@2x.png"; sourceTree = "<group>"; };
@@ -321,6 +320,7 @@
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* FeedInfoTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* FeedInfoTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoTmp.m; sourceTree = "<group>"; };
+		14EA8839183D498400A781D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -492,7 +492,7 @@
 				14AD3C1D162AF00400DF061A /* EasyBus-Prefix.pch */,
 				14AD3C21162AF00400DF061A /* Default.png */,
 				14A3E667181D8BD500C7D6FE /* Default@2x.png */,
-				14A3E668181D8BD500C7D6FE /* Default-568h@2x.png */,
+				14EA8839183D498400A781D4 /* Default-568h@2x.png */,
 				149D4ED418314CD400A19117 /* routes.txt */,
 				149D4EE018314D1700A19117 /* routes_additionals.txt */,
 				149D4ED518314CD400A19117 /* stop_times.txt */,
@@ -825,8 +825,8 @@
 				149D4EE118314D1700A19117 /* routes_additionals.txt in Resources */,
 				146161BE182A220C0012A1CE /* menu-icon.png in Resources */,
 				14E0EC2B1837B80F008B6CA0 /* routes_stops_light.txt in Resources */,
+				14EA883A183D498400A781D4 /* Default-568h@2x.png in Resources */,
 				14A3E669181D8BD500C7D6FE /* Default@2x.png in Resources */,
-				14A3E66A181D8BD500C7D6FE /* Default-568h@2x.png in Resources */,
 				14AA96E31837F1AF0052B338 /* feed_info.txt in Resources */,
 				14E0EC231836AB26008B6CA0 /* routes_stops.txt in Resources */,
 				1414E1AA166DD7230013E9A1 /* arrow.png in Resources */,

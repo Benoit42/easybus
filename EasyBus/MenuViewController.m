@@ -28,6 +28,7 @@ objection_requires(@"favoritesManager")
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Instanciation des controllers
     departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
     linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
@@ -36,9 +37,14 @@ objection_requires(@"favoritesManager")
     
     //Si pas de favoris, on passe sur la liste des lignes
     if (self.favoritesManager.favorites.count == 0) {
+        self.favoritesButton.enabled = NO;
+        self.organizeButton.enabled = NO;
         SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
         swRevealViewController.frontViewController = linesNavigationController;
     }
+    
+    // Abonnement au notifications des favoris
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
 }
 
 - (IBAction)favoritesButton:(id)sender {
@@ -69,6 +75,14 @@ objection_requires(@"favoritesManager")
     SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
     swRevealViewController.frontViewController = feedInfoNavigationViewController;
     [swRevealViewController revealToggleAnimated:YES];
+}
+
+#pragma mark - notifications
+- (void)favoritesUpdated:(NSNotification *)notification {
+    if (self.favoritesManager.favorites.count > 0) {
+        self.favoritesButton.enabled = YES;
+        self.organizeButton.enabled = YES;
+    }
 }
 
 #pragma mark - Segues
