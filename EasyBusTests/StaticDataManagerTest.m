@@ -39,7 +39,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    [self.staticDataLoader loadDataFromWeb:[[NSBundle mainBundle] bundleURL]];
+    [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
 }
 
 - (void)tearDown {

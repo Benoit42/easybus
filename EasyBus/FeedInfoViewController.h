@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "StaticDataManager.h"
-#import "GtfsDownloadManager.h"
+#import "StaticDataLoader.h"
 
 @interface FeedInfoViewController : UIViewController
 
 @property (strong, nonatomic) StaticDataManager* staticDataManager;
-@property (strong, nonatomic) GtfsDownloadManager* gtfsDownloadManager;
+@property (strong, nonatomic) StaticDataLoader* staticDataLoader;
 
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *updatedVersionLabel;
 @property (strong, nonatomic) IBOutlet UIView *progressBar;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 

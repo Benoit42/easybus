@@ -12,17 +12,21 @@
 #import "IoCModuleTest.h"
 #import "StaticDataLoader.h"
 #import "NSMutableArray+Randomize.h"
+#import "AsyncTestCase.h"
+#import "NSURLProtocolStub.h"
 
-@interface StaticDataLoaderWebTest : XCTestCase
+@interface StaticDataLoaderWebTest : AsyncTestCase
 
 @property(nonatomic) StaticDataLoader* staticDataLoader;
+@property(nonatomic) GtfsDownloadManager* gtfsDownloadManager;
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
+@property(nonatomic) NSDateFormatter* dateFormatter;
 
 @end
 
 @implementation StaticDataLoaderWebTest
 
-objection_requires(@"managedObjectContext", @"staticDataLoader")
+objection_requires(@"managedObjectContext", @"gtfsDownloadManager", @"staticDataLoader")
 
 - (void)setUp {
     [super setUp];
@@ -35,10 +39,84 @@ objection_requires(@"managedObjectContext", @"staticDataLoader")
     
     //Inject dependencies
     [[JSObjection defaultInjector] injectDependencies:self];
+
+    //Mock network resources
+    [NSURLProtocol registerClass:[NSURLProtocolStub class]];
+    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" toResource:@"gtfsUpdateFeed.xml"];
+    [NSURLProtocolStub configureUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" withHeaders:@{@"Content-Type": @"application/atom-xml; charset=utf-8"}];
+    
+    //Date formater
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"dd/MM/yyyy"];
 }
 
 - (void)tearDown {
     [super tearDown];
+}
+
+- (void)testCheckUpdateNeeded {
+    NSDate* date = [self.dateFormatter dateFromString:@"25/06/2013"];
+    
+    [self runTestWithBlock:^{
+        [self.staticDataLoader checkUpdate:date
+            withSuccessBlock:^(BOOL updateNeeded, NSString *version) {
+                XCTAssertTrue(updateNeeded , @"updateNeeded should be true");
+                [self blockTestCompletedWithBlock:nil];
+            }
+            andFailureBlock:^(NSError *error) {
+                XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
+                [self blockTestCompletedWithBlock:nil];
+        }];
+    }];
+}
+
+- (void)testCheckNoUpdateFuture {
+    NSDate* date = [self.dateFormatter dateFromString:@"25/05/2013"];
+    
+    [self runTestWithBlock:^{
+        [self.staticDataLoader checkUpdate:date
+            withSuccessBlock:^(BOOL updateNeeded, NSString *version) {
+              XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
+              [self blockTestCompletedWithBlock:nil];
+            }
+            andFailureBlock:^(NSError *error) {
+               XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
+               [self blockTestCompletedWithBlock:nil];
+        }];
+    }];
+}
+
+- (void)testCheckNoUpdatePast {
+    NSDate* date = [self.dateFormatter dateFromString:@"25/08/2013"];
+    
+    [self runTestWithBlock:^{
+        [self.staticDataLoader checkUpdate:date
+            withSuccessBlock:^(BOOL updateNeeded, NSString *version) {
+                XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
+                [self blockTestCompletedWithBlock:nil];
+            }
+            andFailureBlock:^(NSError *error) {
+                XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
+                [self blockTestCompletedWithBlock:nil];
+        }];
+    }];
+}
+
+- (void)testCheckUpdateWithJsonError {
+    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" toResource:@"gtfsUpdateFeedError.xml"];
+    NSDate* date = [self.dateFormatter dateFromString:@"25/06/2013"];
+    
+    [self runTestWithBlock:^{
+        [self.staticDataLoader checkUpdate:date
+            withSuccessBlock:^(BOOL updateNeeded, NSString *version) {
+                XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
+                [self blockTestCompletedWithBlock:nil];
+            }
+            andFailureBlock:^(NSError *error) {
+                XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
+                [self blockTestCompletedWithBlock:nil];
+        }];
+    }];
 }
 
 - (void)testMatchTripsAndStops {

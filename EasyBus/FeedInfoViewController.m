@@ -11,7 +11,7 @@
 
 @implementation FeedInfoViewController
 
-objection_requires(@"staticDataManager", @"gtfsDownloadManager")
+objection_requires(@"staticDataManager", @"staticDataLoader")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -26,7 +26,7 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
 
     //Pré-conditions
     NSParameterAssert(self.staticDataManager != nil);
-    NSParameterAssert(self.gtfsDownloadManager != nil);
+    NSParameterAssert(self.staticDataLoader != nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,32 +39,37 @@ objection_requires(@"staticDataManager", @"gtfsDownloadManager")
     //Manage download
     self.downloadButton.hidden = YES;
     self.progressBar.hidden = YES;
-    [self.gtfsDownloadManager checkUpdateWithDate:[NSDate date] withSuccessBlock:^(BOOL updateNeeded) {
-        if (updateNeeded) {
-            self.updateLabel.text = @"Une mise à jour est disponible";
-            self.downloadButton.hidden = NO;
+    [self.staticDataLoader checkUpdate:[NSDate date]
+        withSuccessBlock:^(BOOL updateNeeded, NSString* version) {
+            if (updateNeeded) {
+                self.updateLabel.text = @"Une mise à jour est disponible";
+                self.updatedVersionLabel.text = version;
+                self.downloadButton.hidden = NO;
+            }
+            else {
+                self.updateLabel.text = @"Données à jour";
+            }
         }
-        else {
-            self.updateLabel.text = @"Données à jour";
-        }
-    } andFailureBlock:^(NSError *error) {
-        self.updateLabel.text = @"Erreur lors de la vérification des données";
+        andFailureBlock:^(NSError *error) {
+            self.updateLabel.text = @"Erreur lors de la vérification des données";
     }];
 }
 
 #pragma mark - Refresh Keolis data
 - (IBAction)downloadAction:(id)sender {
     NSOperation* op = [NSBlockOperation blockOperationWithBlock:^{
-        [self.gtfsDownloadManager downloadDataWithSuccessBlock:^{
-                                  //Get feed info
-                                  FeedInfo* feedInfo = [self.staticDataManager feedInfo];
-                                  self.versionLabel.text = feedInfo.version;
-                                  
-                                  //Manage download
-                                  self.updateLabel.text = @"Mise à jour des données effectuée";
-                                  self.downloadButton.hidden = YES;
-                                  self.progressBar.hidden = YES;
-        }                      andFailureBlock:^(NSError *error) {
+        [self.staticDataLoader loadDataFromWebWithSuccessBlock:^{
+            //Get feed info
+            FeedInfo* feedInfo = [self.staticDataManager feedInfo];
+            self.versionLabel.text = feedInfo.version;
+
+            //Manage download
+            self.updateLabel.text = @"Mise à jour des données effectuée";
+            self.updatedVersionLabel.text = nil;
+            self.downloadButton.hidden = YES;
+            self.progressBar.hidden = YES;
+        }
+        andFailureBlock:^(NSError *error) {
             self.updateLabel.text = @"Erreur lors du chargement des données";
         }];
     }];

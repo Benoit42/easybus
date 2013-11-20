@@ -22,7 +22,7 @@ objection_requires(@"managedObjectContext")
 
 #pragma mark Business methods
 - (BOOL)isDataLoaded {
-    return self.routes.count > 0 && self.stops.count > 0;
+    return self.feedInfo != nil;
 }
 
 - (NSArray*) routes {

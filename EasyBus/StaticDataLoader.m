@@ -8,24 +8,56 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
-#import "StaticDataManager.h"
 #import "StaticDataLoader.h"
+#import "StaticDataManager.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "RouteStop.h"
 #import "Route+RouteWithAdditions.h"
 
+NSString *const dataLoadingStarted = @"dataLoadingStarted";
 NSString *const dataLoadingProgress = @"dataLoadingProgress";
 NSString *const dataLoadingFinished = @"dataLoadingFinished";
+NSString *const dataLoadingFailed = @"dataLoadingFailed";
+
+@interface StaticDataLoader()
+
+@property (nonatomic) FeedInfoTmp* feedInfo;
+
+@end
 
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
 
-objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader")
+objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
 
-#pragma mark file loading method
-- (void)loadDataFromWeb:(NSURL*)directory {
+#pragma mark web file loading method
+-(void)checkUpdate:(NSDate*)date withSuccessBlock:(void(^)(BOOL, NSString* version))success andFailureBlock:(void(^)(NSError* error))failure {
     //Pré-conditions
+    NSParameterAssert(self.gtfsDownloadManager != nil);
+    
+    //Get GTFS file infos
+    [self.gtfsDownloadManager getGtfsDataForDate:date
+                   withSuccessBlock:^(FeedInfoTmp* newFeedInfo) {
+                       //Store feed infos
+                       self.feedInfo = newFeedInfo;
+                       
+                       //Check if update needed
+                       BOOL updateAvailable =  (newFeedInfo) && (newFeedInfo.url) && (([date compare:newFeedInfo.startDate] == NSOrderedDescending)|| ([date compare:newFeedInfo.endDate] == NSOrderedAscending)) ;//&& ([self.feedInfo.publishDate compare:newFeedInfo.publishDate] == NSOrderedAscending);
+                       success(updateAvailable, newFeedInfo.version);
+                   }
+                    andFailureBlock:^(NSError *error) {
+                        //End
+                        failure(error);
+                        
+                        //Log
+                        NSLog(@"Error: %@", [error debugDescription]);
+                    }];
+}
+
+- (void)loadDataFromWebWithSuccessBlock:(void(^)(void))success andFailureBlock:(void(^)(NSError* error))failure {
+    //Pré-conditions
+    NSParameterAssert(self.feedInfo != nil);
     NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.staticDataManager != nil);
     NSParameterAssert(self.routesCsvReader != nil);
@@ -37,36 +69,56 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //Log
     NSLog(@"Démarrage du chargement des données web");
     
-    //load data
-    NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
-    [self.feedInfoCsvReader loadData:feedInfosUrl];
-    NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
-    [self.routesCsvReader loadData:routesUrl];
-    NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
-    [self.routesCsvReader loadData:additionnalsRoutesUrl];
-    NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
-    [self.stopsCsvReader loadData:stopsUrl];
-    NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
-    [self.tripsCsvReader loadData:tripsUrl];
-    NSURL* stopTimesUrl = [NSURL URLWithString:@"stop_times.txt" relativeToURL:directory];
-    [self.stopTimesCsvReader loadData:stopTimesUrl];
-    [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
+    //Download GTFS data from Keolis
+    [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingStarted object:self];
     
-    //clean-up
-    [self.feedInfoCsvReader cleanUp];
-    [self.routesCsvReader cleanUp];
-    [self.stopsCsvReader cleanUp];
-    [self.tripsCsvReader cleanUp];
-    [self.stopTimesCsvReader cleanUp];
-    
-    //Post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
+    //Download update
+    [self.gtfsDownloadManager downloadGtfsData:self.feedInfo.url
+        withSuccessBlock:^(NSURL *outputPath) {
+            //load data into database
+            NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:outputPath];
+            [self.feedInfoCsvReader loadData:feedInfosUrl];
+            NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:outputPath];
+            [self.routesCsvReader loadData:routesUrl];
+            NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:outputPath];
+            [self.routesCsvReader loadData:additionnalsRoutesUrl];
+            NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:outputPath];
+            [self.stopsCsvReader loadData:stopsUrl];
+            NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:outputPath];
+            [self.tripsCsvReader loadData:tripsUrl];
+            NSURL* stopTimesUrl = [NSURL URLWithString:@"stop_times.txt" relativeToURL:outputPath];
+            [self.stopTimesCsvReader loadData:stopTimesUrl];
+            [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
+            
+            //clean-up
+            [self.feedInfoCsvReader cleanUp];
+            [self.routesCsvReader cleanUp];
+            [self.stopsCsvReader cleanUp];
+            [self.tripsCsvReader cleanUp];
+            [self.stopTimesCsvReader cleanUp];
+            
+            //Response and notification
+            success();
+            [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
+            
+            //Log
+            NSLog(@"Fin du chargement des données web");
 
-    //Log
-    NSLog(@"Fin du chargement des données web");
+            //CleanUp
+            [self.gtfsDownloadManager cleanUp];
+        }
+        andFailureBlock:^(NSError *error) {
+            //Response and notification
+            failure(error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFailed object:self];
+            
+            //Log
+            NSLog(@"Erreur lors du chargement des données web");
+        
+    }];
 }
 
-#pragma mark file loading method
+#pragma mark local file loading method
 - (void)loadDataFromLocalFiles:(NSURL*)directory {
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext != nil);

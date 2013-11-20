@@ -14,23 +14,28 @@
 #import "StopTimesCsvReader.h"
 #import "RoutesStopsCsvReader.h"
 #import "FeedInfoCsvReader.h"
+#import "GtfsDownloadManager.h"
 
 //Déclaration des notifications
+FOUNDATION_EXPORT NSString *const dataLoadingStarted;
 FOUNDATION_EXPORT NSString *const dataLoadingProgress;
 FOUNDATION_EXPORT NSString *const dataLoadingFinished;
+FOUNDATION_EXPORT NSString *const dataLoadingFailed;
 
 @interface StaticDataLoader : NSObject
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
+@property(nonatomic) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic) StaticDataManager *staticDataManager;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 @property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
 @property(nonatomic) FeedInfoCsvReader* feedInfoCsvReader;
+@property(nonatomic) GtfsDownloadManager* gtfsDownloadManager;
 
-- (void)loadDataFromWeb:(NSURL*)directory;
+- (void)checkUpdate:(NSDate*)date withSuccessBlock:(void(^)(BOOL updateNeeded, NSString* version))success andFailureBlock:(void(^)(NSError* error))failure;
+- (void)loadDataFromWebWithSuccessBlock:(void(^)(void))success andFailureBlock:(void(^)(NSError* error))failure;
 - (void)loadDataFromLocalFiles:(NSURL*)directory;
 
 //Privé
