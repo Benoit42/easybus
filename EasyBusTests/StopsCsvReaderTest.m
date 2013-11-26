@@ -39,7 +39,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
+    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops_light" withExtension:@"txt"];
     [self.stopsCsvReader loadData:stopsUrl];
 }
 
@@ -60,7 +60,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
 
-    XCTAssertEqual([stops count], 1409U, @"Wrong number of stops in stops.txt");
+    XCTAssertEqual([stops count], 47, @"Wrong number of stops");
 }
 
 //Vérification de l'arrêt Timonière

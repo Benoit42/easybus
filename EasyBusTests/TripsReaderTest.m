@@ -37,7 +37,7 @@ objection_requires(@"tripsCsvReader")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    NSURL* tripsUrl = [[NSBundle mainBundle] URLForResource:@"trips" withExtension:@"txt"];
+    NSURL* tripsUrl = [[NSBundle mainBundle] URLForResource:@"trips_light" withExtension:@"txt"];
     [self.tripsCsvReader loadData:tripsUrl];
 }
 
@@ -49,18 +49,7 @@ objection_requires(@"tripsCsvReader")
 //Comptage des occurences
 - (void)testCountTrips {
     int count = [self.tripsCsvReader.trips count];
-    XCTAssertEqual(count, 23677, @"Wrong number of trips in trips.txt");
-}
-
-//Vérification de la ligne 64
-- (void)testTrips1 {
-    NSArray* trips = self.tripsCsvReader.trips;
-    XCTAssertTrue([trips count] > 0 , @"Trip with id 1 shall exists");
-    Trip* trip1 = [trips objectAtIndex:0];
-    
-    XCTAssertEqualObjects(trip1.id, @"1", @"Wrong id");
-    XCTAssertEqualObjects(trip1.routeId, @"0001", @"Wrong route_id");
-    XCTAssertEqualObjects(trip1.directionId, @"0", @"Wrong direction_id");
+    XCTAssertEqual(count, 494, @"Wrong number of trips");
 }
 
 @end

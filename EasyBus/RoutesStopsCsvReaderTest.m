@@ -46,12 +46,12 @@ objection_requires(@"routesStopsCsvReader")
 - (void)testCountRoutesStops
 {
     //Load data
-    NSURL* routesStopsUrl = [[NSBundle mainBundle] URLForResource:@"routes_stops" withExtension:@"txt"];
+    NSURL* routesStopsUrl = [[NSBundle mainBundle] URLForResource:@"routes_stops_light" withExtension:@"txt"];
     [self.routesStopsCsvReader loadData:routesStopsUrl];
 
     //Test result
     int count = [self.routesStopsCsvReader.routesStops count];
-    XCTAssertEqual(count, 4763, @"Wrong number of stopTimes in routes_stops.txt");
+    XCTAssertEqual(count, 95, @"Wrong number of stopTimes");
 }
 
 @end

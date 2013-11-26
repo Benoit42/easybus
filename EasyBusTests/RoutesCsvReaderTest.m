@@ -39,7 +39,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    NSURL* routesUrl = [[NSBundle mainBundle] URLForResource:@"routes" withExtension:@"txt"];
+    NSURL* routesUrl = [[NSBundle mainBundle] URLForResource:@"routes_light" withExtension:@"txt"];
     [self.routesCsvReader loadData:routesUrl];
 }
 
@@ -55,7 +55,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     NSArray *routes = [self.managedObjectContext executeFetchRequest:request error:&error];
     
     int count = [routes count];
-    XCTAssertEqual(count, 94, @"Wrong number of routes in routes.txt");
+    XCTAssertEqual(count, 3, @"Wrong number of routes");
 }
 
 //Vérification de la ligne 64
