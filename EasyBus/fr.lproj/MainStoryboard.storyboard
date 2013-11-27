@@ -319,7 +319,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" image="menu-icon.png"/>
+                                        <state key="normal" image="menu-icon"/>
                                         <connections>
                                             <segue destination="7bz-8s-qrL" kind="unwind" unwindAction="unwindToMenu:" id="Al4-aJ-6fw"/>
                                         </connections>
@@ -425,7 +425,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Favoris" id="C9V-FM-g7v">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" style="plain" id="dk2-Hn-uFH">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" style="plain" id="dk2-Hn-uFH">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="pbR-qA-2ps" kind="unwind" unwindAction="unwindToMenu:" id="Dat-CR-rwI"/>
@@ -514,7 +514,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Données Kéolis" id="38o-JG-RFJ">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" id="tRx-eR-XQs">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" id="tRx-eR-XQs">
                             <connections>
                                 <segue destination="J1z-cS-CpX" kind="unwind" unwindAction="unwindToMenu:" id="i2Q-RJ-9en"/>
                             </connections>
@@ -574,7 +574,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="yZD-MY-uIt">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" id="LqV-wx-R5H">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" id="LqV-wx-R5H">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="Szo-FR-7WZ" kind="unwind" unwindAction="unwindToMenu:" id="Fkh-1L-9x4"/>
@@ -605,7 +605,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="9wN-pY-qjY">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="0064" translatesAutoresizingMaskIntoConstraints="NO" id="9wN-pY-qjY">
                                             <rect key="frame" x="10" y="2" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="9JS-ot-1Vi"/>
@@ -641,7 +641,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lignes" id="eaM-pH-P0D">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" width="50" id="abf-Ro-GDY">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" width="50" id="abf-Ro-GDY">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="PVg-Ce-K7m" kind="unwind" unwindAction="unwindToMenu:" id="nwY-uW-osC"/>
@@ -799,7 +799,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="mYl-2J-4Cv">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="0064" translatesAutoresizingMaskIntoConstraints="NO" id="mYl-2J-4Cv">
                                             <rect key="frame" x="20" y="4" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="SQh-im-Uxg"/>
@@ -912,7 +912,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" image="menu-icon.png"/>
+                                        <state key="normal" image="menu-icon"/>
                                         <connections>
                                             <segue destination="tLt-gP-46o" kind="unwind" unwindAction="unwindToMenu:" id="RUT-Td-ODo"/>
                                         </connections>
@@ -938,8 +938,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="0064" width="100" height="100"/>
         <image name="icon.png" width="60" height="60"/>
-        <image name="menu-icon.png" width="30" height="30"/>
+        <image name="menu-icon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
