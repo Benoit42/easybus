@@ -140,7 +140,7 @@ objection_requires(@"departuresManager")
         Depart* depart = [departures objectAtIndex:indexPath.row];
         
         //update cell
-        [[(DepartureCell*)cell _picto] setImageWithURL:depart.route.pictoUrl];
+        [[(DepartureCell*)cell _picto] setImage:[UIImage imageNamed:depart.route.id]];
         NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
         [[(DepartureCell*)cell _delai] setText:libDelai];
         [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];

@@ -66,7 +66,7 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
         Route* route = [routes objectAtIndex:indexPath.row];
         
         //add departure
-        [cell._picto setImageWithURL:route.pictoUrl];
+        [cell._picto setImage:[UIImage imageNamed:route.id]];
         [cell._libLigne setText:route.longName];
         return cell;
     }

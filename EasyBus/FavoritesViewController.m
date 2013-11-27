@@ -85,7 +85,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        [cell._picto setImageWithURL:favorite.route.pictoUrl];
+        [cell._picto setImage:[UIImage imageNamed:favorite.route.id]];
         [cell._libArret setText:favorite.stop.name];
         [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
         return cell;
