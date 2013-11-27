@@ -99,74 +99,76 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
         return;
     }
     
-    @try {
-        //Appel réel vers kéolis
-        _isRequesting = TRUE;
-        
-        // Create the request an parse the XML
-        static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
-        static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
-        
-        //compute path
-        NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
-        for (int i=0; i<[favorites count] && i<10; i++) {
-            //Get bus
-            Favorite* favorite = [favorites objectAtIndex:i];
+    @synchronized(self) {
+        @try {
+            //Appel réel vers kéolis
+            _isRequesting = TRUE;
             
-            //Compute path
-            [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
-        }
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
-        
-        //Lancement du traitement
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
-        
-        //New departures array
-        [_freshDepartures removeAllObjects];
-        
-        [manager GET:path
-          parameters:nil
-             success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
-                 //Parse response
-                 [xmlParser setDelegate:self];
-                 [xmlParser parse];
-                 
-                 //Sort data
-                 NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                     return [(Depart*)a _delai] > [(Depart*)b _delai];
+            // Create the request an parse the XML
+            static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
+            static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
+            
+            //compute path
+            NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
+            for (int i=0; i<[favorites count] && i<10; i++) {
+                //Get bus
+                Favorite* favorite = [favorites objectAtIndex:i];
+                
+                //Compute path
+                [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
+            }
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
+            
+            //Lancement du traitement
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
+            
+            //New departures array
+            [_freshDepartures removeAllObjects];
+            
+            [manager GET:path
+              parameters:nil
+                 success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
+                     //Parse response
+                     [xmlParser setDelegate:self];
+                     [xmlParser parse];
+                     
+                     //Sort data
+                     NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                         return [(Depart*)a _delai] > [(Depart*)b _delai];
+                     }];
+                     [_departures removeAllObjects];
+                     [_departures addObjectsFromArray:sortedDeparts];
+                     
+                     //Notification
+                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
+
+                     //End
+                     self._isRequesting = FALSE;
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     //Log
+                     NSLog(@"Error: %@", [error debugDescription]);
+
+                     //lance la notification d'erreur
+                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+                     
+                     //End
+                     self._isRequesting = FALSE;
                  }];
-                 [_departures removeAllObjects];
-                 [_departures addObjectsFromArray:sortedDeparts];
-                 
-                 //Notification
-                 [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
+        }
+        @catch (NSException * e) {
+            //Log
+            NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
 
-                 //End
-                 self._isRequesting = FALSE;
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 //Log
-                 NSLog(@"Error: %@", [error debugDescription]);
+            //lance la notification d'erreur
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
 
-                 //lance la notification d'erreur
-                 [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
-                 
-                 //End
-                 self._isRequesting = FALSE;
-             }];
-    }
-    @catch (NSException * e) {
-        //Log
-        NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
-
-        //lance la notification d'erreur
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
-
-        //End
-        self._isRequesting = FALSE;
+            //End
+            self._isRequesting = FALSE;
+        }
     }
 }
 
