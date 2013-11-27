@@ -237,50 +237,6 @@
             endingLineNumber = "64"
             landmarkName = "-testRefreshPublishData"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__49-[GtfsDownloadManagerTest testRefreshPublishData]_block_invoke_2"
-                  moduleName = "EasyBusTests"
-                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsDownloadManagerTest.m"
-                  timestampString = "407188090.368178"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "61">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__49-[GtfsDownloadManagerTest testRefreshPublishData]_block_invoke_2"
-                  moduleName = "EasyBusTests"
-                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsDownloadManagerTest.m"
-                  timestampString = "407188090.368505"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "771">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__49-[GtfsDownloadManagerTest testRefreshPublishData]_block_invoke_2"
-                  moduleName = "EasyBusTests"
-                  urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBusTests/GtfsDownloadManagerTest.m"
-                  timestampString = "407188090.36883"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "1720">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -296,6 +252,38 @@
             startingLineNumber = "70"
             endingLineNumber = "70"
             landmarkName = "-testRefreshPublishData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyBus/MainViewController.m"
+            timestampString = "407263142.728132"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyBus/MenuViewController.m"
+            timestampString = "407263209.610168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
