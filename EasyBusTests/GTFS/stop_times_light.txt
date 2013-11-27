@@ -1,3 +1,4 @@
+trip_id,stop_id,stop_sequence,arrival_time,departure_time,stop_headsign,pickup_type,drop_off_type,shape_dist_traveled
 "10053","1167","1","08:05:00","08:05:00",,"0","0",
 "10053","2052","2","08:22:00","08:22:00",,"0","0",
 "10054","1167","1","08:05:00","08:05:00",,"0","0",

@@ -60,7 +60,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
 
-    XCTAssertEqual([stops count], 47, @"Wrong number of stops");
+    XCTAssertEqual([stops count], 47U, @"Wrong number of stops");
 }
 
 //Vérification de l'arrêt Timonière

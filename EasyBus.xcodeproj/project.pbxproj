@@ -401,6 +401,31 @@
 			name = StartingView;
 			sourceTree = "<group>";
 		};
+		145440A9184661540019ED10 /* GTFS */ = {
+			isa = PBXGroup;
+			children = (
+				14DDADF818451CF400C66E51 /* routes.txt */,
+				14DDADF718451CF400C66E51 /* routes_additionals.txt */,
+				14DDADF918451CF400C66E51 /* stop_times.txt */,
+				14DDADFA18451CF400C66E51 /* stops.txt */,
+				14DDADFB18451CF400C66E51 /* trips.txt */,
+				14E0EC221836AB26008B6CA0 /* routes_stops.txt */,
+			);
+			name = GTFS;
+			sourceTree = "<group>";
+		};
+		145440AA184661640019ED10 /* GTFS */ = {
+			isa = PBXGroup;
+			children = (
+				14DDAE0A18451E4900C66E51 /* routes_light.txt */,
+				14DDAE0D1845309100C66E51 /* stops_light.txt */,
+				14DDAE0118451D5300C66E51 /* routes_stops_light.txt */,
+				14DDAE0218451D5300C66E51 /* stop_times_light.txt */,
+				14DDAE0318451D5300C66E51 /* trips_light.txt */,
+			);
+			name = GTFS;
+			sourceTree = "<group>";
+		};
 		146161D2183111D00012A1CE /* CreditsWebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,11 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				145440A7184656810019ED10 /* Images.xcassets */,
-				14DDADF818451CF400C66E51 /* routes.txt */,
-				14DDADF718451CF400C66E51 /* routes_additionals.txt */,
-				14DDADF918451CF400C66E51 /* stop_times.txt */,
-				14DDADFA18451CF400C66E51 /* stops.txt */,
-				14DDADFB18451CF400C66E51 /* trips.txt */,
+				145440A9184661540019ED10 /* GTFS */,
 				146161D018310F520012A1CE /* mentions.html */,
 				1414E1A9166DD7230013E9A1 /* arrow.png */,
 				146161BD182A220C0012A1CE /* menu-icon.png */,
@@ -509,7 +530,6 @@
 				14EA883F183E991400A781D4 /* Default@2x.png */,
 				14EA8839183D498400A781D4 /* Default-568h@2x.png */,
 				14AA96E21837F1AF0052B338 /* feed_info.txt */,
-				14E0EC221836AB26008B6CA0 /* routes_stops.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -548,11 +568,7 @@
 		14AD3C3D162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				14DDAE0A18451E4900C66E51 /* routes_light.txt */,
-				14DDAE0D1845309100C66E51 /* stops_light.txt */,
-				14DDAE0118451D5300C66E51 /* routes_stops_light.txt */,
-				14DDAE0218451D5300C66E51 /* stop_times_light.txt */,
-				14DDAE0318451D5300C66E51 /* trips_light.txt */,
+				145440AA184661640019ED10 /* GTFS */,
 				146CC04318181FDA005A7F66 /* GTFS.zip */,
 				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,

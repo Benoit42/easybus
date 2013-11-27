@@ -1,3 +1,4 @@
+trip_id,service_id,route_id,trip_headsign,direction_id,block_id
 "10053","8","0064","64 | Cesson-Sévigné Saint-Etienne","1","998778"
 "10054","14","0064","64 | Cesson-Sévigné Saint-Etienne","1","997531"
 "10055","20","0064","64 | Cesson-Sévigné Saint-Etienne","1","998121"
