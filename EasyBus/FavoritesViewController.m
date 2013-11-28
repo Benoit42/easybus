@@ -44,6 +44,13 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     [self.tableView addGestureRecognizer:lpgr];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    if (self.tableView.isEditing) {
+        [self.tableView setEditing:NO animated:YES];
+        [self.modifyButton setTitle:@"modifier"];
+    }
+}
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

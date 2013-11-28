@@ -12,6 +12,7 @@
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
 #import "FavoritesManager.h"
+#import "DeparturesManager.h"
 
 @interface PageViewController()
 
@@ -46,6 +47,9 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 
+    // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
+    
     // Abonnement au notifications de localisation
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
 
@@ -106,10 +110,19 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
 #pragma mark - favorite or group updated
 - (void)favoritesUpdated:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
-        //Rechargement des pages
-        DeparturesViewController* currentPage = (DeparturesViewController*)[[self viewControllers]objectAtIndex:0];
-        [self setViewControllers:@[currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        //Reinit pages
+        [self.pageDataSource reset];
+        UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
+        [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+
+        //Move page view to nearest groupe
+        [self gotoNearestPage];
     }];
+}
+
+#pragma mark - refreshing location
+- (void)departuresUpdatedStarted:(NSNotification *)notification {
+    [self.locationManager startUpdatingLocation];
 }
 
 #pragma mark - Notification de localisation

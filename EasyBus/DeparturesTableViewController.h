@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Group.h"
 #import "DeparturesManager.h"
+#import "FavoritesManager.h"
 
 @interface DeparturesTableViewController : UITableViewController
 
 @property(strong, nonatomic) Group* group;
 @property(strong, nonatomic) DeparturesManager* departuresManager;
+@property(strong, nonatomic) FavoritesManager* favoritesManager;
 
 @end

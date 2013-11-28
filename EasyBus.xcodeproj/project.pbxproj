@@ -435,7 +435,6 @@
 		14AD3C00162AF00400DF061A = {
 			isa = PBXGroup;
 			children = (
-				140513741746798B00345B1D /* CoreData.framework */,
 				14AD3C15162AF00400DF061A /* EasyBus */,
 				14AD3C3C162AF00400DF061A /* EasyBusTests */,
 				14AD3C0E162AF00400DF061A /* Frameworks */,
@@ -458,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				14776D84174251DE008C7E2E /* libz.1.2.5.dylib */,
+				140513741746798B00345B1D /* CoreData.framework */,
 				14EF87ED167BC47D0058607C /* CoreLocation.framework */,
 				14AD3C0F162AF00400DF061A /* UIKit.framework */,
 				14AD3C11162AF00400DF061A /* Foundation.framework */,

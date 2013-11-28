@@ -21,11 +21,15 @@ objection_register(PageViewControllerDatasource);
 objection_requires(@"groupManager")
 @synthesize departuresViewControlers, groupManager;
 
--(id)init {
+- (id)init {
     if ( self = [super init] ) {
         self.departuresViewControlers = [NSMutableArray new];
     }
     return self;
+}
+
+- (void)reset {
+        self.departuresViewControlers = [NSMutableArray new];
 }
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard

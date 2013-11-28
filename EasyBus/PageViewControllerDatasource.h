@@ -15,6 +15,6 @@
 @property (nonatomic, retain) GroupManager *groupManager;
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
-//- (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController;
+- (void)reset;
 
 @end

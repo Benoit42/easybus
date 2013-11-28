@@ -27,7 +27,7 @@
     UIFont* refreshLabelFont;
 }
 
-objection_requires(@"departuresManager")
+objection_requires(@"departuresManager", @"favoritesManager")
 //objection_initializer(initWithMake:model:)
 
 #pragma mark - IoC
@@ -43,6 +43,7 @@ objection_requires(@"departuresManager")
     //Pré-conditions
     NSParameterAssert(self.group != nil);
     NSParameterAssert(self.departuresManager != nil);
+    NSParameterAssert(self.favoritesManager != nil);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -112,7 +113,7 @@ objection_requires(@"departuresManager")
 #pragma mark - Table view refresh control
 - (void) refreshDepartures {
     [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.group.favorites.array];
+        [self.departuresManager refreshDepartures:self.favoritesManager.favorites];
     }];
 }
 
@@ -122,7 +123,8 @@ objection_requires(@"departuresManager")
     // Return the number of rows in the section
     // If no departures, still 1 row to indicate no departures
     NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
-    return MAX(departures.count, 1);
+    NSInteger count = MAX(departures.count, 1);
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,7 +134,7 @@ objection_requires(@"departuresManager")
     
     //get departures
     NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
-    if (indexPath.row < [departures count] ){
+    if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         

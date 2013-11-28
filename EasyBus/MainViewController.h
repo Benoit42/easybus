@@ -20,6 +20,5 @@
 @property (nonatomic, retain) DeparturesManager *departuresManager;
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
 @property (nonatomic, retain) StaticDataLoader *staticDataLoader;
-@property (nonatomic, retain) LocationManager *locationManager;
 
 @end

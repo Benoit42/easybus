@@ -13,7 +13,7 @@
 
 @implementation MainViewController
 
-objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"staticDataLoader", @"locationManager")
+objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"staticDataLoader")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -29,14 +29,10 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.staticDataManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
-    NSParameterAssert(self.locationManager != nil);
 
     // Abonnement au notifications de chargement des données
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingProgress:) name:dataLoadingProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingFinished:) name:dataLoadingFinished object:nil];
-
-    // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
 
     // Abonnement au notifications des favoris
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
@@ -79,11 +75,6 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     //Raffraichissement des départs
     NSArray* favorite = [self.favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
-}
-
-#pragma mark - refreshing location
-- (void)departuresUpdatedStarted:(NSNotification *)notification {
-    [self.locationManager startUpdatingLocation];
 }
 
 @end
