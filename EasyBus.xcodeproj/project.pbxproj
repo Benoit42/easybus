@@ -209,6 +209,15 @@
 		14776D8617425290008C7E2E /* ZipArchiveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchiveTest.m; sourceTree = "<group>"; };
 		1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+GroupeWithAdditions.h"; sourceTree = "<group>"; };
 		1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+GroupeWithAdditions.m"; sourceTree = "<group>"; };
+		148DCA8D184D140000658839 /* EasyBus 1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "EasyBus 1.svg"; sourceTree = "<group>"; };
+		148DCA8F184D140600658839 /* EasyBus 2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "EasyBus 2.svg"; sourceTree = "<group>"; };
+		148DCA93184D14B400658839 /* screenshot-35-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-1.png"; sourceTree = "<group>"; };
+		148DCA94184D14B400658839 /* screenshot-35-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-2.png"; sourceTree = "<group>"; };
+		148DCA95184D14B400658839 /* screenshot-35-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-3.png"; sourceTree = "<group>"; };
+		148DCA97184D154F00658839 /* screenshot-4-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-4.png"; sourceTree = "<group>"; };
+		148DCA98184D154F00658839 /* screenshot-4-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-2.png"; sourceTree = "<group>"; };
+		148DCA99184D154F00658839 /* screenshot-4-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-1.png"; sourceTree = "<group>"; };
+		148DCA9A184D154F00658839 /* screenshot-4-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-3.png"; sourceTree = "<group>"; };
 		149D4EE31831600300A19117 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
 		149D4EE41831600300A19117 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
@@ -423,6 +432,45 @@
 			name = DataLoaderView;
 			sourceTree = "<group>";
 		};
+		148DCA91184D144D00658839 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				148DCA9B184D155400658839 /* 4' */,
+				148DCA96184D153A00658839 /* 3.5' */,
+			);
+			name = Screenshots;
+			sourceTree = "<group>";
+		};
+		148DCA92184D146300658839 /* Vector icons */ = {
+			isa = PBXGroup;
+			children = (
+				148DCA8D184D140000658839 /* EasyBus 1.svg */,
+				148DCA8F184D140600658839 /* EasyBus 2.svg */,
+			);
+			name = "Vector icons";
+			sourceTree = "<group>";
+		};
+		148DCA96184D153A00658839 /* 3.5' */ = {
+			isa = PBXGroup;
+			children = (
+				148DCA93184D14B400658839 /* screenshot-35-1.png */,
+				148DCA94184D14B400658839 /* screenshot-35-2.png */,
+				148DCA95184D14B400658839 /* screenshot-35-3.png */,
+			);
+			name = "3.5'";
+			sourceTree = "<group>";
+		};
+		148DCA9B184D155400658839 /* 4' */ = {
+			isa = PBXGroup;
+			children = (
+				148DCA97184D154F00658839 /* screenshot-4-4.png */,
+				148DCA98184D154F00658839 /* screenshot-4-2.png */,
+				148DCA99184D154F00658839 /* screenshot-4-1.png */,
+				148DCA9A184D154F00658839 /* screenshot-4-3.png */,
+			);
+			name = "4'";
+			sourceTree = "<group>";
+		};
 		14AA96E9183802FA0052B338 /* FedInfoViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,8 +538,10 @@
 		14AD3C16162AF00400DF061A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				145440A7184656810019ED10 /* Images.xcassets */,
 				145440A9184661540019ED10 /* GTFS */,
+				148DCA92184D146300658839 /* Vector icons */,
+				148DCA91184D144D00658839 /* Screenshots */,
+				145440A7184656810019ED10 /* Images.xcassets */,
 				146161D018310F520012A1CE /* mentions.html */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
