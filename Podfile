@@ -1,12 +1,11 @@
 platform :ios, '7.0'
 
-pod 'Objection', '~> 1.2'
-pod 'CHCSVParser', '~> 2.0'
-pod 'AFNetworking', '~> 2.0'
-pod 'ZipArchive', '~> 1.2'
-pod 'SWRevealViewController', '~> 1.0'
+pod 'Objection'
+pod 'CHCSVParser'
+pod 'AFNetworking'
+pod 'ZipArchive'
+pod 'SWRevealViewController'
 
 target :EasyBusTests, :exclusive => true do
-#  pod 'Objection', '~> 1.2'
-  # pod 'OCMock', '~> 1.2'
+  # pod 'OCMock'
 end
