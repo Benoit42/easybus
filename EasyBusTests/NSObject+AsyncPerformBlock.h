@@ -10,7 +10,8 @@
 
 @interface NSObject (AsyncPerformBlock)
 
--(void)performBlockOnMainThread:(void(^)(void))block;
--(void)performBlockInBackground:(void(^)(void))block;
+- (void)performBlockOnMainThread:(void(^)(void))block;
+- (void)performBlockOnMainThread:(void(^)(void))block afterDelay:(NSTimeInterval)delayInSeconds;
+- (void)performBlockInBackground:(void(^)(void))block;
 
 @end

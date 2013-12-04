@@ -891,6 +891,12 @@
                             <outlet property="delegate" destination="smt-T2-vk6" id="e1J-Gh-x8D"/>
                         </connections>
                     </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="B84-Ha-8GD">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshAsked:" destination="smt-T2-vk6" eventType="valueChanged" id="saG-ph-k7B"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhh-bm-kw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

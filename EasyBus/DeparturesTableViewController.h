@@ -17,4 +17,6 @@
 @property(strong, nonatomic) DeparturesManager* departuresManager;
 @property(strong, nonatomic) FavoritesManager* favoritesManager;
 
+- (IBAction)refreshAsked:(id)sender;
+
 @end
