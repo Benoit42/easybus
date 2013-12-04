@@ -209,8 +209,6 @@
 		14776D8617425290008C7E2E /* ZipArchiveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchiveTest.m; sourceTree = "<group>"; };
 		1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+GroupeWithAdditions.h"; sourceTree = "<group>"; };
 		1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+GroupeWithAdditions.m"; sourceTree = "<group>"; };
-		148DCA8D184D140000658839 /* EasyBus 1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "EasyBus 1.svg"; sourceTree = "<group>"; };
-		148DCA8F184D140600658839 /* EasyBus 2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "EasyBus 2.svg"; sourceTree = "<group>"; };
 		148DCA93184D14B400658839 /* screenshot-35-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-1.png"; sourceTree = "<group>"; };
 		148DCA94184D14B400658839 /* screenshot-35-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-2.png"; sourceTree = "<group>"; };
 		148DCA95184D14B400658839 /* screenshot-35-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-3.png"; sourceTree = "<group>"; };
@@ -218,6 +216,7 @@
 		148DCA98184D154F00658839 /* screenshot-4-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-2.png"; sourceTree = "<group>"; };
 		148DCA99184D154F00658839 /* screenshot-4-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-1.png"; sourceTree = "<group>"; };
 		148DCA9A184D154F00658839 /* screenshot-4-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-3.png"; sourceTree = "<group>"; };
+		148DCA9C184F642600658839 /* icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
 		149D4EE31831600300A19117 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
 		149D4EE41831600300A19117 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
@@ -444,8 +443,7 @@
 		148DCA92184D146300658839 /* Vector icons */ = {
 			isa = PBXGroup;
 			children = (
-				148DCA8D184D140000658839 /* EasyBus 1.svg */,
-				148DCA8F184D140600658839 /* EasyBus 2.svg */,
+				148DCA9C184F642600658839 /* icon.svg */,
 			);
 			name = "Vector icons";
 			sourceTree = "<group>";

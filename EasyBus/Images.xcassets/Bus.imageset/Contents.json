@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Bus-240-transp.png"
+      "filename" : "icon-240.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Bus-480-transp.png"
+      "filename" : "icon-480.png"
     }
   ],
   "info" : {
