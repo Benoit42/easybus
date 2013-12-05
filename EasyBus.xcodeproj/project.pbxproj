@@ -36,7 +36,6 @@
 		146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C2182AAA860012A1CE /* DeparturesTableViewController.m */; };
 		146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C5182B70AC0012A1CE /* LinesNavigationController.m */; };
 		146161CC182C160B0012A1CE /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161CB182C160B0012A1CE /* Constants.m */; };
-		146161D118310F520012A1CE /* mentions.html in Resources */ = {isa = PBXBuildFile; fileRef = 146161D018310F520012A1CE /* mentions.html */; };
 		146161D51831120C0012A1CE /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161D41831120C0012A1CE /* CreditsViewController.m */; };
 		146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
 		146CC04518181FDA005A7F66 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
@@ -188,7 +187,6 @@
 		146161C5182B70AC0012A1CE /* LinesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinesNavigationController.m; sourceTree = "<group>"; };
 		146161CA182C160B0012A1CE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		146161CB182C160B0012A1CE /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		146161D018310F520012A1CE /* mentions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = mentions.html; sourceTree = "<group>"; };
 		146161D31831120C0012A1CE /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		146161D41831120C0012A1CE /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeed.xml; sourceTree = "<group>"; };
@@ -368,8 +366,8 @@
 				14CF4330165CF27800834A23 /* StopsView */,
 				14CF432F165CF26E00834A23 /* DirectionView */,
 				147168A81801A38A00846AE6 /* DataLoaderView */,
-				146161D2183111D00012A1CE /* CreditsWebViewController */,
-				14AA96E9183802FA0052B338 /* FedInfoViewController */,
+				146161D2183111D00012A1CE /* CreditsViewController */,
+				14AA96E9183802FA0052B338 /* FeedInfoViewController */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -413,13 +411,13 @@
 			name = GTFS;
 			sourceTree = "<group>";
 		};
-		146161D2183111D00012A1CE /* CreditsWebViewController */ = {
+		146161D2183111D00012A1CE /* CreditsViewController */ = {
 			isa = PBXGroup;
 			children = (
 				146161D31831120C0012A1CE /* CreditsViewController.h */,
 				146161D41831120C0012A1CE /* CreditsViewController.m */,
 			);
-			name = CreditsWebViewController;
+			name = CreditsViewController;
 			sourceTree = "<group>";
 		};
 		147168A81801A38A00846AE6 /* DataLoaderView */ = {
@@ -469,13 +467,13 @@
 			name = "4'";
 			sourceTree = "<group>";
 		};
-		14AA96E9183802FA0052B338 /* FedInfoViewController */ = {
+		14AA96E9183802FA0052B338 /* FeedInfoViewController */ = {
 			isa = PBXGroup;
 			children = (
 				14AA96E6183802F30052B338 /* FeedInfoViewController.h */,
 				14AA96E7183802F30052B338 /* FeedInfoViewController.m */,
 			);
-			name = FedInfoViewController;
+			name = FeedInfoViewController;
 			sourceTree = "<group>";
 		};
 		14AD3C00162AF00400DF061A = {
@@ -540,7 +538,6 @@
 				148DCA92184D146300658839 /* Vector icons */,
 				148DCA91184D144D00658839 /* Screenshots */,
 				145440A7184656810019ED10 /* Images.xcassets */,
-				146161D018310F520012A1CE /* mentions.html */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
 				14AD3C1B162AF00400DF061A /* main.m */,
@@ -854,7 +851,6 @@
 				145440A8184656810019ED10 /* Images.xcassets in Resources */,
 				14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */,
 				14DDADFF18451CF400C66E51 /* stops.txt in Resources */,
-				146161D118310F520012A1CE /* mentions.html in Resources */,
 				14DDAE0818451D5300C66E51 /* trips_light.txt in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
 				14DDADFE18451CF400C66E51 /* stop_times.txt in Resources */,

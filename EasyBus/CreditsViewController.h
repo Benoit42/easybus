@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreditsViewController : UIViewController
+@interface CreditsViewController : UITableViewController
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+- (IBAction)facebookAction:(id)sender;
+- (IBAction)keolisAction:(id)sender;
+- (IBAction)afnetworkingAction:(id)sender;
+- (IBAction)chcsvparserAction:(id)sender;
+- (IBAction)objectionAction:(id)sender;
+- (IBAction)swreavealviewcontrollerAction:(id)sender;
+- (IBAction)ziparchiveAction:(id)sender;
+- (IBAction)iconAction:(id)sender;
 
 @end
