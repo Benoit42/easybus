@@ -13,7 +13,7 @@
 
 FOUNDATION_EXPORT NSString* const updateFavorites;
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) favorites;
 - (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;

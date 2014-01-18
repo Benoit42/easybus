@@ -27,12 +27,13 @@
     UIFont* refreshLabelFont;
 }
 
-objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @"staticDataManager")
+objection_requires(@"departuresManager", @"favoritesManager")
+//objection_initializer(initWithMake:model:)
 
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
-    refreshLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
+    refreshLabelFont = [UIFont fontWithName:@"Heiti TC" size:15.0f];
 }
 
 #pragma mark - Initialisation
@@ -40,43 +41,24 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     [super viewDidLoad];
     
     //Pré-conditions
-    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    NSAssert(self.departuresManager != nil, @"departuresManager should not be nil");
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSParameterAssert(self.group != nil);
+    NSParameterAssert(self.departuresManager != nil);
+    NSParameterAssert(self.favoritesManager != nil);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
     
-    //check resolution
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if (screenBounds.size.height == 480) {
-        self.maxRows = 4;
-    }
-    else {
-        self.maxRows = 5;
-    }
-    
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceeded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailed object:nil];
-    
-    //Pull to refresh
-    self.refreshControl  = [[UIRefreshControl alloc] init];
-
-    NSString* message = @"tirer pour raffraîchir";
-    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
-
-    [self.refreshControl  addTarget:nil action:@selector(refreshDepartures) forControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark - Gestion de la mise à jour des départs
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
+    NSLog(@"Update started");
     [self performBlockOnMainThread:^{
         //message
         NSString* message = @"mise à jour en cours...";
@@ -88,10 +70,11 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
+    NSLog(@"Update succeeded");
     [self performBlockOnMainThread:^{
-        // stop indicator
-        [self.refreshControl endRefreshing];
-        
+        //refresh table view
+        [self.tableView reloadData];
+
         //message
         NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
         NSString* message = date?[NSString stringWithFormat:@"mis à jour à %@", date]:@"tirer pour raffraîchir";
@@ -100,8 +83,10 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
         [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
         self.refreshControl.attributedTitle = attributedMessage;
         
-        //refresh table view
-        [self.tableView reloadData];
+        //Dismiss refresh control after delay
+        [self performBlockOnMainThread:^{
+            [self.refreshControl endRefreshing];
+        } afterDelay:1];
     }];
 }
 
@@ -119,25 +104,21 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
 }
 
 #pragma mark - Table view refresh control
-- (void) refreshDepartures {
+- (IBAction)refreshAsked:(id)sender {
+    NSLog(@"Refresh asked");
     [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.departuresManager refreshDepartures:self.favoritesManager.favorites];
     }];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section plus header and footer
-    // always header + footer + iphone5->5, other->4
-    NSArray* groupes = [self.groupManager groups];
-    NSInteger page = ((DeparturesViewController*)self.parentViewController).page;
-    if (page < [groupes count]) {
-        return _maxRows;
-    }
-    else {
-        return 0;
-    }
+    // Return the number of rows in the section
+    // If no departures, still 1 row to indicate no departures
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
+    NSInteger count = MAX(departures.count, 1);
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,27 +127,20 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
     UITableViewCell* cell;
     
     //get departures
-    NSInteger page = ((DeparturesViewController*)self.parentViewController).page;
-    Group* groupe = [[self.groupManager groups] objectAtIndex:page];
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:groupe];
-    if (indexPath.row < [departures count] ){
+    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
+    if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         
-        NSInteger departureIndex = indexPath.row;
-        if (departureIndex < [departures count]) {
-            //get departure
-            Depart* depart = [departures objectAtIndex:departureIndex];
-            
-            //update cell
-            NSURL* picto = [self.staticDataManager pictoUrl100ForRouteId:depart.route];
-            [[(DepartureCell*)cell _picto] setImageWithURL:picto];
-            NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
-            [[(DepartureCell*)cell _delai] setText:libDelai];
-            [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];
-            [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
-            
-        }
+        //get departure
+        Depart* depart = [departures objectAtIndex:indexPath.row];
+        
+        //update cell
+        [[(DepartureCell*)cell _picto] setImage:[UIImage imageNamed:depart.route.id]];
+        NSString* libDelai = [NSString stringWithFormat:@"%i", (int)(depart._delai/60)];
+        [[(DepartureCell*)cell _delai] setText:libDelai];
+        [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];
+        [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
     }
     else {
         // no departure row
@@ -176,6 +150,8 @@ objection_requires(@"favoritesManager", @"groupManager", @"departuresManager", @
             [[(NoDepartureCell*)cell _message] setText:nil];
         }
     }
+
+    //Retour
     return cell;
 }
 

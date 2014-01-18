@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Route.h"
 #import "Stop.h"
+#import "FeedInfo.h"
 
 @interface StaticDataManager : NSObject
 
@@ -19,8 +21,8 @@
 - (NSArray*) stops;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (Stop*) stopForId:(NSString*)stopId;
-- (NSURL*) pictoUrl100ForRouteId:(Route*)route;
-
+- (NSArray*) nearStopsFrom:(CLLocation*)location quantity:(NSInteger)quantity;
+- (FeedInfo*) feedInfo;
 - (BOOL)isDataLoaded;
 
 @end

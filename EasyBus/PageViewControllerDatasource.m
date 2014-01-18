@@ -21,23 +21,21 @@ objection_register(PageViewControllerDatasource);
 objection_requires(@"groupManager")
 @synthesize departuresViewControlers, groupManager;
 
--(id)init {
+- (id)init {
     if ( self = [super init] ) {
         self.departuresViewControlers = [NSMutableArray new];
     }
     return self;
 }
 
+- (void)reset {
+        self.departuresViewControlers = [NSMutableArray new];
+}
+
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
     //Pré-conditions
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    
-    // Return the data view controller for the given index.
-    int groupesCount = [[groupManager groups] count];
-    if (groupesCount == 0 || (index >= groupesCount)) {
-        return nil;
-    }
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
@@ -49,7 +47,9 @@ objection_requires(@"groupManager")
         
         if (viewController == nil) {
             //Le view controler n'existe pas encore
+            Group* group = self.groupManager.groups[index];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
+            ((DeparturesViewController*)viewController).group = group;
             ((DeparturesViewController*)viewController).page = index;
             [self.departuresViewControlers insertObject:viewController atIndex:index];
         }
@@ -61,7 +61,7 @@ objection_requires(@"groupManager")
 - (NSUInteger)indexOfViewController:(DeparturesViewController *)viewController
 {
     // Return the index of the given data view controller.
-    return viewController.page;
+    return [self.departuresViewControlers indexOfObject:viewController];
 }
 
 #pragma mark - Page View Controller Data Source

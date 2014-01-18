@@ -10,7 +10,7 @@
 #import "AsyncTestCase.h"
 #import <Objection/Objection.h>
 #import "GtfsDownloadManager.h"
-#import "GtfsPublishData.h"
+#import "FeedInfo.h"
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "NSURLProtocolStub.h"
@@ -55,134 +55,21 @@ objection_requires(@"managedObjectContext", @"gtfsDownloadManager")
     [super tearDown];
 }
 
-//Test first update with no preceeding data
-- (void)testCheckFirstUpdate {
-    NSDate* date = [self.dateFormatter dateFromString:@"05/06/2013"];
-
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertTrue(updateNeeded , @"updateNeeded should be true");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-//Test when there is no update provided
-- (void)testCheckNoUpdate {
-    [NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-
-    NSDate* date = [self.dateFormatter dateFromString:@"05/07/2013"];
-
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-- (void)testCheckUpdateNeeded {
-    GtfsPublishData* gtfsPublishData = (GtfsPublishData *)[NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-    gtfsPublishData.publishDate = [self.dateFormatter dateFromString:@"01/06/2013"];
-    
-    NSDate* date = [self.dateFormatter dateFromString:@"25/06/2013"];
-    
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertTrue(updateNeeded , @"updateNeeded should be true");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-- (void)testCheckUpdateNotNeeded {
-    GtfsPublishData* gtfsPublishData = (GtfsPublishData *)[NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-    gtfsPublishData.publishDate = [self.dateFormatter dateFromString:@"20/06/2013"];
-    
-    NSDate* date = [self.dateFormatter dateFromString:@"25/06/2013"];
-    
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-- (void)testCheckUpdateFuture {
-    GtfsPublishData* gtfsPublishData = (GtfsPublishData *)[NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-    gtfsPublishData.publishDate = [self.dateFormatter dateFromString:@"01/05/2013"];
-    
-    NSDate* date = [self.dateFormatter dateFromString:@"25/05/2013"];
-    
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-- (void)testCheckUpdatePast {
-    GtfsPublishData* gtfsPublishData = (GtfsPublishData *)[NSEntityDescription insertNewObjectForEntityForName:@"GtfsPublishData" inManagedObjectContext:self.managedObjectContext];
-    gtfsPublishData.publishDate = [self.dateFormatter dateFromString:@"01/08/2013"];
-    
-    NSDate* date = [self.dateFormatter dateFromString:@"25/08/2013"];
-    
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
-- (void)testCheckUpdateWithJsonError {
-    [NSURLProtocolStub bindUrl:@"http://data.keolis-rennes.com/fileadmin/OpenDataFiles/GTFS/feed" toResource:@"gtfsUpdateFeedError.xml"];
-    NSDate* date = [self.dateFormatter dateFromString:@"25/06/2013"];
-
-    [self runTestWithBlock:^{
-        [self.gtfsDownloadManager checkUpdateWithDate:date withSuccessBlock:^(BOOL updateNeeded) {
-            XCTAssertFalse(updateNeeded , @"updateNeeded should be false");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Checking update shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        }];
-    }];
-}
-
 - (void)testRefreshPublishData {
     NSDate* date = [self.dateFormatter dateFromString:@"15/06/2013"];
     
     [self runTestWithBlock:^{
-        [self.gtfsDownloadManager refreshPublishDataForDate:(NSDate*)date withSuccessBlock:^{
-            XCTAssertNotNil(self.gtfsDownloadManager.publishEntry , @"GTFS publish entry should exists");
-            BOOL sameDay = [self isSameDayWithDate1:date date2:self.gtfsDownloadManager.publishEntry.publishDate];
-            XCTAssertTrue(sameDay, @"GTFS publish entry date should be 15/06/2013");
-            [self blockTestCompletedWithBlock:nil];
-        } andFailureBlock:^(NSError *error) {
-            XCTFail(@"Refreshing publish date shouldn't have failed : %@", [error debugDescription]);
-            [self blockTestCompletedWithBlock:nil];
-        } ];
+        [self.gtfsDownloadManager getGtfsDataForDate:date
+                                           withSuccessBlock:^(FeedInfoTmp *newFeedInfo) {
+                                               XCTAssertNotNil(newFeedInfo.url , @"newFeedInfo.url shoul not be nil");
+                                               BOOL sameDay = [self isSameDayWithDate1:date date2:newFeedInfo.publishDate];
+                                               XCTAssertTrue(sameDay, @"GTFS publish entry date should be 15/06/2013");
+                                               [self blockTestCompletedWithBlock:nil];
+        }
+                                            andFailureBlock:^(NSError *error) {
+                                                XCTFail(@"Refreshing publish date shouldn't have failed : %@", [error debugDescription]);
+                                                [self blockTestCompletedWithBlock:nil];
+        }];
     }];
 }
 
@@ -190,7 +77,7 @@ objection_requires(@"managedObjectContext", @"gtfsDownloadManager")
     //Remark : NSURLSessionDownloadTask can't be stubbed with custom NSURLProtocol
     NSURL* toDownload = [NSURL URLWithString:@"http://phs.googlecode.com/files/Download%20File%20Test.zip" relativeToURL:nil];
     [self runTestWithBlock:^{
-        [self.gtfsDownloadManager downloadFile:toDownload
+        [self.gtfsDownloadManager downloadGtfsData:toDownload
             withSuccessBlock:^(NSURL *fileUrl) {
                 XCTAssertNotNil(fileUrl , @"Downloaded file path should not be nil");
                 XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:[fileUrl path]] , @"Downloaded file should exist");

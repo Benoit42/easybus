@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FavoritesManager.h"
 
 @interface MenuViewController : UITableViewController
+
+@property(strong, nonatomic) FavoritesManager* favoritesManager;
+@property (weak, nonatomic) IBOutlet UIButton *favoritesButton;
+@property (weak, nonatomic) IBOutlet UIButton *organizeButton;
 
 - (IBAction)favoritesButton:(id)sender;
 - (IBAction)linesButton:(id)sender;

@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "FavoritesViewController.h"
 #import "LinesViewController.h"
 #import "Favorite.h"
@@ -31,22 +32,22 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     //Pré-conditions
     NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+
+    // Abonnement au notifications des favoris
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
+    
+    //Ajout long press gesture
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //Si aucun favori, passage direct à l'écran des lignes
-    NSArray* favorites = [self.favoritesManager favorites];
-    if ([favorites count] == 0) {
-        [self performSegueWithIdentifier: @"chooseLine" sender: self];
-    }
-    else {
-        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                              initWithTarget:self action:@selector(handleLongPress:)];
-        lpgr.minimumPressDuration = 1.0; //seconds
-        lpgr.delegate = self;
-        [self.tableView addGestureRecognizer:lpgr];
+- (void)viewDidDisappear:(BOOL)animated {
+    if (self.tableView.isEditing) {
+        [self.tableView setEditing:NO animated:YES];
+        [self.modifyButton setTitle:@"modifier"];
     }
 }
 
@@ -91,8 +92,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         Favorite* favorite = [favorites objectAtIndex:indexPath.row];
 
         //add departure
-        NSURL *picto = [self.staticDataManager pictoUrl100ForRouteId:favorite.route];
-        [cell._picto setImageWithURL:picto];
+        [cell._picto setImage:[UIImage imageNamed:favorite.route.id]];
         [cell._libArret setText:favorite.stop.name];
         [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
         return cell;
@@ -167,6 +167,14 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         [self.tableView setEditing:YES animated:YES];
         [self.modifyButton setTitle:@"fin"];
     }
+}
+
+#pragma mark - favorite or group updated
+- (void)favoritesUpdated:(NSNotification *)notification {
+    [self performBlockOnMainThread:^{
+        //Rechargement de la table
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Segues

@@ -8,9 +8,11 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 #import "StaticDataManager.h"
 #import "FavoritesManager.h"
 #import "Route+RouteWithAdditions.h"
+#import "FeedInfo.h"
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
@@ -20,7 +22,7 @@ objection_requires(@"managedObjectContext")
 
 #pragma mark Business methods
 - (BOOL)isDataLoaded {
-    return self.routes.count > 0;
+    return self.feedInfo != nil;
 }
 
 - (NSArray*) routes {
@@ -134,10 +136,55 @@ objection_requires(@"managedObjectContext")
     return [stops array];
 }
 
-- (NSURL*) pictoUrl100ForRouteId:(Route*)route {
-    NSString* url = [NSString stringWithFormat:@"http://data.keolis-rennes.com/fileadmin/documents/Picto_lignes/Pictos_lignes_100x100/L%@.png", route.shortName];
-    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return [NSURL URLWithString:encodedUrl];
+- (NSArray*) nearStopsFrom:(CLLocation*)location quantity:(NSInteger)quantity {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSAssert(location != nil, @"location should not be nil");
+    NSAssert(quantity > 0, @"quantity should not be >0");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
+    
+    NSError *error = nil;
+    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (mutableFetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+
+    //tri
+    NSArray *sortedStops = [mutableFetchResults sortedArrayUsingComparator:^NSComparisonResult(Stop* a, Stop* b) {
+        CLLocationDistance distanceA = [a.location distanceFromLocation:location];
+        CLLocationDistance distanceB = [b.location distanceFromLocation:location];
+        return distanceA > distanceB;
+    }];
+    
+    return [sortedStops subarrayWithRange:NSMakeRange(0, MIN(quantity, sortedStops.count))];
+}
+
+- (FeedInfo*) feedInfo {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
+    NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchFeedInfo"];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (fetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    return (fetchResults.count>0)?fetchResults[0]:nil;
 }
 
 @end

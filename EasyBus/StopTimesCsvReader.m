@@ -35,6 +35,7 @@ objection_register_singleton(StopTimesCsvReader)
 
     //parsing du fichier
     self.row = [[NSMutableArray alloc] init];
+    //Pourquoi ç'est plus rapide qu'avec initWithContentsOfCSVFile ???
     CHCSVParser * p = [[CHCSVParser alloc] initWithCSVString:csvString];
     p.sanitizesFields = YES;
     [p setDelegate:self];

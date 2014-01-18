@@ -34,12 +34,15 @@ objection_requires(@"managedObjectContext")
     self.currentRoutes = [self routes];
     
     //parsing du fichier
-    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
+    
+    //Clean-up
+    self.currentRoutes = nil;
+    self.row = nil;
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -89,12 +92,11 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
-    NSLog(@"TripsCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
+    NSLog(@"RoutesCsvReader parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)cleanUp {
-    self.currentRoutes = nil;
-    self.row = nil;
+    //Nothing
 }
 
 #pragma mark Business methods

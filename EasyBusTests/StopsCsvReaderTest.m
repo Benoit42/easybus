@@ -39,7 +39,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops" withExtension:@"txt"];
+    NSURL* stopsUrl = [[NSBundle mainBundle] URLForResource:@"stops_light" withExtension:@"txt"];
     [self.stopsCsvReader loadData:stopsUrl];
 }
 
@@ -60,7 +60,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
 
-    XCTAssertEqual([stops count], 1402U, @"Wrong number of stops in stops.txt");
+    XCTAssertEqual([stops count], 47U, @"Wrong number of stops");
 }
 
 //Vérification de l'arrêt Timonière
@@ -77,8 +77,8 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     XCTAssertEqualObjects(timoniere.code, @"4001", @"Wrong short name for route 0064");
     XCTAssertEqualObjects(timoniere.name, @"Timonière", @"Wrong long name for route 0064");
     XCTAssertEqualObjects(timoniere.desc, @"Acigné", @"Wrong from name for route 0064");
-    XCTAssertEqualObjects(timoniere.latitude, @"48.13701918", @"Wrong to name for route 0064");
-    XCTAssertEqualObjects(timoniere.longitude, @"-1.52637517", @"Wrong to name for route 0064");
+    XCTAssertEqual(timoniere.location.coordinate.latitude, 48.13701918, @"Wrong to name for route 0064");
+    XCTAssertEqual(timoniere.location.coordinate.longitude, -1.52637517, @"Wrong to name for route 0064");
 }
 
 

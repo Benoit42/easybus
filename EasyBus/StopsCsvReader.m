@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 #import <CHCSVParser/CHCSVParser.h>
 #import "StopsCsvReader.h"
 
@@ -33,12 +34,15 @@ objection_requires(@"managedObjectContext")
     self.currentStops = [self stops];
 
     //parsing du fichier
-    //Pourquoi ça ne marche pas avec initWithContentsOfCSVFile ???
     self.row = [[NSMutableArray alloc] init];
     CHCSVParser * p = [[CHCSVParser alloc] initWithContentsOfCSVFile:[url path]];
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
+
+    //Clean-up
+    self.currentStops = nil;
+    self.row = nil;
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -60,8 +64,7 @@ objection_requires(@"managedObjectContext")
         stop.code = self.row[1];
         stop.name = self.row[2];
         stop.desc = self.row[3];
-        stop.latitude = self.row[4];
-        stop.longitude = self.row[5];
+        stop.location = [[CLLocation alloc] initWithLatitude:[self.row[4] doubleValue] longitude:[self.row[5] doubleValue]];
     }
 }
 
@@ -76,8 +79,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)cleanUp {
-    self.currentStops = nil;
-    self.row = nil;
+    //Nothing
 }
 
 - (NSDictionary*) stops {

@@ -39,7 +39,7 @@ objection_requires(@"stopTimesCsvReader")
     [[JSObjection defaultInjector] injectDependencies:self];
     
     //Load data
-    NSURL* stopTimesUrl = [[NSBundle mainBundle] URLForResource:@"stop_times" withExtension:@"txt"];
+    NSURL* stopTimesUrl = [[NSBundle mainBundle] URLForResource:@"stop_times_light" withExtension:@"txt"];
     [self.stopTimesCsvReader loadData:stopTimesUrl];
 }
 
@@ -51,7 +51,7 @@ objection_requires(@"stopTimesCsvReader")
 //Comptage des occurences
 - (void)testCountStopTimes {
     int count = [stopTimesCsvReader.stops count];
-    XCTAssertEqual(count, 589504, @"Wrong number of stopTimes in stop_times.txt");
+    XCTAssertEqual(count, 10034, @"Wrong number of stopTimes");
 }
 
 @end

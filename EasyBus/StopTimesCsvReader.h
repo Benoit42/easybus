@@ -1,5 +1,5 @@
 //
-//  RouteStopsCsvReader.h
+//  StopTimesCsvReader.h
 //  EasyBus
 //
 //  Created by Benoit on 28/10/12.
