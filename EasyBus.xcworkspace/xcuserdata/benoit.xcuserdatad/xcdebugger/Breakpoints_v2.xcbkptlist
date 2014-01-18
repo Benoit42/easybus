@@ -57,7 +57,7 @@
                   symbolName = "__33-[LinesViewController updateData]_block_invoke_2"
                   moduleName = "EasyBus"
                   urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBus/LinesViewController.m"
-                  timestampString = "405873986.367234"
+                  timestampString = "405873875.078536"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "45"
@@ -71,12 +71,12 @@
                   symbolName = "__33-[LinesViewController updateData]_block_invoke_3"
                   moduleName = "EasyBus"
                   urlString = "file:///Users/benoit/Developpement/EasyBus/EasyBus/LinesViewController.m"
-                  timestampString = "405873986.367423"
+                  timestampString = "405873875.078947"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "45"
                   endingLineNumber = "45"
-                  offsetFromSymbolStart = "30">
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>

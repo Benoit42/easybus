@@ -380,13 +380,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Favoris" id="C9V-FM-g7v">
-                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" id="dk2-Hn-uFH">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon.png" style="plain" id="dk2-Hn-uFH">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="pbR-qA-2ps" kind="unwind" unwindAction="unwindFromCredits:" id="3zh-5F-WI6"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="modifier" id="28J-5T-uOa">
+                        <barButtonItem key="rightBarButtonItem" title="modifier" style="plain" id="28J-5T-uOa">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="modifyButtonPressed:" destination="AUf-pe-BZM" id="HfG-Ih-fX7"/>
