@@ -81,6 +81,8 @@
 		14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
 		14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
+		14BA0189188EE66600AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
+		14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -250,6 +252,7 @@
 		14B42DCF1656BF090070AA9D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoCModuleTest.m; path = ../EasyBus/IoCModuleTest.m; sourceTree = "<group>"; };
 		14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoCModuleTest.h; path = ../EasyBus/IoCModuleTest.h; sourceTree = "<group>"; };
+		14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures2.xml; sourceTree = "<group>"; };
 		14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DeparturesViewController.h; sourceTree = "<group>"; };
 		14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 		14C2E544168884B200E8A2FB /* LocationManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerTest.m; sourceTree = "<group>"; };
@@ -583,6 +586,7 @@
 				145440AA184661640019ED10 /* GTFS */,
 				146CC04318181FDA005A7F66 /* GTFS.zip */,
 				14E128BD18145C6F0034226A /* getbusnextdepartures.xml */,
+				14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
 				146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */,
 				14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */,
@@ -856,6 +860,7 @@
 				14DDADFE18451CF400C66E51 /* stop_times.txt in Resources */,
 				14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */,
 				14DDAE0018451CF400C66E51 /* trips.txt in Resources */,
+				14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */,
 				1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */,
 				14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */,
 				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */,
@@ -880,6 +885,7 @@
 				14DDAE0718451D5300C66E51 /* stop_times_light.txt in Resources */,
 				14DDAE0518451D5300C66E51 /* routes_stops_light.txt in Resources */,
 				14DDAE0F1845309100C66E51 /* stops_light.txt in Resources */,
+				14BA0189188EE66600AF7655 /* getbusnextdepartures2.xml in Resources */,
 				14DDAE0918451D5300C66E51 /* trips_light.txt in Resources */,
 				146CC04218181F2B005A7F66 /* gtfsUpdateFeed.xml in Resources */,
 				14DDAE0C18451E4900C66E51 /* routes_light.txt in Resources */,

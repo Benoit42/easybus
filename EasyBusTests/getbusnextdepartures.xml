@@ -17,7 +17,7 @@
          -->
         <data localdatetime="2012-10-17T19:01:13+02:00">
             <stopline>
-                <stop>1290</stop>
+                <stop>2046</stop>
                 <route>0064</route>
                 <direction>1</direction>
                 <departures>
@@ -27,7 +27,7 @@
                 </departures>
             </stopline>
             <stopline>
-                <stop>1290</stop>
+                <stop>2046</stop>
                 <route>0164</route>
                 <direction>1</direction>
                 <departures>

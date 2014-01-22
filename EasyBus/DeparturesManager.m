@@ -76,8 +76,11 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
     NSOrderedSet* favorites = groupe.favorites;
     [favorites enumerateObjectsUsingBlock:^(Favorite* favorite, NSUInteger idx, BOOL *stop)
     {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop.name == %@ && route.id == %@ && _direction == %@", favorite.stop.name, favorite.route.id, favorite.direction];
-        NSArray* partialResult = [_departures filteredArrayUsingPredicate:predicate];
+        NSPredicate* routePredicate = [NSPredicate predicateWithFormat:@"stop.id == %@", favorite.stop.id];
+        NSPredicate* stopPredicate = [NSPredicate predicateWithFormat:@"route.id == %@", favorite.route.id];
+        NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"_direction == %@", favorite.direction];
+        NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[routePredicate, stopPredicate, directionPredicate]];
+        NSArray* partialResult = [self._departures filteredArrayUsingPredicate:predicate];
         [departures addObjectsFromArray:partialResult];
     }];
 
@@ -135,12 +138,8 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                      [xmlParser setDelegate:self];
                      [xmlParser parse];
                      
-                     //Sort data
-                     NSArray* sortedDeparts = [_freshDepartures sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                         return [(Depart*)a _delai] > [(Depart*)b _delai];
-                     }];
-                     [_departures removeAllObjects];
-                     [_departures addObjectsFromArray:sortedDeparts];
+                     //Store data
+                     self._departures = self._freshDepartures;
                      
                      //Notification
                      [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];

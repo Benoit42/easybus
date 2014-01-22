@@ -71,8 +71,6 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvRe
     XCTAssertEqualObjects(@"0064", route64.id, @"Wrong id for route 0064");
     XCTAssertEqualObjects(@"64", route64.shortName, @"Wrong short name for route 0064");
     XCTAssertEqualObjects(@"Rennes (République) <> Acigné", route64.longName, @"Wrong long name for route 0064");
-    XCTAssertEqualObjects(@"Rennes", route64.fromName, @"Wrong from name for route 0064");
-    XCTAssertEqualObjects(@"Acigné", route64.toName, @"Wrong to name for route 0064");
 }
 
 @end

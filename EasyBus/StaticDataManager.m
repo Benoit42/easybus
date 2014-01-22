@@ -22,7 +22,9 @@ objection_requires(@"managedObjectContext")
 
 #pragma mark Business methods
 - (BOOL)isDataLoaded {
-    return self.feedInfo != nil;
+    BOOL feedInfoOk = [self feedInfo] != nil;
+    BOOL terminusOk = [self terminusLabelIsOk];
+    return feedInfoOk && terminusOk;
 }
 
 - (NSArray*) routes {
@@ -185,6 +187,13 @@ objection_requires(@"managedObjectContext")
     }
     
     return (fetchResults.count>0)?fetchResults[0]:nil;
+}
+
+//Test pour déclencher le chargement des données GTFS corrigeant le bugs des terminus
+- (BOOL)terminusLabelIsOk {
+    Route* route200 = [self routeForId:@"0200"];
+    BOOL route200Ok = [route200.fromName isEqualToString:@"Rennes Lycée Assomption"];
+    return route200Ok;
 }
 
 @end

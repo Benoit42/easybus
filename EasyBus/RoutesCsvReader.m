@@ -63,24 +63,6 @@ objection_requires(@"managedObjectContext")
         route.id = self.row[0];
         route.shortName = self.row[1];
         route.longName = self.row[2];
-        
-        //Calcul des libellés des départs et arrivée
-        //Exemple : "Rennes (République) <> Acigné"
-        //Split sur le <> et suppression de la partie entre parenthèses
-        NSArray* subs = [route.longName componentsSeparatedByString:@"<>"];
-        NSString* fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : @"Départ inconnu";
-        NSString* toName = ([subs count] > 1) ? [subs objectAtIndex:1] : @"Arrivée inconnue";
-        
-        subs = [fromName componentsSeparatedByString:@"("];
-        fromName = ([subs count] > 0) ? [subs objectAtIndex:0] : fromName;
-        fromName = [fromName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        
-        subs = [toName componentsSeparatedByString:@"("];
-        toName = ([subs count] > 0) ? [subs objectAtIndex:0] : toName;
-        toName = [toName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        
-        route.fromName = fromName;
-        route.toName = toName;
     }
 }
 

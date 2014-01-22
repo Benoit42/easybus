@@ -14,6 +14,7 @@
 @property(nonatomic, retain) NSMutableArray* trips;
 
 - (void)loadData:(NSURL*)url;
+- (NSString*)terminusLabelForRouteId:(NSString*)routeId andDirectionId:(NSString*)directionId;
 - (void)cleanUp;
 
 @end

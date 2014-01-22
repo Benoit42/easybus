@@ -36,7 +36,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"feedInfoCsv
     
     //Inject dependencies
     [[JSObjection defaultInjector] injectDependencies:self];
-    }
+}
 
 - (void)tearDown
 {

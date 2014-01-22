@@ -90,6 +90,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             [self.stopTimesCsvReader loadData:stopTimesUrl];
             [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
             
+            //Set routes terminus
+            [self setRoutesTerminus];
+            
             //clean-up
             [self.feedInfoCsvReader cleanUp];
             [self.routesCsvReader cleanUp];
@@ -133,6 +136,8 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //load data
     NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
     [self.feedInfoCsvReader loadData:feedInfosUrl];
+    NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
+    [self.tripsCsvReader loadData:tripsUrl];
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
     [self.routesCsvReader loadData:routesUrl];
     NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
@@ -143,7 +148,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.routesStopsCsvReader loadData:routesStops];
     [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
     
+    //Set routes terminus
+    [self setRoutesTerminus];
+    
     //clean-up
+    [self.tripsCsvReader cleanUp];
     [self.routesCsvReader cleanUp];
     [self.stopsCsvReader cleanUp];
     [self.routesStopsCsvReader cleanUp];
@@ -153,6 +162,26 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     
     //Log
     NSLog(@"Fin du chargement des données locales");
+}
+
+// Association route/stop
+- (void) setRoutesTerminus {
+    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        //récupération du label
+        NSString* terminus0 = [self.tripsCsvReader terminusLabelForRouteId:route.id andDirectionId:@"0"];
+        NSString* terminus1 = [self.tripsCsvReader terminusLabelForRouteId:route.id andDirectionId:@"1"];
+
+        //Calcul des libellés des départs et arrivée
+        //Exemple : "61 | Acigné"
+        //Split sur le | et suppression de la partie gauche
+        NSArray* subs0 = [terminus0 componentsSeparatedByString:@"|"];
+        NSString* terminus0RightPart = ([subs0 count] > 1) ? [subs0 objectAtIndex:1] : @"Terminus inconnu";
+        NSArray* subs1 = [terminus1 componentsSeparatedByString:@"|"];
+        NSString* terminus1RightPart = ([subs1 count] > 1) ? [subs1 objectAtIndex:1] : @"Terminus inconnu";
+        
+        route.fromName = [terminus0RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        route.toName = [terminus1RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+    }];
 }
 
 // Association route/stop

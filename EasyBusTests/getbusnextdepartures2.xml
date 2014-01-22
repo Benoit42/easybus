@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<opendata>
+	<request>http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&amp;version=2.1&amp;key=91RU2VSP13GHHOP&amp;param%5Bmode%5D=stopline&amp;param%5Broute%5D%5B%5D=0064&amp;param%5Bdirection%5D%5B%5D=1&amp;param%5Bstop%5D%5B%5D=2046&amp;param%5Broute%5D%5B%5D=0064&amp;param%5Bdirection%5D%5B%5D=0&amp;param%5Bstop%5D%5B%5D=4001&amp;param%5Broute%5D%5B%5D=0164&amp;param%5Bdirection%5D%5B%5D=1&amp;param%5Bstop%5D%5B%5D=2046&amp;param%5Broute%5D%5B%5D=0164&amp;param%5Bdirection%5D%5B%5D=0&amp;param%5Bstop%5D%5B%5D=4001&amp;param%5Broute%5D%5B%5D=0200&amp;param%5Bdirection%5D%5B%5D=0&amp;param%5Bstop%5D%5B%5D=2045&amp;param%5Broute%5D%5B%5D=0200&amp;param%5Bdirection%5D%5B%5D=1&amp;param%5Bstop%5D%5B%5D=4001</request>
+	<answer>
+		<status code="0" message="OK"/>
+		<data localdatetime="2014-01-21T17:59:08+01:00">
+			<stopline>
+				<stop>2046</stop>
+				<route>0064</route>
+				<direction>1</direction>
+				<departures>
+					<departure accurate="0" headsign="Acigné">2014-01-21T18:07:00+01:00</departure>
+					<departure accurate="1" headsign="Acigné">2014-01-21T18:27:00+01:00</departure>
+					<departure accurate="1" headsign="Acigné">2014-01-21T18:44:00+01:00</departure>
+				</departures>
+			</stopline>
+			<stopline>
+				<stop>4001</stop>
+				<route>0064</route>
+				<direction>0</direction>
+				<departures>
+					<departure accurate="1" headsign="Rennes | République">2014-01-21T18:10:00+01:00</departure>
+					<departure accurate="0" headsign="Rennes | République">2014-01-21T18:30:00+01:00</departure>
+					<departure accurate="1" headsign="Rennes | République">2014-01-21T18:50:00+01:00</departure>
+				</departures>
+			</stopline>
+			<stopline>
+				<stop>2046</stop>
+				<route>0164</route>
+				<direction>1</direction>
+				<departures>
+					<departure accurate="1" headsign="Acigné">2014-01-21T18:14:00+01:00</departure>
+				</departures>
+			</stopline>
+			<stopline>
+				<stop>4001</stop>
+				<route>0200</route>
+				<direction>1</direction>
+				<departures>
+					<departure accurate="0" headsign="Cesson-Sévigné |  Acigné">2014-01-21T18:20:00+01:00</departure>
+				</departures>
+			</stopline>
+		</data>
+	</answer>
+</opendata>
