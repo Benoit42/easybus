@@ -34,9 +34,13 @@
 - (NSPersistentStoreCoordinator *)getPersistentStoreCoordinatorForModel:(NSManagedObjectModel*)managedObjectModel {
     NSPersistentStoreCoordinator* persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: managedObjectModel];
     NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"data.sqlite"]];
-    //[[NSFileManager defaultManager] removeItemAtURL:storeUrl error:NULL];
-	NSError *error;
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+
+    NSError *error;
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error]) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
         [[NSFileManager defaultManager] removeItemAtURL:storeUrl error:NULL];

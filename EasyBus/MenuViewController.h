@@ -14,6 +14,7 @@
 @property(strong, nonatomic) FavoritesManager* favoritesManager;
 @property (weak, nonatomic) IBOutlet UIButton *favoritesButton;
 @property (weak, nonatomic) IBOutlet UIButton *organizeButton;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 - (IBAction)favoritesButton:(id)sender;
 - (IBAction)linesButton:(id)sender;

@@ -41,6 +41,10 @@ objection_requires(@"favoritesManager")
         SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
         swRevealViewController.frontViewController = linesNavigationController;
     }
+    
+    //Affichage du n° de version
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    self.versionLabel.text = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

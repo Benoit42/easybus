@@ -91,6 +91,13 @@
                                                     <color key="textColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAC-qB-eua">
+                                                    <rect key="frame" x="206" y="19" width="36" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="12"/>
+                                                    <color key="textColor" red="0.1657435286" green="0.9075662364" blue="0.72478115639999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -282,6 +289,7 @@
                     <connections>
                         <outlet property="favoritesButton" destination="xlb-ZQ-b11" id="uF4-uD-GMc"/>
                         <outlet property="organizeButton" destination="ItL-Pf-0rz" id="XmK-PN-Hf3"/>
+                        <outlet property="versionLabel" destination="PAC-qB-eua" id="uMI-IH-8Tc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZj-2f-kZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

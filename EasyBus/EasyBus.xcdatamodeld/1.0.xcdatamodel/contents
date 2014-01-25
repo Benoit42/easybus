@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="1.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Favorite" representedClassName="Favorite" syncable="YES">
+        <attribute name="direction" attributeType="String" syncable="YES"/>
+        <relationship name="group" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="favorites" inverseEntity="Group" syncable="YES"/>
+        <relationship name="route" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="favorites" inverseEntity="Route" syncable="YES"/>
+        <relationship name="stop" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stop" inverseName="favorites" inverseEntity="Stop" syncable="YES"/>
+    </entity>
+    <entity name="FeedInfo" representedClassName="FeedInfo" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="publishDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="terminus" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" ordered="YES" destinationEntity="Favorite" inverseName="group" inverseEntity="Favorite" syncable="YES"/>
+    </entity>
+    <entity name="Route" representedClassName="Route" syncable="YES">
+        <attribute name="fromName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="longName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="toName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="route" inverseEntity="Favorite" syncable="YES"/>
+        <relationship name="stopsDirectionOne" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
+        <relationship name="stopsDirectionZero" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
+    </entity>
+    <entity name="Stop" representedClassName="Stop" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="stop" inverseEntity="Favorite" syncable="YES"/>
+        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Route" syncable="YES"/>
+    </entity>
+    <fetchRequest name="fetchAllFavorites" entity="Favorite"/>
+    <fetchRequest name="fetchAllGroups" entity="Group"/>
+    <fetchRequest name="fetchAllRoutes" entity="Route"/>
+    <fetchRequest name="fetchAllStops" entity="Stop"/>
+    <fetchRequest name="fetchFeedInfo" entity="FeedInfo"/>
+    <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
+    <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
+    <elements>
+        <element name="Favorite" positionX="-209" positionY="342" width="128" height="105"/>
+        <element name="FeedInfo" positionX="-531" positionY="450" width="128" height="105"/>
+        <element name="Group" positionX="-216" positionY="558" width="128" height="90"/>
+        <element name="Route" positionX="124" positionY="132" width="128" height="165"/>
+        <element name="Stop" positionX="-569" positionY="144" width="128" height="150"/>
+    </elements>
+</model>
