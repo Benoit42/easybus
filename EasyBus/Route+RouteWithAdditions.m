@@ -20,18 +20,13 @@
     }
 }
 
-- (void)addStop:(Stop*)stop forSequence:(NSNumber*)sequence forDirection:(NSString*)direction {    NSMutableOrderedSet* tempSet;
+- (void)addStop:(Stop*)stop forDirection:(NSString*)direction {
     if ([direction isEqualToString: @"0"]) {
-        //[route insertObject:stop inStopsDirectionZeroAtIndex:0];
-        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionZero"];
+        [self addStopsDirectionZeroObject:stop];
     }
     else {
-        //[route insertObject:stop inStopsDirectionOneAtIndex:0];
-        tempSet = [self mutableOrderedSetValueForKey:@"stopsDirectionOne"];
+        [self addStopsDirectionOneObject:stop];
     }
-
-    //Ajout de l'arrêt
-    [tempSet addObject:stop];
 }
 
 - (NSURL*) pictoUrl {

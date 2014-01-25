@@ -8,6 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import "IoCModule.h"
+#import <NSManagedObjectModel+KCOrderedAccessorFix.h>
 
 @implementation IoCModule
 
@@ -21,6 +22,9 @@
     NSManagedObjectContext* managedObjectContext = [[NSManagedObjectContext alloc] init];
     [managedObjectContext setPersistentStoreCoordinator: persistentStoreCoordinator];
     [self bind:managedObjectContext toClass:[NSManagedObjectContext class]];
+    
+    //Patchs generated method for ordered sets
+    [managedObjectModel kc_generateOrderedSetAccessors];
 }
 
 /**

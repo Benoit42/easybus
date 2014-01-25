@@ -191,7 +191,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSAssert(stops != nil, @"stopTimesCsvReader should not be nil");
     
     //Log
-    NSLog(@"Association route/arrêts");
+    NSLog(@"Association route/arrêts 1");
 
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
@@ -235,8 +235,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
                 Route* route = [routesDictionnary objectForKey:trip.routeId];
                 Stop* stop = [stopsDictionnary objectForKey:stopTime.stopId];
                 NSString* direction = trip.directionId;
-                NSNumber* sequence = [NSNumber numberWithInt:([stopTime.stopSequence integerValue] - 1)];
-                [route addStop:stop forSequence:sequence forDirection:direction];
+                [route addStop:stop forDirection:direction];
                 
                 //Incrément de boucle
                 j++;
@@ -256,7 +255,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSParameterAssert(routeStops != nil);
     
     //Log
-    NSLog(@"Association route/arrêts");
+    NSLog(@"Association route/arrêts 2");
     
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
@@ -291,8 +290,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         Route* route = [routesDictionnary objectForKey:routeStop.routeId];
         Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
         NSString* direction = routeStop.directionId;
-        NSNumber* sequence = [NSNumber numberWithInt:([routeStop.stopSequence integerValue] - 1)];
-        [route addStop:stopEntity forSequence:sequence forDirection:direction];
+        [route addStop:stopEntity forDirection:direction];
     }];
         
     //Retour

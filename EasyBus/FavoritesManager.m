@@ -11,7 +11,6 @@
 #import "GroupManager.h"
 #import "Stop.h"
 #import "Route+RouteWithAdditions.h"
-#import "Group+GroupeWithAdditions.h"
 
 @implementation FavoritesManager
 objection_register_singleton(FavoritesManager)

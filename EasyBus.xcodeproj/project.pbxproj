@@ -46,7 +46,6 @@
 		147480041663D4DC0091FF49 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147480031663D4DC0091FF49 /* PageViewController.m */; };
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
-		1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */; };
 		149D4EE51831600300A19117 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D4EE41831600300A19117 /* Stop.m */; };
 		149D4EE61831600300A19117 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 149D4EE41831600300A19117 /* Stop.m */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
@@ -207,8 +206,6 @@
 		14776D7F17423022008C7E2E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		14776D84174251DE008C7E2E /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		14776D8617425290008C7E2E /* ZipArchiveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchiveTest.m; sourceTree = "<group>"; };
-		1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+GroupeWithAdditions.h"; sourceTree = "<group>"; };
-		1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+GroupeWithAdditions.m"; sourceTree = "<group>"; };
 		148DCA93184D14B400658839 /* screenshot-35-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-1.png"; sourceTree = "<group>"; };
 		148DCA94184D14B400658839 /* screenshot-35-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-2.png"; sourceTree = "<group>"; };
 		148DCA95184D14B400658839 /* screenshot-35-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-35-3.png"; sourceTree = "<group>"; };
@@ -608,8 +605,6 @@
 				147168B51801C9F200846AE6 /* Favorite.m */,
 				147168AB1801C9F100846AE6 /* Group.h */,
 				147168AC1801C9F100846AE6 /* Group.m */,
-				1483084817DCF046006584C3 /* Group+GroupeWithAdditions.h */,
-				1483084917DCF046006584C3 /* Group+GroupeWithAdditions.m */,
 				14B1F88B17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.h */,
 				14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
@@ -1040,7 +1035,6 @@
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
-				1483084A17DCF046006584C3 /* Group+GroupeWithAdditions.m in Sources */,
 				149D4EE51831600300A19117 /* Stop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Favorite" representedClassName="Favorite" syncable="YES">
         <attribute name="direction" attributeType="String" syncable="YES"/>
         <relationship name="group" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="favorites" inverseEntity="Group" syncable="YES"/>
@@ -24,8 +24,8 @@
         <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="route" inverseEntity="Favorite" syncable="YES"/>
-        <relationship name="stopsDirectionOne" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
-        <relationship name="stopsDirectionZero" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" syncable="YES"/>
+        <relationship name="stopsDirectionOne" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" inverseName="routesDirectionOne" inverseEntity="Stop" syncable="YES"/>
+        <relationship name="stopsDirectionZero" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stop" inverseName="routesDirectionZero" inverseEntity="Stop" syncable="YES"/>
     </entity>
     <entity name="Stop" representedClassName="Stop" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,7 +34,8 @@
         <attribute name="location" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="favorites" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Favorite" inverseName="stop" inverseEntity="Favorite" syncable="YES"/>
-        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Route" syncable="YES"/>
+        <relationship name="routesDirectionOne" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Route" inverseName="stopsDirectionOne" inverseEntity="Route" syncable="YES"/>
+        <relationship name="routesDirectionZero" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Route" inverseName="stopsDirectionZero" inverseEntity="Route" syncable="YES"/>
     </entity>
     <fetchRequest name="fetchAllFavorites" entity="Favorite"/>
     <fetchRequest name="fetchAllGroups" entity="Group"/>
@@ -44,10 +45,10 @@
     <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
     <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
     <elements>
-        <element name="Favorite" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FeedInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Route" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Stop" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Favorite" positionX="-198" positionY="-243" width="128" height="105"/>
+        <element name="FeedInfo" positionX="-531" positionY="-204" width="128" height="105"/>
+        <element name="Group" positionX="-207" positionY="-63" width="128" height="90"/>
+        <element name="Route" positionX="52" positionY="-504" width="128" height="163"/>
+        <element name="Stop" positionX="-468" positionY="-495" width="128" height="163"/>
     </elements>
 </model>

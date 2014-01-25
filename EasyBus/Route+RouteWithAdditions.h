@@ -12,7 +12,7 @@
 @interface Route (RouteWithAdditions)
 
 - (NSString*)terminusForDirection:(NSString*)direction;
-- (void)addStop:(Stop*)stop forSequence:(NSNumber*)sequence forDirection:(NSString*)direction;
+- (void)addStop:(Stop*)stop forDirection:(NSString*)direction;
 - (NSURL*) pictoUrl;
 
 @end
