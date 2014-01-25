@@ -79,7 +79,7 @@
 		14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14B90CBB181C40D500F6FF73 /* gtfsUpdateFeed.xml in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */; };
-		14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
+		14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14BA0189188EE66600AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
@@ -132,7 +132,7 @@
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
 		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
 		14E459041810695900E2401A /* FeedInfoTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* FeedInfoTmp.m */; };
-		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */; };
+		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -315,7 +315,7 @@
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* FeedInfoTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* FeedInfoTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoTmp.m; sourceTree = "<group>"; };
-		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError; sourceTree = "<group>"; };
+		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError.xml; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -587,7 +587,7 @@
 				14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */,
 				14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */,
 				146CC04018181F2B005A7F66 /* gtfsUpdateFeed.xml */,
-				14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError */,
+				14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -859,7 +859,7 @@
 				14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */,
 				1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */,
 				14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */,
-				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError in Resources */,
+				14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError.xml in Resources */,
 				14DDAE0618451D5300C66E51 /* stop_times_light.txt in Resources */,
 				14DDAE0418451D5300C66E51 /* routes_stops_light.txt in Resources */,
 				14DDADFC18451CF400C66E51 /* routes_additionals.txt in Resources */,
@@ -877,7 +877,7 @@
 			files = (
 				14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */,
 				146CC04518181FDA005A7F66 /* GTFS.zip in Resources */,
-				14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError in Resources */,
+				14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError.xml in Resources */,
 				14DDAE0718451D5300C66E51 /* stop_times_light.txt in Resources */,
 				14DDAE0518451D5300C66E51 /* routes_stops_light.txt in Resources */,
 				14DDAE0F1845309100C66E51 /* stops_light.txt in Resources */,
