@@ -33,9 +33,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
 
-    // Abonnement au notifications des favoris
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
-    
     //Ajout long press gesture
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -44,7 +41,14 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     [self.tableView addGestureRecognizer:lpgr];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //Désactivation du mode édition
     if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
         [self.modifyButton setTitle:@"modifier"];
@@ -114,7 +118,7 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         [self.favoritesManager removeFavorite:favorite];
 
         // Animate the deletion from the table
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         if (group.favorites.count == 0) {
             [self.groupManager removeGroup:group];
             NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
@@ -167,14 +171,6 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
         [self.tableView setEditing:YES animated:YES];
         [self.modifyButton setTitle:@"fin"];
     }
-}
-
-#pragma mark - favorite or group updated
-- (void)favoritesUpdated:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
-        //Rechargement de la table
-        [self.tableView reloadData];
-    }];
 }
 
 #pragma mark - Segues

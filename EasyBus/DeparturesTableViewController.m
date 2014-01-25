@@ -36,7 +36,7 @@ objection_requires(@"departuresManager", @"favoritesManager")
     refreshLabelFont = [UIFont fontWithName:@"Heiti TC" size:15.0f];
 }
 
-#pragma mark - Initialisation
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,11 +49,27 @@ objection_requires(@"departuresManager", @"favoritesManager")
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceeded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailed object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //Fermeture du pull to refresh
+    [self performBlockOnMainThread:^{
+        [self.refreshControl endRefreshing];
+    }];
+
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Gestion de la mise à jour des départs

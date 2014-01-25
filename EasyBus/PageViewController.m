@@ -28,7 +28,7 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
-#pragma mark - lifecycle
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -43,20 +43,32 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 
-    // Abonnement au notifications des favoris
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
+    // Couleur de fond vert Star
+    self.view.backgroundColor = Constants.starGreenColor;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    //Reinit pages
+    [self.pageDataSource reset];
+    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
+    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    //Move page view to nearest groupe
+    [self gotoNearestPage];
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
     
     // Abonnement au notifications de localisation
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
-
-    // Couleur de fond vert Star
-    self.view.backgroundColor = Constants.starGreenColor;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - scrolling
 - (void)scrollToPage:(NSInteger)page {
     //Get current page
     int currentPage = ((DeparturesViewController*)[[self viewControllers]objectAtIndex:0]).page;

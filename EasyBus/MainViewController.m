@@ -20,7 +20,7 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
-#pragma mark - Initialisation
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -29,20 +29,27 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.staticDataManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     // Abonnement au notifications de chargement des données
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingProgress:) name:dataLoadingProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingFinished:) name:dataLoadingFinished object:nil];
-
+    
     // Abonnement au notifications des favoris
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 }
 
-#pragma mark - affichage
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

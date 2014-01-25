@@ -25,6 +25,7 @@ objection_requires(@"favoritesManager")
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -37,16 +38,21 @@ objection_requires(@"favoritesManager")
     
     //Si pas de favoris, on passe sur la liste des lignes
     if (self.favoritesManager.favorites.count == 0) {
-        self.favoritesButton.enabled = NO;
-        self.organizeButton.enabled = NO;
         SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
         swRevealViewController.frontViewController = linesNavigationController;
     }
-    
-    // Abonnement au notifications des favoris
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //Mise à jour de l'UI
+    BOOL haveFavorites = self.favoritesManager.favorites.count > 0;
+    self.favoritesButton.enabled = haveFavorites;
+    self.organizeButton.enabled = haveFavorites;
+}
+
+#pragma mark - Actions
 - (IBAction)favoritesButton:(id)sender {
     SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
     swRevealViewController.frontViewController = departuresPageViewController;
@@ -75,14 +81,6 @@ objection_requires(@"favoritesManager")
     SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
     swRevealViewController.frontViewController = feedInfoNavigationViewController;
     [swRevealViewController revealToggleAnimated:YES];
-}
-
-#pragma mark - notifications
-- (void)favoritesUpdated:(NSNotification *)notification {
-    if (self.favoritesManager.favorites.count > 0) {
-        self.favoritesButton.enabled = YES;
-        self.organizeButton.enabled = YES;
-    }
 }
 
 #pragma mark - Segues
