@@ -6,10 +6,25 @@
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "SWRevealViewController.h"
+#import <SWRevealViewController/SWRevealViewController.h>
+#import "FavoritesManager.h"
 
 @interface RevealViewController : SWRevealViewController
 
-- (void) toggleViews;
+@property(strong, nonatomic) FavoritesManager* favoritesManager;
+
+@property (nonatomic) UIViewController* menuViewController;
+@property (nonatomic) UIViewController* departuresPageViewController;
+@property (nonatomic) UIViewController* favoritesNavigationController;
+@property (nonatomic) UIViewController* linesNavigationController;
+@property (nonatomic) UIViewController* creditsNavigationController;
+@property (nonatomic) UIViewController* feedInfoNavigationViewController;
+
+- (void) showDepartures;
+- (void) showLines;
+- (void) showFavorites;
+- (void) showCredits;
+- (void) showFeedInfo;
+- (void) showMenu;
 
 @end

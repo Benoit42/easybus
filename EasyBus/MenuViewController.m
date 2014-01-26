@@ -10,14 +10,7 @@
 #import "MenuViewController.h"
 #import "RevealViewController.h"
 
-@implementation MenuViewController {
-    UIViewController* departuresPageViewController;
-    UIViewController* favoritesNavigationController;
-    UIViewController* linesNavigationController;
-    UIViewController* creditsNavigationController;
-    UIViewController* feedInfoNavigationViewController;
-}
-
+@implementation MenuViewController
 objection_requires(@"favoritesManager")
 
 #pragma mark - IoC
@@ -28,19 +21,6 @@ objection_requires(@"favoritesManager")
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Instanciation des controllers
-    departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
-    favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
-    linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
-    creditsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
-    feedInfoNavigationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedInfoNavigationController"];
-    
-    //Si pas de favoris, on passe sur la liste des lignes
-    if (self.favoritesManager.favorites.count == 0) {
-        SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-        swRevealViewController.frontViewController = linesNavigationController;
-    }
     
     //Affichage du n° de version
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -58,40 +38,35 @@ objection_requires(@"favoritesManager")
 
 #pragma mark - Actions
 - (IBAction)favoritesButton:(id)sender {
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = departuresPageViewController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showDepartures];
 }
 
 - (IBAction)linesButton:(id)sender {
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = linesNavigationController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showLines];
 }
 
 - (IBAction)organizeButton:(id)sender {
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = favoritesNavigationController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showFavorites];
 }
 
 - (IBAction)creditsButton:(id)sender {
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = creditsNavigationController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showCredits];
 }
 
 - (IBAction)feedInfoButton:(id)sender {
-    SWRevealViewController* swRevealViewController = (SWRevealViewController*)self.parentViewController;
-    swRevealViewController.frontViewController = feedInfoNavigationViewController;
-    [swRevealViewController revealToggleAnimated:YES];
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showFeedInfo];
 }
 
 #pragma mark - Segues
 - (IBAction)unwindToMenu:(UIStoryboardSegue *)segue {
-    //Affichage du menu
     RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
-    [revealViewController toggleViews];
+    //Affichage du menu
+    [revealViewController showMenu];
 }
 
 @end
