@@ -67,7 +67,8 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
         
         //add departure
         [cell._picto setImage:[UIImage imageNamed:route.id]];
-        [cell._libLigne setText:route.longName];
+        [cell.libTerminus0 setText:[route terminusForDirection:@"0"]];
+        [cell.libTerminus1 setText:[route terminusForDirection:@"1"]];
         return cell;
     }
     return nil;

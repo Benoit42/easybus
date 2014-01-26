@@ -10,5 +10,4 @@
 
 @implementation LineCell
 
-@synthesize _picto, _libLigne;
 @end

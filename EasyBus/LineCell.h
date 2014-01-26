@@ -11,6 +11,7 @@
 @interface LineCell : UITableViewCell
 
 @property (nonatomic) IBOutlet UIImageView* _picto;
-@property (nonatomic) IBOutlet UILabel* _libLigne;
+@property (weak, nonatomic) IBOutlet UILabel *libTerminus0;
+@property (weak, nonatomic) IBOutlet UILabel *libTerminus1;
 
 @end
