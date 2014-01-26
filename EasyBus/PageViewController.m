@@ -58,9 +58,7 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
-    
-    // Abonnement au notifications de localisation
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationFound:) name:locationFound object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceeded object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -119,30 +117,16 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     [self scrollToPage:index];
 }
 
-#pragma mark - favorite or group updated
-- (void)favoritesUpdated:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
-        //Reinit pages
-        [self.pageDataSource reset];
-        UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
-        [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-        //Move page view to nearest groupe
-        [self gotoNearestPage];
-    }];
-}
-
 #pragma mark - refreshing location
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     [self.locationManager startUpdatingLocation];
 }
 
-#pragma mark - Notification de localisation
-- (void)locationFound:(NSNotification *)notification {
+- (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
         //Move page view to nearest groupe
-        [self gotoNearestPage];
-    }];
+            [self gotoNearestPage];
+        }];
 }
 
 @end

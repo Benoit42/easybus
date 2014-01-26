@@ -102,7 +102,7 @@ objection_requires(@"departuresManager", @"favoritesManager")
         //Dismiss refresh control after delay
         [self performBlockOnMainThread:^{
             [self.refreshControl endRefreshing];
-        } afterDelay:1];
+        }];
     }];
 }
 
