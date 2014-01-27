@@ -2,8 +2,8 @@
 //  Favorite.m
 //  EasyBus
 //
-//  Created by Benoit on 06/10/13.
-//  Copyright (c) 2013 Benoit. All rights reserved.
+//  Created by Benoît on 27/01/2014.
+//  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
 #import "Favorite.h"

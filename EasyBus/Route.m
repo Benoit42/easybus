@@ -2,8 +2,8 @@
 //  Route.m
 //  EasyBus
 //
-//  Created by Benoit on 30/10/2013.
-//  Copyright (c) 2013 Benoit. All rights reserved.
+//  Created by Benoît on 27/01/2014.
+//  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
 #import "Route.h"
