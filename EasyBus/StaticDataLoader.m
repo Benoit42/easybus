@@ -261,7 +261,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSAssert(stops != nil, @"stopTimesCsvReader should not be nil");
     
     //Log
-    NSLog(@"Association route/arrêts 1");
+    NSLog(@"Association trajet/arrêts");
 
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
@@ -331,12 +331,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSParameterAssert(routeStops != nil);
     
     //Log
-    NSLog(@"Association route/arrêts 2");
+    NSLog(@"Association route/arrêts");
     
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
     [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         [routesDictionnary setObject:route forKey:route.id];
+        [route removeStopsDirectionZero:[route stopsDirectionZero]];
+        [route removeStopsDirectionOne:[route stopsDirectionOne]];
     }];
     
     NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
@@ -369,12 +371,27 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         Route* route = [routesDictionnary objectForKey:routeStop.routeId];
         Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
         NSString* direction = routeStop.directionId;
-        [route addStop:stopEntity forDirection:direction];
+        if (route && stopEntity && direction) {
+            [route addStop:stopEntity forDirection:direction];
+        }
+        else {
+            NSLog(@"Données incohérentes : %@-%@-%@ ", route.id, stopEntity.id, direction);
+        }
 
         //Progress
         [progress setCompletedUnitCount:idx];
     }];
-        
+    
+    //Clean-up unused stops
+    NSUInteger beforeCleanUp = [[self.staticDataManager stops] count];
+    [[self.staticDataManager stops] enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+        if ([[stopEntity routesDirectionZero] count] == 0 && [[stopEntity routesDirectionOne] count] == 0) {
+            [stopEntity.managedObjectContext deleteObject:stopEntity];
+        }
+    }];
+    NSUInteger afterCleanUp = [[self.staticDataManager stops] count];
+    NSLog(@"Nettoyage des arrêts inutilisés : %i arrêts supprimés", beforeCleanUp - afterCleanUp);
+    
     //Retour
     return;
 }
