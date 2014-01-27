@@ -76,6 +76,11 @@ objection_requires(@"departuresManager", @"favoritesManager")
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     NSLog(@"Update started");
     [self performBlockOnMainThread:^{
+        // start indicator
+        if (![self.refreshControl isRefreshing]) {
+            [self.refreshControl beginRefreshing];
+        }
+        
         //message
         NSString* message = @"mise à jour en cours...";
         NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
@@ -99,10 +104,7 @@ objection_requires(@"departuresManager", @"favoritesManager")
         [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
         self.refreshControl.attributedTitle = attributedMessage;
         
-        //Dismiss refresh control after delay
-        [self performBlockOnMainThread:^{
-            [self.refreshControl endRefreshing];
-        }];
+        [self.refreshControl endRefreshing];
     }];
 }
 
