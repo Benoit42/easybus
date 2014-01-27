@@ -125,8 +125,8 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
         //Move page view to nearest groupe
-            [self gotoNearestPage];
-        }];
+        [self gotoNearestPage];
+    }];
 }
 
 @end
