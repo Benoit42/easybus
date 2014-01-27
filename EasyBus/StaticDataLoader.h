@@ -33,6 +33,7 @@ FOUNDATION_EXPORT NSString *const dataLoadingFailed;
 @property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
 @property(nonatomic) FeedInfoCsvReader* feedInfoCsvReader;
 @property(nonatomic) GtfsDownloadManager* gtfsDownloadManager;
+@property (nonatomic) NSProgress* progress;
 
 - (void)checkUpdate:(NSDate*)date withSuccessBlock:(void(^)(BOOL updateNeeded, NSString* version))success andFailureBlock:(void(^)(NSError* error))failure;
 - (void)loadDataFromWebWithSuccessBlock:(void(^)(void))success andFailureBlock:(void(^)(NSError* error))failure;

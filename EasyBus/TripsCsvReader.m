@@ -26,6 +26,9 @@ objection_register_singleton(TripsCsvReader)
     //Chargement des horaires
     NSLog(@"Chargement des trajets");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:23678]; //approx
+    
     //Allocation du dictionnaire
     self.trips = [[NSMutableArray alloc] initWithCapacity:25000U];
     self.routesTerminusDictionary = [[NSMutableDictionary alloc] init];
@@ -44,6 +47,7 @@ objection_register_singleton(TripsCsvReader)
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 4) {
         // Create and configure a new instance of the Trip entity.
         Trip* trip = [[Trip alloc] init];

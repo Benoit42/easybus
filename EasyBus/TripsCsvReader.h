@@ -12,6 +12,7 @@
 @interface TripsCsvReader : NSObject
 
 @property(nonatomic, retain) NSMutableArray* trips;
+@property (nonatomic) NSProgress* progress;
 
 - (void)loadData:(NSURL*)url;
 - (NSString*)terminusLabelForRouteId:(NSString*)routeId andDirectionId:(NSString*)directionId;

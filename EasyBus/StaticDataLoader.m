@@ -31,6 +31,16 @@ objection_register_singleton(StaticDataLoader)
 
 objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
 
+#pragma mark - Constructeur
+-(id)init {
+    if ( self = [super init] ) {
+        //Initialisation du progress
+        self.progress = [[NSProgress alloc] init];
+    }
+    
+    return self;
+}
+
 #pragma mark web file loading method
 -(void)checkUpdate:(NSDate*)date withSuccessBlock:(void(^)(BOOL, NSString* version))success andFailureBlock:(void(^)(NSError* error))failure {
     //Pré-conditions
@@ -65,10 +75,13 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSParameterAssert(self.tripsCsvReader != nil);
     NSParameterAssert(self.stopTimesCsvReader != nil);
     NSParameterAssert(self.feedInfoCsvReader != nil);
-    
+
     //Log
     NSLog(@"Démarrage du chargement des données web");
     
+    //Initialisation du progress
+    [self.progress setTotalUnitCount:80];
+
     //Download GTFS data from Keolis
     [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingStarted object:self];
     
@@ -77,21 +90,43 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         withSuccessBlock:^(NSURL *outputPath) {
             //load data into database
             NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.feedInfoCsvReader loadData:feedInfosUrl];
+            [self.progress resignCurrent];
+
             NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.routesCsvReader loadData:routesUrl];
+            [self.progress resignCurrent];
+
             NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.routesCsvReader loadData:additionnalsRoutesUrl];
+            [self.progress resignCurrent];
+
             NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.stopsCsvReader loadData:stopsUrl];
+            [self.progress resignCurrent];
+
             NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.tripsCsvReader loadData:tripsUrl];
+            [self.progress resignCurrent];
+
             NSURL* stopTimesUrl = [NSURL URLWithString:@"stop_times.txt" relativeToURL:outputPath];
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self.stopTimesCsvReader loadData:stopTimesUrl];
+            [self.progress resignCurrent];
+
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
+            [self.progress resignCurrent];
             
             //Set routes terminus
+            [self.progress becomeCurrentWithPendingUnitCount:10];
             [self setRoutesTerminus];
+            [self.progress resignCurrent];
             
             //clean-up
             [self.feedInfoCsvReader cleanUp];
@@ -133,30 +168,56 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //Log
     NSLog(@"Démarrage du chargement des données locales");
     
+    //Initialisation du progress
+    [self.progress setTotalUnitCount:100];
+    
     //load data
     NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:1];
     [self.feedInfoCsvReader loadData:feedInfosUrl];
+    [self.progress resignCurrent];
+
     NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:81];
     [self.tripsCsvReader loadData:tripsUrl];
+    [self.progress resignCurrent];
+
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:1];
     [self.routesCsvReader loadData:routesUrl];
+    [self.progress resignCurrent];
+
     NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:1];
     [self.routesCsvReader loadData:additionnalsRoutesUrl];
+    [self.progress resignCurrent];
+
     NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:10];
     [self.stopsCsvReader loadData:stopsUrl];
+    [self.progress resignCurrent];
+
     NSURL* routesStops = [NSURL URLWithString:@"routes_stops.txt" relativeToURL:directory];
+    [self.progress becomeCurrentWithPendingUnitCount:3];
     [self.routesStopsCsvReader loadData:routesStops];
+    [self.progress resignCurrent];
+
+    
+    [self.progress becomeCurrentWithPendingUnitCount:2];
     [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
+    [self.progress resignCurrent];
     
     //Set routes terminus
+    [self.progress becomeCurrentWithPendingUnitCount:1];
     [self setRoutesTerminus];
+    [self.progress resignCurrent];
     
     //clean-up
     [self.tripsCsvReader cleanUp];
     [self.routesCsvReader cleanUp];
     [self.stopsCsvReader cleanUp];
     [self.routesStopsCsvReader cleanUp];
-    
+
     //Post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
     
@@ -164,8 +225,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Fin du chargement des données locales");
 }
 
-// Association route/stop
+// Calcul des libellés de terminus
 - (void) setRoutesTerminus {
+    //Log
+    NSLog(@"Calcul des libellés de terminus");
+    
+    //Initialisation du progress
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:self.staticDataManager.routes];
+    
     [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         //récupération du label
         NSString* terminus0 = [self.tripsCsvReader terminusLabelForRouteId:route.id andDirectionId:@"0"];
@@ -181,6 +248,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         
         route.fromName = [terminus0RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
         route.toName = [terminus1RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        
+        //Progress
+        [progress setCompletedUnitCount:idx];
     }];
 }
 
@@ -218,6 +288,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         }
     }];
     
+    //Initialisation du progress
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:trips.count];
+    
     //Matching route/stop
     int i=0, j=0;
     while (i < trips.count) {
@@ -244,6 +317,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         
         //Incrément de boucle
         i++;
+
+        //Progress
+        [progress setCompletedUnitCount:i];
     }
     
     //Retour
@@ -285,12 +361,18 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         }
     }];
 
+    //Initialisation du progress
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:routeStops.count];
+    
     //Matching route/stop
     [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, NSUInteger idx, BOOL *stop) {
         Route* route = [routesDictionnary objectForKey:routeStop.routeId];
         Stop* stopEntity = [stopsDictionnary objectForKey:routeStop.stopId];
         NSString* direction = routeStop.directionId;
         [route addStop:stopEntity forDirection:direction];
+
+        //Progress
+        [progress setCompletedUnitCount:idx];
     }];
         
     //Retour

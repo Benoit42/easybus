@@ -360,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				14AD3C27162AF00400DF061A /* MainStoryboard.storyboard */,
+				145440A7184656810019ED10 /* Images.xcassets */,
 				14405C921822373700843B20 /* StartingView */,
 				14CF4331165D567500834A23 /* DeparturesView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
@@ -538,7 +539,6 @@
 				145440A9184661540019ED10 /* GTFS */,
 				148DCA92184D146300658839 /* Vector icons */,
 				148DCA91184D144D00658839 /* Screenshots */,
-				145440A7184656810019ED10 /* Images.xcassets */,
 				14AD3C17162AF00400DF061A /* EasyBus-Info.plist */,
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
 				14AD3C1B162AF00400DF061A /* main.m */,

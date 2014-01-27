@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "MainViewController.h"
 #import "PageViewController.h"
 #import "FavoritesManager.h"
@@ -43,24 +44,30 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    //Check des données
+    if ([self.staticDataManager isDataLoaded]) {
+        //Affichage des départs
+        [self performSegueWithIdentifier:@"start" sender:self];
+    }
+    else {
+        //Chargement des données
+        [self.progressBar setProgress:0.0f animated:NO];
+        [self.progressBar setHidden:NO];
+        [self.staticDataLoader.progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:nil];
+        [self performBlockInBackground:^{
+            [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
+        }];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     //Désabonnement aux notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //Check des données statiques
-    if ([self.staticDataManager isDataLoaded]) {
-        [self performSegueWithIdentifier:@"start" sender:self];
-    }
-    else {
-        [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
-    }
 }
 
 #pragma mark - managing data loading
@@ -72,9 +79,13 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     //Désabonnement des notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingProgress object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingFinished object:nil];
-    
-    //Affichage du menu
-    [self performSegueWithIdentifier:@"start" sender:self];
+
+    //Progress
+    [self.staticDataLoader.progress removeObserver:self forKeyPath:@"fractionCompleted"];
+
+    [self performBlockOnMainThread:^{
+        [self performSegueWithIdentifier:@"start" sender:self];
+    }];
 }
 
 #pragma mark - refreshing departures
@@ -83,5 +94,15 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     NSArray* favorite = [self.favoritesManager favorites];
     [self.departuresManager refreshDepartures:favorite];
 }
+
+#pragma mark - progress view
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"fractionCompleted"]) {
+        [self performBlockOnMainThread:^{
+            [self.progressBar setProgress:self.staticDataLoader.progress.fractionCompleted animated:YES];
+        }];
+    }
+}
+
 
 @end

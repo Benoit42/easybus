@@ -29,6 +29,9 @@ objection_requires(@"managedObjectContext")
     //Log
     NSLog(@"Chargement des infos de données");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:1]; //approx
+    
     //parsing du fichier
     self.row = [[NSMutableArray alloc] init];
     NSInputStream *fileStream = [NSInputStream inputStreamWithFileAtPath:[url path]];
@@ -45,6 +48,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 6) {
         //Get feed info in database
         FeedInfo* feedInfo = [self feedInfo];

@@ -12,6 +12,7 @@
 @interface RoutesCsvReader : NSObject
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSProgress* progress;
 
 - (void)loadData:(NSURL*)url;
 - (void)cleanUp;

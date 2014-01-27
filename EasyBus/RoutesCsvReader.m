@@ -25,10 +25,14 @@ objection_register_singleton(RoutesCsvReader)
 objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
+#pragma mark - Chargement des données
 - (void)loadData:(NSURL*)url {
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:95]; //approx
+
     //Chargement des routes
     NSLog(@"Chargement des routes");
     self.currentRoutes = [self routes];
@@ -51,6 +55,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 3) {
         //Get route in database
         Route* route = [self.currentRoutes objectForKey:self.row[0]];

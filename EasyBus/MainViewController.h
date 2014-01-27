@@ -21,4 +21,6 @@
 @property (nonatomic, retain) StaticDataManager *staticDataManager;
 @property (nonatomic, retain) StaticDataLoader *staticDataLoader;
 
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+
 @end

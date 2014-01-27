@@ -12,6 +12,7 @@
 @interface StopTimesCsvReader : NSObject
 
 @property(nonatomic, retain) NSMutableArray* stops;
+@property (nonatomic) NSProgress* progress;
 
 - (void)loadData:(NSURL*)url;
 - (void)cleanUp;

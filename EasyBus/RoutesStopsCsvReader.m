@@ -24,6 +24,9 @@ objection_register_singleton(RoutesStopsCsvReader)
     //Chargement des horaires
     NSLog(@"Chargement des associations routes/stops");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:4763]; //approx
+    
     //Allocation du dictionnaire
     self.routesStops = [[NSMutableArray alloc] initWithCapacity:5000U];
     
@@ -45,6 +48,7 @@ objection_register_singleton(RoutesStopsCsvReader)
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (self.row.count == 4) {
         // Create and configure a new instance of the StopTime entity.
         RouteStop* routeStop = [[RouteStop alloc] init];

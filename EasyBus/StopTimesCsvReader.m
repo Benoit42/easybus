@@ -25,6 +25,9 @@ objection_register_singleton(StopTimesCsvReader)
     //Chargement des horaires
     NSLog(@"Chargement des horaires");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:611396]; //approx
+    
     //Allocation du dictionnaire
     self.stops = [[NSMutableArray alloc] initWithCapacity:600000U];
     
@@ -53,6 +56,7 @@ objection_register_singleton(StopTimesCsvReader)
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 3) {
         // Create and configure a new instance of the StopTime entity.
         StopTime* stopTime = [[StopTime alloc] init];

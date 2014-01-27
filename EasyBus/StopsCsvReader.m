@@ -29,6 +29,9 @@ objection_requires(@"managedObjectContext")
     //Pré-conditions
     NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
     
+    //Initialisation du progress
+    self.progress = [NSProgress progressWithTotalUnitCount:1410]; //approx
+    
     //Chargement des stops
     NSLog(@"Chargement des stops");
     self.currentStops = [self stops];
@@ -51,6 +54,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
+    [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 6) {
         //Get route in database
         Stop* stop = [self.currentStops objectForKey:self.row[0]];

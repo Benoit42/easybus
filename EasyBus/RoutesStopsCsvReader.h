@@ -12,6 +12,7 @@
 @interface RoutesStopsCsvReader : NSObject
 
 @property(nonatomic, retain) NSMutableArray* routesStops;
+@property (nonatomic) NSProgress* progress;
 
 - (void)loadData:(NSURL*)url;
 - (void)cleanUp;
