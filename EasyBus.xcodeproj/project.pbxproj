@@ -82,6 +82,7 @@
 		14B90CBC181C40D800F6FF73 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14BA0189188EE66600AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
+		14C1ACE218963BC1002CC9BD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C1ACE118963BC1002CC9BD /* Settings.bundle */; };
 		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
@@ -250,6 +251,7 @@
 		14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoCModuleTest.m; path = ../EasyBus/IoCModuleTest.m; sourceTree = "<group>"; };
 		14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoCModuleTest.h; path = ../EasyBus/IoCModuleTest.h; sourceTree = "<group>"; };
 		14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures2.xml; sourceTree = "<group>"; };
+		14C1ACE118963BC1002CC9BD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DeparturesViewController.h; sourceTree = "<group>"; };
 		14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 		14C2E544168884B200E8A2FB /* LocationManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerTest.m; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				14AD3C18162AF00400DF061A /* InfoPlist.strings */,
 				14AD3C1B162AF00400DF061A /* main.m */,
 				14AD3C1D162AF00400DF061A /* EasyBus-Prefix.pch */,
+				14C1ACE118963BC1002CC9BD /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -867,6 +870,7 @@
 				14E0EC231836AB26008B6CA0 /* routes_stops.txt in Resources */,
 				14DDADFD18451CF400C66E51 /* routes.txt in Resources */,
 				14DDAE0E1845309100C66E51 /* stops_light.txt in Resources */,
+				14C1ACE218963BC1002CC9BD /* Settings.bundle in Resources */,
 				14DDAE0B18451E4900C66E51 /* routes_light.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

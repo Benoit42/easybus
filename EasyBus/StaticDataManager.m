@@ -14,6 +14,8 @@
 #import "Route+RouteWithAdditions.h"
 #import "FeedInfo.h"
 
+#define RELOAD_KEOLIS_DATA_KEY @"reload_keolis_data"
+
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
 
@@ -24,7 +26,8 @@ objection_requires(@"managedObjectContext")
 - (BOOL)isDataLoaded {
     BOOL feedInfoOk = [self feedInfo] != nil;
     BOOL terminusOk = [self terminusLabelIsOk];
-    return feedInfoOk && terminusOk;
+    BOOL reloadPreferenceOk = [self reloadPreferenceIsOk];
+    return feedInfoOk && terminusOk && !reloadPreferenceOk;
 }
 
 - (NSArray*) routes {
@@ -194,6 +197,13 @@ objection_requires(@"managedObjectContext")
     Route* route200 = [self routeForId:@"0200"];
     BOOL route200Ok = [route200.fromName isEqualToString:@"Rennes Lycée Assomption"];
     return route200Ok;
+}
+
+- (BOOL)reloadPreferenceIsOk {
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    BOOL reloadPreferenceOk = [[defaults valueForKey:RELOAD_KEOLIS_DATA_KEY] boolValue];
+    [defaults setValue:NO forKey:RELOAD_KEOLIS_DATA_KEY];
+    return reloadPreferenceOk;
 }
 
 @end
