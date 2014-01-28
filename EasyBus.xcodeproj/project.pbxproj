@@ -136,7 +136,6 @@
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
-		E15068B724C14E81AD7A0011 /* libPods-EasyBusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,7 +349,6 @@
 				14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */,
 				14148BAA18105A5B005DDAF9 /* XCTest.framework in Frameworks */,
 				14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */,
-				E15068B724C14E81AD7A0011 /* libPods-EasyBusTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,7 +796,6 @@
 				14AD3C31162AF00400DF061A /* Frameworks */,
 				14AD3C32162AF00400DF061A /* Resources */,
 				14AD3C33162AF00400DF061A /* ShellScript */,
-				05D60E18221349E5980F71DC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -907,21 +904,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		05D60E18221349E5980F71DC /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-EasyBusTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		14AD3C33162AF00400DF061A /* ShellScript */ = {
@@ -1186,7 +1168,7 @@
 		};
 		14AD3C4B162AF00400DF061A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */;
+			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1204,7 +1186,7 @@
 		};
 		14AD3C4C162AF00400DF061A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */;
+			baseConfigurationReference = 7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EasyBus.app/EasyBus";
 				FRAMEWORK_SEARCH_PATHS = (
