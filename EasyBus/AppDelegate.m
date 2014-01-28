@@ -71,14 +71,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //update departures
-    NSDate* refreshDate = [self.departuresManager _refreshDate];
-    if (refreshDate == nil || [refreshDate timeIntervalSinceNow] < -60) {
-        [self performBlockInBackground:^{
-            //refresh si plus d'1 minute
-            [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
-            [self.locationManager startUpdatingLocation];
-        }];
-    }
+    [self performBlockInBackground:^{
+        //Rechargement des départs
+        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.locationManager startUpdatingLocation];
+    }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
