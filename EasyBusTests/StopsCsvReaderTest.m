@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import <CoreLocation/CoreLocation.h>
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
@@ -77,8 +78,9 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvRea
     XCTAssertEqualObjects(timoniere.code, @"4001", @"Wrong short name for route 0064");
     XCTAssertEqualObjects(timoniere.name, @"Timonière", @"Wrong long name for route 0064");
     XCTAssertEqualObjects(timoniere.desc, @"Acigné", @"Wrong from name for route 0064");
-    XCTAssertEqual(timoniere.location.coordinate.latitude, 48.13701918, @"Wrong to name for route 0064");
-    XCTAssertEqual(timoniere.location.coordinate.longitude, -1.52637517, @"Wrong to name for route 0064");
+    CLLocation* location = timoniere.location;
+    XCTAssertEqual(location.coordinate.latitude, 48.13701918, @"Wrong to name for route 0064");
+    XCTAssertEqual(location.coordinate.longitude, -1.52637517, @"Wrong to name for route 0064");
 }
 
 
