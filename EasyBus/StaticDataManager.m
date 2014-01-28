@@ -23,11 +23,12 @@ objection_requires(@"managedObjectContext")
 @synthesize managedObjectContext;
 
 #pragma mark Business methods
-- (BOOL)isDataLoaded {
+- (BOOL)needsToLoadData {
     BOOL feedInfoOk = [self feedInfo] != nil;
     BOOL terminusOk = [self terminusLabelIsOk];
-    BOOL reloadPreferenceOk = [self reloadPreferenceIsOk];
-    return feedInfoOk && terminusOk && !reloadPreferenceOk;
+    BOOL reloadPreferenceEnabled = [self reloadPreferenceIsOk];
+    BOOL needsToCleanupEmptyRoutes = [self needsToCleanupEmptyRoutes];
+    return !feedInfoOk || !terminusOk || reloadPreferenceEnabled || needsToCleanupEmptyRoutes ;
 }
 
 - (NSArray*) routes {
@@ -204,6 +205,16 @@ objection_requires(@"managedObjectContext")
     BOOL reloadPreferenceOk = [[defaults valueForKey:RELOAD_KEOLIS_DATA_KEY] boolValue];
     [defaults setValue:NO forKey:RELOAD_KEOLIS_DATA_KEY];
     return reloadPreferenceOk;
+}
+
+#warning A supprimer quand tous les utilisateurs seront passé en 1.1
+- (BOOL)needsToCleanupEmptyRoutes {
+    //Pré-conditions
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    
+    //Get route 63
+    Route* route63 = [self routeForId:@"0063"];
+    return route63 != nil;
 }
 
 @end

@@ -48,11 +48,7 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidAppear:animated];
     
     //Check des données
-    if ([self.staticDataManager isDataLoaded]) {
-        //Affichage des départs
-        [self performSegueWithIdentifier:@"start" sender:self];
-    }
-    else {
+    if ([self.staticDataManager needsToLoadData]) {
         //Chargement des données
         [self.progressBar setProgress:0.0f animated:NO];
         [self.progressBar setHidden:NO];
@@ -60,6 +56,10 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
         [self performBlockInBackground:^{
             [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
         }];
+    }
+    else {
+        //Affichage des départs
+        [self performSegueWithIdentifier:@"start" sender:self];
     }
 }
 

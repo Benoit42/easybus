@@ -23,6 +23,6 @@
 - (Stop*) stopForId:(NSString*)stopId;
 - (NSArray*) nearStopsFrom:(CLLocation*)location quantity:(NSInteger)quantity;
 - (FeedInfo*) feedInfo;
-- (BOOL)isDataLoaded;
+- (BOOL)needsToLoadData;
 
 @end

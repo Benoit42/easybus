@@ -242,9 +242,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         //Exemple : "61 | Acigné"
         //Split sur le | et suppression de la partie gauche
         NSArray* subs0 = [terminus0 componentsSeparatedByString:@"|"];
-        NSString* terminus0RightPart = ([subs0 count] > 1) ? [subs0 objectAtIndex:1] : @"Terminus inconnu";
+        NSString* terminus0RightPart = ([subs0 count] > 1) ? [subs0 objectAtIndex:1] : [subs0 objectAtIndex:0];
         NSArray* subs1 = [terminus1 componentsSeparatedByString:@"|"];
-        NSString* terminus1RightPart = ([subs1 count] > 1) ? [subs1 objectAtIndex:1] : @"Terminus inconnu";
+        NSString* terminus1RightPart = ([subs1 count] > 1) ? [subs1 objectAtIndex:1] : [subs1 objectAtIndex:0];
         
         route.fromName = [terminus0RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
         route.toName = [terminus1RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
@@ -391,6 +391,16 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     }];
     NSUInteger afterCleanUp = [[self.staticDataManager stops] count];
     NSLog(@"Nettoyage des arrêts inutilisés : %i arrêts supprimés", beforeCleanUp - afterCleanUp);
+
+    //Clean-up unused stops
+    beforeCleanUp = [[self.staticDataManager routes] count];
+    [[self.staticDataManager routes] enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+        if ([[route stopsDirectionZero] count] == 0 && [[route stopsDirectionOne] count] == 0) {
+            [route.managedObjectContext deleteObject:route];
+        }
+    }];
+    afterCleanUp = [[self.staticDataManager routes] count];
+    NSLog(@"Nettoyage des routes inutilisées : %i routes supprimées", beforeCleanUp - afterCleanUp);
     
     //Retour
     return;
