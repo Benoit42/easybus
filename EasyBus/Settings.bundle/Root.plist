@@ -10,7 +10,7 @@
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>Force le rechargement des données lors du prochain lancement. A utiliser en cas d&apos;incohérence sur les données.</string>
+			<string>Rechargement des données STAR au prochain lancement.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
