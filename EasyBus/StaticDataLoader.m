@@ -80,7 +80,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Démarrage du chargement des données web");
     
     //Initialisation du progress
-    [self.progress setTotalUnitCount:80];
+    [self.progress setTotalUnitCount:90];
 
     //Download GTFS data from Keolis
     [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingStarted object:self];
@@ -121,6 +121,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 
             [self.progress becomeCurrentWithPendingUnitCount:10];
             [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
+            [self.progress resignCurrent];
+            
+            //Nettoyage des routes et stops inutilisés
+            [self.progress becomeCurrentWithPendingUnitCount:10];
+            [self cleanupData];
             [self.progress resignCurrent];
             
             //Set routes terminus
@@ -178,7 +183,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.progress resignCurrent];
 
     NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
-    [self.progress becomeCurrentWithPendingUnitCount:81];
+    [self.progress becomeCurrentWithPendingUnitCount:80];
     [self.tripsCsvReader loadData:tripsUrl];
     [self.progress resignCurrent];
 
@@ -205,6 +210,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     
     [self.progress becomeCurrentWithPendingUnitCount:2];
     [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
+    [self.progress resignCurrent];
+
+    //Nettoyage des routes et stops inutilisés
+    [self.progress becomeCurrentWithPendingUnitCount:1];
+    [self cleanupData];
     [self.progress resignCurrent];
     
     //Set routes terminus
@@ -382,22 +392,43 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         [progress setCompletedUnitCount:idx];
     }];
     
+    //Retour
+    return;
+}
+
+- (void) cleanupData {
+    //Log
+    NSLog(@"Nettoyage des lignes et arrêts inutilisés");
+    
+    //Initialisation du progress
+    NSArray* stops = [self.staticDataManager stops];
+    NSArray* routes = [self.staticDataManager routes];
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:stops.count + routes.count];
+    
     //Clean-up unused stops
     NSUInteger beforeCleanUp = [[self.staticDataManager stops] count];
-    [[self.staticDataManager stops] enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+    [stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
         if ([[stopEntity routesDirectionZero] count] == 0 && [[stopEntity routesDirectionOne] count] == 0) {
             [stopEntity.managedObjectContext deleteObject:stopEntity];
         }
+        
+        //Progress
+        progress.completedUnitCount++;
     }];
+    
     NSUInteger afterCleanUp = [[self.staticDataManager stops] count];
     NSLog(@"Nettoyage des arrêts inutilisés : %i arrêts supprimés", beforeCleanUp - afterCleanUp);
-
+    
     //Clean-up unused stops
     beforeCleanUp = [[self.staticDataManager routes] count];
-    [[self.staticDataManager routes] enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+    [routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         if ([[route stopsDirectionZero] count] == 0 && [[route stopsDirectionOne] count] == 0) {
             [route.managedObjectContext deleteObject:route];
         }
+
+        
+        //Progress
+        progress.completedUnitCount++;
     }];
     afterCleanUp = [[self.staticDataManager routes] count];
     NSLog(@"Nettoyage des routes inutilisées : %i routes supprimées", beforeCleanUp - afterCleanUp);
@@ -405,5 +436,5 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     //Retour
     return;
 }
-
+    
 @end
