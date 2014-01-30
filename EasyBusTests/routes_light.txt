@@ -1,4 +1,0 @@
-route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
-"0064","1","64","Rennes (République) <> Acigné","Métropolitaine","3","","008dd6","ffffff"
-"0164","1","164","Rennes (République) <> Acigné","Express métropolitaine","3","","FCE000","008DD6"
-"0200","1","200","Acigné (Timonière) <> Rennes (Lycée Assomption)","Complémentaire","3","","BA67A6","FFFFFF"

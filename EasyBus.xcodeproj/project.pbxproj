@@ -74,6 +74,7 @@
 		14B42DC61656BD5D0070AA9D /* Depart.h in Sources */ = {isa = PBXBuildFile; fileRef = 142340D8162E0ABA0095073C /* Depart.h */; };
 		14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */; };
 		14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B42DCF1656BF090070AA9D /* FavoritesViewController.m */; };
+		14B64E5E189ABC0000197DEF /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14B64E5D189ABC0000197DEF /* routes_stops.txt */; };
 		14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */; };
 		14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */ = {isa = PBXBuildFile; fileRef = 146CC04318181FDA005A7F66 /* GTFS.zip */; };
 		14B90CBA181C40D100F6FF73 /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
@@ -119,7 +120,6 @@
 		14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */; };
 		14DDB98117FCA933000D1C5E /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98017FCA933000D1C5E /* StopTime.m */; };
 		14DDB98417FCA933000D1C5E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* Trip.m */; };
-		14E0EC231836AB26008B6CA0 /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14E0EC221836AB26008B6CA0 /* routes_stops.txt */; };
 		14E0EC281836AE12008B6CA0 /* RoutesStopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC261836AE12008B6CA0 /* RoutesStopsCsvReader.m */; };
 		14E0EC2C1837B879008B6CA0 /* RoutesStopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC271836AE12008B6CA0 /* RoutesStopsCsvReaderTest.m */; };
 		14E0EC2E1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC2D1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m */; };
@@ -246,6 +246,7 @@
 		14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Favorite+FavoriteWithAdditions.m"; sourceTree = "<group>"; };
 		14B42DCE1656BF090070AA9D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		14B42DCF1656BF090070AA9D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		14B64E5D189ABC0000197DEF /* routes_stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = routes_stops.txt; path = GTFS/routes_stops.txt; sourceTree = "<group>"; };
 		14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IoCModuleTest.m; path = ../EasyBus/IoCModuleTest.m; sourceTree = "<group>"; };
 		14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoCModuleTest.h; path = ../EasyBus/IoCModuleTest.h; sourceTree = "<group>"; };
 		14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures2.xml; sourceTree = "<group>"; };
@@ -292,7 +293,6 @@
 		14DDB98017FCA933000D1C5E /* StopTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTime.m; sourceTree = "<group>"; };
 		14DDB98217FCA933000D1C5E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		14DDB98317FCA933000D1C5E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
-		14E0EC221836AB26008B6CA0 /* routes_stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routes_stops.txt; sourceTree = "<group>"; };
 		14E0EC261836AE12008B6CA0 /* RoutesStopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesStopsCsvReader.m; sourceTree = "<group>"; };
 		14E0EC271836AE12008B6CA0 /* RoutesStopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoutesStopsCsvReaderTest.m; path = ../EasyBus/RoutesStopsCsvReaderTest.m; sourceTree = "<group>"; };
 		14E0EC2A1836AE64008B6CA0 /* RoutesStopsCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesStopsCsvReader.h; sourceTree = "<group>"; };
@@ -394,7 +394,7 @@
 				14DDADF918451CF400C66E51 /* stop_times.txt */,
 				14DDADFA18451CF400C66E51 /* stops.txt */,
 				14DDADFB18451CF400C66E51 /* trips.txt */,
-				14E0EC221836AB26008B6CA0 /* routes_stops.txt */,
+				14B64E5D189ABC0000197DEF /* routes_stops.txt */,
 				14AA96E21837F1AF0052B338 /* feed_info.txt */,
 			);
 			name = GTFS;
@@ -854,6 +854,7 @@
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
 				14DDADFE18451CF400C66E51 /* stop_times.txt in Resources */,
 				14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */,
+				14B64E5E189ABC0000197DEF /* routes_stops.txt in Resources */,
 				14DDAE0018451CF400C66E51 /* trips.txt in Resources */,
 				14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */,
 				1407D6781649B0EE002F37AD /* DirectionViewController.m in Resources */,
@@ -863,7 +864,6 @@
 				14DDAE0418451D5300C66E51 /* routes_stops_light.txt in Resources */,
 				14DDADFC18451CF400C66E51 /* routes_additionals.txt in Resources */,
 				14AA96E31837F1AF0052B338 /* feed_info.txt in Resources */,
-				14E0EC231836AB26008B6CA0 /* routes_stops.txt in Resources */,
 				14DDADFD18451CF400C66E51 /* routes.txt in Resources */,
 				14DDAE0E1845309100C66E51 /* stops_light.txt in Resources */,
 				14C1ACE218963BC1002CC9BD /* Settings.bundle in Resources */,
