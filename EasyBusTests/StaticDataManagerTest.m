@@ -55,7 +55,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     XCTAssertEqualObjects(@"0001", firstRoute.id, @"First route shall be 0001");
 
     Route* lastRoute = [routes lastObject];
-    XCTAssertEqualObjects(@"0806", lastRoute.id, @"First route shall be 0805");
+    XCTAssertEqualObjects(@"0805", lastRoute.id, @"First route shall be 0805");
 
     Route* route64 = [self.staticDataManager routeForId:@"0064"];
     XCTAssertNotNil(route64 , @"Route 64 shall exists");
