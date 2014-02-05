@@ -12,7 +12,7 @@
 #import "LinesNavigationController.h"
 #import "FavoritesManager.h"
 #import "LineCell.h"
-#import "Route+RouteWithAdditions.m"
+#import "Route+RouteWithAdditions.h"
 
 @implementation LinesViewController
 
