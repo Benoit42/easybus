@@ -88,7 +88,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
                 [self.publishEntries enumerateObjectsUsingBlock:^(FeedInfoTmp* entry, NSUInteger idx, BOOL *stop) {
                     if ([entry.startDate compare:date] == NSOrderedAscending && [entry.endDate compare:date] == NSOrderedDescending) {
                         newFeedInfo = entry;
-                        stop = TRUE;
+                        *stop = TRUE;
                     }
                 }];
 
