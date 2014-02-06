@@ -65,23 +65,23 @@ objection_requires(@"managedObjectContext")
                                                                     substitutionVariables:@{@"id" : routeId}];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
         return nil;
     }
     
-    if ([mutableFetchResults count] == 0) {
+    if ([fetchResults count] == 0) {
         return nil;
     }
     else {
         //Should not be more than 1
-        return [mutableFetchResults objectAtIndex:0];
+        return [fetchResults objectAtIndex:0];
     }
     return nil;
 }
@@ -94,17 +94,17 @@ objection_requires(@"managedObjectContext")
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
     
-    return mutableFetchResults;
+    return fetchResults;
 }
 
 - (Stop*) stopForId:(NSString*)stopId {
@@ -116,22 +116,22 @@ objection_requires(@"managedObjectContext")
                       substitutionVariables:@{@"id" : stopId}];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
     
-    if ([mutableFetchResults count] == 0) {
+    if ([fetchResults count] == 0) {
         return nil;
     }
     else {
         //Should not be more than 1
-        return [mutableFetchResults objectAtIndex:0];
+        return [fetchResults objectAtIndex:0];
     }
     return nil;
 }
@@ -152,18 +152,18 @@ objection_requires(@"managedObjectContext")
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
 
     //tri
-    NSArray *sortedStops = [mutableFetchResults sortedArrayUsingComparator:^NSComparisonResult(Stop* a, Stop* b) {
+    NSArray *sortedStops = [fetchResults sortedArrayUsingComparator:^NSComparisonResult(Stop* a, Stop* b) {
         CLLocationDistance distanceA = [a.location distanceFromLocation:location];
         CLLocationDistance distanceB = [b.location distanceFromLocation:location];
         return distanceA > distanceB;

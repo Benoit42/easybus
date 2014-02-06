@@ -24,17 +24,17 @@ NSString *const updateGroups = @"updateGroups";
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"terminus" ascending:YES]];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
     
-    return mutableFetchResults;
+    return fetchResults;
 }
 
 - (void) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus {

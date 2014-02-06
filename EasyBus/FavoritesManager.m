@@ -50,14 +50,14 @@ NSString *const updateFavorites = @"updateFavorites";
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"route.id" ascending:YES]];
 
     NSError *error = nil;
-    NSMutableArray *result = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if ([result count] > 0) {
+    if ([fetchResults count] > 0) {
         //Should be 0 or 1 item
-        return [result objectAtIndex:0];
+        return [fetchResults objectAtIndex:0];
     }
     return nil;
 }

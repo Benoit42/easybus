@@ -95,18 +95,18 @@ objection_requires(@"managedObjectContext")
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
     
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [mutableFetchResults enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+    [fetchResults enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         [dict setObject:route forKey:route.id];
     }];
     

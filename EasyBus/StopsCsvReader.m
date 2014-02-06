@@ -94,18 +94,18 @@ objection_requires(@"managedObjectContext")
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
     
     NSError *error = nil;
-    NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error) {
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-    if (mutableFetchResults == nil) {
+    if (fetchResults == nil) {
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
     
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [mutableFetchResults enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+    [fetchResults enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
         [dict setObject:stopEntity forKey:stopEntity.id];
     }];
     
