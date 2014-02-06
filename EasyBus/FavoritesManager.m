@@ -79,6 +79,13 @@ NSString *const updateFavorites = @"updateFavorites";
         newGroup.terminus = newFavorite.terminus;        
         [newGroup addFavoritesObject:newFavorite];
         
+        //Sauvegarde
+        NSError* error;
+        [self.managedObjectContext save:&error];
+        if (error) {
+            NSLog(@"Error while saving data in main context : %@", error.description);
+        }
+        
         //Post notification
         [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
     }

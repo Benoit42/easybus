@@ -13,7 +13,6 @@
 @interface TripsCsvReader() <CHCSVParserDelegate>
 
 @property (nonatomic, strong) NSMutableArray* row;
-@property (nonatomic, strong) NSMutableDictionary* routesTerminusDictionary;
 
 @end
 
@@ -31,7 +30,7 @@ objection_register_singleton(TripsCsvReader)
     
     //Allocation du dictionnaire
     self.trips = [[NSMutableArray alloc] initWithCapacity:25000U];
-    self.routesTerminusDictionary = [[NSMutableDictionary alloc] init];
+    self.terminus = [[NSMutableDictionary alloc] init];
     
     //parsing du fichier
     self.row = [[NSMutableArray alloc] init];
@@ -58,10 +57,10 @@ objection_register_singleton(TripsCsvReader)
         [trips addObject:trip];
         
         //Store route terminus label
-        NSMutableDictionary* directionsForRoute = self.routesTerminusDictionary[trip.routeId];
+        NSMutableDictionary* directionsForRoute = self.terminus[trip.routeId];
         if (!directionsForRoute) {
             directionsForRoute = [[NSMutableDictionary alloc] init];
-            [self.routesTerminusDictionary setObject:directionsForRoute forKey:trip.routeId];
+            [self.terminus setObject:directionsForRoute forKey:trip.routeId];
         }
         NSMutableDictionary* terminusLabelsForDirection = directionsForRoute[trip.directionId];
         if (!terminusLabelsForDirection) {
@@ -87,8 +86,8 @@ objection_register_singleton(TripsCsvReader)
 }
 
 - (void)parserDidEndDocument:(CHCSVParser *)parser {
-    //Process routesTerminusDictionary to get route terminus
-    [self.routesTerminusDictionary enumerateKeysAndObjectsUsingBlock:^(NSString* routeId, NSMutableDictionary* directionsForRoute, BOOL *stop) {
+    //Get most frequent terminus
+    [self.terminus enumerateKeysAndObjectsUsingBlock:^(NSString* routeId, NSMutableDictionary* directionsForRoute, BOOL *stop) {
         [directionsForRoute enumerateKeysAndObjectsUsingBlock:^(NSString* directionId, NSMutableDictionary* terminusLabelsForDirection, BOOL *stop) {
             __block NSNumber* maxOcc = nil;
             __block NSString* maxLabel = nil;
@@ -108,6 +107,19 @@ objection_register_singleton(TripsCsvReader)
             terminusLabelsForDirection[maxLabel] = maxOcc;
         }];
     }];
+
+    //Remove first part of label
+    [self.terminus enumerateKeysAndObjectsUsingBlock:^(NSString* routeId, NSMutableDictionary* directionsForRoute, BOOL *stop) {
+        [directionsForRoute enumerateKeysAndObjectsUsingBlock:^(NSString* directionId, NSMutableDictionary* terminusLabelsForDirection, BOOL *stop) {
+            //Nettoyage des libellés
+            //Exemple : "61 | Acigné"
+            //Split sur le | et suppression de la partie gauche
+            NSString* label = [terminusLabelsForDirection allKeys][0];
+            NSArray* subs = [label componentsSeparatedByString:@"|"];
+            NSString* cleanLabel = ([subs count] > 1) ? [subs objectAtIndex:1]  : [subs objectAtIndex:0];
+            directionsForRoute[directionId] = [cleanLabel stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }];
+    }];
 }
 
 - (void)parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
@@ -115,12 +127,12 @@ objection_register_singleton(TripsCsvReader)
 }
 
 - (NSString*)terminusLabelForRouteId:(NSString*)routeId andDirectionId:(NSString*)directionId {
-    return [self.routesTerminusDictionary[routeId][directionId] allKeys][0];
+    return self.terminus[routeId][directionId];
 }
 
 - (void)cleanUp {
     self.trips = nil;
-    self.routesTerminusDictionary = nil;
+    self.terminus = nil;
 }
 
 @end

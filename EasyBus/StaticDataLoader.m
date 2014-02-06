@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "StaticDataLoader.h"
 #import "StaticDataManager.h"
 #import "RoutesCsvReader.h"
@@ -29,7 +30,7 @@ NSString *const dataLoadingFailed = @"dataLoadingFailed";
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
 
-objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
+objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"terminusJsonReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
 
 #pragma mark - Constructeur
 -(id)init {
@@ -67,14 +68,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 
 - (void)loadDataFromWebWithSuccessBlock:(void(^)(void))success andFailureBlock:(void(^)(NSError* error))failure {
     //Pré-conditions
-    NSParameterAssert(self.feedInfo != nil);
-    NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.staticDataManager != nil);
-    NSParameterAssert(self.routesCsvReader != nil);
-    NSParameterAssert(self.stopsCsvReader != nil);
-    NSParameterAssert(self.tripsCsvReader != nil);
-    NSParameterAssert(self.stopTimesCsvReader != nil);
-    NSParameterAssert(self.feedInfoCsvReader != nil);
+    NSParameterAssert(self.feedInfoCsvReader);
+    NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.staticDataManager);
+    NSParameterAssert(self.routesCsvReader);
+    NSParameterAssert(self.stopsCsvReader);
+    NSParameterAssert(self.tripsCsvReader);
+    NSParameterAssert(self.stopTimesCsvReader);
+    NSParameterAssert(self.feedInfoCsvReader);
 
     //Log
     NSLog(@"Démarrage du chargement des données web");
@@ -130,7 +131,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             
             //Set routes terminus
             [self.progress becomeCurrentWithPendingUnitCount:10];
-            [self setRoutesTerminus];
+            [self setRoutesTerminus:self.tripsCsvReader.terminus];
             [self.progress resignCurrent];
             
             //clean-up
@@ -164,69 +165,74 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 #pragma mark local file loading method
 - (void)loadDataFromLocalFiles:(NSURL*)directory {
     //Pré-conditions
-    NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.staticDataManager != nil);
-    NSParameterAssert(self.routesCsvReader != nil);
-    NSParameterAssert(self.stopsCsvReader != nil);
-    NSParameterAssert(self.routesStopsCsvReader != nil);
-    
+    NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.staticDataManager);
+    NSParameterAssert(self.routesCsvReader);
+    NSParameterAssert(self.stopsCsvReader);
+    NSParameterAssert(self.routesStopsCsvReader);
+    NSParameterAssert(self.terminusJsonReader);
+
     //Log
     NSLog(@"Démarrage du chargement des données locales");
     
     //Initialisation du progress
-    [self.progress setTotalUnitCount:100];
+    [self.progress setTotalUnitCount:101];
     
     //load data
     NSURL* feedInfosUrl = [NSURL URLWithString:@"feed_info.txt" relativeToURL:directory];
     [self.progress becomeCurrentWithPendingUnitCount:1];
     [self.feedInfoCsvReader loadData:feedInfosUrl];
     [self.progress resignCurrent];
-
-    NSURL* tripsUrl = [NSURL URLWithString:@"trips.txt" relativeToURL:directory];
-    [self.progress becomeCurrentWithPendingUnitCount:80];
-    [self.tripsCsvReader loadData:tripsUrl];
-    [self.progress resignCurrent];
-
+    
     NSURL* routesUrl = [NSURL URLWithString:@"routes.txt" relativeToURL:directory];
-    [self.progress becomeCurrentWithPendingUnitCount:1];
+    [self.progress becomeCurrentWithPendingUnitCount:5];
     [self.routesCsvReader loadData:routesUrl];
     [self.progress resignCurrent];
-
+    
     NSURL* additionnalsRoutesUrl = [NSURL URLWithString:@"routes_additionals.txt" relativeToURL:directory];
-    [self.progress becomeCurrentWithPendingUnitCount:1];
+    [self.progress becomeCurrentWithPendingUnitCount:3];
     [self.routesCsvReader loadData:additionnalsRoutesUrl];
     [self.progress resignCurrent];
-
+    
     NSURL* stopsUrl = [NSURL URLWithString:@"stops.txt" relativeToURL:directory];
-    [self.progress becomeCurrentWithPendingUnitCount:10];
+    [self.progress becomeCurrentWithPendingUnitCount:65];
     [self.stopsCsvReader loadData:stopsUrl];
     [self.progress resignCurrent];
-
+    
     NSURL* routesStops = [NSURL URLWithString:@"routes_stops.txt" relativeToURL:directory];
     [self.progress becomeCurrentWithPendingUnitCount:3];
     [self.routesStopsCsvReader loadData:routesStops];
     [self.progress resignCurrent];
-
     
-    [self.progress becomeCurrentWithPendingUnitCount:2];
+    [self.progress becomeCurrentWithPendingUnitCount:13];
     [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
     [self.progress resignCurrent];
-
+    
     //Nettoyage des routes et stops inutilisés
     [self.progress becomeCurrentWithPendingUnitCount:1];
     [self cleanupData];
     [self.progress resignCurrent];
     
     //Set routes terminus
+    NSURL* terminusUrl = [NSURL URLWithString:@"terminus.json" relativeToURL:directory];
     [self.progress becomeCurrentWithPendingUnitCount:1];
-    [self setRoutesTerminus];
+    [self.terminusJsonReader loadData:terminusUrl];
+    [self setRoutesTerminus:self.terminusJsonReader.terminus];
+    [self.terminusJsonReader cleanUp];
     [self.progress resignCurrent];
     
     //clean-up
-    [self.tripsCsvReader cleanUp];
     [self.routesCsvReader cleanUp];
     [self.stopsCsvReader cleanUp];
     [self.routesStopsCsvReader cleanUp];
+    [self.terminusJsonReader cleanUp];
+    
+    //Sauvegarde
+    NSError* error;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        NSLog(@"Error while saving data in main context : %@", error.description);
+    }
 
     //Post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];
@@ -236,7 +242,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 }
 
 // Calcul des libellés de terminus
-- (void) setRoutesTerminus {
+- (void) setRoutesTerminus:(NSDictionary*)terminus {
     //Log
     NSLog(@"Calcul des libellés de terminus");
     
@@ -244,20 +250,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSProgress* progress = [NSProgress progressWithTotalUnitCount:self.staticDataManager.routes];
     
     [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
-        //récupération du label
-        NSString* terminus0 = [self.tripsCsvReader terminusLabelForRouteId:route.id andDirectionId:@"0"];
-        NSString* terminus1 = [self.tripsCsvReader terminusLabelForRouteId:route.id andDirectionId:@"1"];
-
-        //Calcul des libellés des départs et arrivée
-        //Exemple : "61 | Acigné"
-        //Split sur le | et suppression de la partie gauche
-        NSArray* subs0 = [terminus0 componentsSeparatedByString:@"|"];
-        NSString* terminus0RightPart = ([subs0 count] > 1) ? [subs0 objectAtIndex:1] : [subs0 objectAtIndex:0];
-        NSArray* subs1 = [terminus1 componentsSeparatedByString:@"|"];
-        NSString* terminus1RightPart = ([subs1 count] > 1) ? [subs1 objectAtIndex:1] : [subs1 objectAtIndex:0];
-        
-        route.fromName = [terminus0RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        route.toName = [terminus1RightPart stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        //Récupération du label
+        route.fromName = terminus[route.id][@"0"];
+        route.toName = terminus[route.id][@"1"];
         
         //Progress
         [progress setCompletedUnitCount:idx];

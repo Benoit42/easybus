@@ -11,6 +11,7 @@
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "TripsCsvReader.h"
+#import "TerminusJsonReader.h"
 #import "StopTimesCsvReader.h"
 #import "RoutesStopsCsvReader.h"
 #import "FeedInfoCsvReader.h"
@@ -29,6 +30,7 @@ FOUNDATION_EXPORT NSString *const dataLoadingFailed;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) TripsCsvReader* tripsCsvReader;
+@property(nonatomic) TerminusJsonReader* terminusJsonReader;
 @property(nonatomic) StopTimesCsvReader* stopTimesCsvReader;
 @property(nonatomic) RoutesStopsCsvReader* routesStopsCsvReader;
 @property(nonatomic) FeedInfoCsvReader* feedInfoCsvReader;

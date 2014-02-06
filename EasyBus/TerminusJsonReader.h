@@ -7,16 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Trip.h"
 
-@interface TripsCsvReader : NSObject
+@interface TerminusJsonReader : NSObject
 
-@property(nonatomic, retain) NSMutableArray* trips;
-@property (nonatomic, strong) NSMutableDictionary* terminus;
+@property (nonatomic, strong) NSDictionary* terminus;
 @property (nonatomic) NSProgress* progress;
 
 - (void)loadData:(NSURL*)url;
-- (NSString*)terminusLabelForRouteId:(NSString*)routeId andDirectionId:(NSString*)directionId;
 - (void)cleanUp;
 
 @end

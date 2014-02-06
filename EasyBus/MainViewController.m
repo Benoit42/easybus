@@ -50,12 +50,10 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     //Check des données
     if ([self.staticDataManager needsToLoadData]) {
         //Chargement des données
-        [self.progressBar setProgress:0.0f animated:NO];
-        [self.progressBar setHidden:NO];
+//        [self.progressBar setProgress:0.0f animated:NO];
+//        [self.progressBar setHidden:NO];
         [self.staticDataLoader.progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:nil];
-        [self performBlockInBackground:^{
-            [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
-        }];
+        [self.staticDataLoader loadDataFromLocalFiles:[[NSBundle mainBundle] bundleURL]];
     }
     else {
         //Affichage des départs

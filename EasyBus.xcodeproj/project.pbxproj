@@ -37,6 +37,9 @@
 		1446C0D518970C1E0092CB01 /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1446C0D418970C1E0092CB01 /* FeedInfo.m */; };
 		1446C0D818970C1E0092CB01 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1446C0D718970C1E0092CB01 /* Route.m */; };
 		145440A8184656810019ED10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 145440A7184656810019ED10 /* Images.xcassets */; };
+		1459285D18A011C7004D52D0 /* TerminusJsonReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1459285C18A011C7004D52D0 /* TerminusJsonReader.m */; };
+		1459285F18A011D6004D52D0 /* terminus.json in Resources */ = {isa = PBXBuildFile; fileRef = 1459285E18A011D6004D52D0 /* terminus.json */; };
+		1459286118A01493004D52D0 /* TerminusJsonReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1459286018A01493004D52D0 /* TerminusJsonReaderTest.m */; };
 		146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C2182AAA860012A1CE /* DeparturesTableViewController.m */; };
 		146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C5182B70AC0012A1CE /* LinesNavigationController.m */; };
 		146161CC182C160B0012A1CE /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161CB182C160B0012A1CE /* Constants.m */; };
@@ -115,7 +118,7 @@
 		14DDAE0E1845309100C66E51 /* stops_light.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14DDAE0D1845309100C66E51 /* stops_light.txt */; };
 		14DDAE0F1845309100C66E51 /* stops_light.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14DDAE0D1845309100C66E51 /* stops_light.txt */; };
 		14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */; };
-		14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */; };
+		14DDB95F17FC74CF000D1C5E /* TripsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB95E17FC74CF000D1C5E /* TripsCsvReaderTest.m */; };
 		14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */; };
 		14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */; };
 		14DDB98117FCA933000D1C5E /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98017FCA933000D1C5E /* StopTime.m */; };
@@ -189,6 +192,10 @@
 		1446C0D618970C1E0092CB01 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		1446C0D718970C1E0092CB01 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		145440A7184656810019ED10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1459285B18A011C7004D52D0 /* TerminusJsonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminusJsonReader.h; sourceTree = "<group>"; };
+		1459285C18A011C7004D52D0 /* TerminusJsonReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminusJsonReader.m; sourceTree = "<group>"; };
+		1459285E18A011D6004D52D0 /* terminus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = terminus.json; sourceTree = "<group>"; };
+		1459286018A01493004D52D0 /* TerminusJsonReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminusJsonReaderTest.m; sourceTree = "<group>"; };
 		146161C1182AAA860012A1CE /* DeparturesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesTableViewController.h; sourceTree = "<group>"; };
 		146161C2182AAA860012A1CE /* DeparturesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesTableViewController.m; sourceTree = "<group>"; };
 		146161C4182B70AC0012A1CE /* LinesNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinesNavigationController.h; sourceTree = "<group>"; };
@@ -285,7 +292,7 @@
 		14DDAE0D1845309100C66E51 /* stops_light.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stops_light.txt; path = GTFS/stops_light.txt; sourceTree = "<group>"; };
 		14DDB95817FC70BF000D1C5E /* TripsCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsCsvReader.h; sourceTree = "<group>"; };
 		14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsCsvReader.m; sourceTree = "<group>"; };
-		14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsReaderTest.m; sourceTree = "<group>"; };
+		14DDB95E17FC74CF000D1C5E /* TripsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsCsvReaderTest.m; sourceTree = "<group>"; };
 		14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimesCsvReader.m; sourceTree = "<group>"; };
 		14DDB96D17FC7BEB000D1C5E /* StopTimesCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTimesCsvReader.h; sourceTree = "<group>"; };
 		14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimesCsvReaderTest.m; sourceTree = "<group>"; };
@@ -396,6 +403,7 @@
 				14DDADFB18451CF400C66E51 /* trips.txt */,
 				14B64E5D189ABC0000197DEF /* routes_stops.txt */,
 				14AA96E21837F1AF0052B338 /* feed_info.txt */,
+				1459285E18A011D6004D52D0 /* terminus.json */,
 			);
 			name = GTFS;
 			sourceTree = "<group>";
@@ -569,7 +577,8 @@
 				141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */,
 				14AA96E41837FA4F0052B338 /* FeedInfoCsvReaderTest.m */,
 				140EA4F1163D94E400FB4A85 /* StopsCsvReaderTest.m */,
-				14DDB95E17FC74CF000D1C5E /* TripsReaderTest.m */,
+				14DDB95E17FC74CF000D1C5E /* TripsCsvReaderTest.m */,
+				1459286018A01493004D52D0 /* TerminusJsonReaderTest.m */,
 				14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */,
 				14E0EC271836AE12008B6CA0 /* RoutesStopsCsvReaderTest.m */,
 				14148B93180AC32C005DDAF9 /* GtfsDownloadManagerTest.m */,
@@ -668,6 +677,8 @@
 				140EA4E3163D8C7B00FB4A85 /* StopsCsvReader.m */,
 				14DDB95817FC70BF000D1C5E /* TripsCsvReader.h */,
 				14DDB95917FC70BF000D1C5E /* TripsCsvReader.m */,
+				1459285B18A011C7004D52D0 /* TerminusJsonReader.h */,
+				1459285C18A011C7004D52D0 /* TerminusJsonReader.m */,
 				14E0EC2A1836AE64008B6CA0 /* RoutesStopsCsvReader.h */,
 				14E0EC261836AE12008B6CA0 /* RoutesStopsCsvReader.m */,
 				14DDB96D17FC7BEB000D1C5E /* StopTimesCsvReader.h */,
@@ -853,6 +864,7 @@
 				14DDAE0818451D5300C66E51 /* trips_light.txt in Resources */,
 				14AD3C29162AF00400DF061A /* MainStoryboard.storyboard in Resources */,
 				14DDADFE18451CF400C66E51 /* stop_times.txt in Resources */,
+				1459285F18A011D6004D52D0 /* terminus.json in Resources */,
 				14B90CB9181C40CD00F6FF73 /* GTFS.zip in Resources */,
 				14B64E5E189ABC0000197DEF /* routes_stops.txt in Resources */,
 				14DDAE0018451CF400C66E51 /* trips.txt in Resources */,
@@ -967,6 +979,7 @@
 				14AD3C2F162AF00400DF061A /* LinesViewController.m in Sources */,
 				142340DA162E0ABA0095073C /* Depart.m in Sources */,
 				14E0EC281836AE12008B6CA0 /* RoutesStopsCsvReader.m in Sources */,
+				1459285D18A011C7004D52D0 /* TerminusJsonReader.m in Sources */,
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				14E0EC321837BF7A008B6CA0 /* NSMutableArray+Randomize.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
@@ -1034,9 +1047,10 @@
 				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
 				14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
+				1459286118A01493004D52D0 /* TerminusJsonReaderTest.m in Sources */,
 				14148B94180AC32C005DDAF9 /* GtfsDownloadManagerTest.m in Sources */,
 				14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */,
-				14DDB95F17FC74CF000D1C5E /* TripsReaderTest.m in Sources */,
+				14DDB95F17FC74CF000D1C5E /* TripsCsvReaderTest.m in Sources */,
 				14E0EC2E1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m in Sources */,
 				14E128A21813E4F50034226A /* AsyncTestCase.m in Sources */,
 				14AA96E51837FA4F0052B338 /* FeedInfoCsvReaderTest.m in Sources */,

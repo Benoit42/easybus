@@ -54,12 +54,12 @@ objection_requires(@"tripsCsvReader")
 
 //Vérification des libellés des terminus
 - (void)testCheckTerminusLabels {
-    XCTAssertEqualObjects(@"64 | Rennes République", [self.tripsCsvReader terminusLabelForRouteId:@"0064" andDirectionId:@"0"], @"Wrong terminus label");
-    XCTAssertEqualObjects(@"64 | Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0064" andDirectionId:@"1"], @"Wrong terminus label");
-    XCTAssertEqualObjects(@"164 | Rennes République", [self.tripsCsvReader terminusLabelForRouteId:@"0164" andDirectionId:@"0"], @"Wrong terminus label");
-    XCTAssertEqualObjects(@"164 | Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0164" andDirectionId:@"1"], @"Wrong terminus label");
-    XCTAssertEqualObjects(@"200 | Rennes Lycée Assomption", [self.tripsCsvReader terminusLabelForRouteId:@"0200" andDirectionId:@"0"], @"Wrong terminus label");
-    XCTAssertEqualObjects(@"200 | Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0200" andDirectionId:@"1"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Rennes République", [self.tripsCsvReader terminusLabelForRouteId:@"0064" andDirectionId:@"0"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0064" andDirectionId:@"1"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Rennes République", [self.tripsCsvReader terminusLabelForRouteId:@"0164" andDirectionId:@"0"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0164" andDirectionId:@"1"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Rennes Lycée Assomption", [self.tripsCsvReader terminusLabelForRouteId:@"0200" andDirectionId:@"0"], @"Wrong terminus label");
+    XCTAssertEqualObjects(@"Acigné", [self.tripsCsvReader terminusLabelForRouteId:@"0200" andDirectionId:@"1"], @"Wrong terminus label");
 }
 
 @end
