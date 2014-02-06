@@ -17,9 +17,7 @@
 
 @implementation PageViewControllerDatasource
 objection_register(PageViewControllerDatasource);
-
 objection_requires(@"groupManager")
-@synthesize departuresViewControlers, groupManager;
 
 - (id)init {
     if ( self = [super init] ) {
@@ -39,7 +37,7 @@ objection_requires(@"groupManager")
     
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
-    if (index < [[groupManager groups] count]) {
+    if (index < [[self.groupManager groups] count]) {
         if (index < [self.departuresViewControlers count]) {
             //Le view controler existe déjà
             viewController = [self.departuresViewControlers objectAtIndex:index];
@@ -87,7 +85,7 @@ objection_requires(@"groupManager")
     }
     
     index++;
-    if (index == [[groupManager groups] count]) {
+    if (index == [[self.groupManager groups] count]) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -97,7 +95,7 @@ objection_requires(@"groupManager")
     //Pré-conditions
     NSAssert(self.groupManager != nil, @"groupManager should not be nil");
     
-    int count = [[groupManager groups] count];
+    int count = [[self.groupManager groups] count];
     return count;
 }
 

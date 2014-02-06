@@ -10,6 +10,4 @@
 
 @implementation NoDepartureCell
 
-@synthesize _message;
-
 @end

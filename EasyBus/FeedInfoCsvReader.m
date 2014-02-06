@@ -18,9 +18,7 @@
 
 @implementation FeedInfoCsvReader
 objection_register_singleton(FeedInfoCsvReader)
-
 objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
 
 - (void)loadData:(NSURL*)url {
     //Pré-conditions

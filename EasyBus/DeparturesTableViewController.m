@@ -26,9 +26,7 @@
 @implementation DeparturesTableViewController {
     UIFont* refreshLabelFont;
 }
-
 objection_requires(@"departuresManager", @"favoritesManager")
-//objection_initializer(initWithMake:model:)
 
 #pragma mark - IoC
 - (void)awakeFromNib {

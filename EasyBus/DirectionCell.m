@@ -10,6 +10,4 @@
 
 @implementation DirectionCell
 
-@synthesize _libDirection;
-
 @end

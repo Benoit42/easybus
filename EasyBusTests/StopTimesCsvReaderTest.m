@@ -21,9 +21,7 @@
 @end
 
 @implementation StopTimesCsvReaderTest
-
 objection_requires(@"stopTimesCsvReader")
-@synthesize stopTimesCsvReader;
 
 - (void)setUp
 {
@@ -50,7 +48,7 @@ objection_requires(@"stopTimesCsvReader")
 
 //Comptage des occurences
 - (void)testCountStopTimes {
-    int count = [stopTimesCsvReader.stops count];
+    int count = [self.stopTimesCsvReader.stops count];
     XCTAssertEqual(count, 10034, @"Wrong number of stopTimes");
 }
 

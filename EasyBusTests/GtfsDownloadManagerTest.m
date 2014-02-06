@@ -24,9 +24,7 @@
 @end
 
 @implementation GtfsDownloadManagerTest
-
 objection_requires(@"managedObjectContext", @"gtfsDownloadManager")
-@synthesize gtfsDownloadManager;
 
 - (void)setUp {
     [super setUp];

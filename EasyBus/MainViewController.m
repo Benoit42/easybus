@@ -13,7 +13,6 @@
 #import "FavoritesManager.h"
 
 @implementation MainViewController
-
 objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"staticDataLoader")
 
 #pragma mark - IoC

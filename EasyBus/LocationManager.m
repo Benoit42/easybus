@@ -12,8 +12,6 @@
 @implementation LocationManager
 objection_register_singleton(LocationManager)
 
-@synthesize locationManager, currentLocation;
-
 //Déclaration des notifications
 NSString* const locationStarted = @"locationStarted";
 NSString* const locationCanceled = @"locationCanceled";
@@ -23,24 +21,24 @@ NSString* const locationFound = @"locationFound";
 //constructeur
 -(id)init {
     if ( self = [super init] ) {
-        locationManager = [[CLLocationManager alloc] init];
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        locationManager.distanceFilter = 500;
-        [locationManager startUpdatingLocation];
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        self.locationManager.distanceFilter = 500;
+        [self.locationManager startUpdatingLocation];
     }
     return self;
 }
 
 //Démarrage/arrêt de la localisation
 - (void) startUpdatingLocation {
-    [locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:locationStarted object:self];
 }
 
 - (void) stopUpdatingLocation {
-    [locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:locationCanceled object:self];
 }
 
@@ -60,13 +58,13 @@ NSString* const locationFound = @"locationFound";
 
     if (location.horizontalAccuracy <= 300) {
         // If the event is recent and accurate, do something with it.
-        currentLocation = location;
+        self.currentLocation = location;
 
         //lance la notification de localisation
         [[NSNotificationCenter defaultCenter] postNotificationName:locationFound object:self];
 
         // Then stop location manager
-        [locationManager stopUpdatingLocation];
+        [self.locationManager stopUpdatingLocation];
     }
 }
 

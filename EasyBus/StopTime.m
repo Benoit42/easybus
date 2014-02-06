@@ -11,8 +11,4 @@
 
 @implementation StopTime
 
-@synthesize tripId;
-@synthesize stopId;
-@synthesize stopSequence;
-
 @end

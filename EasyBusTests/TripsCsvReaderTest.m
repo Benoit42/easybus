@@ -19,9 +19,7 @@
 @end
 
 @implementation TripsCsvReaderTest
-
 objection_requires(@"tripsCsvReader")
-@synthesize tripsCsvReader;
 
 - (void)setUp
 {

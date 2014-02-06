@@ -10,6 +10,4 @@
 
 @implementation FeedInfoTmp
 
-@synthesize publishDate, startDate, endDate, version, url;
-
 @end

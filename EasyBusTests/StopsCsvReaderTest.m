@@ -22,9 +22,7 @@
 @end
 
 @implementation StopsCsvReaderTest
-
 objection_requires(@"managedObjectContext", @"managedObjectModel", @"stopsCsvReader")
-@synthesize managedObjectModel, managedObjectContext, stopsCsvReader;
 
 - (void)setUp
 {

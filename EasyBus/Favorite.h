@@ -2,7 +2,7 @@
 //  Favorite.h
 //  EasyBus
 //
-//  Created by Benoît on 27/01/2014.
+//  Created by Benoît on 06/02/2014.
 //  Copyright (c) 2014 Benoit. All rights reserved.
 //
 

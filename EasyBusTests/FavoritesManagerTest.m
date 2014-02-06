@@ -27,9 +27,7 @@
 @end
 
 @implementation FavoritesManagerTest
-
 objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesManager", @"groupManager", @"routesCsvReader", @"stopsCsvReader")
-@synthesize managedObjectContext, managedObjectModel, favoritesManager, groupManager, routesCsvReader, stopsCsvReader;
 
 - (void)setUp
 {

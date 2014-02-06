@@ -16,9 +16,7 @@
 #import "StaticDataManager.h"
 
 @implementation AppDelegate
-
 objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager", @"favoritesManager")
-@synthesize managedObjectContext, departuresManager, locationManager, favoritesManager;
 
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

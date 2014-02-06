@@ -21,9 +21,7 @@
 
 @implementation StopsCsvReader
 objection_register_singleton(StopsCsvReader)
-
 objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
 
 - (void)loadData:(NSURL*)url {
     //Pré-conditions

@@ -19,8 +19,6 @@
 @implementation StopTimesCsvReader
 objection_register_singleton(StopTimesCsvReader)
 
-@synthesize stops;
-
 - (void)loadData:(NSURL*)url {
     //Chargement des horaires
     NSLog(@"Chargement des horaires");
@@ -45,7 +43,7 @@ objection_register_singleton(StopTimesCsvReader)
     [p parse];
     
     //tri
-    [stops sortUsingComparator:^NSComparisonResult(StopTime* stop1, StopTime* stop2) {
+    [self.stops sortUsingComparator:^NSComparisonResult(StopTime* stop1, StopTime* stop2) {
         return [stop1.tripId compare:stop2.tripId];
     }];
 }
@@ -64,7 +62,7 @@ objection_register_singleton(StopTimesCsvReader)
         stopTime.stopId= self.row[1];
         stopTime.stopSequence = [NSNumber numberWithInteger:[self.row[2] integerValue]];
         
-        [stops addObject:stopTime];
+        [self.stops addObject:stopTime];
     }
 }
 

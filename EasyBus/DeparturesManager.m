@@ -16,26 +16,24 @@
 @interface DeparturesManager()
 @property (strong, nonatomic) NSMutableArray* _departures;
 
-@property(nonatomic) NSString* _currentNode;
-@property(nonatomic) NSString* _stop;
-@property(nonatomic) NSString* _route;
-@property(nonatomic) NSString* _direction;
-@property(nonatomic) NSString* _headsign;
-@property(nonatomic) NSString* _currentDate;
+@property(nonatomic) NSString* currentNode;
+@property(nonatomic) NSString* stop;
+@property(nonatomic) NSString* route;
+@property(nonatomic) NSString* direction;
+@property(nonatomic) NSString* headsign;
+@property(nonatomic) NSString* currentDate;
 @property(nonatomic) NSString* accurate;
-@property(nonatomic) NSString* _departureDate;
-@property(nonatomic) NSMutableArray* _freshDepartures;
+@property(nonatomic) NSString* departureDate;
+@property(nonatomic) NSMutableArray* freshDepartures;
 
-@property(nonatomic) NSDateFormatter* _timeIntervalFormatter;
-@property(nonatomic) NSDateFormatter* _xsdDateTimeFormatter;
+@property(nonatomic) NSDateFormatter* timeIntervalFormatter;
+@property(nonatomic) NSDateFormatter* xsdDateTimeFormatter;
 
 @end
 
 @implementation DeparturesManager
 objection_register_singleton(DeparturesManager)
-
 objection_requires(@"staticDataManager")
-@synthesize _departures, _currentNode, _stop, _route, _direction, _headsign, _currentDate, accurate, _departureDate, _receivedData, _timeIntervalFormatter, _xsdDateTimeFormatter, _isRequesting, _freshDepartures, _refreshDate, staticDataManager;
 
 //Déclaration des notifications
 NSString* const departuresUpdateStarted = @"departuresUpdateStarted";
@@ -48,18 +46,18 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
         //Préconditions
 //        NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
         
-        _departures = [NSMutableArray new];
-        _freshDepartures = [NSMutableArray new];
+        self._departures = [NSMutableArray new];
+        self.freshDepartures = [NSMutableArray new];
 
-        _timeIntervalFormatter = [[NSDateFormatter alloc] init];
-        _timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
-        _timeIntervalFormatter.dateFormat = @"m";
+        self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
+        self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
+        self.timeIntervalFormatter.dateFormat = @"m";
     
-        _xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
-        _xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
-        _xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
+        self.xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
+        self.xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
+        self.xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
     
-        _isRequesting = FALSE;
+        self._isRequesting = FALSE;
     }
 
     return self;
@@ -68,7 +66,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 #pragma manage departures
 - (NSArray*) getDepartures {
     //retourne la liste des départs
-    return _departures;
+    return self._departures;
 }
 
 - (NSArray*) getDeparturesForGroupe:(Group*)groupe {
@@ -78,7 +76,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
     {
         NSPredicate* routePredicate = [NSPredicate predicateWithFormat:@"stop.id == %@", favorite.stop.id];
         NSPredicate* stopPredicate = [NSPredicate predicateWithFormat:@"route.id == %@", favorite.route.id];
-        NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"_direction == %@", favorite.direction];
+        NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"direction == %@", favorite.direction];
         NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[routePredicate, stopPredicate, directionPredicate]];
         NSArray* partialResult = [self._departures filteredArrayUsingPredicate:predicate];
         [departures addObjectsFromArray:partialResult];
@@ -98,14 +96,14 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 #pragma call keolis and parse XML response
 - (void)refreshDepartures:(NSArray*)favorites {
     //Controles
-    if ([favorites count] == 0 || _isRequesting){
+    if ([favorites count] == 0 || self._isRequesting){
         return;
     }
     
     @synchronized(self) {
         @try {
             //Appel réel vers kéolis
-            _isRequesting = TRUE;
+            self._isRequesting = TRUE;
             
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
@@ -129,7 +127,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
             [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
             
             //New departures array
-            [_freshDepartures removeAllObjects];
+            [self.freshDepartures removeAllObjects];
             
             [manager GET:path
               parameters:nil
@@ -139,7 +137,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                      [xmlParser parse];
                      
                      //Store data
-                     self._departures = self._freshDepartures;
+                     self._departures = self.freshDepartures;
                      
                      //Notification
                      [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
@@ -174,65 +172,65 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 #pragma mark NSXMLParserDelegate methods
 - (void)parserDidStartDocument:(NSXMLParser *)parser{
     //début du document
-    _currentDate = nil;
-    _refreshDate = [NSDate date];
+    self.currentDate = nil;
+    self._refreshDate = [NSDate date];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    _currentNode = elementName;
+    self.currentNode = elementName;
     if ([elementName isEqualToString:@"data"] ) {
-        _currentDate = [attributeDict objectForKey:(@"localdatetime")];
+        self.currentDate = [attributeDict objectForKey:(@"localdatetime")];
     }
     else if ([elementName isEqualToString:@"stopline"] ) {
         //début d'un arrêt
-        _route = _stop = _direction = nil;
+        self.route = self.stop = self.direction = nil;
     }
     else if ([elementName isEqualToString:@"departure"] ) {
         //début d'un départ
-        _departureDate = nil;
-        _headsign = [attributeDict objectForKey:(@"headsign")];
-        accurate = attributeDict[@"accurate"];
+        self.departureDate = nil;
+        self.headsign = [attributeDict objectForKey:(@"headsign")];
+        self.accurate = attributeDict[@"accurate"];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    _currentNode = nil;
+    self.currentNode = nil;
     if ([elementName isEqualToString:@"departure"] ) {
         //fin d'un arrêt
-        if (_route && _stop && _direction &&_headsign && _departureDate && _currentDate) {
+        if (self.route && self.stop && self.direction && self.headsign && self.departureDate && self.currentDate) {
             //calcul du délai, avec remise à 0 si négatif
-            NSDate* currentDate = [self xsdDateTimeToNSDate:_currentDate];
-            NSDate* departureDate = [self xsdDateTimeToNSDate:_departureDate];
+            NSDate* currentDate = [self xsdDateTimeToNSDate:self.currentDate];
+            NSDate* departureDate = [self xsdDateTimeToNSDate:self.departureDate];
             NSTimeInterval interval = [departureDate timeIntervalSinceDate:currentDate];
             interval = interval <0 ? 0 : interval;
-            BOOL isRealTime = [accurate isEqualToString:@"1"];
+            BOOL isRealTime = [self.accurate isEqualToString:@"1"];
             
             //Recherche de la route et de l'arrêt
-            Route* route = [self.staticDataManager routeForId:_route];
-            Stop* stop = [self.staticDataManager stopForId:_stop];
+            Route* route = [self.staticDataManager routeForId:self.route];
+            Stop* stop = [self.staticDataManager stopForId:self.stop];
             
             //création du départ
-            Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:_direction delai:interval heure:departureDate isRealTime:isRealTime];
-            [_freshDepartures addObject:depart];
+            Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:self.direction delai:interval heure:departureDate isRealTime:isRealTime];
+            [self.freshDepartures addObject:depart];
         }
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if ([_currentNode isEqualToString:@"stop"] ) {
+    if ([self.currentNode isEqualToString:@"stop"] ) {
         //id de l'arrêt
-        _stop = string;
+        self.stop = string;
     }
-    else if ([_currentNode isEqualToString:@"route"] ) {
+    else if ([self.currentNode isEqualToString:@"route"] ) {
         //id de l'arrêt
-        _route = string;
+        self.route = string;
     }
-    else if ([_currentNode isEqualToString:@"direction"] ) {
+    else if ([self.currentNode isEqualToString:@"direction"] ) {
         //id de l'arrêt
-        _direction = string;
+        self.direction = string;
     }
-    else if ([_currentNode isEqualToString:@"departure"] ) {
-        _departureDate = string;
+    else if ([self.currentNode isEqualToString:@"departure"] ) {
+        self.departureDate = string;
     }
 }
 
@@ -251,7 +249,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                     stringByAppendingString: @"GMT"];
     }
     
-    NSDate *date = [_xsdDateTimeFormatter dateFromString: dateTime];
+    NSDate *date = [self.xsdDateTimeFormatter dateFromString: dateTime];
     if (!date) NSLog(@"could not parse date '%@'", dateTime);
     
     return (date);

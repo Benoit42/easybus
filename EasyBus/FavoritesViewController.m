@@ -17,7 +17,6 @@
 #import "FavoriteCell.h"
 
 @implementation FavoritesViewController
-
 objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
 
 #pragma mark - IoC

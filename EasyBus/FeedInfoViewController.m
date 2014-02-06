@@ -10,7 +10,6 @@
 #import "FeedInfoViewController.h"
 
 @implementation FeedInfoViewController
-
 objection_requires(@"staticDataManager", @"staticDataLoader")
 
 #pragma mark - IoC

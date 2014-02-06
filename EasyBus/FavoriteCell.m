@@ -10,6 +10,4 @@
 
 @implementation FavoriteCell
 
-@synthesize _picto, _libArret, _libDirection;
-
 @end

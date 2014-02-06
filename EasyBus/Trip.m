@@ -11,8 +11,4 @@
 
 @implementation Trip
 
-@synthesize id;
-@synthesize routeId;
-@synthesize directionId;
-
 @end

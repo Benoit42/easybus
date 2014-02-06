@@ -21,7 +21,6 @@
 @end
 
 @implementation FeedInfoCsvReaderTest
-
 objection_requires(@"managedObjectContext", @"managedObjectModel", @"feedInfoCsvReader")
 
 - (void)setUp

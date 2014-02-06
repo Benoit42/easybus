@@ -18,9 +18,7 @@
 
 @implementation StaticDataManager
 objection_register_singleton(StaticDataManager)
-
 objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
 
 #pragma mark Business methods
 - (BOOL)needsToLoadData {

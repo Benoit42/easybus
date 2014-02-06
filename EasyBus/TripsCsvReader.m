@@ -19,8 +19,6 @@
 @implementation TripsCsvReader
 objection_register_singleton(TripsCsvReader)
 
-@synthesize trips;
-
 - (void)loadData:(NSURL*)url {
     //Chargement des horaires
     NSLog(@"Chargement des trajets");
@@ -54,7 +52,7 @@ objection_register_singleton(TripsCsvReader)
         trip.routeId = self.row[1];
         trip.directionId = self.row[3];
         
-        [trips addObject:trip];
+        [self.trips addObject:trip];
         
         //Store route terminus label
         NSMutableDictionary* directionsForRoute = self.terminus[trip.routeId];

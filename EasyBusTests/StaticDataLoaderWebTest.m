@@ -25,7 +25,6 @@
 @end
 
 @implementation StaticDataLoaderWebTest
-
 objection_requires(@"managedObjectContext", @"gtfsDownloadManager", @"staticDataLoader")
 
 - (void)setUp {

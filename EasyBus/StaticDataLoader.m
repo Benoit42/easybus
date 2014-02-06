@@ -29,7 +29,6 @@ NSString *const dataLoadingFailed = @"dataLoadingFailed";
 
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
-
 objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"terminusJsonReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
 
 #pragma mark - Constructeur

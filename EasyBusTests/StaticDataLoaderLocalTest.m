@@ -21,7 +21,6 @@
 @end
 
 @implementation StaticDataLoaderLocalTest
-
 objection_requires(@"managedObjectContext", @"staticDataLoader")
 
 - (void)setUp {

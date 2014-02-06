@@ -10,8 +10,6 @@
 
 @implementation RouteStop
 
-@synthesize routeId, directionId, stopId, stopSequence;
-
 - (BOOL)isEqual:(RouteStop*)other {
     if (other == self) {
         return YES;

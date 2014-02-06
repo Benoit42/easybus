@@ -21,9 +21,7 @@
 @end
 
 @implementation RoutesCsvReaderTest
-
 objection_requires(@"managedObjectContext", @"managedObjectModel", @"routesCsvReader")
-@synthesize managedObjectModel, managedObjectContext, routesCsvReader;
 
 - (void)setUp
 {

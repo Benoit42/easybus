@@ -21,9 +21,7 @@
 
 @implementation RoutesCsvReader
 objection_register_singleton(RoutesCsvReader)
-
 objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
 
 #pragma mark - Chargement des données
 - (void)loadData:(NSURL*)url {

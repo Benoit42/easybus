@@ -10,6 +10,4 @@
 
 @implementation StopCell
 
-@synthesize _libArret;
-
 @end

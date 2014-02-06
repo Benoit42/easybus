@@ -11,9 +11,7 @@
 
 @implementation GroupManager
 objection_register_singleton(GroupManager)
-
 objection_requires(@"managedObjectContext")
-@synthesize managedObjectContext;
 
 //Déclaration des notifications
 NSString *const updateGroups = @"updateGroups";

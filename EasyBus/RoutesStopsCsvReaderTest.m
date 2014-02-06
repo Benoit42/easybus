@@ -21,7 +21,6 @@
 @end
 
 @implementation RoutesStopsCsvReaderTest
-
 objection_requires(@"routesStopsCsvReader")
 
 - (void)setUp

@@ -12,9 +12,7 @@
 #import "StopCell.h"
 
 @implementation StopsViewController
-
 objection_requires(@"staticDataManager")
-@synthesize staticDataManager, _saveButton;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -81,7 +79,7 @@ objection_requires(@"staticDataManager")
     ((LinesNavigationController*)self.navigationController).currentFavoriteStop = stop;
     
     // activate save button
-    [_saveButton setEnabled:YES];
+    [self._saveButton setEnabled:YES];
 }
 
 @end

@@ -19,9 +19,7 @@
 @end
 
 @implementation GroupManagerTest
-
 objection_requires(@"groupManager")
-@synthesize groupManager;
 
 - (void)setUp
 {

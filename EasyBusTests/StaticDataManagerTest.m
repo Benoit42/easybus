@@ -22,9 +22,7 @@
 @end
 
 @implementation StaticDataManagerTest
-
 objection_requires(@"staticDataManager", @"staticDataLoader")
-@synthesize staticDataManager, staticDataLoader;
 
 - (void)setUp {
     [super setUp];

@@ -15,7 +15,6 @@
 #import "Route+RouteWithAdditions.h"
 
 @implementation LinesViewController
-
 objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadManager")
 
 #pragma mark - IoC

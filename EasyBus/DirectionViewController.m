@@ -15,9 +15,7 @@
 #import "StaticDataManager.h"
 
 @implementation DirectionViewController
-
 objection_requires(@"staticDataManager")
-@synthesize staticDataManager;
 
 #pragma mark - IoC
 - (void)awakeFromNib {
