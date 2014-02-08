@@ -45,7 +45,7 @@ NSString *const updateGroups = @"updateGroups";
 
 - (void) removeGroup:(Group*)group {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     //Suppression du groupe
     [self.managedObjectContext deleteObject:group];

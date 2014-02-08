@@ -22,7 +22,7 @@ objection_requires(@"managedObjectContext")
 
 - (void)loadData:(NSURL*)url {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     //Log
     NSLog(@"Chargement des infos de données");
@@ -80,7 +80,7 @@ objection_requires(@"managedObjectContext")
 
 - (FeedInfo*) feedInfo {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchFeedInfo"];

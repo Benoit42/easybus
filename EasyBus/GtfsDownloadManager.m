@@ -166,7 +166,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
 
 -(void)unzipFile:(NSURL*)zipFileUrl withSuccessBlock:(void(^)(NSURL* outputPath))success andFailureBlock:(void(^)(NSError* error))failure {
     //Préconditions
-    NSAssert(zipFileUrl != nil, @"zipFilePath should not be nil");
+    NSParameterAssert(zipFileUrl != nil);
     
     //Chargement des routes
     NSLog(@"Décompression des données GTFS");

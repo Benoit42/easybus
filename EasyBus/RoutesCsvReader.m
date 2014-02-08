@@ -26,7 +26,7 @@ objection_requires(@"managedObjectContext")
 #pragma mark - Chargement des données
 - (void)loadData:(NSURL*)url {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     //Initialisation du progress
     self.progress = [NSProgress progressWithTotalUnitCount:95]; //approx
@@ -87,7 +87,7 @@ objection_requires(@"managedObjectContext")
 #pragma mark Business methods
 - (NSDictionary*) routes {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllRoutes"];

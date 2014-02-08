@@ -25,7 +25,7 @@ objection_requires(@"managedObjectContext")
     [super viewDidLoad];
 
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
 }
 
 #pragma mark - Table view data source

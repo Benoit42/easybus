@@ -25,7 +25,7 @@ objection_requires(@"managedObjectContext")
 
 - (void)loadData:(NSURL*)url {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     //Initialisation du progress
     self.progress = [NSProgress progressWithTotalUnitCount:1410]; //approx
@@ -86,7 +86,7 @@ objection_requires(@"managedObjectContext")
 
 - (NSDictionary*) stops {
     //Pré-conditions
-    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
     
     NSManagedObjectModel *managedObjectModel = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
     NSFetchRequest *request = [managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];

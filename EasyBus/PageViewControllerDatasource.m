@@ -19,6 +19,7 @@
 objection_register(PageViewControllerDatasource);
 objection_requires(@"groupManager")
 
+#pragma - Constructor & IoC
 - (id)init {
     if ( self = [super init] ) {
         self.departuresViewControlers = [NSMutableArray new];
@@ -26,15 +27,19 @@ objection_requires(@"groupManager")
     return self;
 }
 
+- (void)awakeFromObjection {
+    //Pré-conditions
+    NSParameterAssert(self.groupManager != nil);
+}
+
+#pragma - Autres
+
 - (void)reset {
         self.departuresViewControlers = [NSMutableArray new];
 }
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
-    //Pré-conditions
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
     if (index < [[self.groupManager groups] count]) {
@@ -76,9 +81,6 @@ objection_requires(@"groupManager")
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    //Pré-conditions
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    
     NSUInteger index = [self indexOfViewController:(DeparturesViewController *)viewController];
     if (index == NSNotFound) {
         return nil;
@@ -92,9 +94,7 @@ objection_requires(@"groupManager")
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    //Pré-conditions
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
-    
+
     int count = [[self.groupManager groups] count];
     return count;
 }

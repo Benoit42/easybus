@@ -258,8 +258,8 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
 // Association route/stop
 - (NSArray*) matchTrips:(NSArray*)trips andStops:(NSArray*)stopTimes {
     //Pré-conditions
-    NSAssert(trips != nil, @"trips should not be nil");
-    NSAssert(stopTimes != nil, @"stopTimes should not be nil");
+    NSParameterAssert(trips != nil);
+    NSParameterAssert(stopTimes != nil);
     
     //Log
     NSLog(@"Association trajet/arrêts");
