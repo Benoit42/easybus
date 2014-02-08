@@ -239,7 +239,8 @@ objection_requires(@"managedObjectContext", @"gtfsDownloadManager", @"staticData
     [stopTimes randomize];
 
     //Match trips and stopTimes
-    [self.staticDataLoader matchTrips:trips andStops:stopTimes];
+    NSArray* routesStops = [self.staticDataLoader matchTrips:trips andStops:stopTimes];
+    [self.staticDataLoader linkRoutesAndStops:routesStops];
     
     //Verify data
     XCTAssertTrue([route1.stopsDirectionZero isEqualToOrderedSet:stops10], @"Wrong stops for route 1 direction 0");

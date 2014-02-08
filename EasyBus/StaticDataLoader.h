@@ -42,7 +42,7 @@ FOUNDATION_EXPORT NSString *const dataLoadingFailed;
 - (void)loadDataFromLocalFiles:(NSURL*)directory;
 
 //Privé
-- (void) matchTrips:(NSArray*)trips andStops:(NSArray*)stops;
-- (void) matchRoutesAndStops:(NSArray*)routeStops;
+- (NSArray*) matchTrips:(NSArray*)trips andStops:(NSArray*)stops;
+- (void) linkRoutesAndStops:(NSArray*)routeStops;
 
 @end

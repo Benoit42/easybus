@@ -27,7 +27,7 @@ objection_register_singleton(StopTimesCsvReader)
     self.progress = [NSProgress progressWithTotalUnitCount:611396]; //approx
     
     //Allocation du dictionnaire
-    self.stops = [[NSMutableArray alloc] initWithCapacity:600000U];
+    self.stopTimes = [[NSMutableArray alloc] initWithCapacity:600000U];
     
     //Lecture du fichier
     //Question : pourquoi est-il plus rapide de lire préalablement le fichier ?
@@ -41,11 +41,6 @@ objection_register_singleton(StopTimesCsvReader)
     p.sanitizesFields = YES;
     [p setDelegate:self];
     [p parse];
-    
-    //tri
-    [self.stops sortUsingComparator:^NSComparisonResult(StopTime* stop1, StopTime* stop2) {
-        return [stop1.tripId compare:stop2.tripId];
-    }];
 }
 
 #pragma mark CHCSVParserDelegate methods
@@ -62,7 +57,7 @@ objection_register_singleton(StopTimesCsvReader)
         stopTime.stopId= self.row[1];
         stopTime.stopSequence = [NSNumber numberWithInteger:[self.row[2] integerValue]];
         
-        [self.stops addObject:stopTime];
+        [self.stopTimes addObject:stopTime];
     }
 }
 
@@ -77,7 +72,7 @@ objection_register_singleton(StopTimesCsvReader)
 }
 
 - (void)cleanUp {
-    self.stops = nil;
+    self.stopTimes = nil;
 }
 
 @end

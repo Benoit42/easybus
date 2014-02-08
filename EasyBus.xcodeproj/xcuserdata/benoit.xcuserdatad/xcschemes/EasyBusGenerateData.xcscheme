@@ -39,7 +39,55 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "StaticDataProducer">
+                  Identifier = "AsyncTestCase">
+               </Test>
+               <Test
+                  Identifier = "AsyncTestCaseTest">
+               </Test>
+               <Test
+                  Identifier = "DeparturesManagerTest">
+               </Test>
+               <Test
+                  Identifier = "FavoritesManagerTest">
+               </Test>
+               <Test
+                  Identifier = "FeedInfoCsvReaderTest">
+               </Test>
+               <Test
+                  Identifier = "GroupManagerTest">
+               </Test>
+               <Test
+                  Identifier = "GtfsDownloadManagerTest">
+               </Test>
+               <Test
+                  Identifier = "LocationManagerTest">
+               </Test>
+               <Test
+                  Identifier = "RoutesCsvReaderTest">
+               </Test>
+               <Test
+                  Identifier = "RoutesStopsCsvReaderTest">
+               </Test>
+               <Test
+                  Identifier = "StaticDataLoaderLocalTest">
+               </Test>
+               <Test
+                  Identifier = "StaticDataLoaderWebTest">
+               </Test>
+               <Test
+                  Identifier = "StaticDataManagerTest">
+               </Test>
+               <Test
+                  Identifier = "StopsCsvReaderTest">
+               </Test>
+               <Test
+                  Identifier = "StopTimesCsvReaderTest">
+               </Test>
+               <Test
+                  Identifier = "TerminusJsonReaderTest">
+               </Test>
+               <Test
+                  Identifier = "TripsCsvReaderTest">
                </Test>
             </SkippedTests>
          </TestableReference>

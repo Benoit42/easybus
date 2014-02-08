@@ -120,7 +120,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             [self.progress resignCurrent];
 
             [self.progress becomeCurrentWithPendingUnitCount:10];
-            [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stops];
+            NSArray* routesStops = [self matchTrips:self.tripsCsvReader.trips andStops:self.stopTimesCsvReader.stopTimes];
+            [self.progress resignCurrent];
+            
+            [self.progress becomeCurrentWithPendingUnitCount:13];
+            [self linkRoutesAndStops:routesStops];
             [self.progress resignCurrent];
             
             //Nettoyage des routes et stops inutilisés
@@ -204,7 +208,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     [self.progress resignCurrent];
     
     [self.progress becomeCurrentWithPendingUnitCount:13];
-    [self matchRoutesAndStops:self.routesStopsCsvReader.routesStops];
+    [self linkRoutesAndStops:self.routesStopsCsvReader.routesStops];
     [self.progress resignCurrent];
     
     //Nettoyage des routes et stops inutilisés
@@ -259,14 +263,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 }
 
 // Association route/stop
-- (void) matchTrips:(NSArray*)trips andStops:(NSArray*)stops {
+- (NSArray*) matchTrips:(NSArray*)trips andStops:(NSArray*)stopTimes {
     //Pré-conditions
-    NSAssert(trips != nil, @"tripsCsvReader should not be nil");
-    NSAssert(stops != nil, @"stopTimesCsvReader should not be nil");
+    NSAssert(trips != nil, @"trips should not be nil");
+    NSAssert(stopTimes != nil, @"stopTimes should not be nil");
     
     //Log
     NSLog(@"Association trajet/arrêts");
-
+    
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
     [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
@@ -282,7 +286,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     trips = [trips sortedArrayUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
         return [trip1.id compare:trip2.id];
     }];
-    stops = [stops sortedArrayUsingComparator:^NSComparisonResult(StopTime* st1, StopTime* st2) {
+    stopTimes = [stopTimes sortedArrayUsingComparator:^NSComparisonResult(StopTime* st1, StopTime* st2) {
         NSComparisonResult compareTrips = [st1.tripId compare:st2.tripId];
         if (compareTrips == NSOrderedSame) {
             return [st1.stopSequence compare:st2.stopSequence];
@@ -296,11 +300,12 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSProgress* progress = [NSProgress progressWithTotalUnitCount:trips.count];
     
     //Matching route/stop
+    NSMutableSet* routesStops = [[NSMutableSet alloc] init];
     int i=0, j=0;
     while (i < trips.count) {
         Trip* trip = trips[i];
-        while (j < stops.count) {
-            StopTime* stopTime = stops[j];
+        while (j < stopTimes.count) {
+            StopTime* stopTime = stopTimes[j];
             if ([trip.id compare:stopTime.tripId] == NSOrderedAscending) {
                 break;
             }
@@ -309,10 +314,12 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             }
             else {
                 //Les tripId matchent
-                Route* route = [routesDictionnary objectForKey:trip.routeId];
-                Stop* stop = [stopsDictionnary objectForKey:stopTime.stopId];
-                NSString* direction = trip.directionId;
-                [route addStop:stop forDirection:direction];
+                RouteStop* routeStop  = [[RouteStop alloc] init];
+                routeStop.routeId = trip.routeId;
+                routeStop.stopId = stopTime.stopId;
+                routeStop.directionId = trip.directionId;
+                routeStop.stopSequence = stopTime.stopSequence;
+                [routesStops addObject:routeStop];
                 
                 //Incrément de boucle
                 j++;
@@ -321,16 +328,16 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         
         //Incrément de boucle
         i++;
-
+        
         //Progress
         [progress setCompletedUnitCount:i];
     }
     
     //Retour
-    return;
+    return [routesStops allObjects];
 }
 
-- (void) matchRoutesAndStops:(NSArray*)routeStops {
+- (void) linkRoutesAndStops:(NSArray*)routeStops {
     //Pré-conditions
     NSParameterAssert(routeStops != nil);
     
@@ -350,6 +357,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
     }];
     
+    //Initialisation du progress
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:routeStops.count];
+    
     //Tri des données
     routeStops = [routeStops sortedArrayUsingComparator:^NSComparisonResult(RouteStop* rs1, RouteStop* rs2) {
         NSComparisonResult compareRoutes = [rs1.routeId compare:rs2.routeId];
@@ -366,9 +376,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
             return compareRoutes;
         }
     }];
-
-    //Initialisation du progress
-    NSProgress* progress = [NSProgress progressWithTotalUnitCount:routeStops.count];
     
     //Matching route/stop
     [routeStops enumerateObjectsUsingBlock:^(RouteStop* routeStop, NSUInteger idx, BOOL *stop) {

@@ -145,7 +145,7 @@ objection_requires(@"managedObjectContext", @"staticDataLoader")
     [routesStops randomize];
     
     //Match routes and stops
-    [self.staticDataLoader matchRoutesAndStops:routesStops];
+    [self.staticDataLoader linkRoutesAndStops:routesStops];
     
     //Verify data
     XCTAssertTrue([route1.stopsDirectionZero isEqualToOrderedSet:stops10], @"Wrong stops for route 1 direction 0");
