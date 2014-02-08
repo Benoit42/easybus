@@ -17,7 +17,7 @@
 #import "FavoriteCell.h"
 
 @implementation FavoritesViewController
-objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
+objection_requires(@"managedObjectContext", @"favoritesManager", @"groupManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -29,8 +29,9 @@ objection_requires(@"favoritesManager", @"groupManager", @"staticDataManager")
     [super viewDidLoad];
     
     //Pré-conditions
-    NSAssert(self.favoritesManager != nil, @"favoritesManager should not be nil");
-    NSAssert(self.groupManager != nil, @"groupManager should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
+    NSParameterAssert(self.favoritesManager != nil);
+    NSParameterAssert(self.groupManager != nil);
 
     //Ajout long press gesture
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]

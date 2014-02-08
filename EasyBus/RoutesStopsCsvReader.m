@@ -9,7 +9,6 @@
 #import <Objection/Objection.h>
 #import <CHCSVParser/CHCSVParser.h>
 #import "RoutesStopsCsvReader.h"
-#import "StaticDataManager.h"
 
 @interface RoutesStopsCsvReader() <CHCSVParserDelegate>
 

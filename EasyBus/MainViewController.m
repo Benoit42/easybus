@@ -11,9 +11,12 @@
 #import "MainViewController.h"
 #import "PageViewController.h"
 #import "FavoritesManager.h"
+#import "NSManagedObjectContext+Network.h"
+
+#define RELOAD_KEOLIS_DATA_KEY @"reload_keolis_data"
 
 @implementation MainViewController
-objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManager", @"staticDataLoader")
+objection_requires(@"managedObjectContext", @"favoritesManager", @"departuresManager", @"staticDataLoader")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -25,9 +28,9 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidLoad];
 
     //Pré-conditions
+    NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.favoritesManager != nil);
     NSParameterAssert(self.departuresManager != nil);
-    NSParameterAssert(self.staticDataManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
 }
 
@@ -47,7 +50,7 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     [super viewDidAppear:animated];
     
     //Check des données
-    if ([self.staticDataManager needsToLoadData]) {
+    if ([self needsToLoadData]) {
         //Chargement des données
 //        [self.progressBar setProgress:0.0f animated:NO];
 //        [self.progressBar setHidden:NO];
@@ -101,5 +104,35 @@ objection_requires(@"favoritesManager", @"departuresManager", @"staticDataManage
     }
 }
 
+#pragma mark - progress view
+//Test de rechargement des données GTFS
+- (BOOL)needsToLoadData {
+    BOOL feedInfoOk = [self.managedObjectContext feedInfo] != nil;
+    BOOL terminusOk = [self terminusLabelIsOk];
+    BOOL reloadPreferenceEnabled = [self reloadPreferenceIsOk];
+    BOOL needsToCleanupEmptyRoutes = [self needsToCleanupEmptyRoutes];
+    return !feedInfoOk || !terminusOk || reloadPreferenceEnabled || needsToCleanupEmptyRoutes ;
+}
+
+//Test pour déclencher le chargement des données GTFS corrigeant le bugs des terminus
+- (BOOL)terminusLabelIsOk {
+    Route* route200 = [self.managedObjectContext routeForId:@"0200"];
+    BOOL route200Ok = [route200.fromName isEqualToString:@"Rennes Lycée Assomption"];
+    return route200Ok;
+}
+
+- (BOOL)reloadPreferenceIsOk {
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    BOOL reloadPreferenceOk = [[defaults valueForKey:RELOAD_KEOLIS_DATA_KEY] boolValue];
+    [defaults setValue:NO forKey:RELOAD_KEOLIS_DATA_KEY];
+    return reloadPreferenceOk;
+}
+
+#warning A supprimer quand tous les utilisateurs seront passé en 1.1
+- (BOOL)needsToCleanupEmptyRoutes {
+    //Get route 63
+    Route* route63 = [self.managedObjectContext routeForId:@"0063"];
+    return route63 != nil;
+}
 
 @end

@@ -1,5 +1,5 @@
 //
-//  StaticDataManager.m
+//  StaticDataLoader.m
 //  EasyBus
 //
 //  Created by Benoit on 21/11/12.

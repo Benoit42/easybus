@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StaticDataManager.h"
 #import "StaticDataLoader.h"
 
 @interface FeedInfoViewController : UIViewController
 
-@property (strong, nonatomic) StaticDataManager* staticDataManager;
-@property (strong, nonatomic) StaticDataLoader* staticDataLoader;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) StaticDataLoader* staticDataLoader;
 
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;

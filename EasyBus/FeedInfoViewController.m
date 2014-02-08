@@ -8,9 +8,10 @@
 
 #import <Objection/Objection.h>
 #import "FeedInfoViewController.h"
+#import "NSManagedObjectContext+Network.h"
 
 @implementation FeedInfoViewController
-objection_requires(@"staticDataManager", @"staticDataLoader")
+objection_requires(@"managedObjectContext", @"staticDataLoader")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -24,7 +25,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 	// Do any additional setup after loading the view.
 
     //Pré-conditions
-    NSParameterAssert(self.staticDataManager != nil);
+    NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.staticDataLoader != nil);
 }
 
@@ -32,7 +33,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     [super viewWillAppear:animated];
     
     //Get feed info
-    FeedInfo* feedInfo = [self.staticDataManager feedInfo];
+    FeedInfo* feedInfo = [self.managedObjectContext feedInfo];
     self.versionLabel.text = feedInfo.version;
 
     //Manage download
@@ -59,7 +60,7 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
     NSOperation* op = [NSBlockOperation blockOperationWithBlock:^{
         [self.staticDataLoader loadDataFromWebWithSuccessBlock:^{
             //Get feed info
-            FeedInfo* feedInfo = [self.staticDataManager feedInfo];
+            FeedInfo* feedInfo = [self.managedObjectContext feedInfo];
             self.versionLabel.text = feedInfo.version;
 
             //Manage download

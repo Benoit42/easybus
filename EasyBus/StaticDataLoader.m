@@ -1,5 +1,5 @@
 //
-//  StaticDataManager.m
+//  StaticDataLoader.m
 //  EasyBus
 //
 //  Created by Benoit on 21/11/12.
@@ -10,11 +10,11 @@
 #import <CoreData/CoreData.h>
 #import "NSObject+AsyncPerformBlock.h"
 #import "StaticDataLoader.h"
-#import "StaticDataManager.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "RouteStop.h"
 #import "Route+RouteWithAdditions.h"
+#import "NSManagedObjectContext+Network.h"
 
 NSString *const dataLoadingStarted = @"dataLoadingStarted";
 NSString *const dataLoadingProgress = @"dataLoadingProgress";
@@ -29,7 +29,7 @@ NSString *const dataLoadingFailed = @"dataLoadingFailed";
 
 @implementation StaticDataLoader
 objection_register_singleton(StaticDataLoader)
-objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"terminusJsonReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
+objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader", @"tripsCsvReader", @"terminusJsonReader", @"stopTimesCsvReader", @"routesStopsCsvReader", @"feedInfoCsvReader", @"gtfsDownloadManager")
 
 #pragma mark - Constructeur
 -(id)init {
@@ -39,6 +39,17 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     }
     
     return self;
+}
+
+- (void)awakeFromObjection {
+    //Pré-conditions
+    NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.feedInfoCsvReader);
+    NSParameterAssert(self.routesCsvReader);
+    NSParameterAssert(self.stopsCsvReader);
+    NSParameterAssert(self.tripsCsvReader);
+    NSParameterAssert(self.stopTimesCsvReader);
+    NSParameterAssert(self.feedInfoCsvReader);
 }
 
 #pragma mark web file loading method
@@ -66,16 +77,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 }
 
 - (void)loadDataFromWebWithSuccessBlock:(void(^)(void))success andFailureBlock:(void(^)(NSError* error))failure {
-    //Pré-conditions
-    NSParameterAssert(self.feedInfoCsvReader);
-    NSParameterAssert(self.managedObjectContext);
-    NSParameterAssert(self.staticDataManager);
-    NSParameterAssert(self.routesCsvReader);
-    NSParameterAssert(self.stopsCsvReader);
-    NSParameterAssert(self.tripsCsvReader);
-    NSParameterAssert(self.stopTimesCsvReader);
-    NSParameterAssert(self.feedInfoCsvReader);
-
     //Log
     NSLog(@"Démarrage du chargement des données web");
     
@@ -167,14 +168,6 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
 
 #pragma mark local file loading method
 - (void)loadDataFromLocalFiles:(NSURL*)directory {
-    //Pré-conditions
-    NSParameterAssert(self.managedObjectContext);
-    NSParameterAssert(self.staticDataManager);
-    NSParameterAssert(self.routesCsvReader);
-    NSParameterAssert(self.stopsCsvReader);
-    NSParameterAssert(self.routesStopsCsvReader);
-    NSParameterAssert(self.terminusJsonReader);
-
     //Log
     NSLog(@"Démarrage du chargement des données locales");
     
@@ -250,9 +243,9 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Calcul des libellés de terminus");
     
     //Initialisation du progress
-    NSProgress* progress = [NSProgress progressWithTotalUnitCount:self.staticDataManager.routes];
+    NSProgress* progress = [NSProgress progressWithTotalUnitCount:self.managedObjectContext.routes];
     
-    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+    [self.managedObjectContext.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         //Récupération du label
         route.fromName = terminus[route.id][@"0"];
         route.toName = terminus[route.id][@"1"];
@@ -273,12 +266,12 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+    [self.managedObjectContext.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         [routesDictionnary setObject:route forKey:route.id];
     }];
     
     NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+    [self.managedObjectContext.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
         [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
     }];
     
@@ -346,14 +339,14 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     
     //Pre-fetching
     NSMutableDictionary* routesDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+    [self.managedObjectContext.routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         [routesDictionnary setObject:route forKey:route.id];
         [route removeStopsDirectionZero:[route stopsDirectionZero]];
         [route removeStopsDirectionOne:[route stopsDirectionOne]];
     }];
     
     NSMutableDictionary* stopsDictionnary = [[NSMutableDictionary alloc] init];
-    [self.staticDataManager.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
+    [self.managedObjectContext.stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
         [stopsDictionnary setObject:stopEntity forKey:stopEntity.id];
     }];
     
@@ -402,12 +395,12 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
     NSLog(@"Nettoyage des lignes et arrêts inutilisés");
     
     //Initialisation du progress
-    NSArray* stops = [self.staticDataManager stops];
-    NSArray* routes = [self.staticDataManager routes];
+    NSArray* stops = [self.managedObjectContext stops];
+    NSArray* routes = [self.managedObjectContext routes];
     NSProgress* progress = [NSProgress progressWithTotalUnitCount:stops.count + routes.count];
     
     //Clean-up unused stops
-    NSUInteger beforeCleanUp = [[self.staticDataManager stops] count];
+    NSUInteger beforeCleanUp = [[self.managedObjectContext stops] count];
     [stops enumerateObjectsUsingBlock:^(Stop* stopEntity, NSUInteger idx, BOOL *stop) {
         if ([[stopEntity routesDirectionZero] count] == 0 && [[stopEntity routesDirectionOne] count] == 0) {
             [stopEntity.managedObjectContext deleteObject:stopEntity];
@@ -417,11 +410,11 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         progress.completedUnitCount++;
     }];
     
-    NSUInteger afterCleanUp = [[self.staticDataManager stops] count];
+    NSUInteger afterCleanUp = [[self.managedObjectContext stops] count];
     NSLog(@"Nettoyage des arrêts inutilisés : %i arrêts supprimés", beforeCleanUp - afterCleanUp);
     
     //Clean-up unused stops
-    beforeCleanUp = [[self.staticDataManager routes] count];
+    beforeCleanUp = [[self.managedObjectContext routes] count];
     [routes enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
         if ([[route stopsDirectionZero] count] == 0 && [[route stopsDirectionOne] count] == 0) {
             [route.managedObjectContext deleteObject:route];
@@ -431,7 +424,7 @@ objection_requires(@"managedObjectContext", @"staticDataManager", @"routesCsvRea
         //Progress
         progress.completedUnitCount++;
     }];
-    afterCleanUp = [[self.staticDataManager routes] count];
+    afterCleanUp = [[self.managedObjectContext routes] count];
     NSLog(@"Nettoyage des routes inutilisées : %i routes supprimées", beforeCleanUp - afterCleanUp);
     
     //Retour

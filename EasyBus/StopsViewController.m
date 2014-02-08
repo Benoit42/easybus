@@ -10,9 +10,10 @@
 #import "StopsViewController.h"
 #import "LinesNavigationController.h"
 #import "StopCell.h"
+#import "NSManagedObjectContext+Network.h"
 
 @implementation StopsViewController
-objection_requires(@"staticDataManager")
+objection_requires(@"managedObjectContext")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -24,7 +25,7 @@ objection_requires(@"staticDataManager")
     [super viewDidLoad];
 
     //Pré-conditions
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
 }
 
 #pragma mark - Table view data source
@@ -39,7 +40,7 @@ objection_requires(@"staticDataManager")
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     // Return the number of rows in the section
-    return [[self.staticDataManager stopsForRoute:route direction:direction] count];
+    return [[self.managedObjectContext stopsForRoute:route direction:direction] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,7 +49,7 @@ objection_requires(@"staticDataManager")
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     //get stop list
-    NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
+    NSArray* stops = [self.managedObjectContext stopsForRoute:route direction:direction];
     
     //get departure section
     if (indexPath.row < [stops count]) {
@@ -72,7 +73,7 @@ objection_requires(@"staticDataManager")
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     
     //get the current stop
-    NSArray* stops = [self.staticDataManager stopsForRoute:route direction:direction];
+    NSArray* stops = [self.managedObjectContext stopsForRoute:route direction:direction];
     Stop* stop = [stops objectAtIndex:indexPath.row];
     
     // update it the current favorite

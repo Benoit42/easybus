@@ -51,7 +51,7 @@
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
-		14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* StaticDataManagerTest.m */; };
+		14A540FF17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */; };
 		14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */; };
 		14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4345165FEA3400834A23 /* DepartureCell.h */; };
 		14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AA96D71837E9CA0052B338 /* FeedInfoCsvReader.m */; };
@@ -71,6 +71,7 @@
 		14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C1E162AF00400DF061A /* AppDelegate.h */; };
 		14ADC8FC1649C5D700B50FA2 /* LinesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C2D162AF00400DF061A /* LinesViewController.h */; };
 		14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
+		14AEC8DE18A69625007B5EA4 /* NSManagedObjectContext+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */; };
 		14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */; };
 		14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */; };
 		14B42DC61656BD5D0070AA9D /* Depart.h in Sources */ = {isa = PBXBuildFile; fileRef = 142340D8162E0ABA0095073C /* Depart.h */; };
@@ -93,7 +94,6 @@
 		14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */; };
 		14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4320165C25A600834A23 /* DeparturesManager.m */; };
 		14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */; };
-		14CF432D165CDD3D00834A23 /* StaticDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF432C165CDD3D00834A23 /* StaticDataManager.m */; };
 		14CF4334165EB10500834A23 /* LineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4333165EB10500834A23 /* LineCell.m */; };
 		14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4336165EB2C500834A23 /* DirectionCell.m */; };
 		14CF433C165EB41200834A23 /* DirectionCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4335165EB2C500834A23 /* DirectionCell.h */; };
@@ -225,7 +225,7 @@
 		148DCA9A184D154F00658839 /* screenshot-4-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-3.png"; sourceTree = "<group>"; };
 		148DCA9C184F642600658839 /* icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
-		14A540FE17773E0700E18262 /* StaticDataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataManagerTest.m; sourceTree = "<group>"; };
+		14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextEasyBusTest.m; sourceTree = "<group>"; };
 		14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataLoader.h; sourceTree = "<group>"; };
 		14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoader.m; sourceTree = "<group>"; };
 		14AA96D61837E9CA0052B338 /* FeedInfoCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoCsvReader.h; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		14AD3C2E162AF00400DF061A /* LinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinesViewController.m; sourceTree = "<group>"; };
 		14AD3C35162AF00400DF061A /* EasyBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EasyBusTests-Info.plist"; sourceTree = "<group>"; };
+		14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Network.h"; sourceTree = "<group>"; };
+		14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Network.m"; sourceTree = "<group>"; };
 		14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route+RouteWithAdditions.h"; sourceTree = "<group>"; };
 		14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route+RouteWithAdditions.m"; sourceTree = "<group>"; };
 		14B1F88B17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Favorite+FavoriteWithAdditions.h"; sourceTree = "<group>"; };
@@ -270,8 +272,6 @@
 		14CF431F165C25A600834A23 /* DeparturesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesManager.h; sourceTree = "<group>"; };
 		14CF4320165C25A600834A23 /* DeparturesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesManager.m; sourceTree = "<group>"; };
 		14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesManagerTest.m; sourceTree = "<group>"; };
-		14CF432B165CDD3D00834A23 /* StaticDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataManager.h; sourceTree = "<group>"; };
-		14CF432C165CDD3D00834A23 /* StaticDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataManager.m; sourceTree = "<group>"; };
 		14CF4332165EB10500834A23 /* LineCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LineCell.h; sourceTree = "<group>"; };
 		14CF4333165EB10500834A23 /* LineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineCell.m; sourceTree = "<group>"; };
 		14CF4335165EB2C500834A23 /* DirectionCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DirectionCell.h; sourceTree = "<group>"; };
@@ -573,7 +573,7 @@
 				14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */,
 				14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */,
 				14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */,
-				14A540FE17773E0700E18262 /* StaticDataManagerTest.m */,
+				14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */,
 				14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */,
 				14E0EC2D1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m */,
 				141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */,
@@ -622,6 +622,8 @@
 				14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
 				14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */,
+				14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */,
+				14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */,
 			);
 			name = Modele;
 			sourceTree = "<group>";
@@ -670,8 +672,6 @@
 				147168A0180086F200846AE6 /* RouteStop.m */,
 				14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */,
 				14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */,
-				14CF432B165CDD3D00834A23 /* StaticDataManager.h */,
-				14CF432C165CDD3D00834A23 /* StaticDataManager.m */,
 				14AA96D61837E9CA0052B338 /* FeedInfoCsvReader.h */,
 				14AA96D71837E9CA0052B338 /* FeedInfoCsvReader.m */,
 				141EDDE617776FFF005DDC8C /* RoutesCsvReader.h */,
@@ -1004,7 +1004,6 @@
 				14CF4311165BFF4000834A23 /* FavoritesManager.m in Sources */,
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
 				147168A1180086F200846AE6 /* RouteStop.m in Sources */,
-				14CF432D165CDD3D00834A23 /* StaticDataManager.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
 				14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */,
@@ -1030,6 +1029,7 @@
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
+				14AEC8DE18A69625007B5EA4 /* NSManagedObjectContext+Network.m in Sources */,
 				14AA96E8183802F30052B338 /* FeedInfoViewController.m in Sources */,
 				1433AE7F18A4259C0026469F /* Stop.m in Sources */,
 				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
@@ -1065,7 +1065,7 @@
 				14405C91182175BF00843B20 /* StaticDataLoaderLocalTest.m in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
-				14A540FF17773E0700E18262 /* StaticDataManagerTest.m in Sources */,
+				14A540FF17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
 				14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */,
 			);

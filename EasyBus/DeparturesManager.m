@@ -12,6 +12,7 @@
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
 #import "Favorite+FavoriteWithAdditions.h"
+#import "NSManagedObjectContext+Network.h"
 
 @interface DeparturesManager()
 @property (strong, nonatomic) NSMutableArray* _departures;
@@ -33,19 +34,16 @@
 
 @implementation DeparturesManager
 objection_register_singleton(DeparturesManager)
-objection_requires(@"staticDataManager")
+objection_requires(@"managedObjectContext")
 
 //Déclaration des notifications
 NSString* const departuresUpdateStarted = @"departuresUpdateStarted";
 NSString* const departuresUpdateFailed = @"departuresUpdateFailed";
 NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 
-//constructeur
+#pragma - Constructor & IoC
 -(id)init {
     if ( self = [super init] ) {
-        //Préconditions
-//        NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
-        
         self._departures = [NSMutableArray new];
         self.freshDepartures = [NSMutableArray new];
 
@@ -63,7 +61,12 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
     return self;
 }
 
-#pragma manage departures
+- (void)awakeFromObjection {
+    //Pré-conditions
+    NSParameterAssert(self.managedObjectContext);
+}
+
+#pragma - Manage departures
 - (NSArray*) getDepartures {
     //retourne la liste des départs
     return self._departures;
@@ -206,8 +209,8 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
             BOOL isRealTime = [self.accurate isEqualToString:@"1"];
             
             //Recherche de la route et de l'arrêt
-            Route* route = [self.staticDataManager routeForId:self.route];
-            Stop* stop = [self.staticDataManager stopForId:self.stop];
+            Route* route = [self.managedObjectContext routeForId:self.route];
+            Stop* stop = [self.managedObjectContext stopForId:self.stop];
             
             //création du départ
             Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:self.direction delai:interval heure:departureDate isRealTime:isRealTime];

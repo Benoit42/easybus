@@ -12,10 +12,9 @@
 #import "StopsViewController.h"
 #import "DirectionCell.h"
 #import "Route+RouteWithAdditions.h"
-#import "StaticDataManager.h"
 
 @implementation DirectionViewController
-objection_requires(@"staticDataManager")
+objection_requires(@"managedObjectContext")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -27,7 +26,7 @@ objection_requires(@"staticDataManager")
     [super viewDidLoad];
 
     //Pré-conditions
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
+    NSAssert(self.managedObjectContext != nil, @"managedObjectContext should not be nil");
 }
 
 #pragma mark - Table view data source

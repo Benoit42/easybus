@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Depart.h"
 #import "Group.h"
-#import "StaticDataManager.h"
 
 @interface DeparturesManager : NSObject <NSXMLParserDelegate>
 
@@ -17,7 +16,7 @@ FOUNDATION_EXPORT NSString* const departuresUpdateStarted;
 FOUNDATION_EXPORT NSString* const departuresUpdateFailed;
 FOUNDATION_EXPORT NSString* const departuresUpdateSucceeded;
 
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property(nonatomic) NSMutableData* _receivedData;
 @property(nonatomic) BOOL _isRequesting;

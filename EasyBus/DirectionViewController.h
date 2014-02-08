@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StaticDataManager.h"
 
 @interface DirectionViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(strong, nonatomic) StaticDataManager* staticDataManager;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

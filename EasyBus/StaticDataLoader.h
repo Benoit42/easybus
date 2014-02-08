@@ -1,5 +1,5 @@
 //
-//  StaticDataManager.h
+//  StaticDataLoader.h
 //  EasyBus
 //
 //  Created by Benoit on 21/11/12.
@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StaticDataManager.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "TripsCsvReader.h"
@@ -26,7 +25,6 @@ FOUNDATION_EXPORT NSString *const dataLoadingFailed;
 @interface StaticDataLoader : NSObject
 
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
-@property(nonatomic) StaticDataManager *staticDataManager;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) TripsCsvReader* tripsCsvReader;

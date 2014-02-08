@@ -13,7 +13,6 @@
 #import "MainViewController.h"
 #import "FavoritesManager.h"
 #import "DeparturesManager.h"
-#import "StaticDataManager.h"
 
 @implementation AppDelegate
 objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager", @"favoritesManager")

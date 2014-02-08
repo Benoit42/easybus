@@ -13,9 +13,10 @@
 #import "FavoritesManager.h"
 #import "LineCell.h"
 #import "Route+RouteWithAdditions.h"
+#import "NSManagedObjectContext+Network.h"
 
 @implementation LinesViewController
-objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadManager")
+objection_requires( @"managedObjectContext", @"favoritesManager", @"gtfsDownloadManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -27,8 +28,8 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
     [super viewDidLoad];
 
     //Pré-conditions
-    NSAssert(self.staticDataManager != nil, @"staticDataManager should not be nil");
-    NSAssert(self.gtfsDownloadManager != nil, @"gtfsDownloadManager should not be nil");
+    NSParameterAssert(self.managedObjectContext != nil);
+    NSParameterAssert(self.gtfsDownloadManager != nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -49,12 +50,12 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[self.staticDataManager routes] count];
+    return [[self.managedObjectContext routes] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray* routes = [self.staticDataManager routes];
+    NSArray* routes = [self.managedObjectContext sortedRoutes];
     
     //get routes section
     if (indexPath.row < [routes count]) {
@@ -76,7 +77,7 @@ objection_requires(@"favoritesManager", @"staticDataManager", @"gtfsDownloadMana
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get route
-    Route* route = [[self.staticDataManager routes] objectAtIndex:indexPath.row];
+    Route* route = [[self.managedObjectContext sortedRoutes] objectAtIndex:indexPath.row];
 
     //get the current favorite fromnav controler and update it
     ((LinesNavigationController*)self.navigationController).currentFavoriteRoute = route;

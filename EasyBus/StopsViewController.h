@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StaticDataManager.h"
 
 @interface StopsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(retain, nonatomic) StaticDataManager* staticDataManager;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *_saveButton;
 

@@ -10,16 +10,15 @@
 #import "FavoritesManager.h"
 #import "GroupManager.h"
 #import "DeparturesManager.h"
-#import "StaticDataManager.h"
 #import "StaticDataLoader.h"
 #import "LocationManager.h"
 
 @interface MainViewController : UIViewController
 
-@property (nonatomic, retain) FavoritesManager *favoritesManager;
-@property (nonatomic, retain) DeparturesManager *departuresManager;
-@property (nonatomic, retain) StaticDataManager *staticDataManager;
-@property (nonatomic, retain) StaticDataLoader *staticDataLoader;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) FavoritesManager *favoritesManager;
+@property (nonatomic) DeparturesManager *departuresManager;
+@property (nonatomic) StaticDataLoader *staticDataLoader;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 

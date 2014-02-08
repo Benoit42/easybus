@@ -11,18 +11,18 @@
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
-#import "StaticDataManager.h"
 #import "StaticDataLoader.h"
+#import "NSManagedObjectContext+Network.h"
 
-@interface StaticDataManagerTest : XCTestCase
+@interface NSManagedObjectContextEasyBusTest : XCTestCase
 
-@property(nonatomic) StaticDataManager* staticDataManager;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 @property(nonatomic) StaticDataLoader* staticDataLoader;
 
 @end
 
-@implementation StaticDataManagerTest
-objection_requires(@"staticDataManager", @"staticDataLoader")
+@implementation NSManagedObjectContextEasyBusTest
+objection_requires(@"managedObjectContext", @"staticDataLoader")
 
 - (void)setUp {
     [super setUp];
@@ -46,22 +46,16 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 
 //Vérification des routes
 - (void)testRoutes {
-    NSArray* routes = [self.staticDataManager routes];
-    XCTAssertTrue([routes count] > 0 , @"Routes shall exist");
+    NSArray* routes = [self.managedObjectContext routes];
+    XCTAssertEqual(routes.count, 94U, @"Wrong number of routes");
 
-    Route* firstRoute = [routes objectAtIndex:0];
-    XCTAssertEqualObjects(@"0001", firstRoute.id, @"First route shall be 0001");
-
-    Route* lastRoute = [routes lastObject];
-    XCTAssertEqualObjects(@"0805", lastRoute.id, @"First route shall be 0805");
-
-    Route* route64 = [self.staticDataManager routeForId:@"0064"];
+    Route* route64 = [self.managedObjectContext routeForId:@"0064"];
     XCTAssertNotNil(route64 , @"Route 64 shall exists");
     
-    NSArray* stopsDirectionZero = [self.staticDataManager stopsForRoute:route64 direction:@"0"];
+    NSArray* stopsDirectionZero = [self.managedObjectContext stopsForRoute:route64 direction:@"0"];
     XCTAssertEqual(stopsDirectionZero.count, 22U, @"Wrong number of stops");
     
-    NSArray* stopsDirectionOne = [self.staticDataManager stopsForRoute:route64 direction:@"1"];
+    NSArray* stopsDirectionOne = [self.managedObjectContext stopsForRoute:route64 direction:@"1"];
     XCTAssertEqual(stopsDirectionOne.count, 23U, @"Wrong number of stops");
     
     Stop* republique1 = stopsDirectionZero[0];
@@ -77,19 +71,8 @@ objection_requires(@"staticDataManager", @"staticDataLoader")
 
 //Vérification des arrêts
 - (void)testStops {
-    NSArray* stops = [self.staticDataManager stops];
-    XCTAssertTrue([stops count] > 0 , @"Stops shall exist");
-}
-
-//Vérification des arrêts proches
-- (void)testNearStops {
-    CLLocation *timonière = [[CLLocation alloc] initWithLatitude:48.136990f longitude:-1.526347f];
-    NSArray* stops = [self.staticDataManager nearStopsFrom:timonière quantity:3];
-    XCTAssertTrue([stops count] == 3 , @"Thre should be 3 stops");
-    
-    XCTAssertEqualObjects(((Stop*)stops[0]).id, @"4001", @"Wrong near stop 0"); //Timmonière
-    XCTAssertEqualObjects(((Stop*)stops[1]).id, @"4013", @"Wrong near stop 1"); //Verdaudais
-    XCTAssertEqualObjects(((Stop*)stops[2]).id, @"4002", @"Wrong near stop 2"); //Verdaudais
+    NSArray* stops = [self.managedObjectContext stops];
+    XCTAssertEqual(stops.count, 1409U, @"Wrong number of stos");
 }
 
 @end
