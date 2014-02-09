@@ -10,13 +10,13 @@
 #import "NSObject+AsyncPerformBlock.h"
 #import "MainViewController.h"
 #import "PageViewController.h"
-#import "FavoritesManager.h"
 #import "NSManagedObjectContext+Network.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 #define RELOAD_KEOLIS_DATA_KEY @"reload_keolis_data"
 
 @implementation MainViewController
-objection_requires(@"managedObjectContext", @"favoritesManager", @"departuresManager", @"staticDataLoader")
+objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLoader")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -29,7 +29,6 @@ objection_requires(@"managedObjectContext", @"favoritesManager", @"departuresMan
 
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.favoritesManager != nil);
     NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
 }
@@ -91,7 +90,7 @@ objection_requires(@"managedObjectContext", @"favoritesManager", @"departuresMan
 #pragma mark - refreshing departures
 - (void)favoritesUpdated:(NSNotification *)notification {
     //Raffraichissement des départs
-    NSArray* favorite = [self.favoritesManager favorites];
+    NSArray* favorite = [self.managedObjectContext favorites];
     [self.departuresManager refreshDepartures:favorite];
 }
 

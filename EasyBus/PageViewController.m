@@ -11,8 +11,8 @@
 #import "Constants.h"
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
-#import "FavoritesManager.h"
 #import "DeparturesManager.h"
+#import "Favorite+FavoriteWithAdditions.h"
 
 @interface PageViewController()
 

@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 Benoit. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import "AppDelegate.h"
 #import "NSObject+AsyncPerformBlock.h"
-#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import "IoCModule.h"
 #import "MainViewController.h"
-#import "FavoritesManager.h"
 #import "DeparturesManager.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @implementation AppDelegate
-objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager", @"favoritesManager")
+objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager")
 
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -70,7 +70,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     //update departures
     [self performBlockInBackground:^{
         //Rechargement des départs
-        [self.departuresManager refreshDepartures:[self.favoritesManager favorites]];
+        [self.departuresManager refreshDepartures:[self.managedObjectContext favorites]];
         [self.locationManager startUpdatingLocation];
     }];
 }

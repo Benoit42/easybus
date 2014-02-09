@@ -1,5 +1,5 @@
 //
-//  FavoritesManagerTest.m
+//  GroupeManagerTest.m
 //  EasyBus
 //
 //  Created by Benoit on 20/11/12.

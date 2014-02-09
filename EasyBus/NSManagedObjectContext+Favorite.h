@@ -1,22 +1,24 @@
 //
-//  FavoritesManager.h
+//  NSManagedObjectContext+Favorite.h
 //  EasyBus
 //
-//  Created by Benoit on 20/11/12.
-//  Copyright (c) 2012 Benoit. All rights reserved.
+//  Created by Benoît on 09/02/2014.
+//  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "Favorite+FavoriteWithAdditions.h"
+#import <CoreData/CoreData.h>
+#import "Favorite.h"
+#import "Route.h"
+#import "Stop.h"
+#import "Group.h"
 
-@interface FavoritesManager : NSObject
+@interface NSManagedObjectContext (Favorite)
 
 FOUNDATION_EXPORT NSString* const updateFavorites;
-
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (NSArray*) favorites;
 - (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
 - (void) removeFavorite:(Favorite*)favorite;
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index;
+
 @end

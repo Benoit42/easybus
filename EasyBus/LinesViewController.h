@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FavoritesManager.h"
 #import "GtfsDownloadManager.h"
 
 @interface LinesViewController : UITableViewController
 
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
-@property(nonatomic) FavoritesManager* favoritesManager;
 @property(nonatomic) GtfsDownloadManager* gtfsDownloadManager;
 
 @end

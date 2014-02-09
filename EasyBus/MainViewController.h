@@ -7,7 +7,6 @@
 //
 
 #import "LinesViewController.h"
-#import "FavoritesManager.h"
 #import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataLoader.h"
@@ -16,7 +15,6 @@
 @interface MainViewController : UIViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic) FavoritesManager *favoritesManager;
 @property (nonatomic) DeparturesManager *departuresManager;
 @property (nonatomic) StaticDataLoader *staticDataLoader;
 

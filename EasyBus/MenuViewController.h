@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FavoritesManager.h"
 
 @interface MenuViewController : UITableViewController
 
-@property(strong, nonatomic) FavoritesManager* favoritesManager;
+@property(nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UIButton *favoritesButton;
 @property (weak, nonatomic) IBOutlet UIButton *organizeButton;

@@ -14,6 +14,7 @@
 #import "DeparturesViewController.h"
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @interface DeparturesTableViewController()
 
@@ -26,7 +27,7 @@
 @implementation DeparturesTableViewController {
     UIFont* refreshLabelFont;
 }
-objection_requires(@"departuresManager", @"favoritesManager")
+objection_requires(@"managedObjectContext", @"departuresManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -39,9 +40,9 @@ objection_requires(@"departuresManager", @"favoritesManager")
     [super viewDidLoad];
     
     //Pré-conditions
-    NSParameterAssert(self.group != nil);
+    NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.departuresManager != nil);
-    NSParameterAssert(self.favoritesManager != nil);
+    NSParameterAssert(self.group != nil);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -123,7 +124,7 @@ objection_requires(@"departuresManager", @"favoritesManager")
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
     [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.favoritesManager.favorites];
+        [self.departuresManager refreshDepartures:self.managedObjectContext.favorites];
     }];
 }
 

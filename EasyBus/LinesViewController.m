@@ -10,13 +10,13 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "LinesViewController.h"
 #import "LinesNavigationController.h"
-#import "FavoritesManager.h"
 #import "LineCell.h"
 #import "Route+RouteWithAdditions.h"
 #import "NSManagedObjectContext+Network.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @implementation LinesViewController
-objection_requires( @"managedObjectContext", @"favoritesManager", @"gtfsDownloadManager")
+objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -33,7 +33,7 @@ objection_requires( @"managedObjectContext", @"favoritesManager", @"gtfsDownload
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    if (self.favoritesManager.favorites.count == 0) {
+    if (self.managedObjectContext.favorites.count == 0) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Favoris" message:@"Choisissez une ligne, un arrêt et une direction, puis appuyez sur 'Sauver'" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
         [alert show];
     }
@@ -89,7 +89,7 @@ objection_requires( @"managedObjectContext", @"favoritesManager", @"gtfsDownload
     Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
     Stop* stop = ((LinesNavigationController*)self.navigationController).currentFavoriteStop;
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
-    [self.favoritesManager addFavorite:route stop:stop direction:direction];
+    [self.managedObjectContext addFavorite:route stop:stop direction:direction];
 }
 
 @end

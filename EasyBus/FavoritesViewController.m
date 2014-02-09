@@ -15,9 +15,10 @@
 #import "Route+RouteWithAdditions.h"
 #import "Stop.h"
 #import "FavoriteCell.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @implementation FavoritesViewController
-objection_requires(@"managedObjectContext", @"favoritesManager", @"groupManager")
+objection_requires(@"managedObjectContext", @"groupManager")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -30,7 +31,6 @@ objection_requires(@"managedObjectContext", @"favoritesManager", @"groupManager"
     
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.favoritesManager != nil);
     NSParameterAssert(self.groupManager != nil);
 
     //Ajout long press gesture
@@ -115,7 +115,7 @@ objection_requires(@"managedObjectContext", @"favoritesManager", @"groupManager"
         // delete your data item here
         Group* group = [[self.groupManager groups] objectAtIndex:indexPath.section];
         Favorite* favorite = [[group favorites] objectAtIndex:indexPath.row];
-        [self.favoritesManager removeFavorite:favorite];
+        [self.managedObjectContext removeFavorite:favorite];
 
         // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
@@ -145,7 +145,7 @@ objection_requires(@"managedObjectContext", @"favoritesManager", @"groupManager"
     Group* destinationGroup = [[self.groupManager groups] objectAtIndex:destinationIndexPath.section];
 
     //Move favorite
-    [self.favoritesManager moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+    [self.managedObjectContext moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
     if (sourceGroup.favorites.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^() {

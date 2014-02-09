@@ -9,9 +9,10 @@
 #import <Objection/Objection.h>
 #import "MenuViewController.h"
 #import "RevealViewController.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @implementation MenuViewController
-objection_requires(@"favoritesManager")
+objection_requires(@"managedObjectContext")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -22,6 +23,9 @@ objection_requires(@"favoritesManager")
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Pré-conditions
+    NSParameterAssert(self.managedObjectContext != nil);
+    
     //Affichage du n° de version
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     self.versionLabel.text = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
@@ -31,7 +35,7 @@ objection_requires(@"favoritesManager")
     [super viewWillAppear:animated];
     
     //Mise à jour de l'UI
-    BOOL haveFavorites = self.favoritesManager.favorites.count > 0;
+    BOOL haveFavorites = self.managedObjectContext.favorites.count > 0;
     self.favoritesButton.enabled = haveFavorites;
     self.organizeButton.enabled = haveFavorites;
 }

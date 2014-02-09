@@ -90,7 +90,6 @@
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
 		14CF430916597FA500834A23 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF430816597FA500834A23 /* FavoriteCell.m */; };
-		14CF4311165BFF4000834A23 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4310165BFF4000834A23 /* FavoritesManager.m */; };
 		14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */; };
 		14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4320165C25A600834A23 /* DeparturesManager.m */; };
 		14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */; };
@@ -140,6 +139,7 @@
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
+		14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,8 +266,6 @@
 		14C65C17189412FA007971CE /* 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.1.xcdatamodel; sourceTree = "<group>"; };
 		14CF430716597FA500834A23 /* FavoriteCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoriteCell.h; sourceTree = "<group>"; };
 		14CF430816597FA500834A23 /* FavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
-		14CF430F165BFF4000834A23 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
-		14CF4310165BFF4000834A23 /* FavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
 		14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManagerTest.m; sourceTree = "<group>"; };
 		14CF431F165C25A600834A23 /* DeparturesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesManager.h; sourceTree = "<group>"; };
 		14CF4320165C25A600834A23 /* DeparturesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesManager.m; sourceTree = "<group>"; };
@@ -328,6 +326,8 @@
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		14F249FA18A651660033166C /* StaticDataProducer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StaticDataProducer.m; path = ../EasyBusData/StaticDataProducer.m; sourceTree = "<group>"; };
+		14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Favorite.h"; sourceTree = "<group>"; };
+		14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Favorite.m"; sourceTree = "<group>"; };
 		7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyBusTests.xcconfig"; path = "Pods/Pods-EasyBusTests.xcconfig"; sourceTree = "<group>"; };
@@ -622,6 +622,8 @@
 				14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
 				14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */,
+				14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Favorite.h */,
+				14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */,
 				14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */,
 				14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */,
 			);
@@ -653,8 +655,6 @@
 		14CF4312165BFF7F00834A23 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				14CF430F165BFF4000834A23 /* FavoritesManager.h */,
-				14CF4310165BFF4000834A23 /* FavoritesManager.m */,
 				14E2AD7F17D64A8F00ED4546 /* GroupManager.h */,
 				14E2AD8017D64A9000ED4546 /* GroupManager.m */,
 			);
@@ -989,6 +989,7 @@
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				14E0EC321837BF7A008B6CA0 /* NSMutableArray+Randomize.m in Sources */,
 				1433AE8518A4259C0026469F /* Route.m in Sources */,
+				14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Favorite.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
 				140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */,
@@ -1001,7 +1002,6 @@
 				14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */,
 				14CF430916597FA500834A23 /* FavoriteCell.m in Sources */,
 				1433AE8818A4259C0026469F /* FeedInfo.m in Sources */,
-				14CF4311165BFF4000834A23 /* FavoritesManager.m in Sources */,
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
 				147168A1180086F200846AE6 /* RouteStop.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,

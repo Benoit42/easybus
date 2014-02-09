@@ -9,9 +9,10 @@
 #import <Objection/Objection.h>
 #import "RevealViewController.h"
 #import "MenuViewController.h"
+#import "NSManagedObjectContext+Favorite.h"
 
 @implementation RevealViewController
-objection_requires(@"favoritesManager")
+objection_requires(@"managedObjectContext")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -23,6 +24,10 @@ objection_requires(@"favoritesManager")
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    
+    //Pré-conditions
+    NSParameterAssert(self.managedObjectContext != nil);
+
     //Instanciation des controllers
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
     self.departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
@@ -36,7 +41,7 @@ objection_requires(@"favoritesManager")
     
     //Affectation des vues
     self.rearViewController = self.menuViewController;
-    if (self.favoritesManager.favorites.count == 0) {
+    if (self.managedObjectContext.favorites.count == 0) {
         //Si pas de favoris, on affiche la liste des lignes
         self.frontViewController = self.linesNavigationController;
     }

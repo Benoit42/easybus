@@ -7,11 +7,10 @@
 //
 
 #import <SWRevealViewController/SWRevealViewController.h>
-#import "FavoritesManager.h"
 
 @interface RevealViewController : SWRevealViewController
 
-@property(strong, nonatomic) FavoritesManager* favoritesManager;
+@property(nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic) UIViewController* menuViewController;
 @property (nonatomic) UIViewController* departuresPageViewController;

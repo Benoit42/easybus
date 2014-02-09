@@ -10,24 +10,23 @@
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
-#import "FavoritesManager.h"
 #import "GroupManager.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
+#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Network.h"
 
 @interface FavoritesManagerTest : XCTestCase
 
-@property(nonatomic) NSManagedObjectModel* managedObjectModel;
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
 @property(nonatomic) GroupManager* groupManager;
-@property(nonatomic) FavoritesManager* favoritesManager;
 
 @end
 
 @implementation FavoritesManagerTest
-objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesManager", @"groupManager", @"routesCsvReader", @"stopsCsvReader")
+objection_requires(@"managedObjectContext", @"groupManager", @"routesCsvReader", @"stopsCsvReader")
 
 - (void)setUp
 {
@@ -49,15 +48,15 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
     [self.stopsCsvReader loadData:stopsUrl];
 
     //Ajout du jeu de tests
-    Route* route64 = [self routeForId:@"0064"];
-    Route* route164 = [self routeForId:@"0164"];
-    Stop* stopTimo = [self stopForId:@"4001"];
-    Stop* stopRepu = [self stopForId:@"1167"];
-    XCTAssertEqual([[self.favoritesManager favorites] count], 0U, @"Wrong number of favorites");
-    [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
-    [self.favoritesManager addFavorite:route64 stop:stopRepu direction:@"1"];
-    [self.favoritesManager addFavorite:route164 stop:stopTimo direction:@"0"];
-    [self.favoritesManager addFavorite:route164 stop:stopRepu direction:@"1"];
+    Route* route64 = [self.managedObjectContext routeForId:@"0064"];
+    Route* route164 = [self.managedObjectContext routeForId:@"0164"];
+    Stop* stopTimo = [self.managedObjectContext stopForId:@"4001"];
+    Stop* stopRepu = [self.managedObjectContext stopForId:@"1167"];
+    XCTAssertEqual([[self.managedObjectContext favorites] count], 0U, @"Wrong number of favorites");
+    [self.managedObjectContext addFavorite:route64 stop:stopTimo direction:@"0"];
+    [self.managedObjectContext addFavorite:route64 stop:stopRepu direction:@"1"];
+    [self.managedObjectContext addFavorite:route164 stop:stopTimo direction:@"0"];
+    [self.managedObjectContext addFavorite:route164 stop:stopRepu direction:@"1"];
 }
 
 - (void)tearDown
@@ -68,7 +67,7 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
 //Test des favoris
 - (void)testFavorites {
     //Lecture des favoris
-    NSArray* favorites = [self.favoritesManager favorites];
+    NSArray* favorites = [self.managedObjectContext favorites];
     
     //Vérifications
     XCTAssertEqual([favorites count], 4U, @"Wrong number of favorites");
@@ -77,70 +76,44 @@ objection_requires(@"managedObjectContext", @"managedObjectModel", @"favoritesMa
 //Test de l'ajout
 - (void)testAddFavorite {
     //Préparation des données
-    NSUInteger favCount = [[self.favoritesManager favorites] count];
+    NSUInteger favCount = [[self.managedObjectContext favorites] count];
     NSUInteger groupCount = [[self.groupManager groups] count];
 
     //Ajout d'un favori
-    Route* route = [self routeForId:@"0200"];
-    Stop* stop = [self stopForId:@"4001"];
-    [self.favoritesManager addFavorite:route stop:stop direction:@"0"];
+    Route* route = [self.managedObjectContext routeForId:@"0200"];
+    Stop* stop = [self.managedObjectContext stopForId:@"4001"];
+    [self.managedObjectContext addFavorite:route stop:stop direction:@"0"];
 
     //Vérifications
-    XCTAssertEqual([[self.favoritesManager favorites] count], favCount+1, @"Wrong number of favorites");
+    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount+1, @"Wrong number of favorites");
     XCTAssertEqual([[self.groupManager groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon
 - (void)testAddFavoriteDoublon {
     //Préparation des données
-    NSUInteger favCount = [[self.favoritesManager favorites] count];
-    Route* route64 = [self routeForId:@"0064"];
-    Stop* stopTimo = [self stopForId:@"4001"];
+    NSUInteger favCount = [[self.managedObjectContext favorites] count];
+    Route* route64 = [self.managedObjectContext routeForId:@"0064"];
+    Stop* stopTimo = [self.managedObjectContext stopForId:@"4001"];
     
     //Ajout d'un favori
-    [self.favoritesManager addFavorite:route64 stop:stopTimo direction:@"0"];
+    [self.managedObjectContext addFavorite:route64 stop:stopTimo direction:@"0"];
 
     //Vérifications
-    XCTAssertEqual([[self.favoritesManager favorites] count], favCount, @"Wrong number of favorites");
+    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount, @"Wrong number of favorites");
 }
 
 //Test de la suppression
 - (void)testRemoveFavorite {
     //Récupération d'un favori
-    NSUInteger favCount = [[self.favoritesManager favorites] count];
-    Favorite* favorite = [[self.favoritesManager favorites] lastObject];
+    NSUInteger favCount = [[self.managedObjectContext favorites] count];
+    Favorite* favorite = [[self.managedObjectContext favorites] lastObject];
 
     //Suppression du favori
-    [self.favoritesManager removeFavorite:favorite];
+    [self.managedObjectContext removeFavorite:favorite];
     
     //Vérifications
-    XCTAssertEqual([[self.favoritesManager favorites] count], favCount-1, @"Wrong number of favorites");
-}
-
-- (Route*) routeForId:(NSString*)routeId {
-    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchRouteWithId"
-                                                              substitutionVariables:@{@"id" : routeId}];
-    
-    NSError *error = nil;
-    NSArray* routes = [self.managedObjectContext executeFetchRequest:request error:&error];
-    if (error) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
-    return ([routes count] == 0) ? nil : [routes objectAtIndex:0];
-}
-
-- (Stop*) stopForId:(NSString*)stopId {
-    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchStopWithId"
-                                                              substitutionVariables:@{@"id" : stopId}];
-    
-    NSError *error = nil;
-    NSArray* stops = [self.managedObjectContext executeFetchRequest:request error:&error];
-    if (error) {
-        //Log
-        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-    }
-    return ([stops count] == 0) ? nil : [stops objectAtIndex:0];
+    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount-1, @"Wrong number of favorites");
 }
 
 @end
