@@ -109,7 +109,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     Favorite* favorite = [[self.managedObjectContext favorites] lastObject];
 
     //Suppression du favori
-    [self.managedObjectContext removeFavorite:favorite];
+    [self.managedObjectContext deleteObject:favorite];
     
     //Vérifications
     XCTAssertEqual([[self.managedObjectContext favorites] count], favCount-1, @"Wrong number of favorites");

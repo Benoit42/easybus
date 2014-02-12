@@ -115,18 +115,26 @@ objection_requires(@"managedObjectContext")
         // delete your data item here
         Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
         Favorite* favorite = [[group favorites] objectAtIndex:indexPath.row];
-        [self.managedObjectContext removeFavorite:favorite];
-
+        [self.managedObjectContext deleteObject:favorite];
+        favorite.group = nil;
+        
         // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         if (group.favorites.count == 0) {
-            [self.managedObjectContext removeGroup:group];
+            [self.managedObjectContext deleteObject:group];
             NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
             [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
         }
 
         //end editing update
         [self.tableView endUpdates];
+    }
+
+    //Sauvegarde
+    NSError* error;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        NSLog(@"Error while saving data in main context : %@", error.description);
     }
 }
 
@@ -147,12 +155,20 @@ objection_requires(@"managedObjectContext")
     //Move favorite
     [self.managedObjectContext moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
+#warning pourquoi le dispatch_async ?
     if (sourceGroup.favorites.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^() {
-            [self.managedObjectContext removeGroup:sourceGroup];
+            [self.managedObjectContext deleteObject:sourceGroup];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         });
     }
+
+    //Sauvegarde
+    NSError* error;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        NSLog(@"Error while saving data in main context : %@", error.description);
+    }    
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {

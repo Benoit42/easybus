@@ -11,10 +11,7 @@
 
 @interface NSManagedObjectContext (Group)
 
-FOUNDATION_EXPORT NSString* const updateGroups;
-
 - (NSArray*) groups;
-- (void) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus;
-- (void) removeGroup:(Group*)group;
+- (Group*) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus;
 
 @end

@@ -14,11 +14,8 @@
 
 @interface NSManagedObjectContext (Favorite)
 
-FOUNDATION_EXPORT NSString* const updateFavorites;
-
 - (NSArray*) favorites;
-- (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
-- (void) removeFavorite:(Favorite*)favorite;
+- (Favorite*) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index;
 
 @end

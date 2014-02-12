@@ -24,6 +24,12 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
+#pragma mark - Constructor/destructor
+- (void)dealloc {
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +38,9 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
-}
+    
+    // Abonnement au notifications du contexte (même en arrière plan)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataUpdated:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.managedObjectContext];}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -40,10 +48,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     // Abonnement au notifications de chargement des données
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingProgress:) name:dataLoadingProgress object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadingFinished:) name:dataLoadingFinished object:nil];
-    
-    // Abonnement au notifications des favoris
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateFavorites object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesUpdated:) name:updateGroups object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,7 +71,8 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     [super viewWillDisappear:animated];
     
     //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingFinished object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dataLoadingProgress object:nil];
 }
 
 #pragma mark - managing data loading
@@ -89,7 +94,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
 }
 
 #pragma mark - refreshing departures
-- (void)favoritesUpdated:(NSNotification *)notification {
+- (void)dataUpdated:(NSNotification *)notification {
     //Raffraichissement des départs
     NSArray* favorite = [self.managedObjectContext favorites];
     [self.departuresManager refreshDepartures:favorite];

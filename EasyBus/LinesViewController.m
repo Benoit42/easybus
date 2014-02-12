@@ -90,6 +90,13 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
     Stop* stop = ((LinesNavigationController*)self.navigationController).currentFavoriteStop;
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
     [self.managedObjectContext addFavorite:route stop:stop direction:direction];
+
+    //Sauvegarde
+    NSError* error;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        NSLog(@"Error while saving data in main context : %@", error.description);
+    }
 }
 
 @end

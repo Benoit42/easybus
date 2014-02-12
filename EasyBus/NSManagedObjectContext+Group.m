@@ -10,9 +10,6 @@
 
 @implementation NSManagedObjectContext (Group)
 
-//Déclaration des notifications
-NSString *const updateGroups = @"updateGroups";
-
 #pragma mark - Model
 - (NSManagedObjectModel*)managedObjectModel {
     return self.persistentStoreCoordinator.managedObjectModel;
@@ -37,17 +34,12 @@ NSString *const updateGroups = @"updateGroups";
     return fetchResults;
 }
 
-- (void) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus {
+- (Group*) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus {
     // Create and configure a new instance of the Favorite entity.
     Group* newGroupe = (Group*)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self];
     newGroupe.name =  name;
     newGroupe.terminus = terminus;
     
-}
-
-- (void) removeGroup:(Group*)group {
-    //Suppression du groupe
-    [self deleteObject:group];
 }
 
 @end

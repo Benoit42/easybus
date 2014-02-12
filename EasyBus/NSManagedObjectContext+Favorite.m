@@ -11,8 +11,6 @@
 
 @implementation NSManagedObjectContext (Favorite)
 
-NSString *const updateFavorites = @"updateFavorites";
-
 #pragma mark - Model
 - (NSManagedObjectModel*)managedObjectModel {
     return self.persistentStoreCoordinator.managedObjectModel;
@@ -42,7 +40,7 @@ NSString *const updateFavorites = @"updateFavorites";
 }
 
 - (Favorite*) favoriteForRoute:(Route*)route stop:(Stop*)stop direction:(NSString*)direction {
-#warning Possible de mettre un template
+//TODO: Possible de mettre un template
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Favorite"];
     request.predicate = [NSPredicate predicateWithFormat:@"route.id = %@ AND stop.id = %@ AND direction = %@", route.id, stop.id, direction];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"route.id" ascending:YES]];
@@ -60,12 +58,12 @@ NSString *const updateFavorites = @"updateFavorites";
     return nil;
 }
 
-- (void) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction {
+- (Favorite*) addFavorite:(Route*)route stop:(Stop*)stop direction:(NSString*)direction {
     //Recherche du favori
 #warning Pas forcément utile de checker le doublon
-    Favorite* existing = [self favoriteForRoute:route stop:stop direction:direction];
+    Favorite* favorite = [self favoriteForRoute:route stop:stop direction:direction];
     
-    if (existing == nil) {
+    if (favorite == nil) {
         // Create and configure a new instance of the Favorite entity.
         Favorite* newFavorite = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self];
         newFavorite.route =  route;
@@ -77,31 +75,15 @@ NSString *const updateFavorites = @"updateFavorites";
         newGroup.name =  newFavorite.stop.name;
         newGroup.terminus = newFavorite.terminus;
         [newGroup addFavoritesObject:newFavorite];
-        
-        //Post notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
     }
-}
-
-- (void) removeFavorite:(Favorite*)favorite {
-#warning Voir à gérer la suppression du groupe au niveau CoreData ?
-    //Recherche du groupe
-    Group* group = favorite.group;
-    [group removeFavoritesObject:favorite];
     
-    //Suppression du favori
-    [self deleteObject:favorite];
-    
-    //Post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
+    //Retour
+    return favorite;
 }
 
 - (void) moveFavorite:(Favorite*)favorite fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {
     [sourceGroup removeFavoritesObject:favorite];
     [destinationGroup insertObject:favorite inFavoritesAtIndex:index];
-    
-    //Post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:updateFavorites object:self];
 }
 
 @end

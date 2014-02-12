@@ -67,7 +67,7 @@ objection_requires(@"managedObjectContext")
     Group* group = [groups objectAtIndex:0];
     
     //Suppression du groupe
-    [self.managedObjectContext removeGroup:group];
+    [self.managedObjectContext deleteObject:group];
     
     //Vérifications
     XCTAssertEqual([[self.managedObjectContext groups] count], 1U, @"Wrong number of groups");
