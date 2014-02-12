@@ -48,6 +48,13 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
+
+    //Pour éviter le chevauchement du texte et du spinner la 1ère fois
+    //TODO: voir si encore nécessaire en 7.1
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl beginRefreshing];
+        [self.refreshControl endRefreshing];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
