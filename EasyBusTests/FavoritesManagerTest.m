@@ -10,23 +10,22 @@
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
-#import "GroupManager.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "NSManagedObjectContext+Favorite.h"
 #import "NSManagedObjectContext+Network.h"
+#import "NSManagedObjectContext+Group.h"
 
 @interface FavoritesManagerTest : XCTestCase
 
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
 @property(nonatomic) StopsCsvReader* stopsCsvReader;
-@property(nonatomic) GroupManager* groupManager;
 
 @end
 
 @implementation FavoritesManagerTest
-objection_requires(@"managedObjectContext", @"groupManager", @"routesCsvReader", @"stopsCsvReader")
+objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader")
 
 - (void)setUp
 {
@@ -77,7 +76,7 @@ objection_requires(@"managedObjectContext", @"groupManager", @"routesCsvReader",
 - (void)testAddFavorite {
     //Préparation des données
     NSUInteger favCount = [[self.managedObjectContext favorites] count];
-    NSUInteger groupCount = [[self.groupManager groups] count];
+    NSUInteger groupCount = [[self.managedObjectContext groups] count];
 
     //Ajout d'un favori
     Route* route = [self.managedObjectContext routeForId:@"0200"];
@@ -86,7 +85,7 @@ objection_requires(@"managedObjectContext", @"groupManager", @"routesCsvReader",
 
     //Vérifications
     XCTAssertEqual([[self.managedObjectContext favorites] count], favCount+1, @"Wrong number of favorites");
-    XCTAssertEqual([[self.groupManager groups] count], groupCount+1, @"Wrong number of groups");
+    XCTAssertEqual([[self.managedObjectContext groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon

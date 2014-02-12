@@ -16,9 +16,10 @@
 #import "Stop.h"
 #import "FavoriteCell.h"
 #import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Group.h"
 
 @implementation FavoritesViewController
-objection_requires(@"managedObjectContext", @"groupManager")
+objection_requires(@"managedObjectContext")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -31,7 +32,6 @@ objection_requires(@"managedObjectContext", @"groupManager")
     
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.groupManager != nil);
 
     //Ajout long press gesture
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
@@ -59,21 +59,21 @@ objection_requires(@"managedObjectContext", @"groupManager")
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSUInteger count = [[self.groupManager groups] count];
+    NSUInteger count = [[self.managedObjectContext groups] count];
     return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    Group* group = [[self.groupManager groups] objectAtIndex:section];
+    Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
     NSUInteger count = [group.favorites count];
     return count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section < [[self.groupManager groups] count]) {
-        Group* group = [[self.groupManager groups] objectAtIndex:section];
+    if (section < [[self.managedObjectContext groups] count]) {
+        Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
         
         //add departure
         return [NSString stringWithFormat:@"vers %@", group.terminus];
@@ -84,7 +84,7 @@ objection_requires(@"managedObjectContext", @"groupManager")
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Get favorites
-    Group* group = [[self.groupManager groups] objectAtIndex:indexPath.section];
+    Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
     NSOrderedSet* favorites = group.favorites;
     
     //get departure section
@@ -113,14 +113,14 @@ objection_requires(@"managedObjectContext", @"groupManager")
         [self.tableView beginUpdates];
         
         // delete your data item here
-        Group* group = [[self.groupManager groups] objectAtIndex:indexPath.section];
+        Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
         Favorite* favorite = [[group favorites] objectAtIndex:indexPath.row];
         [self.managedObjectContext removeFavorite:favorite];
 
         // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         if (group.favorites.count == 0) {
-            [self.groupManager removeGroup:group];
+            [self.managedObjectContext removeGroup:group];
             NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
             [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
         }
@@ -136,20 +136,20 @@ objection_requires(@"managedObjectContext", @"groupManager")
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     //Get source group
-    Group* sourceGroup = [[self.groupManager groups] objectAtIndex:sourceIndexPath.section];
+    Group* sourceGroup = [[self.managedObjectContext groups] objectAtIndex:sourceIndexPath.section];
     
     //Get favorite
     Favorite* favorite = [[sourceGroup favorites] objectAtIndex:sourceIndexPath.row];
 
     //Get destination group
-    Group* destinationGroup = [[self.groupManager groups] objectAtIndex:destinationIndexPath.section];
+    Group* destinationGroup = [[self.managedObjectContext groups] objectAtIndex:destinationIndexPath.section];
 
     //Move favorite
     [self.managedObjectContext moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
     if (sourceGroup.favorites.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^() {
-            [self.groupManager removeGroup:sourceGroup];
+            [self.managedObjectContext removeGroup:sourceGroup];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         });
     }

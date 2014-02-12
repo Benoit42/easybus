@@ -13,6 +13,7 @@
 #import "PageViewControllerDatasource.h"
 #import "DeparturesManager.h"
 #import "Favorite+FavoriteWithAdditions.h"
+#import "NSManagedObjectContext+Group.h"
 
 @interface PageViewController()
 
@@ -21,7 +22,7 @@
 @end
 
 @implementation PageViewController
-objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
+objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource")
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -33,9 +34,9 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     [super viewDidLoad];
     
     //Pré-conditions
-    NSParameterAssert(self.groupManager != nil);
-    NSParameterAssert(self.locationManager != nil);
-    NSParameterAssert(self.pageDataSource != nil);
+    NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.locationManager);
+    NSParameterAssert(self.pageDataSource);
 
     //Set delegate and datasource
     self.delegate = self;
@@ -100,7 +101,7 @@ objection_requires(@"groupManager", @"locationManager", @"pageDataSource")
     CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
-    NSArray* groupes = [self.groupManager groups];
+    NSArray* groupes = [self.managedObjectContext groups];
     double minDistance = MAXFLOAT;
     int index = -1;
     for (int i=0; i<[groupes count]; i++) {

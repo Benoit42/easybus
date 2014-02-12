@@ -7,7 +7,6 @@
 //
 
 #import "LinesViewController.h"
-#import "GroupManager.h"
 #import "DeparturesManager.h"
 #import "StaticDataLoader.h"
 #import "LocationManager.h"
@@ -15,6 +14,7 @@
 @interface MainViewController : UIViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic) DeparturesManager *departuresManager;
 @property (nonatomic) StaticDataLoader *staticDataLoader;
 

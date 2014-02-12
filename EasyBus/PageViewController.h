@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GroupManager.h"
 #import "LocationManager.h"
 #import "PageViewControllerDatasource.h"
 
 @interface PageViewController : UIPageViewController <UIPageViewControllerDelegate>
 
-@property (nonatomic, retain) GroupManager *groupManager;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic, retain) LocationManager *locationManager;
 @property (nonatomic, retain) PageViewControllerDatasource *pageDataSource;
 

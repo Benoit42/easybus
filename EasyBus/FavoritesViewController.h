@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GroupManager.h"
 
 @interface FavoritesViewController : UITableViewController <UIGestureRecognizerDelegate>
 
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
-@property(nonatomic) GroupManager* groupManager;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *modifyButton;
 

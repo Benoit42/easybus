@@ -10,16 +10,16 @@
 #import <XCTest/XCTest.h>
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
-#import "GroupManager.h"
+#import "NSManagedObjectContext+Group.h"
 
 @interface GroupManagerTest : XCTestCase
 
-@property(nonatomic) GroupManager* groupManager;
+@property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
 @implementation GroupManagerTest
-objection_requires(@"groupManager")
+objection_requires(@"managedObjectContext")
 
 - (void)setUp
 {
@@ -44,11 +44,11 @@ objection_requires(@"groupManager")
 - (void)testAddGroups
 {
     //Ajout du jeu de tests
-    [self.groupManager addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
-    [self.groupManager addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
 
     //Lecture des groupes
-    NSArray* groups = [self.groupManager groups];
+    NSArray* groups = [self.managedObjectContext groups];
     
     //Vérifications
     XCTAssertEqual([groups count], 2U, @"Wrong number of groups");
@@ -58,19 +58,19 @@ objection_requires(@"groupManager")
 - (void)testRemovegroup
 {
     //Ajout du jeu de tests
-    [self.groupManager addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
-    [self.groupManager addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
-    XCTAssertEqual([[self.groupManager groups] count], 2U, @"Wrong number of groups");
+    [self.managedObjectContext addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
+    XCTAssertEqual([[self.managedObjectContext groups] count], 2U, @"Wrong number of groups");
     
     //Récupération d'un groupe
-    NSArray* groups = [self.groupManager groups];
+    NSArray* groups = [self.managedObjectContext groups];
     Group* group = [groups objectAtIndex:0];
     
     //Suppression du groupe
-    [self.groupManager removeGroup:group];
+    [self.managedObjectContext removeGroup:group];
     
     //Vérifications
-    XCTAssertEqual([[self.groupManager groups] count], 1U, @"Wrong number of groups");
+    XCTAssertEqual([[self.managedObjectContext groups] count], 1U, @"Wrong number of groups");
 }
 
 @end

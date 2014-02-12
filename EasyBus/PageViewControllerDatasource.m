@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import "PageViewControllerDatasource.h"
+#import "NSManagedObjectContext+Group.h"
 
 @interface PageViewControllerDatasource()
 
@@ -17,7 +18,7 @@
 
 @implementation PageViewControllerDatasource
 objection_register(PageViewControllerDatasource);
-objection_requires(@"groupManager")
+objection_requires(@"managedObjectContext")
 
 #pragma - Constructor & IoC
 - (id)init {
@@ -29,7 +30,7 @@ objection_requires(@"groupManager")
 
 - (void)awakeFromObjection {
     //Pré-conditions
-    NSParameterAssert(self.groupManager != nil);
+    NSParameterAssert(self.managedObjectContext);
 }
 
 #pragma - Autres
@@ -42,7 +43,7 @@ objection_requires(@"groupManager")
 {
     // Create a new view controller and pass suitable data.
     DeparturesViewController* viewController = nil;
-    if (index < [[self.groupManager groups] count]) {
+    if (index < [[self.managedObjectContext groups] count]) {
         if (index < [self.departuresViewControlers count]) {
             //Le view controler existe déjà
             viewController = [self.departuresViewControlers objectAtIndex:index];
@@ -50,7 +51,7 @@ objection_requires(@"groupManager")
         
         if (viewController == nil) {
             //Le view controler n'existe pas encore
-            Group* group = self.groupManager.groups[index];
+            Group* group = [self.managedObjectContext groups][index];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesViewController"];
             ((DeparturesViewController*)viewController).group = group;
             ((DeparturesViewController*)viewController).page = index;
@@ -87,7 +88,7 @@ objection_requires(@"groupManager")
     }
     
     index++;
-    if (index == [[self.groupManager groups] count]) {
+    if (index == [[self.managedObjectContext groups] count]) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -95,7 +96,7 @@ objection_requires(@"groupManager")
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
 
-    int count = [[self.groupManager groups] count];
+    int count = [[self.managedObjectContext groups] count];
     return count;
 }
 

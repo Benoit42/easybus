@@ -12,6 +12,7 @@
 #import "PageViewController.h"
 #import "NSManagedObjectContext+Network.h"
 #import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Group.h"
 
 #define RELOAD_KEOLIS_DATA_KEY @"reload_keolis_data"
 

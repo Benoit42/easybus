@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "DeparturesViewController.h"
-#import "GroupManager.h"
 
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
 
-@property (nonatomic, retain) GroupManager *groupManager;
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (void)reset;

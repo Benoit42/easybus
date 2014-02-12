@@ -37,6 +37,7 @@
 		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderLocalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */; };
 		145440A8184656810019ED10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 145440A7184656810019ED10 /* Images.xcassets */; };
+		1455EFD118ABBE16003522D2 /* NSManagedObjectContext+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 1455EFD018ABBE16003522D2 /* NSManagedObjectContext+Group.m */; };
 		1459285D18A011C7004D52D0 /* TerminusJsonReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1459285C18A011C7004D52D0 /* TerminusJsonReader.m */; };
 		1459286118A01493004D52D0 /* TerminusJsonReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1459286018A01493004D52D0 /* TerminusJsonReaderTest.m */; };
 		146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146161C2182AAA860012A1CE /* DeparturesTableViewController.m */; };
@@ -133,7 +134,6 @@
 		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
-		14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8017D64A9000ED4546 /* GroupManager.m */; };
 		14E459041810695900E2401A /* FeedInfoTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* FeedInfoTmp.m */; };
 		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
@@ -193,6 +193,8 @@
 		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderLocalTest.m; sourceTree = "<group>"; };
 		145440A7184656810019ED10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1455EFCF18ABBE16003522D2 /* NSManagedObjectContext+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Group.h"; sourceTree = "<group>"; };
+		1455EFD018ABBE16003522D2 /* NSManagedObjectContext+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Group.m"; sourceTree = "<group>"; };
 		1459285B18A011C7004D52D0 /* TerminusJsonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminusJsonReader.h; sourceTree = "<group>"; };
 		1459285C18A011C7004D52D0 /* TerminusJsonReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminusJsonReader.m; sourceTree = "<group>"; };
 		1459286018A01493004D52D0 /* TerminusJsonReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminusJsonReaderTest.m; sourceTree = "<group>"; };
@@ -316,8 +318,6 @@
 		14E128BD18145C6F0034226A /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		14E2AD7317D214E700ED4546 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		14E2AD7417D214E700ED4546 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		14E2AD7F17D64A8F00ED4546 /* GroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupManager.h; sourceTree = "<group>"; };
-		14E2AD8017D64A9000ED4546 /* GroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupManager.m; sourceTree = "<group>"; };
 		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* FeedInfoTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* FeedInfoTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoTmp.m; sourceTree = "<group>"; };
@@ -624,6 +624,8 @@
 				14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */,
 				14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Favorite.h */,
 				14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */,
+				1455EFCF18ABBE16003522D2 /* NSManagedObjectContext+Group.h */,
+				1455EFD018ABBE16003522D2 /* NSManagedObjectContext+Group.m */,
 				14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */,
 				14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */,
 			);
@@ -645,20 +647,10 @@
 			isa = PBXGroup;
 			children = (
 				14AD3DE3162C96BE00DF061A /* Departures */,
-				14CF4312165BFF7F00834A23 /* Favorites */,
 				14CF4313165BFF8900834A23 /* Lines&Stops */,
 				14EF87E7167BBF030058607C /* Location */,
 			);
 			name = Business;
-			sourceTree = "<group>";
-		};
-		14CF4312165BFF7F00834A23 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				14E2AD7F17D64A8F00ED4546 /* GroupManager.h */,
-				14E2AD8017D64A9000ED4546 /* GroupManager.m */,
-			);
-			name = Favorites;
 			sourceTree = "<group>";
 		};
 		14CF4313165BFF8900834A23 /* Lines&Stops */ = {
@@ -989,6 +981,7 @@
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				14E0EC321837BF7A008B6CA0 /* NSMutableArray+Randomize.m in Sources */,
 				1433AE8518A4259C0026469F /* Route.m in Sources */,
+				1455EFD118ABBE16003522D2 /* NSManagedObjectContext+Group.m in Sources */,
 				14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Favorite.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
@@ -1040,7 +1033,6 @@
 				14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */,
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
-				14E2ADC417D79ECF00ED4546 /* GroupManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
