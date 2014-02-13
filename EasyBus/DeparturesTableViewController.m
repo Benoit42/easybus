@@ -48,6 +48,14 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
+
+    //message du pull-to-refresh
+    NSString* message = @"mise à jour des horaires";
+    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
+    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
+    self.refreshControl.attributedTitle = attributedMessage;
+    [self.refreshControl beginRefreshing];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
