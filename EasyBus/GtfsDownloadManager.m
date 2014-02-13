@@ -31,9 +31,9 @@
 objection_register_singleton(GtfsDownloadManager)
 
 //Déclaration des notifications
-NSString* const gtfsUpdateStarted = @"gtfsUpdateStarted";
-NSString* const gtfsUpdateSucceeded = @"gtfsUpdateSucceeded";
-NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
+NSString* const gtfsUpdateStartedNotification = @"gtfsUpdateStartedNotification";
+NSString* const gtfsUpdateSucceededNotification = @"gtfsUpdateSucceededNotification";
+NSString* const gtfsUpdateFailedNotification = @"gtfsUpdateFailedNotification";
 
 //constructeur
 -(id)init {
@@ -97,7 +97,7 @@ NSString* const gtfsUpdateFailed = @"gtfsUpdateFailed";
             success(newFeedInfo);
             
             //lance la notification departuresUpdated
-            [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceeded object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:gtfsUpdateSucceededNotification object:self];
         }
         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //failure

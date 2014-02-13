@@ -37,9 +37,9 @@ objection_register_singleton(DeparturesManager)
 objection_requires(@"managedObjectContext")
 
 //Déclaration des notifications
-NSString* const departuresUpdateStarted = @"departuresUpdateStarted";
-NSString* const departuresUpdateFailed = @"departuresUpdateFailed";
-NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
+NSString* const departuresUpdateStartedNotification = @"departuresUpdateStartedNotification";
+NSString* const departuresUpdateFailedNotification = @"departuresUpdateFailedNotification";
+NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSucceededNotification";
 
 #pragma - Constructor & IoC
 -(id)init {
@@ -127,7 +127,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
             
             //Lancement du traitement
-            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStarted object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
             
             //New departures array
             [self.freshDepartures removeAllObjects];
@@ -143,7 +143,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                      self._departures = self.freshDepartures;
                      
                      //Notification
-                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceeded object:self];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
 
                      //End
                      self._isRequesting = FALSE;
@@ -153,7 +153,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
                      NSLog(@"Error: %@", [error debugDescription]);
 
                      //lance la notification d'erreur
-                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
                      
                      //End
                      self._isRequesting = FALSE;
@@ -164,7 +164,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
             NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
 
             //lance la notification d'erreur
-            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
 
             //End
             self._isRequesting = FALSE;
@@ -239,7 +239,7 @@ NSString* const departuresUpdateSucceeded = @"departuresUpdateSucceeded";
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
     //lance la notification d'erreur
-    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailed object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
     
     //Log
     NSLog(@"XML parsing failed! Error - %@ %@", [parseError description], [parseError debugDescription]);

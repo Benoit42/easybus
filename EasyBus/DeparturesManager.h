@@ -12,9 +12,9 @@
 
 @interface DeparturesManager : NSObject <NSXMLParserDelegate>
 
-FOUNDATION_EXPORT NSString* const departuresUpdateStarted;
-FOUNDATION_EXPORT NSString* const departuresUpdateFailed;
-FOUNDATION_EXPORT NSString* const departuresUpdateSucceeded;
+FOUNDATION_EXPORT NSString* const departuresUpdateStartedNotification;
+FOUNDATION_EXPORT NSString* const departuresUpdateFailedNotification;
+FOUNDATION_EXPORT NSString* const departuresUpdateSucceededNotification;
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 

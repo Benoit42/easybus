@@ -58,8 +58,8 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     [self gotoNearestPage];
 
     // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceeded object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

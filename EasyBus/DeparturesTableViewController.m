@@ -62,9 +62,9 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     [super viewWillAppear:animated];
 
     // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStarted object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceeded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -83,11 +83,6 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     NSLog(@"Update started");
     [self performBlockOnMainThread:^{
-        // start indicator
-        if (![self.refreshControl isRefreshing]) {
-            [self.refreshControl beginRefreshing];
-        }
-        
         //message
         NSString* message = @"mise à jour en cours...";
         NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
