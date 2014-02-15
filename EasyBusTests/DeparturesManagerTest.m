@@ -76,7 +76,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     [self runTestWithBlock:^{
         [self.departuresManager refreshDepartures:@[fav1]];
     }
-    waitingForNotifications:@[@"departuresUpdateSucceeded"]
+    waitingForNotifications:@[departuresUpdateSucceededNotification]
                withTimeout:5
      ];
     NSArray* departures = [self.departuresManager getDepartures];
@@ -146,7 +146,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     [self runTestWithBlock:^{
         [self.departuresManager refreshDepartures:@[fav64, fav164, fav200]];
     }
-   waitingForNotifications:@[@"departuresUpdateSucceeded"]
+   waitingForNotifications:@[departuresUpdateSucceededNotification]
                withTimeout:5
      ];
     
