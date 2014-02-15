@@ -9,7 +9,7 @@
 #import <Objection/Objection.h>
 #import "RevealViewController.h"
 #import "MenuViewController.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @implementation RevealViewController
 objection_requires(@"managedObjectContext")
@@ -41,7 +41,7 @@ objection_requires(@"managedObjectContext")
     
     //Affectation des vues
     self.rearViewController = self.menuViewController;
-    if (self.managedObjectContext.favorites.count == 0) {
+    if (self.managedObjectContext.trips.count == 0) {
         //Si pas de favoris, on affiche la liste des lignes
         self.frontViewController = self.linesNavigationController;
     }

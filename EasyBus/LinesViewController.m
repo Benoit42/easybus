@@ -11,9 +11,9 @@
 #import "LinesViewController.h"
 #import "LinesNavigationController.h"
 #import "LineCell.h"
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 #import "NSManagedObjectContext+Network.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @implementation LinesViewController
 objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
@@ -33,7 +33,7 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    if (self.managedObjectContext.favorites.count == 0) {
+    if (self.managedObjectContext.trips.count == 0) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Favoris" message:@"Choisissez une ligne, un arrêt et une direction, puis appuyez sur 'Sauver'" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
         [alert show];
     }
@@ -79,17 +79,17 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
     //get route
     Route* route = [[self.managedObjectContext sortedRoutes] objectAtIndex:indexPath.row];
 
-    //get the current favorite fromnav controler and update it
-    ((LinesNavigationController*)self.navigationController).currentFavoriteRoute = route;
+    //get the current trip from nav controler and update it
+    ((LinesNavigationController*)self.navigationController).currentTripRoute = route;
 }
 
-#pragma mark ajout du favoris
+#pragma mark ajout du trip
 - (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
-    //Create the favorite
-    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
-    Stop* stop = ((LinesNavigationController*)self.navigationController).currentFavoriteStop;
-    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
-    [self.managedObjectContext addFavorite:route stop:stop direction:direction];
+    //Create the trip
+    Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
+    Stop* stop = ((LinesNavigationController*)self.navigationController).currentTripStop;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentTripDirection;
+    [self.managedObjectContext addTrip:route stop:stop direction:direction];
 
     //Sauvegarde
     NSError* error;

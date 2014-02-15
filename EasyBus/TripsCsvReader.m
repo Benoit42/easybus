@@ -46,8 +46,8 @@ objection_register_singleton(TripsCsvReader)
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber {
     [self.progress setCompletedUnitCount:lineNumber];
     if (lineNumber > 1 && self.row.count == 4) {
-        // Create and configure a new instance of the Trip entity.
-        Trip* trip = [[Trip alloc] init];
+        // Create and configure a new instance of the TripItem entity.
+        TripItem* trip = [[TripItem alloc] init];
         trip.id = self.row[0];
         trip.routeId = self.row[1];
         trip.directionId = self.row[3];

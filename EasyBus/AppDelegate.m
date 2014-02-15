@@ -12,7 +12,7 @@
 #import "IoCModule.h"
 #import "MainViewController.h"
 #import "DeparturesManager.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @implementation AppDelegate
 objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager")
@@ -70,7 +70,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     //update departures
     [self performBlockInBackground:^{
         //Rechargement des départs
-        [self.departuresManager refreshDepartures:[self.managedObjectContext favorites]];
+        [self.departuresManager refreshDepartures:[self.managedObjectContext trips]];
         [self.locationManager startUpdatingLocation];
     }];
 }

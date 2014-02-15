@@ -36,8 +36,8 @@ objection_requires(@"managedObjectContext")
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //get the current route and direction
-    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
-    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentTripDirection;
     
     // Return the number of rows in the section
     return [[self.managedObjectContext stopsForRoute:route direction:direction] count];
@@ -45,8 +45,8 @@ objection_requires(@"managedObjectContext")
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the current route and direction
-    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
-    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentTripDirection;
     
     //get stop list
     NSArray* stops = [self.managedObjectContext stopsForRoute:route direction:direction];
@@ -69,15 +69,15 @@ objection_requires(@"managedObjectContext")
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the current route and direction
-    Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
-    NSString* direction = ((LinesNavigationController*)self.navigationController).currentFavoriteDirection;
+    Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
+    NSString* direction = ((LinesNavigationController*)self.navigationController).currentTripDirection;
     
     //get the current stop
     NSArray* stops = [self.managedObjectContext stopsForRoute:route direction:direction];
     Stop* stop = [stops objectAtIndex:indexPath.row];
     
-    // update it the current favorite
-    ((LinesNavigationController*)self.navigationController).currentFavoriteStop = stop;
+    // update it the current trip
+    ((LinesNavigationController*)self.navigationController).currentTripStop = stop;
     
     // activate save button
     [self._saveButton setEnabled:YES];

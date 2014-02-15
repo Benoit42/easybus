@@ -11,11 +11,11 @@
 #import "NSObject+AsyncPerformBlock.h"
 #import "FavoritesViewController.h"
 #import "LinesViewController.h"
-#import "Favorite.h"
-#import "Route+RouteWithAdditions.h"
+#import "Trip.h"
+#import "Route+Additions.h"
 #import "Stop.h"
 #import "FavoriteCell.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 #import "NSManagedObjectContext+Group.h"
 
 @implementation FavoritesViewController
@@ -67,7 +67,7 @@ objection_requires(@"managedObjectContext")
 {
     // Return the number of rows in the section.
     Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
-    NSUInteger count = [group.favorites count];
+    NSUInteger count = [group.trips count];
     return count;
 }
 
@@ -83,22 +83,22 @@ objection_requires(@"managedObjectContext")
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Get favorites
+    //Get trips
     Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
-    NSOrderedSet* favorites = group.favorites;
+    NSOrderedSet* trips = group.trips;
     
     //get departure section
-    if (indexPath.row < favorites.count) {
+    if (indexPath.row < trips.count) {
         static NSString *CellIdentifier = @"Cell";
         FavoriteCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
-        //get the favorite
-        Favorite* favorite = [favorites objectAtIndex:indexPath.row];
+        //get the trip
+        Trip* trip = [trips objectAtIndex:indexPath.row];
 
         //add departure
-        [cell._picto setImage:[UIImage imageNamed:favorite.route.id]];
-        [cell._libArret setText:favorite.stop.name];
-        [cell._libDirection setText:[favorite.route terminusForDirection:favorite.direction]];
+        [cell._picto setImage:[UIImage imageNamed:trip.route.id]];
+        [cell._libArret setText:trip.stop.name];
+        [cell._libDirection setText:[trip.route terminusForDirection:trip.direction]];
         return cell;
     }
     return nil;
@@ -114,13 +114,13 @@ objection_requires(@"managedObjectContext")
         
         // delete your data item here
         Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
-        Favorite* favorite = [[group favorites] objectAtIndex:indexPath.row];
-        [self.managedObjectContext deleteObject:favorite];
-        favorite.group = nil;
+        Trip* trip = [[group trips] objectAtIndex:indexPath.row];
+        [self.managedObjectContext deleteObject:trip];
+        trip.group = nil;
         
         // Animate the deletion from the table
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        if (group.favorites.count == 0) {
+        if (group.trips.count == 0) {
             [self.managedObjectContext deleteObject:group];
             NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
             [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
@@ -147,16 +147,16 @@ objection_requires(@"managedObjectContext")
     Group* sourceGroup = [[self.managedObjectContext groups] objectAtIndex:sourceIndexPath.section];
     
     //Get favorite
-    Favorite* favorite = [[sourceGroup favorites] objectAtIndex:sourceIndexPath.row];
+    Trip* trip = [[sourceGroup trips] objectAtIndex:sourceIndexPath.row];
 
     //Get destination group
     Group* destinationGroup = [[self.managedObjectContext groups] objectAtIndex:destinationIndexPath.section];
 
     //Move favorite
-    [self.managedObjectContext moveFavorite:favorite fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+    [self.managedObjectContext moveTrip:trip fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
 #warning pourquoi le dispatch_async ?
-    if (sourceGroup.favorites.count == 0) {
+    if (sourceGroup.trips.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^() {
             [self.managedObjectContext deleteObject:sourceGroup];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];

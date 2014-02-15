@@ -12,7 +12,7 @@
 #import "IoCModule.h"
 #import "IoCModuleTest.h"
 #import "DeparturesManager.h"
-#import "Favorite.h"
+#import "Trip.h"
 #import "NSURLProtocolStub.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
@@ -70,11 +70,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     [NSURLProtocolStub configureUrl:url withHeaders:@{@"Content-Type": @"application/xml; charset=UTF-8"}];
     
     //Création des favoris
-    Favorite* fav1 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
+    Trip* trip1 = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
 
     //Recherche des départs
     [self runTestWithBlock:^{
-        [self.departuresManager refreshDepartures:@[fav1]];
+        [self.departuresManager refreshDepartures:@[trip1]];
     }
     waitingForNotifications:@[departuresUpdateSucceededNotification]
                withTimeout:5
@@ -114,7 +114,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     [NSURLProtocolStub bindUrl:url toResource:@"getbusnextdepartures2.xml"];
     [NSURLProtocolStub configureUrl:url withHeaders:@{@"Content-Type": @"application/xml; charset=UTF-8"}];
     
-    //Création des favoris et groupe
+    //Création des triporis et groupe
     Route* route64 = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
     route64.id = @"0064";
     Route* route164 = (Route *)[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:self.managedObjectContext];
@@ -124,27 +124,27 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     Stop* stopClosCourtel = (Stop*)[NSEntityDescription insertNewObjectForEntityForName:@"Stop" inManagedObjectContext:self.managedObjectContext];
     stopClosCourtel.id = @"2046";
 
-    Favorite* fav64 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
-    fav64.route = route64;
-    fav64.stop = stopClosCourtel;
-    fav64.direction = @"1";
-    Favorite* fav164 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
-    fav164.route = route164;
-    fav164.stop = stopClosCourtel;
-    fav164.direction = @"1";
-    Favorite* fav200 = (Favorite *)[NSEntityDescription insertNewObjectForEntityForName:@"Favorite" inManagedObjectContext:self.managedObjectContext];
-    fav200.route = route200;
-    fav200.stop = stopClosCourtel;
-    fav200.direction = @"1";
+    Trip* trip64 = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
+    trip64.route = route64;
+    trip64.stop = stopClosCourtel;
+    trip64.direction = @"1";
+    Trip* trip164 = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
+    trip164.route = route164;
+    trip164.stop = stopClosCourtel;
+    trip164.direction = @"1";
+    Trip* trip200 = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
+    trip200.route = route200;
+    trip200.stop = stopClosCourtel;
+    trip200.direction = @"1";
     
     Group* group = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-    [group addFavoritesObject:fav64];
-    [group addFavoritesObject:fav164];
-    [group addFavoritesObject:fav200];
+    [group addTripsObject:trip64];
+    [group addTripsObject:trip164];
+    [group addTripsObject:trip200];
     
     //Recherche des départs
     [self runTestWithBlock:^{
-        [self.departuresManager refreshDepartures:@[fav64, fav164, fav200]];
+        [self.departuresManager refreshDepartures:@[trip64, trip164, trip200]];
     }
    waitingForNotifications:@[departuresUpdateSucceededNotification]
                withTimeout:5

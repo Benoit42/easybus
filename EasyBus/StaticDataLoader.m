@@ -13,7 +13,7 @@
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "RouteStop.h"
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 #import "NSManagedObjectContext+Network.h"
 
 NSString *const dataLoadingStarted = @"dataLoadingStarted";
@@ -276,7 +276,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     }];
     
     //Tri des données
-    trips = [trips sortedArrayUsingComparator:^NSComparisonResult(Trip* trip1, Trip* trip2) {
+    trips = [trips sortedArrayUsingComparator:^NSComparisonResult(TripItem* trip1, TripItem* trip2) {
         return [trip1.id compare:trip2.id];
     }];
     stopTimes = [stopTimes sortedArrayUsingComparator:^NSComparisonResult(StopTime* st1, StopTime* st2) {
@@ -296,7 +296,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     NSMutableSet* routesStops = [[NSMutableSet alloc] init];
     int i=0, j=0;
     while (i < trips.count) {
-        Trip* trip = trips[i];
+        TripItem* trip = trips[i];
         while (j < stopTimes.count) {
             StopTime* stopTime = stopTimes[j];
             if ([trip.id compare:stopTime.tripId] == NSOrderedAscending) {

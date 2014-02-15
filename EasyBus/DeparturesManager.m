@@ -9,9 +9,9 @@
 #import <Objection/Objection.h>
 #import <AFNetworking/AFNetworking.h>
 #import "DeparturesManager.h"
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 #import "Stop.h"
-#import "Favorite+FavoriteWithAdditions.h"
+#import "Trip+Additions.h"
 #import "NSManagedObjectContext+Network.h"
 
 @interface DeparturesManager()
@@ -74,12 +74,12 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 
 - (NSArray*) getDeparturesForGroupe:(Group*)groupe {
     NSMutableArray* departures = [[NSMutableArray alloc] init];
-    NSOrderedSet* favorites = groupe.favorites;
-    [favorites enumerateObjectsUsingBlock:^(Favorite* favorite, NSUInteger idx, BOOL *stop)
+    NSOrderedSet* trips = groupe.trips;
+    [trips enumerateObjectsUsingBlock:^(Trip* trip, NSUInteger idx, BOOL *stop)
     {
-        NSPredicate* routePredicate = [NSPredicate predicateWithFormat:@"stop.id == %@", favorite.stop.id];
-        NSPredicate* stopPredicate = [NSPredicate predicateWithFormat:@"route.id == %@", favorite.route.id];
-        NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"direction == %@", favorite.direction];
+        NSPredicate* routePredicate = [NSPredicate predicateWithFormat:@"stop.id == %@", trip.stop.id];
+        NSPredicate* stopPredicate = [NSPredicate predicateWithFormat:@"route.id == %@", trip.route.id];
+        NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"direction == %@", trip.direction];
         NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[routePredicate, stopPredicate, directionPredicate]];
         NSArray* partialResult = [self._departures filteredArrayUsingPredicate:predicate];
         [departures addObjectsFromArray:partialResult];
@@ -97,9 +97,9 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 }
 
 #pragma call keolis and parse XML response
-- (void)refreshDepartures:(NSArray*)favorites {
+- (void)refreshDepartures:(NSArray*)trips {
     //Controles
-    if ([favorites count] == 0 || self._isRequesting){
+    if ([trips count] == 0 || self._isRequesting){
         return;
     }
     
@@ -114,12 +114,12 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
             
             //compute path
             NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
-            for (int i=0; i<[favorites count] && i<10; i++) {
+            for (int i=0; i<[trips count] && i<10; i++) {
                 //Get bus
-                Favorite* favorite = [favorites objectAtIndex:i];
+                Trip* trip = [trips objectAtIndex:i];
                 
                 //Compute path
-                [path appendFormat:paramPath, favorite.route.id, favorite.direction, favorite.stop.id];
+                [path appendFormat:paramPath, trip.route.id, trip.direction, trip.stop.id];
             }
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

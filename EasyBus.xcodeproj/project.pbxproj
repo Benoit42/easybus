@@ -28,11 +28,6 @@
 		141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */; };
 		141EDDFE177B535A005DDC8C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140513741746798B00345B1D /* CoreData.framework */; };
 		142340DA162E0ABA0095073C /* Depart.m in Sources */ = {isa = PBXBuildFile; fileRef = 142340D9162E0ABA0095073C /* Depart.m */; };
-		1433AE7C18A4259B0026469F /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1433AE7B18A4259B0026469F /* Favorite.m */; };
-		1433AE7F18A4259C0026469F /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 1433AE7E18A4259C0026469F /* Stop.m */; };
-		1433AE8218A4259C0026469F /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 1433AE8118A4259C0026469F /* Group.m */; };
-		1433AE8518A4259C0026469F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 1433AE8418A4259C0026469F /* Route.m */; };
-		1433AE8818A4259C0026469F /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1433AE8718A4259C0026469F /* FeedInfo.m */; };
 		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
 		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderLocalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */; };
@@ -73,8 +68,8 @@
 		14ADC8FC1649C5D700B50FA2 /* LinesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14AD3C2D162AF00400DF061A /* LinesViewController.h */; };
 		14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1407D6771649B0EE002F37AD /* DirectionViewController.m */; };
 		14AEC8DE18A69625007B5EA4 /* NSManagedObjectContext+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */; };
-		14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */; };
-		14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */; };
+		14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88917D1C7BC009AE1FB /* Route+Additions.m */; };
+		14B1F88D17D1D2ED009AE1FB /* Trip+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */; };
 		14B42DC61656BD5D0070AA9D /* Depart.h in Sources */ = {isa = PBXBuildFile; fileRef = 142340D8162E0ABA0095073C /* Depart.h */; };
 		14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */; };
 		14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B42DCF1656BF090070AA9D /* FavoritesViewController.m */; };
@@ -91,7 +86,7 @@
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
 		14CF430916597FA500834A23 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF430816597FA500834A23 /* FavoriteCell.m */; };
-		14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */; };
+		14CF431E165C1CCB00834A23 /* NSManagedObjectContextTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF431D165C1CCB00834A23 /* NSManagedObjectContextTripTest.m */; };
 		14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4320165C25A600834A23 /* DeparturesManager.m */; };
 		14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */; };
 		14CF4334165EB10500834A23 /* LineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4333165EB10500834A23 /* LineCell.m */; };
@@ -123,7 +118,7 @@
 		14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB96C17FC7BEB000D1C5E /* StopTimesCsvReader.m */; };
 		14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */; };
 		14DDB98117FCA933000D1C5E /* StopTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98017FCA933000D1C5E /* StopTime.m */; };
-		14DDB98417FCA933000D1C5E /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* Trip.m */; };
+		14DDB98417FCA933000D1C5E /* TripItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DDB98317FCA933000D1C5E /* TripItem.m */; };
 		14E0EC281836AE12008B6CA0 /* RoutesStopsCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC261836AE12008B6CA0 /* RoutesStopsCsvReader.m */; };
 		14E0EC2C1837B879008B6CA0 /* RoutesStopsCsvReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC271836AE12008B6CA0 /* RoutesStopsCsvReaderTest.m */; };
 		14E0EC2E1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EC2D1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m */; };
@@ -133,13 +128,18 @@
 		14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E128A9181447810034226A /* NSURLProtocolStub.m */; };
 		14E128BE18145C6F0034226A /* getbusnextdepartures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14E128BD18145C6F0034226A /* getbusnextdepartures.xml */; };
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
-		14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */; };
+		14E2AD8317D64E2400ED4546 /* NSManagedObjectContextGroupTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */; };
 		14E459041810695900E2401A /* FeedInfoTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* FeedInfoTmp.m */; };
 		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
-		14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */; };
+		14F2129718AF9EF400C439EB /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F2129618AF9EF400C439EB /* Group.m */; };
+		14F212A018AF9EF500C439EB /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F2129F18AF9EF500C439EB /* Trip.m */; };
+		14F212A318AF9EF500C439EB /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A218AF9EF500C439EB /* FeedInfo.m */; };
+		14F212A618AFA22E00C439EB /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A518AFA22E00C439EB /* Route.m */; };
+		14F212A918AFA22E00C439EB /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A818AFA22E00C439EB /* Stop.m */; };
+		14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,16 +179,6 @@
 		141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReaderTest.m; sourceTree = "<group>"; };
 		142340D8162E0ABA0095073C /* Depart.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = Depart.h; sourceTree = "<group>"; };
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
-		1433AE7A18A4259B0026469F /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
-		1433AE7B18A4259B0026469F /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
-		1433AE7D18A4259C0026469F /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
-		1433AE7E18A4259C0026469F /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
-		1433AE8018A4259C0026469F /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		1433AE8118A4259C0026469F /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
-		1433AE8318A4259C0026469F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
-		1433AE8418A4259C0026469F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
-		1433AE8618A4259C0026469F /* FeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfo.h; sourceTree = "<group>"; };
-		1433AE8718A4259C0026469F /* FeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfo.m; sourceTree = "<group>"; };
 		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
 		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderLocalTest.m; sourceTree = "<group>"; };
@@ -251,10 +241,10 @@
 		14AD3C3E162AF00400DF061A /* EasyBusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EasyBusTests-Info.plist"; sourceTree = "<group>"; };
 		14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Network.h"; sourceTree = "<group>"; };
 		14AEC8DD18A69625007B5EA4 /* NSManagedObjectContext+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Network.m"; sourceTree = "<group>"; };
-		14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route+RouteWithAdditions.h"; sourceTree = "<group>"; };
-		14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route+RouteWithAdditions.m"; sourceTree = "<group>"; };
-		14B1F88B17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Favorite+FavoriteWithAdditions.h"; sourceTree = "<group>"; };
-		14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Favorite+FavoriteWithAdditions.m"; sourceTree = "<group>"; };
+		14B1F88817D1C7BC009AE1FB /* Route+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route+Additions.h"; sourceTree = "<group>"; };
+		14B1F88917D1C7BC009AE1FB /* Route+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route+Additions.m"; sourceTree = "<group>"; };
+		14B1F88B17D1D2ED009AE1FB /* Trip+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Trip+Additions.h"; sourceTree = "<group>"; };
+		14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Trip+Additions.m"; sourceTree = "<group>"; };
 		14B42DCE1656BF090070AA9D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		14B42DCF1656BF090070AA9D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		14B64E5D189ABC0000197DEF /* routes_stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = routes_stops.txt; path = GTFS/routes_stops.txt; sourceTree = "<group>"; };
@@ -268,7 +258,7 @@
 		14C65C17189412FA007971CE /* 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.1.xcdatamodel; sourceTree = "<group>"; };
 		14CF430716597FA500834A23 /* FavoriteCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoriteCell.h; sourceTree = "<group>"; };
 		14CF430816597FA500834A23 /* FavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
-		14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManagerTest.m; sourceTree = "<group>"; };
+		14CF431D165C1CCB00834A23 /* NSManagedObjectContextTripTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextTripTest.m; sourceTree = "<group>"; };
 		14CF431F165C25A600834A23 /* DeparturesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesManager.h; sourceTree = "<group>"; };
 		14CF4320165C25A600834A23 /* DeparturesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesManager.m; sourceTree = "<group>"; };
 		14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesManagerTest.m; sourceTree = "<group>"; };
@@ -299,8 +289,8 @@
 		14DDB97217FC7D66000D1C5E /* StopTimesCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTimesCsvReaderTest.m; sourceTree = "<group>"; };
 		14DDB97F17FCA933000D1C5E /* StopTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTime.h; sourceTree = "<group>"; };
 		14DDB98017FCA933000D1C5E /* StopTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTime.m; sourceTree = "<group>"; };
-		14DDB98217FCA933000D1C5E /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		14DDB98317FCA933000D1C5E /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		14DDB98217FCA933000D1C5E /* TripItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripItem.h; sourceTree = "<group>"; };
+		14DDB98317FCA933000D1C5E /* TripItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripItem.m; sourceTree = "<group>"; };
 		14E0EC261836AE12008B6CA0 /* RoutesStopsCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesStopsCsvReader.m; sourceTree = "<group>"; };
 		14E0EC271836AE12008B6CA0 /* RoutesStopsCsvReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoutesStopsCsvReaderTest.m; path = ../EasyBus/RoutesStopsCsvReaderTest.m; sourceTree = "<group>"; };
 		14E0EC2A1836AE64008B6CA0 /* RoutesStopsCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesStopsCsvReader.h; sourceTree = "<group>"; };
@@ -318,16 +308,27 @@
 		14E128BD18145C6F0034226A /* getbusnextdepartures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures.xml; sourceTree = "<group>"; };
 		14E2AD7317D214E700ED4546 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		14E2AD7417D214E700ED4546 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupeManagerTest.m; sourceTree = "<group>"; };
+		14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextGroupTest.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* FeedInfoTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* FeedInfoTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoTmp.m; sourceTree = "<group>"; };
 		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError.xml; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		14F2129418AF9D5D00C439EB /* 2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.0.xcdatamodel; sourceTree = "<group>"; };
+		14F2129518AF9EF400C439EB /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		14F2129618AF9EF400C439EB /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		14F2129E18AF9EF500C439EB /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		14F2129F18AF9EF500C439EB /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		14F212A118AF9EF500C439EB /* FeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfo.h; sourceTree = "<group>"; };
+		14F212A218AF9EF500C439EB /* FeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfo.m; sourceTree = "<group>"; };
+		14F212A418AFA22E00C439EB /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		14F212A518AFA22E00C439EB /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		14F212A718AFA22E00C439EB /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
+		14F212A818AFA22E00C439EB /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
 		14F249FA18A651660033166C /* StaticDataProducer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StaticDataProducer.m; path = ../EasyBusData/StaticDataProducer.m; sourceTree = "<group>"; };
-		14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Favorite.h"; sourceTree = "<group>"; };
-		14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Favorite.m"; sourceTree = "<group>"; };
+		14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Trip.h"; sourceTree = "<group>"; };
+		14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Trip.m"; sourceTree = "<group>"; };
 		7FF4BCA5FAC64CE0997C79CA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B81C3C036F434BBF8B37D73F /* libPods-EasyBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D421414454514E50A20383E7 /* Pods-EasyBusTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyBusTests.xcconfig"; path = "Pods/Pods-EasyBusTests.xcconfig"; sourceTree = "<group>"; };
@@ -570,9 +571,9 @@
 				14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */,
 				14C2E544168884B200E8A2FB /* LocationManagerTest.m */,
 				14776D8617425290008C7E2E /* ZipArchiveTest.m */,
-				14CF431D165C1CCB00834A23 /* FavoritesManagerTest.m */,
+				14CF431D165C1CCB00834A23 /* NSManagedObjectContextTripTest.m */,
 				14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */,
-				14E2AD8217D64E2400ED4546 /* GroupeManagerTest.m */,
+				14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */,
 				14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */,
 				14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */,
 				14E0EC2D1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m */,
@@ -608,22 +609,22 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
-				1433AE8618A4259C0026469F /* FeedInfo.h */,
-				1433AE8718A4259C0026469F /* FeedInfo.m */,
-				1433AE8318A4259C0026469F /* Route.h */,
-				1433AE8418A4259C0026469F /* Route.m */,
-				1433AE8018A4259C0026469F /* Group.h */,
-				1433AE8118A4259C0026469F /* Group.m */,
-				1433AE7D18A4259C0026469F /* Stop.h */,
-				1433AE7E18A4259C0026469F /* Stop.m */,
-				1433AE7A18A4259B0026469F /* Favorite.h */,
-				1433AE7B18A4259B0026469F /* Favorite.m */,
-				14B1F88B17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.h */,
-				14B1F88C17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m */,
-				14B1F88817D1C7BC009AE1FB /* Route+RouteWithAdditions.h */,
-				14B1F88917D1C7BC009AE1FB /* Route+RouteWithAdditions.m */,
-				14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Favorite.h */,
-				14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Favorite.m */,
+				14F212A718AFA22E00C439EB /* Stop.h */,
+				14F212A818AFA22E00C439EB /* Stop.m */,
+				14F212A418AFA22E00C439EB /* Route.h */,
+				14F212A518AFA22E00C439EB /* Route.m */,
+				14F212A118AF9EF500C439EB /* FeedInfo.h */,
+				14F212A218AF9EF500C439EB /* FeedInfo.m */,
+				14F2129E18AF9EF500C439EB /* Trip.h */,
+				14F2129F18AF9EF500C439EB /* Trip.m */,
+				14F2129518AF9EF400C439EB /* Group.h */,
+				14F2129618AF9EF400C439EB /* Group.m */,
+				14B1F88B17D1D2ED009AE1FB /* Trip+Additions.h */,
+				14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */,
+				14B1F88817D1C7BC009AE1FB /* Route+Additions.h */,
+				14B1F88917D1C7BC009AE1FB /* Route+Additions.m */,
+				14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Trip.h */,
+				14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */,
 				1455EFCF18ABBE16003522D2 /* NSManagedObjectContext+Group.h */,
 				1455EFD018ABBE16003522D2 /* NSManagedObjectContext+Group.m */,
 				14AEC8DC18A69625007B5EA4 /* NSManagedObjectContext+Network.h */,
@@ -656,8 +657,8 @@
 		14CF4313165BFF8900834A23 /* Lines&Stops */ = {
 			isa = PBXGroup;
 			children = (
-				14DDB98217FCA933000D1C5E /* Trip.h */,
-				14DDB98317FCA933000D1C5E /* Trip.m */,
+				14DDB98217FCA933000D1C5E /* TripItem.h */,
+				14DDB98317FCA933000D1C5E /* TripItem.m */,
 				14DDB97F17FCA933000D1C5E /* StopTime.h */,
 				14DDB98017FCA933000D1C5E /* StopTime.m */,
 				1471689F180086F200846AE6 /* RouteStop.h */,
@@ -974,15 +975,16 @@
 				14AD3C1C162AF00400DF061A /* main.m in Sources */,
 				147168A71801A38000846AE6 /* DataLoaderViewController.m in Sources */,
 				14AD3C20162AF00400DF061A /* AppDelegate.m in Sources */,
+				14F212A018AF9EF500C439EB /* Trip.m in Sources */,
 				14AD3C2F162AF00400DF061A /* LinesViewController.m in Sources */,
 				142340DA162E0ABA0095073C /* Depart.m in Sources */,
 				14E0EC281836AE12008B6CA0 /* RoutesStopsCsvReader.m in Sources */,
 				1459285D18A011C7004D52D0 /* TerminusJsonReader.m in Sources */,
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
+				14F212A618AFA22E00C439EB /* Route.m in Sources */,
 				14E0EC321837BF7A008B6CA0 /* NSMutableArray+Randomize.m in Sources */,
-				1433AE8518A4259C0026469F /* Route.m in Sources */,
 				1455EFD118ABBE16003522D2 /* NSManagedObjectContext+Group.m in Sources */,
-				14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Favorite.m in Sources */,
+				14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Trip.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
 				140EA84F163DBD5900FB4A85 /* StopsViewController.m in Sources */,
@@ -994,18 +996,16 @@
 				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
 				14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */,
 				14CF430916597FA500834A23 /* FavoriteCell.m in Sources */,
-				1433AE8818A4259C0026469F /* FeedInfo.m in Sources */,
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
 				147168A1180086F200846AE6 /* RouteStop.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
 				14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */,
-				1433AE7C18A4259B0026469F /* Favorite.m in Sources */,
 				146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */,
 				14CF433C165EB41200834A23 /* DirectionCell.h in Sources */,
 				146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */,
+				14F2129718AF9EF400C439EB /* Group.m in Sources */,
 				14CF433D165EB41700834A23 /* LineCell.h in Sources */,
-				1433AE8218A4259C0026469F /* Group.m in Sources */,
 				14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */,
 				146161CC182C160B0012A1CE /* Constants.m in Sources */,
 				14CF4341165EB44400834A23 /* StopCell.m in Sources */,
@@ -1019,18 +1019,19 @@
 				14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */,
 				14EF87EB167BBF370058607C /* LocationManager.m in Sources */,
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
+				14F212A318AF9EF500C439EB /* FeedInfo.m in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
+				14F212A918AFA22E00C439EB /* Stop.m in Sources */,
 				14AEC8DE18A69625007B5EA4 /* NSManagedObjectContext+Network.m in Sources */,
 				14AA96E8183802F30052B338 /* FeedInfoViewController.m in Sources */,
-				1433AE7F18A4259C0026469F /* Stop.m in Sources */,
-				14DDB98417FCA933000D1C5E /* Trip.m in Sources */,
+				14DDB98417FCA933000D1C5E /* TripItem.m in Sources */,
 				140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */,
 				1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */,
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
-				14B1F88A17D1C7BC009AE1FB /* Route+RouteWithAdditions.m in Sources */,
-				14B1F88D17D1D2ED009AE1FB /* Favorite+FavoriteWithAdditions.m in Sources */,
+				14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */,
+				14B1F88D17D1D2ED009AE1FB /* Trip+Additions.m in Sources */,
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 			);
@@ -1042,7 +1043,7 @@
 			files = (
 				14E0EC2C1837B879008B6CA0 /* RoutesStopsCsvReaderTest.m in Sources */,
 				140EA4F2163D94E400FB4A85 /* StopsCsvReaderTest.m in Sources */,
-				14CF431E165C1CCB00834A23 /* FavoritesManagerTest.m in Sources */,
+				14CF431E165C1CCB00834A23 /* NSManagedObjectContextTripTest.m in Sources */,
 				14E128AB181447810034226A /* NSURLProtocolStub.m in Sources */,
 				14CF4324165C2CB300834A23 /* DeparturesManagerTest.m in Sources */,
 				1459286118A01493004D52D0 /* TerminusJsonReaderTest.m in Sources */,
@@ -1059,7 +1060,7 @@
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
 				14A540FF17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
-				14E2AD8317D64E2400ED4546 /* GroupeManagerTest.m in Sources */,
+				14E2AD8317D64E2400ED4546 /* NSManagedObjectContextGroupTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1251,10 +1252,11 @@
 		1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				14F2129418AF9D5D00C439EB /* 2.0.xcdatamodel */,
 				14C65C17189412FA007971CE /* 1.1.xcdatamodel */,
 				1405136C17465CD700345B1D /* 1.0.xcdatamodel */,
 			);
-			currentVersion = 14C65C17189412FA007971CE /* 1.1.xcdatamodel */;
+			currentVersion = 14F2129418AF9D5D00C439EB /* 2.0.xcdatamodel */;
 			path = EasyBus.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

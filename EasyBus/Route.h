@@ -2,14 +2,14 @@
 //  Route.h
 //  EasyBus
 //
-//  Created by Benoît on 06/02/2014.
+//  Created by Benoît on 15/02/2014.
 //  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Favorite, Stop;
+@class Stop, Trip;
 
 @interface Route : NSManagedObject
 
@@ -18,17 +18,17 @@
 @property (nonatomic, retain) NSString * longName;
 @property (nonatomic, retain) NSString * shortName;
 @property (nonatomic, retain) NSString * toName;
-@property (nonatomic, retain) NSSet *favorites;
+@property (nonatomic, retain) NSSet *trips;
 @property (nonatomic, retain) NSOrderedSet *stopsDirectionOne;
 @property (nonatomic, retain) NSOrderedSet *stopsDirectionZero;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)
 
-- (void)addFavoritesObject:(Favorite *)value;
-- (void)removeFavoritesObject:(Favorite *)value;
-- (void)addFavorites:(NSSet *)values;
-- (void)removeFavorites:(NSSet *)values;
+- (void)addTripsObject:(Trip *)value;
+- (void)removeTripsObject:(Trip *)value;
+- (void)addTrips:(NSSet *)values;
+- (void)removeTrips:(NSSet *)values;
 
 - (void)insertObject:(Stop *)value inStopsDirectionOneAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromStopsDirectionOneAtIndex:(NSUInteger)idx;

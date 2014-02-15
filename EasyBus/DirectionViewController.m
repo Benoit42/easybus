@@ -11,7 +11,7 @@
 #import "LinesNavigationController.h"
 #import "StopsViewController.h"
 #import "DirectionCell.h"
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 
 @implementation DirectionViewController
 objection_requires(@"managedObjectContext")
@@ -49,8 +49,8 @@ objection_requires(@"managedObjectContext")
         static NSString *CellIdentifier = @"Cell";
         DirectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
-        //get the favorite fromnav controler
-        Route* route = ((LinesNavigationController*)self.navigationController).currentFavoriteRoute;
+        //get the trip from nav controler
+        Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
 
         //add departure
         NSString* libelle = [route terminusForDirection:[NSString stringWithFormat:@"%i", indexPath.row]];
@@ -63,8 +63,8 @@ objection_requires(@"managedObjectContext")
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //get the favorite fromnav controler
-    ((LinesNavigationController*)self.navigationController).currentFavoriteDirection = [NSString stringWithFormat:@"%i", indexPath.row];
+    //get the trip from nav controler
+    ((LinesNavigationController*)self.navigationController).currentTripDirection = [NSString stringWithFormat:@"%i", indexPath.row];
 }
 
 @end

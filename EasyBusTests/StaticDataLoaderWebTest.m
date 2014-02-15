@@ -146,22 +146,22 @@ objection_requires(@"managedObjectContext", @"gtfsDownloadManager", @"staticData
     NSOrderedSet* stops21 = [[NSMutableOrderedSet alloc] initWithArray:@[stop23, stop22, stop21]];
 
     //Prepare trips
-    Trip* trip10 = [[Trip alloc] init];
+    TripItem* trip10 = [[TripItem alloc] init];
     trip10.id = @"trip10";
     trip10.routeId = route1.id;
     trip10.directionId = @"0";
 
-    Trip* trip11 = [[Trip alloc] init];
+    TripItem* trip11 = [[TripItem alloc] init];
     trip11.id = @"trip11";
     trip11.routeId = route1.id;
     trip11.directionId = @"1";
 
-    Trip* trip20 = [[Trip alloc] init];
+    TripItem* trip20 = [[TripItem alloc] init];
     trip20.id = @"trip20";
     trip20.routeId = route2.id;
     trip20.directionId = @"0";
     
-    Trip* trip21 = [[Trip alloc] init];
+    TripItem* trip21 = [[TripItem alloc] init];
     trip21.id = @"trip21";
     trip21.routeId = route2.id;
     trip21.directionId = @"1";

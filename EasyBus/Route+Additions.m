@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 #import "Stop.h"
 
-@implementation Route (RouteWithAdditions)
+@implementation Route (Additions)
 
 - (NSString*)terminusForDirection:(NSString*)direction {
     if ([direction isEqualToString:@"0"]) {

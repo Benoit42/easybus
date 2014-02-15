@@ -12,13 +12,13 @@
 #import "IoCModuleTest.h"
 #import "NSManagedObjectContext+Group.h"
 
-@interface GroupManagerTest : XCTestCase
+@interface NSManagedObjectContextGroupTest : XCTestCase
 
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 
 @end
 
-@implementation GroupManagerTest
+@implementation NSManagedObjectContextGroupTest
 objection_requires(@"managedObjectContext")
 
 - (void)setUp

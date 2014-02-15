@@ -9,7 +9,7 @@
 #import <Objection/Objection.h>
 #import "MenuViewController.h"
 #import "RevealViewController.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @implementation MenuViewController
 objection_requires(@"managedObjectContext")
@@ -35,7 +35,7 @@ objection_requires(@"managedObjectContext")
     [super viewWillAppear:animated];
     
     //Mise à jour de l'UI
-    BOOL haveFavorites = self.managedObjectContext.favorites.count > 0;
+    BOOL haveFavorites = self.managedObjectContext.trips.count > 0;
     self.favoritesButton.enabled = haveFavorites;
     self.organizeButton.enabled = haveFavorites;
 }

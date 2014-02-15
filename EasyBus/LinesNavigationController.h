@@ -12,8 +12,8 @@
 
 @interface LinesNavigationController : UINavigationController
 
-@property(retain, nonatomic) Route* currentFavoriteRoute;
-@property(retain, nonatomic) Stop* currentFavoriteStop;
-@property(retain, nonatomic) NSString* currentFavoriteDirection;
+@property(retain, nonatomic) Route* currentTripRoute;
+@property(retain, nonatomic) Stop* currentTripStop;
+@property(retain, nonatomic) NSString* currentTripDirection;
 
 @end

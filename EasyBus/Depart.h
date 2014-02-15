@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Stop.h"
-#import "Route+RouteWithAdditions.h"
+#import "Route+Additions.h"
 
 @interface Depart : NSObject
 

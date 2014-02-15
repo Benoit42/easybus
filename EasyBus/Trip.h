@@ -2,16 +2,20 @@
 //  Trip.h
 //  EasyBus
 //
-//  Created by Benoit on 02/10/13.
-//  Copyright (c) 2013 Benoit. All rights reserved.
+//  Created by Benoît on 15/02/2014.
+//  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Trip : NSObject
+@class Group, Route, Stop;
 
-@property (nonatomic, retain) NSString * id;
-@property (nonatomic, retain) NSString * routeId;
-@property (nonatomic, retain) NSString * directionId;
+@interface Trip : NSManagedObject
+
+@property (nonatomic, retain) NSString * direction;
+@property (nonatomic, retain) Group *group;
+@property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) Stop *stop;
 
 @end

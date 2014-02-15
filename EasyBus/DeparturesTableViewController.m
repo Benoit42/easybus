@@ -14,7 +14,7 @@
 #import "DeparturesViewController.h"
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @interface DeparturesTableViewController()
 
@@ -127,7 +127,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
     [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.managedObjectContext.favorites];
+        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
     }];
 }
 

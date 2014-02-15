@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Trip.h"
+#import "TripItem.h"
 
 @interface TripsCsvReader : NSObject
 

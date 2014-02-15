@@ -9,7 +9,7 @@
 #import "Route.h"
 #import "Stop.h"
 
-@interface Route (RouteWithAdditions)
+@interface Route (Additions)
 
 - (NSString*)terminusForDirection:(NSString*)direction;
 - (void)addStop:(Stop*)stop forDirection:(NSString*)direction;

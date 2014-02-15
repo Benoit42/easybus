@@ -35,7 +35,7 @@
 }
 
 - (Group*) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus {
-    // Create and configure a new instance of the Favorite entity.
+    // Create and configure a new instance of the Group entity.
     Group* group = (Group*)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self];
     group.name =  name;
     group.terminus = terminus;

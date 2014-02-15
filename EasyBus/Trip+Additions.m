@@ -1,15 +1,15 @@
 //
-//  Favorite+FavoriteWithAdditions.m
+//  Trip+Additions.m
 //  EasyBus
 //
 //  Created by Benoit on 31/08/13.
 //  Copyright (c) 2013 Benoit. All rights reserved.
 //
 
-#import "Favorite+FavoriteWithAdditions.h"
-#import "Route+RouteWithAdditions.h"
+#import "Trip+Additions.h"
+#import "Route+Additions.h"
 
-@implementation Favorite (FavoriteWithAdditions)
+@implementation Trip (Additions)
 
 - (NSString*)terminus {
     return [self.route terminusForDirection:self.direction];

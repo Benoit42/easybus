@@ -1,5 +1,5 @@
 //
-//  FavoritesManagerTest.m
+//  NSManagedObjectContextTripTest.m
 //  EasyBus
 //
 //  Created by Benoit on 20/11/12.
@@ -12,11 +12,11 @@
 #import "IoCModuleTest.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 #import "NSManagedObjectContext+Network.h"
 #import "NSManagedObjectContext+Group.h"
 
-@interface FavoritesManagerTest : XCTestCase
+@interface NSManagedObjectContextTripTest : XCTestCase
 
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 @property(nonatomic) RoutesCsvReader* routesCsvReader;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation FavoritesManagerTest
+@implementation NSManagedObjectContextTripTest
 objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader")
 
 - (void)setUp
@@ -51,11 +51,11 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     Route* route164 = [self.managedObjectContext routeForId:@"0164"];
     Stop* stopTimo = [self.managedObjectContext stopForId:@"4001"];
     Stop* stopRepu = [self.managedObjectContext stopForId:@"1167"];
-    XCTAssertEqual([[self.managedObjectContext favorites] count], 0U, @"Wrong number of favorites");
-    [self.managedObjectContext addFavorite:route64 stop:stopTimo direction:@"0"];
-    [self.managedObjectContext addFavorite:route64 stop:stopRepu direction:@"1"];
-    [self.managedObjectContext addFavorite:route164 stop:stopTimo direction:@"0"];
-    [self.managedObjectContext addFavorite:route164 stop:stopRepu direction:@"1"];
+    XCTAssertEqual([[self.managedObjectContext trips] count], 0U, @"Wrong number of trips");
+    [self.managedObjectContext addTrip:route64 stop:stopTimo direction:@"0"];
+    [self.managedObjectContext addTrip:route64 stop:stopRepu direction:@"1"];
+    [self.managedObjectContext addTrip:route164 stop:stopTimo direction:@"0"];
+    [self.managedObjectContext addTrip:route164 stop:stopRepu direction:@"1"];
 }
 
 - (void)tearDown
@@ -64,55 +64,55 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
 }
 
 //Test des favoris
-- (void)testFavorites {
+- (void)testTrips {
     //Lecture des favoris
-    NSArray* favorites = [self.managedObjectContext favorites];
+    NSArray* trips = [self.managedObjectContext trips];
     
     //Vérifications
-    XCTAssertEqual([favorites count], 4U, @"Wrong number of favorites");
+    XCTAssertEqual([trips count], 4U, @"Wrong number of trips");
 }
 
 //Test de l'ajout
-- (void)testAddFavorite {
+- (void)testAddTrip {
     //Préparation des données
-    NSUInteger favCount = [[self.managedObjectContext favorites] count];
+    NSUInteger tripCount = [[self.managedObjectContext trips] count];
     NSUInteger groupCount = [[self.managedObjectContext groups] count];
 
-    //Ajout d'un favori
+    //Ajout d'un tripori
     Route* route = [self.managedObjectContext routeForId:@"0200"];
     Stop* stop = [self.managedObjectContext stopForId:@"4001"];
-    [self.managedObjectContext addFavorite:route stop:stop direction:@"0"];
+    [self.managedObjectContext addTrip:route stop:stop direction:@"0"];
 
     //Vérifications
-    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount+1, @"Wrong number of favorites");
+    XCTAssertEqual([[self.managedObjectContext trips] count], tripCount+1, @"Wrong number of trips");
     XCTAssertEqual([[self.managedObjectContext groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon
-- (void)testAddFavoriteDoublon {
+- (void)testAddTripDoublon {
     //Préparation des données
-    NSUInteger favCount = [[self.managedObjectContext favorites] count];
+    NSUInteger tripCount = [[self.managedObjectContext trips] count];
     Route* route64 = [self.managedObjectContext routeForId:@"0064"];
     Stop* stopTimo = [self.managedObjectContext stopForId:@"4001"];
     
-    //Ajout d'un favori
-    [self.managedObjectContext addFavorite:route64 stop:stopTimo direction:@"0"];
+    //Ajout d'un tripori
+    [self.managedObjectContext addTrip:route64 stop:stopTimo direction:@"0"];
 
     //Vérifications
-    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount, @"Wrong number of favorites");
+    XCTAssertEqual([[self.managedObjectContext trips] count], tripCount, @"Wrong number of trips");
 }
 
 //Test de la suppression
-- (void)testRemoveFavorite {
-    //Récupération d'un favori
-    NSUInteger favCount = [[self.managedObjectContext favorites] count];
-    Favorite* favorite = [[self.managedObjectContext favorites] lastObject];
+- (void)testRemoveTrip {
+    //Récupération d'un tripori
+    NSUInteger tripCount = [[self.managedObjectContext trips] count];
+    Trip* trip = [[self.managedObjectContext trips] lastObject];
 
-    //Suppression du favori
-    [self.managedObjectContext deleteObject:favorite];
+    //Suppression du tripori
+    [self.managedObjectContext deleteObject:trip];
     
     //Vérifications
-    XCTAssertEqual([[self.managedObjectContext favorites] count], favCount-1, @"Wrong number of favorites");
+    XCTAssertEqual([[self.managedObjectContext trips] count], tripCount-1, @"Wrong number of trips");
 }
 
 @end

@@ -2,32 +2,32 @@
 //  Group.h
 //  EasyBus
 //
-//  Created by Benoît on 06/02/2014.
+//  Created by Benoît on 15/02/2014.
 //  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Favorite;
+@class Trip;
 
 @interface Group : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * terminus;
-@property (nonatomic, retain) NSOrderedSet *favorites;
+@property (nonatomic, retain) NSOrderedSet *trips;
 @end
 
 @interface Group (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Favorite *)value inFavoritesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromFavoritesAtIndex:(NSUInteger)idx;
-- (void)insertFavorites:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeFavoritesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInFavoritesAtIndex:(NSUInteger)idx withObject:(Favorite *)value;
-- (void)replaceFavoritesAtIndexes:(NSIndexSet *)indexes withFavorites:(NSArray *)values;
-- (void)addFavoritesObject:(Favorite *)value;
-- (void)removeFavoritesObject:(Favorite *)value;
-- (void)addFavorites:(NSOrderedSet *)values;
-- (void)removeFavorites:(NSOrderedSet *)values;
+- (void)insertObject:(Trip *)value inTripsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromTripsAtIndex:(NSUInteger)idx;
+- (void)insertTrips:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeTripsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInTripsAtIndex:(NSUInteger)idx withObject:(Trip *)value;
+- (void)replaceTripsAtIndexes:(NSIndexSet *)indexes withTrips:(NSArray *)values;
+- (void)addTripsObject:(Trip *)value;
+- (void)removeTripsObject:(Trip *)value;
+- (void)addTrips:(NSOrderedSet *)values;
+- (void)removeTrips:(NSOrderedSet *)values;
 @end

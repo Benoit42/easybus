@@ -12,7 +12,7 @@
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
 #import "DeparturesManager.h"
-#import "Favorite+FavoriteWithAdditions.h"
+#import "Trip+Additions.h"
 #import "NSManagedObjectContext+Group.h"
 
 @interface PageViewController()
@@ -106,8 +106,8 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     int index = -1;
     for (int i=0; i<[groupes count]; i++) {
         Group* groupe = [groupes objectAtIndex:i];
-        Favorite* firstFavorite = [[groupe favorites] objectAtIndex:0];
-        CLLocationDistance currentDistance = [firstFavorite.stop.location distanceFromLocation:currentLocation];
+        Trip* firstTrip = [[groupe trips] objectAtIndex:0];
+        CLLocationDistance currentDistance = [firstTrip.stop.location distanceFromLocation:currentLocation];
         if (currentDistance < minDistance) {
             index = i;
             minDistance = currentDistance;

@@ -11,7 +11,7 @@
 #import "MainViewController.h"
 #import "PageViewController.h"
 #import "NSManagedObjectContext+Network.h"
-#import "NSManagedObjectContext+Favorite.h"
+#import "NSManagedObjectContext+Trip.h"
 #import "NSManagedObjectContext+Group.h"
 
 #define RELOAD_KEOLIS_DATA_KEY @"reload_keolis_data"
@@ -96,8 +96,8 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
 #pragma mark - refreshing departures
 - (void)dataUpdated:(NSNotification *)notification {
     //Raffraichissement des départs
-    NSArray* favorite = [self.managedObjectContext favorites];
-    [self.departuresManager refreshDepartures:favorite];
+    NSArray* trips = [self.managedObjectContext trips];
+    [self.departuresManager refreshDepartures:trips];
 }
 
 #pragma mark - progress view
