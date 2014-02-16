@@ -44,8 +44,8 @@ objection_requires(@"managedObjectContext")
 - (void)testAddGroups
 {
     //Ajout du jeu de tests
-    [self.managedObjectContext addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
-    [self.managedObjectContext addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 0"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 1"];
 
     //Lecture des groupes
     NSArray* groups = [self.managedObjectContext groups];
@@ -58,8 +58,8 @@ objection_requires(@"managedObjectContext")
 - (void)testRemovegroup
 {
     //Ajout du jeu de tests
-    [self.managedObjectContext addGroupWithName:@"Groupe 0" andTerminus:@"Terminus 0"];
-    [self.managedObjectContext addGroupWithName:@"Groupe 1" andTerminus:@"Terminus 1"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 0"];
+    [self.managedObjectContext addGroupWithName:@"Groupe 1"];
     XCTAssertEqual([[self.managedObjectContext groups] count], 2U, @"Wrong number of groups");
     
     //Récupération d'un groupe

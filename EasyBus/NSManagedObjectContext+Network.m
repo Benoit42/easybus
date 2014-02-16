@@ -126,4 +126,26 @@
     return [stops array];
 }
 
+- (NSArray*) stopsSortedByDistanceFrom:(CLLocation*)location {
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestTemplateForName:@"fetchAllStops"];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [self executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (fetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    //Sort stops by distance from location
+    NSArray* sortedStops = [fetchResults sortedArrayUsingComparator:^NSComparisonResult(Stop* stop1, Stop* stop2) {
+        return [[NSNumber numberWithDouble:[stop1.location distanceFromLocation:location]] compare:[NSNumber numberWithDouble:[stop2.location distanceFromLocation:location]]];
+    }];
+    
+    return sortedStops;
+}
+
 @end

@@ -2,7 +2,7 @@
 //  Group.h
 //  EasyBus
 //
-//  Created by Benoît on 15/02/2014.
+//  Created by Benoît on 16/02/2014.
 //  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
@@ -14,7 +14,6 @@
 @interface Group : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * terminus;
 @property (nonatomic, retain) NSOrderedSet *trips;
 @end
 

@@ -106,7 +106,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
 }
 
 //Test du cas droit 2 avec lignes 64, 164 et 200
-- (void)testGetDeparturesForGroup
+- (void)testGetDeparturesForTrips
 {
     //Stub de l'url des départs
     [NSURLProtocol registerClass:[NSURLProtocolStub class]];
@@ -137,11 +137,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     trip200.stop = stopClosCourtel;
     trip200.direction = @"1";
     
-    Group* group = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.managedObjectContext];
-    [group addTripsObject:trip64];
-    [group addTripsObject:trip164];
-    [group addTripsObject:trip200];
-    
     //Recherche des départs
     [self runTestWithBlock:^{
         [self.departuresManager refreshDepartures:@[trip64, trip164, trip200]];
@@ -150,7 +145,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
                withTimeout:5
      ];
     
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:group];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:@[trip64, trip164, trip200]];
     XCTAssertEqual(4, (int)[departures count], @"Wrong number of departures");
     XCTAssertEqualObjects(@"0064", ((Depart*)departures[0]).route.id, @"Wrong route id");
     XCTAssertEqualObjects(@"0164", ((Depart*)departures[1]).route.id, @"Wrong route id");

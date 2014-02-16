@@ -13,8 +13,8 @@
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"
 #import "NSManagedObjectContext+Trip.h"
-#import "NSManagedObjectContext+Network.h"
 #import "NSManagedObjectContext+Group.h"
+#import "NSManagedObjectContext+Network.h"
 
 @interface NSManagedObjectContextTripTest : XCTestCase
 
@@ -76,7 +76,6 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
 - (void)testAddTrip {
     //Préparation des données
     NSUInteger tripCount = [[self.managedObjectContext trips] count];
-    NSUInteger groupCount = [[self.managedObjectContext groups] count];
 
     //Ajout d'un tripori
     Route* route = [self.managedObjectContext routeForId:@"0200"];
@@ -85,7 +84,6 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
 
     //Vérifications
     XCTAssertEqual([[self.managedObjectContext trips] count], tripCount+1, @"Wrong number of trips");
-    XCTAssertEqual([[self.managedObjectContext groups] count], groupCount+1, @"Wrong number of groups");
 }
 
 //Test de l'ajout d'un doublon

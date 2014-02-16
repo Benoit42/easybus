@@ -14,6 +14,7 @@
 #import "Route+Additions.h"
 #import "NSManagedObjectContext+Network.h"
 #import "NSManagedObjectContext+Trip.h"
+#import "NSManagedObjectContext+Group.h"
 
 @implementation LinesViewController
 objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
@@ -85,12 +86,19 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
 
 #pragma mark ajout du trip
 - (IBAction)unwindFromSave:(UIStoryboardSegue *)segue {
-    //Create the trip
+    //Get data
     Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
     Stop* stop = ((LinesNavigationController*)self.navigationController).currentTripStop;
     NSString* direction = ((LinesNavigationController*)self.navigationController).currentTripDirection;
-    [self.managedObjectContext addTrip:route stop:stop direction:direction];
 
+    //Create the trip
+    Trip* trip = [self.managedObjectContext addTrip:route stop:stop direction:direction];
+
+    //Create the group and add the treip
+    NSString* groupName = [NSString stringWithFormat:@"vers %@", stop.name];
+    Group* group = [self.managedObjectContext addGroupWithName:groupName];
+    [group addTripsObject:trip];
+    
     //Sauvegarde
     NSError* error;
     [self.managedObjectContext save:&error];

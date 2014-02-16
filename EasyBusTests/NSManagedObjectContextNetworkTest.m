@@ -14,14 +14,14 @@
 #import "StaticDataLoader.h"
 #import "NSManagedObjectContext+Network.h"
 
-@interface NSManagedObjectContextEasyBusTest : XCTestCase
+@interface NSManagedObjectContextNetworkTest : XCTestCase
 
 @property(nonatomic) NSManagedObjectContext* managedObjectContext;
 @property(nonatomic) StaticDataLoader* staticDataLoader;
 
 @end
 
-@implementation NSManagedObjectContextEasyBusTest
+@implementation NSManagedObjectContextNetworkTest
 objection_requires(@"managedObjectContext", @"staticDataLoader")
 
 - (void)setUp {
@@ -73,6 +73,23 @@ objection_requires(@"managedObjectContext", @"staticDataLoader")
 - (void)testStops {
     NSArray* stops = [self.managedObjectContext stops];
     XCTAssertEqual(stops.count, 1409U, @"Wrong number of stos");
+}
+
+- (void)testStopsSortedByDistance {
+    CLLocation* maison = [[CLLocation alloc] initWithLatitude:+48.138149 longitude:-1.523640];
+    NSArray* stopsFromMaison = [self.managedObjectContext stopsSortedByDistanceFrom:maison];
+    XCTAssertEqualObjects(((Stop*)stopsFromMaison[0]).name, @"Timonière", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromMaison[1]).name, @"Verdaudais", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromMaison[2]).name, @"Verdaudais", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromMaison[3]).name, @"Acigné Mairie", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromMaison[4]).name, @"Acigné Mairie", @"Wrong stop name");
+    
+    CLLocation* bureau = [[CLLocation alloc] initWithLatitude:+48.127327 longitude:-1.627679];
+    NSArray* stopsFromBureau = [self.managedObjectContext stopsSortedByDistanceFrom:bureau];
+    XCTAssertEqualObjects(((Stop*)stopsFromBureau[0]).name, @"Clos Courtel", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromBureau[1]).name, @"Clos Courtel", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromBureau[6]).name, @"Belle Fontaine", @"Wrong stop name");
+    XCTAssertEqualObjects(((Stop*)stopsFromBureau[7]).name, @"Cesson Hôpital Privé", @"Wrong stop name");
 }
 
 @end

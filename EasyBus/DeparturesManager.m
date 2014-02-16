@@ -72,9 +72,8 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
     return self._departures;
 }
 
-- (NSArray*) getDeparturesForGroupe:(Group*)groupe {
+- (NSArray*) getDeparturesForTrips:(NSArray*)trips {
     NSMutableArray* departures = [[NSMutableArray alloc] init];
-    NSOrderedSet* trips = groupe.trips;
     [trips enumerateObjectsUsingBlock:^(Trip* trip, NSUInteger idx, BOOL *stop)
     {
         NSPredicate* routePredicate = [NSPredicate predicateWithFormat:@"stop.id == %@", trip.stop.id];

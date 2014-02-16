@@ -12,6 +12,6 @@
 @interface NSManagedObjectContext (Group)
 
 - (NSArray*) groups;
-- (Group*) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus;
+- (Group*) addGroupWithName:(NSString*)name;
 
 @end

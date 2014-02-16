@@ -47,7 +47,7 @@
 		14776D85174251DE008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		14776DD417427271008C7E2E /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14776D84174251DE008C7E2E /* libz.1.2.5.dylib */; };
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
-		14A540FF17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */; };
+		14A540FF17773E0700E18262 /* NSManagedObjectContextNetworkTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* NSManagedObjectContextNetworkTest.m */; };
 		14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */; };
 		14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4345165FEA3400834A23 /* DepartureCell.h */; };
 		14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AA96D71837E9CA0052B338 /* FeedInfoCsvReader.m */; };
@@ -71,7 +71,6 @@
 		14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88917D1C7BC009AE1FB /* Route+Additions.m */; };
 		14B1F88D17D1D2ED009AE1FB /* Trip+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */; };
 		14B42DC61656BD5D0070AA9D /* Depart.h in Sources */ = {isa = PBXBuildFile; fileRef = 142340D8162E0ABA0095073C /* Depart.h */; };
-		14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */; };
 		14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B42DCF1656BF090070AA9D /* FavoritesViewController.m */; };
 		14B64E5E189ABC0000197DEF /* routes_stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14B64E5D189ABC0000197DEF /* routes_stops.txt */; };
 		14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */; };
@@ -82,7 +81,6 @@
 		14BA0189188EE66600AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14BA018A188EE66D00AF7655 /* getbusnextdepartures2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */; };
 		14C1ACE218963BC1002CC9BD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C1ACE118963BC1002CC9BD /* Settings.bundle */; };
-		14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */; };
 		14C2E545168884B200E8A2FB /* LocationManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2E544168884B200E8A2FB /* LocationManagerTest.m */; };
 		14C2E547168B599600E8A2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
 		14CF430916597FA500834A23 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CF430816597FA500834A23 /* FavoriteCell.m */; };
@@ -134,11 +132,13 @@
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
 		14EF87EE167BC47D0058607C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EF87ED167BC47D0058607C /* CoreLocation.framework */; };
-		14F2129718AF9EF400C439EB /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F2129618AF9EF400C439EB /* Group.m */; };
 		14F212A018AF9EF500C439EB /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F2129F18AF9EF500C439EB /* Trip.m */; };
 		14F212A318AF9EF500C439EB /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A218AF9EF500C439EB /* FeedInfo.m */; };
 		14F212A618AFA22E00C439EB /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A518AFA22E00C439EB /* Route.m */; };
 		14F212A918AFA22E00C439EB /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212A818AFA22E00C439EB /* Stop.m */; };
+		14F212AE18AFB95D00C439EB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F212AD18AFB95D00C439EB /* MapKit.framework */; };
+		14F212B218AFC0BF00C439EB /* NearStopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212B118AFC0BF00C439EB /* NearStopsViewController.m */; };
+		14F212B518B09EE500C439EB /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F212B418B09EE500C439EB /* Group.m */; };
 		14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */; };
 /* End PBXBuildFile section */
 
@@ -217,7 +217,7 @@
 		148DCA9A184D154F00658839 /* screenshot-4-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-4-3.png"; sourceTree = "<group>"; };
 		148DCA9C184F642600658839 /* icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
 		149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesCsvReader.m; sourceTree = "<group>"; };
-		14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextEasyBusTest.m; sourceTree = "<group>"; };
+		14A540FE17773E0700E18262 /* NSManagedObjectContextNetworkTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextNetworkTest.m; sourceTree = "<group>"; };
 		14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataLoader.h; sourceTree = "<group>"; };
 		14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoader.m; sourceTree = "<group>"; };
 		14AA96D61837E9CA0052B338 /* FeedInfoCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoCsvReader.h; sourceTree = "<group>"; };
@@ -252,8 +252,6 @@
 		14B8B84D17FB3D39003270B1 /* IoCModuleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IoCModuleTest.h; path = ../EasyBus/IoCModuleTest.h; sourceTree = "<group>"; };
 		14BA0188188EE66600AF7655 /* getbusnextdepartures2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = getbusnextdepartures2.xml; sourceTree = "<group>"; };
 		14C1ACE118963BC1002CC9BD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DeparturesViewController.h; sourceTree = "<group>"; };
-		14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 		14C2E544168884B200E8A2FB /* LocationManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerTest.m; sourceTree = "<group>"; };
 		14C65C17189412FA007971CE /* 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.1.xcdatamodel; sourceTree = "<group>"; };
 		14CF430716597FA500834A23 /* FavoriteCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = FavoriteCell.h; sourceTree = "<group>"; };
@@ -315,9 +313,7 @@
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		14EF87ED167BC47D0058607C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		14F2129418AF9D5D00C439EB /* 2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.0.xcdatamodel; sourceTree = "<group>"; };
-		14F2129518AF9EF400C439EB /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		14F2129618AF9EF400C439EB /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		14F2129418AF9D5D00C439EB /* 2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 2.0.xcdatamodel; sourceTree = "<group>"; };
 		14F2129E18AF9EF500C439EB /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		14F2129F18AF9EF500C439EB /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		14F212A118AF9EF500C439EB /* FeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfo.h; sourceTree = "<group>"; };
@@ -326,6 +322,11 @@
 		14F212A518AFA22E00C439EB /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		14F212A718AFA22E00C439EB /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
 		14F212A818AFA22E00C439EB /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
+		14F212AD18AFB95D00C439EB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		14F212B018AFC0BF00C439EB /* NearStopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearStopsViewController.h; sourceTree = "<group>"; };
+		14F212B118AFC0BF00C439EB /* NearStopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearStopsViewController.m; sourceTree = "<group>"; };
+		14F212B318B09EE500C439EB /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		14F212B418B09EE500C439EB /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		14F249FA18A651660033166C /* StaticDataProducer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StaticDataProducer.m; path = ../EasyBusData/StaticDataProducer.m; sourceTree = "<group>"; };
 		14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Trip.h"; sourceTree = "<group>"; };
 		14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Trip.m"; sourceTree = "<group>"; };
@@ -339,6 +340,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14F212AE18AFB95D00C439EB /* MapKit.framework in Frameworks */,
 				14AD3C12162AF00400DF061A /* Foundation.framework in Frameworks */,
 				14AD3C10162AF00400DF061A /* UIKit.framework in Frameworks */,
 				140513751746798B00345B1D /* CoreData.framework in Frameworks */,
@@ -372,6 +374,7 @@
 				145440A7184656810019ED10 /* Images.xcassets */,
 				14405C921822373700843B20 /* StartingView */,
 				14CF4331165D567500834A23 /* DeparturesView */,
+				14F212AF18AFBDF900C439EB /* GeolocView */,
 				14CF4329165CCE7900834A23 /* FavoritesView */,
 				14CF432E165CF26000834A23 /* LinesView */,
 				14CF4330165CF27800834A23 /* StopsView */,
@@ -512,6 +515,7 @@
 		14AD3C0E162AF00400DF061A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14F212AD18AFB95D00C439EB /* MapKit.framework */,
 				14776D84174251DE008C7E2E /* libz.1.2.5.dylib */,
 				140513741746798B00345B1D /* CoreData.framework */,
 				14EF87ED167BC47D0058607C /* CoreLocation.framework */,
@@ -571,10 +575,10 @@
 				14B8B84A17FB3C1F003270B1 /* IoCModuleTest.m */,
 				14C2E544168884B200E8A2FB /* LocationManagerTest.m */,
 				14776D8617425290008C7E2E /* ZipArchiveTest.m */,
-				14CF431D165C1CCB00834A23 /* NSManagedObjectContextTripTest.m */,
 				14CF4323165C2CB300834A23 /* DeparturesManagerTest.m */,
+				14CF431D165C1CCB00834A23 /* NSManagedObjectContextTripTest.m */,
 				14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */,
-				14A540FE17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m */,
+				14A540FE17773E0700E18262 /* NSManagedObjectContextNetworkTest.m */,
 				14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */,
 				14E0EC2D1837BB6C008B6CA0 /* StaticDataLoaderWebTest.m */,
 				141EDDFC177B4807005DDC8C /* RoutesCsvReaderTest.m */,
@@ -609,6 +613,8 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
+				14F212B318B09EE500C439EB /* Group.h */,
+				14F212B418B09EE500C439EB /* Group.m */,
 				14F212A718AFA22E00C439EB /* Stop.h */,
 				14F212A818AFA22E00C439EB /* Stop.m */,
 				14F212A418AFA22E00C439EB /* Route.h */,
@@ -617,8 +623,6 @@
 				14F212A218AF9EF500C439EB /* FeedInfo.m */,
 				14F2129E18AF9EF500C439EB /* Trip.h */,
 				14F2129F18AF9EF500C439EB /* Trip.m */,
-				14F2129518AF9EF400C439EB /* Group.h */,
-				14F2129618AF9EF400C439EB /* Group.m */,
 				14B1F88B17D1D2ED009AE1FB /* Trip+Additions.h */,
 				14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+Additions.h */,
@@ -740,8 +744,6 @@
 				147480031663D4DC0091FF49 /* PageViewController.m */,
 				143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */,
 				143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */,
-				14C2BFAD164FE2E5006E3952 /* DeparturesViewController.h */,
-				14C2BFAE164FE2E5006E3952 /* DeparturesViewController.m */,
 				146161C1182AAA860012A1CE /* DeparturesTableViewController.h */,
 				146161C2182AAA860012A1CE /* DeparturesTableViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
@@ -770,6 +772,15 @@
 				14EF87EA167BBF370058607C /* LocationManager.m */,
 			);
 			name = Location;
+			sourceTree = "<group>";
+		};
+		14F212AF18AFBDF900C439EB /* GeolocView */ = {
+			isa = PBXGroup;
+			children = (
+				14F212B018AFC0BF00C439EB /* NearStopsViewController.h */,
+				14F212B118AFC0BF00C439EB /* NearStopsViewController.m */,
+			);
+			name = GeolocView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -968,7 +979,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B42DC61656BD5D0070AA9D /* Depart.h in Sources */,
-				14B42DC71656BD5D0070AA9D /* DeparturesViewController.h in Sources */,
 				14ADC8F91649C5D700B50FA2 /* AppDelegate.h in Sources */,
 				14ADC8FC1649C5D700B50FA2 /* LinesViewController.h in Sources */,
 				14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */,
@@ -993,7 +1003,6 @@
 				14DDB98117FCA933000D1C5E /* StopTime.m in Sources */,
 				1407D67B1649B648002F37AD /* DirectionViewController.h in Sources */,
 				140AA0D318281C78008EFF54 /* NSObject+AsyncPerformBlock.m in Sources */,
-				14C2BFAF164FE2E5006E3952 /* DeparturesViewController.m in Sources */,
 				14B42DD01656BF090070AA9D /* FavoritesViewController.m in Sources */,
 				14CF430916597FA500834A23 /* FavoriteCell.m in Sources */,
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
@@ -1002,9 +1011,10 @@
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
 				14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */,
 				146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */,
+				14F212B518B09EE500C439EB /* Group.m in Sources */,
 				14CF433C165EB41200834A23 /* DirectionCell.h in Sources */,
 				146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */,
-				14F2129718AF9EF400C439EB /* Group.m in Sources */,
+				14F212B218AFC0BF00C439EB /* NearStopsViewController.m in Sources */,
 				14CF433D165EB41700834A23 /* LineCell.h in Sources */,
 				14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */,
 				146161CC182C160B0012A1CE /* Constants.m in Sources */,
@@ -1058,7 +1068,7 @@
 				14405C91182175BF00843B20 /* StaticDataLoaderLocalTest.m in Sources */,
 				14DDB97517FC802E000D1C5E /* StopTimesCsvReaderTest.m in Sources */,
 				14B8B84C17FB3C4E003270B1 /* IoCModuleTest.m in Sources */,
-				14A540FF17773E0700E18262 /* NSManagedObjectContextEasyBusTest.m in Sources */,
+				14A540FF17773E0700E18262 /* NSManagedObjectContextNetworkTest.m in Sources */,
 				141EDDFD177B4807005DDC8C /* RoutesCsvReaderTest.m in Sources */,
 				14E2AD8317D64E2400ED4546 /* NSManagedObjectContextGroupTest.m in Sources */,
 			);

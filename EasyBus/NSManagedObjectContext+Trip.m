@@ -30,12 +30,6 @@
         //Log
         NSLog(@"Error, resultSet should not be nil");
     }
-
-#warning Voir impact de la suppression du tri
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-//                                        initWithKey:@"route.id" ascending:YES];
-//    [mutableFetchResults sortUsingDescriptors:@[sortDescriptor]];
-//    
     return fetchResults;
 }
 
@@ -69,12 +63,6 @@
         trip.route =  route;
         trip.stop = stop;
         trip.direction = direction;
-        
-        // Also create a new group and assign trip to it
-        Group* newGroup = (Group *)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self];
-        newGroup.name =  trip.stop.name;
-        newGroup.terminus = trip.terminus;
-        [newGroup addTripsObject:trip];
     }
     
     //Retour

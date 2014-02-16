@@ -76,7 +76,7 @@ objection_requires(@"managedObjectContext")
         Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
         
         //add departure
-        return [NSString stringWithFormat:@"vers %@", group.terminus];
+        return group.name;
     }
     return nil;
 }

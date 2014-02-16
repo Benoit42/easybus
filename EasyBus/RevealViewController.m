@@ -30,11 +30,12 @@ objection_requires(@"managedObjectContext")
 
     //Instanciation des controllers
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
-    self.departuresPageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
-    self.favoritesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
-    self.linesNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
-    self.creditsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
-    self.feedInfoNavigationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedInfoNavigationController"];
+    self.departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesNavigationController"];
+    self.mapViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MapNavigationController"];
+    self.favoritesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
+    self.linesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
+    self.creditsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
+    self.feedInfoViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedInfoNavigationController"];
     
     //Pas d'interaction lorsque le menu est affiché
     [self tapGestureRecognizer];
@@ -43,32 +44,36 @@ objection_requires(@"managedObjectContext")
     self.rearViewController = self.menuViewController;
     if (self.managedObjectContext.trips.count == 0) {
         //Si pas de favoris, on affiche la liste des lignes
-        self.frontViewController = self.linesNavigationController;
+        self.frontViewController = self.linesViewController;
     }
     else {
         //Sinon on affiche la liste des départs
-        self.frontViewController = self.departuresPageViewController;
+        self.frontViewController = self.departuresViewController;
     }
 }
 
 - (void) showDepartures {
-    [self setFrontViewController:self.departuresPageViewController animated:YES];
+    [self setFrontViewController:self.departuresViewController animated:YES];
+}
+
+- (void) showMap {
+    [self setFrontViewController:self.mapViewController animated:YES];
 }
 
 - (void) showLines {
-    [self setFrontViewController:self.linesNavigationController animated:YES];
+    [self setFrontViewController:self.linesViewController animated:YES];
 }
 
 - (void) showFavorites {
-    [self setFrontViewController:self.favoritesNavigationController animated:YES];
+    [self setFrontViewController:self.favoritesViewController animated:YES];
 }
 
 - (void) showCredits {
-    [self setFrontViewController:self.creditsNavigationController animated:YES];
+    [self setFrontViewController:self.creditsViewController animated:YES];
 }
 
 - (void) showFeedInfo {
-    [self setFrontViewController:self.feedInfoNavigationViewController animated:YES];
+    [self setFrontViewController:self.feedInfoViewController animated:YES];
 }
 
 - (void) showMenu {

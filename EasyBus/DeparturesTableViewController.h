@@ -14,7 +14,9 @@
 
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic) DeparturesManager* departuresManager;
-@property(nonatomic) Group* group;
+@property(nonatomic) NSArray* trips;
+@property(nonatomic) NSString* title;
+@property(nonatomic) NSInteger page;
 
 - (IBAction)refreshAsked:(id)sender;
 

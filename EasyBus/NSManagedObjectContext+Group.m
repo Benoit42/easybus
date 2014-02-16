@@ -18,7 +18,6 @@
 #pragma mark - Manage groupes
 - (NSArray*) groups {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"terminus" ascending:YES]];
     
     NSError *error = nil;
     NSArray *fetchResults = [self executeFetchRequest:request error:&error];
@@ -34,12 +33,10 @@
     return fetchResults;
 }
 
-- (Group*) addGroupWithName:(NSString*)name andTerminus:(NSString*)terminus {
+- (Group*) addGroupWithName:(NSString*)name {
     // Create and configure a new instance of the Group entity.
     Group* group = (Group*)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self];
     group.name =  name;
-    group.terminus = terminus;
-    
     
     //Retour
     return group;

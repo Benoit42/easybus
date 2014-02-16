@@ -13,13 +13,15 @@
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic) UIViewController* menuViewController;
-@property (nonatomic) UIViewController* departuresPageViewController;
-@property (nonatomic) UIViewController* favoritesNavigationController;
-@property (nonatomic) UIViewController* linesNavigationController;
-@property (nonatomic) UIViewController* creditsNavigationController;
-@property (nonatomic) UIViewController* feedInfoNavigationViewController;
+@property (nonatomic) UIViewController* departuresViewController;
+@property (nonatomic) UIViewController* mapViewController;
+@property (nonatomic) UIViewController* favoritesViewController;
+@property (nonatomic) UIViewController* linesViewController;
+@property (nonatomic) UIViewController* creditsViewController;
+@property (nonatomic) UIViewController* feedInfoViewController;
 
 - (void) showDepartures;
+- (void) showMap;
 - (void) showLines;
 - (void) showFavorites;
 - (void) showCredits;

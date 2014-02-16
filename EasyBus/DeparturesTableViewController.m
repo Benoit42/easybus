@@ -11,7 +11,7 @@
 #import "NSObject+AsyncPerformBlock.h"
 #import "DeparturesTableViewController.h"
 #import "Constants.h"
-#import "DeparturesViewController.h"
+#import "DeparturesTableViewController.h"
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
 #import "NSManagedObjectContext+Trip.h"
@@ -40,9 +40,10 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     [super viewDidLoad];
     
     //Pré-conditions
-    NSParameterAssert(self.managedObjectContext != nil);
-    NSParameterAssert(self.departuresManager != nil);
-    NSParameterAssert(self.group != nil);
+    NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.departuresManager);
+    NSParameterAssert(self.trips);
+    NSParameterAssert(self.title);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -60,6 +61,9 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    //update header
+    [self.navigationItem setTitle:self.title];
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
@@ -136,7 +140,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 {
     // Return the number of rows in the section
     // If no departures, still 1 row to indicate no departures
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:self.trips];
     NSInteger count = MAX(departures.count, 1);
     return count;
 }
@@ -147,7 +151,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     UITableViewCell* cell;
     
     //get departures
-    NSArray* departures = [self.departuresManager getDeparturesForGroupe:self.group];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:self.trips];
     if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];

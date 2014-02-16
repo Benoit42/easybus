@@ -70,7 +70,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 #pragma mark - scrolling
 - (void)scrollToPage:(NSInteger)page {
     //Get current page
-    int currentPage = ((DeparturesViewController*)[[self viewControllers]objectAtIndex:0]).page;
+    int currentPage = ((DeparturesTableViewController*)[[self viewControllers]objectAtIndex:0]).page;
     if (page != currentPage) {
         int increment = (page>currentPage)?1:-1;
         int nextPage = currentPage+increment;
@@ -97,24 +97,29 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 }
 
 - (void)gotoNearestPage {
-    //Get location
+    //Get current location
     CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
     NSArray* groupes = [self.managedObjectContext groups];
-    double minDistance = MAXFLOAT;
-    int index = -1;
-    for (int i=0; i<[groupes count]; i++) {
-        Group* groupe = [groupes objectAtIndex:i];
-        Trip* firstTrip = [[groupe trips] objectAtIndex:0];
-        CLLocationDistance currentDistance = [firstTrip.stop.location distanceFromLocation:currentLocation];
-        if (currentDistance < minDistance) {
-            index = i;
-            minDistance = currentDistance;
+    NSArray* sortedGroupes = [groupes sortedArrayUsingComparator:^NSComparisonResult(Group* groupe1, Group* groupe2) {
+        //Remarque : should always have trips, but prefer toi check anymore
+        if (groupe1.trips.count > 0 && groupe2.trips.count > 0) {
+            return [[NSNumber numberWithDouble:[((Trip*)groupe1.trips[0]).stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[((Trip*)groupe2.trips[0]).stop.location distanceFromLocation:currentLocation]]];
         }
-    }
+        else if (groupe1.trips.count > 0) {
+            return NSOrderedAscending;
+        }
+        else if (groupe2.trips.count > 0) {
+            return NSOrderedAscending;
+        }
+        else {
+            return NSOrderedSame;
+        }
+    }];
     
     //Move page view to nearest groupe
+    NSUInteger index = [groupes indexOfObject:sortedGroupes[0]];
     [self scrollToPage:index];
 }
 

@@ -9,7 +9,7 @@
 #import <Objection/Objection.h>
 #import "MenuViewController.h"
 #import "RevealViewController.h"
-#import "NSManagedObjectContext+Trip.h"
+#import "NSManagedObjectContext+Group.h"
 
 @implementation MenuViewController
 objection_requires(@"managedObjectContext")
@@ -35,7 +35,7 @@ objection_requires(@"managedObjectContext")
     [super viewWillAppear:animated];
     
     //Mise à jour de l'UI
-    BOOL haveFavorites = self.managedObjectContext.trips.count > 0;
+    BOOL haveFavorites = self.managedObjectContext.groups.count > 0;
     self.favoritesButton.enabled = haveFavorites;
     self.organizeButton.enabled = haveFavorites;
 }
@@ -44,6 +44,11 @@ objection_requires(@"managedObjectContext")
 - (IBAction)favoritesButton:(id)sender {
     RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
     [revealViewController showDepartures];
+}
+
+- (IBAction)nearbyButton:(id)sender {
+    RevealViewController* revealViewController = (RevealViewController*)self.parentViewController;
+    [revealViewController showMap];
 }
 
 - (IBAction)linesButton:(id)sender {

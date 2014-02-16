@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Depart.h"
-#import "Group.h"
 
 @interface DeparturesManager : NSObject <NSXMLParserDelegate>
 
@@ -23,7 +22,7 @@ FOUNDATION_EXPORT NSString* const departuresUpdateSucceededNotification;
 @property(nonatomic) NSDate* _refreshDate;
 
 - (NSArray*) getDepartures;
-- (NSArray*) getDeparturesForGroupe:(Group*)groupe;
+- (NSArray*) getDeparturesForTrips:(NSArray*)trips;
 - (void) refreshDepartures:(NSArray*)trips;
 
 @end

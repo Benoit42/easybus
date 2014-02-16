@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DeparturesViewController.h"
+#import "DeparturesTableViewController.h"
 
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
-- (DeparturesViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
+- (DeparturesTableViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 - (void)reset;
 
 @end
