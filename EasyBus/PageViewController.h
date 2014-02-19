@@ -13,6 +13,7 @@
 @interface PageViewController : UIPageViewController <UIPageViewControllerDelegate>
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic) DeparturesManager* departuresManager;
 
 @property (nonatomic, retain) LocationManager *locationManager;
 @property (nonatomic, retain) PageViewControllerDatasource *pageDataSource;

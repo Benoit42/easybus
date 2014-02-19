@@ -29,7 +29,6 @@ objection_requires(@"managedObjectContext")
     NSParameterAssert(self.managedObjectContext != nil);
 
     //Instanciation des controllers
-    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
     self.departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesPageViewController"];
     self.nearStopsController = [self.storyboard instantiateViewControllerWithIdentifier:@"NearStopsNavigationController"];
     self.favoritesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
@@ -41,7 +40,6 @@ objection_requires(@"managedObjectContext")
     [self tapGestureRecognizer];
     
     //Affectation des vues
-    self.rearViewController = self.menuViewController;
     if (self.managedObjectContext.trips.count == 0) {
         //Si pas de favoris, on affiche la liste des lignes
         self.frontViewController = self.linesViewController;

@@ -24,12 +24,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
-#pragma mark - Constructor/destructor
-- (void)dealloc {
-    //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,9 +32,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     NSParameterAssert(self.managedObjectContext != nil);
     NSParameterAssert(self.departuresManager != nil);
     NSParameterAssert(self.staticDataLoader != nil);
-    
-    // Abonnement au notifications du contexte (même en arrière plan)
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataUpdated:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.managedObjectContext];}
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -91,13 +83,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"staticDataLo
     [self performBlockOnMainThread:^{
         [self performSegueWithIdentifier:@"start" sender:self];
     }];
-}
-
-#pragma mark - refreshing departures
-- (void)dataUpdated:(NSNotification *)notification {
-    //Raffraichissement des départs
-    NSArray* trips = [self.managedObjectContext trips];
-    [self.departuresManager refreshDepartures:trips];
 }
 
 #pragma mark - progress view

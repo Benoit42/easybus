@@ -36,7 +36,7 @@ objection_requires(@"managedObjectContext")
 #pragma - Autres
 
 - (void)reset {
-        self.departuresViewControlers = [NSMutableArray new];
+    self.departuresViewControlers = [NSMutableArray new];
 }
 
 - (DeparturesNavigationController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard

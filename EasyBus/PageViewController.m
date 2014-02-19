@@ -14,6 +14,8 @@
 #import "DeparturesManager.h"
 #import "Trip+Additions.h"
 #import "NSManagedObjectContext+Group.h"
+#import "NSManagedObjectContext+Trip.h"
+#import "AppDelegate.h"
 
 @interface PageViewController()
 
@@ -22,7 +24,13 @@
 @end
 
 @implementation PageViewController
-objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource")
+objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource", @"departuresManager")
+
+#pragma mark - Constructor/destructor
+- (void)dealloc {
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - IoC
 - (void)awakeFromNib {
@@ -46,25 +54,29 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 
     // Couleur de fond vert Star
     self.view.backgroundColor = Constants.starGreenColor;
+
+    // Abonnement au notifications du contexte (même en arrière plan)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataUpdated:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.managedObjectContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:applicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //Reinit pages
-    [self.pageDataSource reset];
-    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
-    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
     //Move page view to nearest groupe
     [self gotoNearestPage];
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
+
+    [self performBlockInBackground:^{
+        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:departuresUpdateStartedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:departuresUpdateSucceededNotification object:nil];
 }
 
 #pragma mark - scrolling
@@ -123,7 +135,26 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     [self scrollToPage:index];
 }
 
-#pragma mark - refreshing location
+#pragma mark - notifications
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    NSLog(@"Application did become active, refreshing");
+#warning background pas nécessaire ici ?
+    [self performBlockInBackground:^{
+        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    }];
+}
+
+- (void)dataUpdated:(NSNotification *)notification {
+    //Raffraichissement des départs
+    NSArray* trips = [self.managedObjectContext trips];
+    [self.departuresManager refreshDepartures:trips];
+
+    //Reset des pages
+    [self.pageDataSource reset];
+    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
+    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+}
+
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     [self.locationManager startUpdatingLocation];
 }

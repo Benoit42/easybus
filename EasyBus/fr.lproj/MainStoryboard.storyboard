@@ -64,7 +64,7 @@
                     </view>
                     <connections>
                         <segue destination="sTh-WR-Gyi" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegue" id="1Ds-8H-4P7"/>
-                        <segue destination="2uC-Xe-U03" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="25Y-TO-rs4"/>
+                        <segue destination="2uC-Xe-U03" kind="custom" customClass="SWRevealViewControllerSegue" id="wVL-cb-I0B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfW-GP-8yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1357,12 +1357,6 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="République" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlR-Gm-DSo">
-                                            <rect key="frame" x="108" y="66" width="192" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="17"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="BR5-en-lBz" secondAttribute="trailing" constant="27" id="0VP-9s-Az4"/>
@@ -1385,7 +1379,6 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                                     <outlet property="_heure" destination="lWE-ap-ZMO" id="fyP-6a-sxH"/>
                                     <outlet property="_min" destination="BR5-en-lBz" id="Za6-32-0qp"/>
                                     <outlet property="_picto" destination="SC8-Wd-QxK" id="etA-lv-RmB"/>
-                                    <outlet property="direction" destination="hlR-Gm-DSo" id="Y2j-cq-ywS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoDepartureCell" rowHeight="88" id="YXW-61-GDh" customClass="NoDepartureCell">

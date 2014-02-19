@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DeparturesTableViewController.h"
+#import "Group.h"
 
 @interface DeparturesNavigationController : UINavigationController
 
+@property(nonatomic) Group* group;
 @property(nonatomic) NSArray* trips;
 @property(nonatomic) NSString* title;
 @property(nonatomic) NSInteger page;

@@ -12,7 +12,6 @@
 
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic) UIViewController* menuViewController;
 @property (nonatomic) UIViewController* departuresViewController;
 @property (nonatomic) UIViewController* nearStopsController;
 @property (nonatomic) UIViewController* favoritesViewController;
