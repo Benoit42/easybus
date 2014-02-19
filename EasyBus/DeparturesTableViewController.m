@@ -15,6 +15,8 @@
 #import "DepartureCell.h"
 #import "NoDepartureCell.h"
 #import "NSManagedObjectContext+Trip.h"
+#import "Route+Additions.h"
+#import "AppDelegate.h"
 
 @interface DeparturesTableViewController()
 
@@ -28,7 +30,7 @@
     UIFont* refreshLabelFont;
 }
 objection_requires(@"managedObjectContext", @"departuresManager")
-
+#warning managedObjectContext inutile ?
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
@@ -42,8 +44,6 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext);
     NSParameterAssert(self.departuresManager);
-    NSParameterAssert(self.trips);
-    NSParameterAssert(self.title);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -62,10 +62,15 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    //Pré-conditions
+    NSParameterAssert(self.trips);
+    NSParameterAssert(self.title);
+
     //update header
     [self.navigationItem setTitle:self.title];
 
     // Abonnement au notifications des départs
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:applicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailedNotification object:nil];
@@ -84,6 +89,14 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 }
 
 #pragma mark - Gestion de la mise à jour des départs
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    NSLog(@"Application did become active, refreshing");
+#warning background pas nécessaire ici ?
+    //    [self performBlockInBackground:^{
+    [self.departuresManager refreshDepartures:self.trips];
+    //    }];
+}
+
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
     NSLog(@"Update started");
     [self performBlockOnMainThread:^{
@@ -130,9 +143,10 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 #pragma mark - Table view refresh control
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
-    [self performBlockInBackground:^{
+#warning background pas nécessaire ici ?
+//    [self performBlockInBackground:^{
         [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
-    }];
+//    }];
 }
 
 #pragma mark - Table view data source
@@ -165,6 +179,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
         [[(DepartureCell*)cell _delai] setText:libDelai];
         [[(DepartureCell*)cell _delai] setTextColor:depart.isRealTime?Constants.starGreenColor:UIColor.blackColor];
         [[(DepartureCell*)cell _heure] setText:[_timeIntervalFormatter stringFromDate:[depart _heure]]];
+        [[(DepartureCell*)cell direction] setText:[depart.route terminusForDirection:depart._direction] ];
     }
     else {
         // no departure row

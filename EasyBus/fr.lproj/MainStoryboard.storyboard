@@ -64,7 +64,7 @@
                     </view>
                     <connections>
                         <segue destination="sTh-WR-Gyi" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegue" id="1Ds-8H-4P7"/>
-                        <segue destination="Yge-jL-oMn" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="Yb8-Fo-RBX"/>
+                        <segue destination="2uC-Xe-U03" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="25Y-TO-rs4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfW-GP-8yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -118,7 +118,7 @@
                                                     <rect key="frame" x="20" y="7" width="280" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="20"/>
-                                                    <state key="normal" title="mes bus">
+                                                    <state key="normal" title="favoris">
                                                         <color key="titleColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -338,7 +338,8 @@
         <!--Page View Controller-->
         <scene sceneID="8Bb-oS-ofe">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="8" navigationOrientation="horizontal" spineLocation="none" id="2uC-Xe-U03" customClass="PageViewController" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="DeparturesPageViewController" transitionStyle="scroll" pageSpacing="8" navigationOrientation="horizontal" spineLocation="none" id="2uC-Xe-U03" customClass="PageViewController" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="mXZ-xM-6sR">
                         <barButtonItem key="leftBarButtonItem" image="menu-icon" id="FsY-Mj-HJD">
                             <connections>
@@ -347,34 +348,18 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="smt-T2-vk6" kind="push" identifier="Bidon, juset pour la représentation graphique" id="cM6-AX-zyj"/>
+                        <segue destination="rDe-GW-T46" kind="custom" identifier="Bidon" id="lwe-K7-SZV"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vc6-O1-Uuo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8bb-tZ-dsM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1268" y="-52"/>
+            <point key="canvasLocation" x="750" y="-44"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="i1A-kn-Yi3">
-            <objects>
-                <navigationController storyboardIdentifier="DeparturesNavigationController" definesPresentationContext="YES" id="Yge-jL-oMn" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="WXf-u8-BDg">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.28627452250000002" green="0.89411771299999998" blue="0.68235296010000002" alpha="1" colorSpace="deviceRGB"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="2uC-Xe-U03" kind="relationship" relationship="rootViewController" id="gx3-ov-BsJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d98-NQ-Hoz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="771" y="-52"/>
-        </scene>
-        <!--Navigation Controller-->
+        <!--Near Stops Navigation Controller-->
         <scene sceneID="T7v-t1-lAz">
             <objects>
-                <navigationController storyboardIdentifier="MapNavigationController" definesPresentationContext="YES" id="npE-55-XeF" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NearStopsNavigationController" definesPresentationContext="YES" id="npE-55-XeF" userLabel="Near Stops Navigation Controller" customClass="NearStopsNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="2HX-PM-eDM">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.28627452254295349" green="0.89411771297454834" blue="0.68235296010971069" alpha="1" colorSpace="deviceRGB"/>
@@ -385,12 +370,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsK-jQ-Pr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="771" y="630"/>
+            <point key="canvasLocation" x="750" y="630"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Favorites Navigation Controller-->
         <scene sceneID="dGE-f7-2Kt">
             <objects>
-                <navigationController storyboardIdentifier="FavoritesNavigationController" definesPresentationContext="YES" id="AtF-ds-MhM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FavoritesNavigationController" definesPresentationContext="YES" id="AtF-ds-MhM" userLabel="Favorites Navigation Controller" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8F-gO-7J6">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
@@ -487,10 +472,10 @@
             </objects>
             <point key="canvasLocation" x="1256" y="2078"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Feed Info Navigation Controller-->
         <scene sceneID="5SH-Rt-XPn">
             <objects>
-                <navigationController storyboardIdentifier="FeedInfoNavigationController" definesPresentationContext="YES" id="PBb-UL-G70" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FeedInfoNavigationController" definesPresentationContext="YES" id="PBb-UL-G70" userLabel="Feed Info Navigation Controller" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="oai-5X-Ber">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.270588249" green="0.90588241820000004" blue="0.73333334920000004" alpha="1" colorSpace="deviceRGB"/>
@@ -573,10 +558,10 @@
             </objects>
             <point key="canvasLocation" x="1262" y="2840"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Credits Navigation Controller-->
         <scene sceneID="esn-3b-6Kt">
             <objects>
-                <navigationController storyboardIdentifier="CreditsNavigationController" definesPresentationContext="YES" id="Kek-bg-D4h" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CreditsNavigationController" definesPresentationContext="YES" id="Kek-bg-D4h" userLabel="Credits Navigation Controller" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="LKY-Bl-8H8">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.27058824896812439" green="0.90588241815567017" blue="0.73333334922790527" alpha="1" colorSpace="deviceRGB"/>
@@ -1085,10 +1070,26 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
             </objects>
             <point key="canvasLocation" x="750" y="1352"/>
         </scene>
-        <!--Departure Table View Controller-->
+        <!--Near Stops Departures Navigation Controller-->
+        <scene sceneID="HxK-0S-tU2">
+            <objects>
+                <navigationController storyboardIdentifier="DeparturesNavigationController" definesPresentationContext="YES" id="rDe-GW-T46" userLabel="Near Stops Departures Navigation Controller" customClass="DeparturesNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snN-oS-xlT">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.28627452250000002" green="0.89411771299999998" blue="0.68235296010000002" alpha="1" colorSpace="deviceRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Dag-fS-8xG" kind="relationship" relationship="rootViewController" id="p8I-0c-PmP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v4P-VH-PeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1268" y="-44"/>
+        </scene>
+        <!--Near Stops Departure Table View Controller-->
         <scene sceneID="7Vy-tH-iQX">
             <objects>
-                <tableViewController storyboardIdentifier="DeparturesTableViewController" id="smt-T2-vk6" userLabel="Departure Table View Controller" customClass="DeparturesTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NearStopsDeparturesTableViewController" id="smt-T2-vk6" userLabel="Near Stops Departure Table View Controller" customClass="DeparturesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="H9b-C2-lui">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1133,6 +1134,12 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="République" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vl0-vr-Dwd">
+                                            <rect key="frame" x="108" y="63" width="192" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="arL-8l-ksb" firstAttribute="centerY" secondItem="mYl-2J-4Cv" secondAttribute="centerY" id="0n7-FM-fJu"/>
@@ -1155,6 +1162,7 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                                     <outlet property="_heure" destination="Bc9-m9-3bq" id="Fh7-XJ-IXN"/>
                                     <outlet property="_min" destination="iJT-jn-Lnt" id="aQ2-L8-NYF"/>
                                     <outlet property="_picto" destination="mYl-2J-4Cv" id="JlK-NI-XRU"/>
+                                    <outlet property="direction" destination="Vl0-vr-Dwd" id="fhP-TA-2Bx"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoDepartureCell" id="4Af-BA-LLC" customClass="NoDepartureCell">
@@ -1200,7 +1208,7 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhh-bm-kw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bmm-L0-BCY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="281"/>
+            <point key="canvasLocation" x="1759" y="630"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="pVh-td-Bki">
@@ -1302,6 +1310,135 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
             </objects>
             <point key="canvasLocation" x="1268" y="630"/>
         </scene>
+        <!--Departures Table View Controller-->
+        <scene sceneID="jYn-L8-8BL">
+            <objects>
+                <tableViewController storyboardIdentifier="FavoritesDeparturesTableViewController" id="Dag-fS-8xG" customClass="DeparturesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="rLj-eK-9w9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="88" id="Xwr-k0-D5s" customClass="DepartureCell">
+                                <rect key="frame" x="0.0" y="86" width="320" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xwr-k0-D5s" id="2Gt-U3-npd">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="0064" translatesAutoresizingMaskIntoConstraints="NO" id="SC8-Wd-QxK">
+                                            <rect key="frame" x="20" y="4" width="80" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="e12-Uc-807"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="45" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbL-bN-F7l">
+                                            <rect key="frame" x="145" y="5" width="81" height="77"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="68"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="17:34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWE-ap-ZMO">
+                                            <rect key="frame" x="216" y="39" width="67" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="67" id="tb4-9e-ZN3"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="19"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR5-en-lBz">
+                                            <rect key="frame" x="234" y="9" width="59" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="gdR-Ox-ngy"/>
+                                                <constraint firstAttribute="width" constant="59" id="xtt-iB-3He"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="29"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="République" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlR-Gm-DSo">
+                                            <rect key="frame" x="108" y="66" width="192" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="BR5-en-lBz" secondAttribute="trailing" constant="27" id="0VP-9s-Az4"/>
+                                        <constraint firstAttribute="trailing" secondItem="lWE-ap-ZMO" secondAttribute="trailing" constant="37" id="4h1-aA-dK2"/>
+                                        <constraint firstItem="GbL-bN-F7l" firstAttribute="centerY" secondItem="SC8-Wd-QxK" secondAttribute="centerY" id="8sX-pJ-8lP"/>
+                                        <constraint firstItem="SC8-Wd-QxK" firstAttribute="leading" secondItem="2Gt-U3-npd" secondAttribute="leading" constant="20" symbolic="YES" id="BmE-Gd-8fK"/>
+                                        <constraint firstItem="GbL-bN-F7l" firstAttribute="leading" secondItem="SC8-Wd-QxK" secondAttribute="trailing" constant="45" id="CCh-dy-gWr"/>
+                                        <constraint firstItem="SC8-Wd-QxK" firstAttribute="top" secondItem="2Gt-U3-npd" secondAttribute="top" constant="4" id="CKx-9m-bPn"/>
+                                        <constraint firstItem="BR5-en-lBz" firstAttribute="leading" secondItem="GbL-bN-F7l" secondAttribute="trailing" constant="8" symbolic="YES" id="eeF-s9-23z"/>
+                                        <constraint firstAttribute="bottom" secondItem="SC8-Wd-QxK" secondAttribute="bottom" constant="3" id="fyV-Q4-4a7"/>
+                                        <constraint firstItem="GbL-bN-F7l" firstAttribute="top" secondItem="2Gt-U3-npd" secondAttribute="top" constant="5" id="o1q-aR-RKi"/>
+                                        <constraint firstItem="lWE-ap-ZMO" firstAttribute="top" secondItem="BR5-en-lBz" secondAttribute="bottom" id="pF8-cZ-dzH"/>
+                                        <constraint firstItem="BR5-en-lBz" firstAttribute="top" secondItem="2Gt-U3-npd" secondAttribute="top" constant="9" id="r4s-iu-sCN"/>
+                                        <constraint firstItem="GbL-bN-F7l" firstAttribute="baseline" secondItem="lWE-ap-ZMO" secondAttribute="baseline" constant="1" id="ugU-Bf-9lq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="_delai" destination="GbL-bN-F7l" id="TWf-gy-vqE"/>
+                                    <outlet property="_heure" destination="lWE-ap-ZMO" id="fyP-6a-sxH"/>
+                                    <outlet property="_min" destination="BR5-en-lBz" id="Za6-32-0qp"/>
+                                    <outlet property="_picto" destination="SC8-Wd-QxK" id="etA-lv-RmB"/>
+                                    <outlet property="direction" destination="hlR-Gm-DSo" id="Y2j-cq-ywS"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoDepartureCell" rowHeight="88" id="YXW-61-GDh" customClass="NoDepartureCell">
+                                <rect key="frame" x="0.0" y="174" width="320" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YXW-61-GDh" id="sua-NW-QK8">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="aucun départ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ow8-5f-Vmh">
+                                            <rect key="frame" x="20" y="11" width="280" height="66"/>
+                                            <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="30"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ow8-5f-Vmh" firstAttribute="leading" secondItem="sua-NW-QK8" secondAttribute="leading" constant="20" symbolic="YES" id="9TN-U0-YaS"/>
+                                        <constraint firstAttribute="bottom" secondItem="ow8-5f-Vmh" secondAttribute="bottom" constant="10" id="V5k-pg-Sd1"/>
+                                        <constraint firstItem="ow8-5f-Vmh" firstAttribute="top" secondItem="sua-NW-QK8" secondAttribute="top" constant="11" id="VSU-L0-gfr"/>
+                                        <constraint firstAttribute="trailing" secondItem="ow8-5f-Vmh" secondAttribute="trailing" constant="20" symbolic="YES" id="wFu-U0-Xfc"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="_message" destination="ow8-5f-Vmh" id="jqo-Ib-bkG"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Dag-fS-8xG" id="18I-mz-orF"/>
+                            <outlet property="delegate" destination="Dag-fS-8xG" id="GGL-i2-bMM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="M0e-Ix-H7L">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" id="O4v-9b-svI">
+                            <connections>
+                                <segue destination="Ii6-6D-qKr" kind="unwind" unwindAction="unwindToMenu:" id="2c3-rW-flx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="5Xc-RD-bKz">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshAsked:" destination="Dag-fS-8xG" eventType="valueChanged" id="rHX-CF-dl9"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tpe-uC-xGV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ii6-6D-qKr" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1759" y="-44"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0064" width="100" height="100"/>
@@ -1314,7 +1451,4 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="uq2-K3-OZJ"/>
-    </inferredMetricsTieBreakers>
 </document>

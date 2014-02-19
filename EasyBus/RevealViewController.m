@@ -30,8 +30,8 @@ objection_requires(@"managedObjectContext")
 
     //Instanciation des controllers
     self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
-    self.departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesNavigationController"];
-    self.mapViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MapNavigationController"];
+    self.departuresViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DeparturesPageViewController"];
+    self.nearStopsController = [self.storyboard instantiateViewControllerWithIdentifier:@"NearStopsNavigationController"];
     self.favoritesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesNavigationController"];
     self.linesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LinesNavigationController"];
     self.creditsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreditsNavigationController"];
@@ -57,7 +57,7 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void) showMap {
-    [self setFrontViewController:self.mapViewController animated:YES];
+    [self setFrontViewController:self.nearStopsController animated:YES];
 }
 
 - (void) showLines {

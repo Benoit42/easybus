@@ -8,6 +8,7 @@
 
 #import <Objection/Objection.h>
 #import "NearStopsViewController.h"
+#import "NearStopsNavigationController.h"
 #import "LinesNavigationController.h"
 #import "StopCell.h"
 #import "NSManagedObjectContext+Network.h"
@@ -50,7 +51,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return 3 stops
-    return 3;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,7 +75,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 }
 
 #pragma mark - Segues
--(void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"departuresView"]) {
         //Create group/trip
         Stop* selectedStop = self.stops[self.tableView.indexPathForSelectedRow.row];

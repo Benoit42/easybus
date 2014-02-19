@@ -94,8 +94,8 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
     //Create the trip
     Trip* trip = [self.managedObjectContext addTrip:route stop:stop direction:direction];
 
-    //Create the group and add the treip
-    NSString* groupName = [NSString stringWithFormat:@"vers %@", stop.name];
+    //Create the group and add the trip
+    NSString* groupName = [NSString stringWithFormat:@"vers %@", [route terminusForDirection:direction]];
     Group* group = [self.managedObjectContext addGroupWithName:groupName];
     [group addTripsObject:trip];
     

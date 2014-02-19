@@ -70,7 +70,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 #pragma mark - scrolling
 - (void)scrollToPage:(NSInteger)page {
     //Get current page
-    int currentPage = ((DeparturesTableViewController*)[[self viewControllers]objectAtIndex:0]).page;
+    int currentPage = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).page;
     if (page != currentPage) {
         int increment = (page>currentPage)?1:-1;
         int nextPage = currentPage+increment;

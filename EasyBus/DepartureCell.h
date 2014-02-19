@@ -14,5 +14,6 @@
 @property (nonatomic) IBOutlet UILabel* _delai;
 @property (weak, nonatomic) IBOutlet UILabel *_heure;
 @property (weak, nonatomic) IBOutlet UILabel *_min;
+@property (weak, nonatomic) IBOutlet UILabel *direction;
 
 @end

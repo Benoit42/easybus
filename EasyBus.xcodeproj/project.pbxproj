@@ -128,6 +128,8 @@
 		14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD7417D214E700ED4546 /* MainViewController.m */; };
 		14E2AD8317D64E2400ED4546 /* NSManagedObjectContextGroupTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */; };
 		14E459041810695900E2401A /* FeedInfoTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E459031810695900E2401A /* FeedInfoTmp.m */; };
+		14E6633D18B0BAC600D79895 /* DeparturesNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E6633C18B0BAC600D79895 /* DeparturesNavigationController.m */; };
+		14E6634018B13D7C00D79895 /* NearStopsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E6633F18B13D7C00D79895 /* NearStopsNavigationController.m */; };
 		14EEF35C181BC8BA00C1C061 /* gtfsUpdateFeedError.xml in Resources */ = {isa = PBXBuildFile; fileRef = 14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */; };
 		14EF87EB167BBF370058607C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87EA167BBF370058607C /* LocationManager.m */; };
 		14EF87EC167BC3860058607C /* LocationManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 14EF87E9167BBF370058607C /* LocationManager.h */; };
@@ -309,6 +311,10 @@
 		14E2AD8217D64E2400ED4546 /* NSManagedObjectContextGroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextGroupTest.m; sourceTree = "<group>"; };
 		14E459021810695900E2401A /* FeedInfoTmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoTmp.h; sourceTree = "<group>"; };
 		14E459031810695900E2401A /* FeedInfoTmp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoTmp.m; sourceTree = "<group>"; };
+		14E6633B18B0BAC600D79895 /* DeparturesNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesNavigationController.h; sourceTree = "<group>"; };
+		14E6633C18B0BAC600D79895 /* DeparturesNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesNavigationController.m; sourceTree = "<group>"; };
+		14E6633E18B13D7C00D79895 /* NearStopsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearStopsNavigationController.h; sourceTree = "<group>"; };
+		14E6633F18B13D7C00D79895 /* NearStopsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearStopsNavigationController.m; sourceTree = "<group>"; };
 		14EEF35B181BC8BA00C1C061 /* gtfsUpdateFeedError.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gtfsUpdateFeedError.xml; sourceTree = "<group>"; };
 		14EF87E9167BBF370058607C /* LocationManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = LocationManager.h; sourceTree = "<group>"; };
 		14EF87EA167BBF370058607C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -744,6 +750,8 @@
 				147480031663D4DC0091FF49 /* PageViewController.m */,
 				143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */,
 				143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */,
+				14E6633B18B0BAC600D79895 /* DeparturesNavigationController.h */,
+				14E6633C18B0BAC600D79895 /* DeparturesNavigationController.m */,
 				146161C1182AAA860012A1CE /* DeparturesTableViewController.h */,
 				146161C2182AAA860012A1CE /* DeparturesTableViewController.m */,
 				14CF4345165FEA3400834A23 /* DepartureCell.h */,
@@ -777,6 +785,8 @@
 		14F212AF18AFBDF900C439EB /* GeolocView */ = {
 			isa = PBXGroup;
 			children = (
+				14E6633E18B13D7C00D79895 /* NearStopsNavigationController.h */,
+				14E6633F18B13D7C00D79895 /* NearStopsNavigationController.m */,
 				14F212B018AFC0BF00C439EB /* NearStopsViewController.h */,
 				14F212B118AFC0BF00C439EB /* NearStopsViewController.m */,
 			);
@@ -1031,6 +1041,7 @@
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
 				14F212A318AF9EF500C439EB /* FeedInfo.m in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
+				14E6634018B13D7C00D79895 /* NearStopsNavigationController.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
 				14F212A918AFA22E00C439EB /* Stop.m in Sources */,
@@ -1042,6 +1053,7 @@
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
 				14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */,
 				14B1F88D17D1D2ED009AE1FB /* Trip+Additions.m in Sources */,
+				14E6633D18B0BAC600D79895 /* DeparturesNavigationController.m in Sources */,
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 			);

@@ -17,6 +17,8 @@
 @implementation AppDelegate
 objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager")
 
+NSString* const applicationDidBecomeActiveNotification = @"applicationDidBecomeActiveNotification";
+
 #pragma lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -68,11 +70,8 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //update departures
-    [self performBlockInBackground:^{
-        //Rechargement des départs
-        [self.departuresManager refreshDepartures:[self.managedObjectContext trips]];
-        [self.locationManager startUpdatingLocation];
-    }];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:applicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

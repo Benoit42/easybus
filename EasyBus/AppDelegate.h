@@ -12,6 +12,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+FOUNDATION_EXPORT NSString* const applicationDidBecomeActiveNotification;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) DeparturesManager *departuresManager;
 @property (nonatomic, retain) LocationManager *locationManager;

@@ -126,23 +126,32 @@ objection_requires(@"managedObjectContext")
             [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
         }
 
+        //Sauvegarde
+        NSError* error;
+        [self.managedObjectContext save:&error];
+        if (error) {
+            NSLog(@"Error while saving data in main context : %@", error.description);
+        }
+        
         //end editing update
         [self.tableView endUpdates];
     }
+}
 
-    //Sauvegarde
-    NSError* error;
-    [self.managedObjectContext save:&error];
-    if (error) {
-        NSLog(@"Error while saving data in main context : %@", error.description);
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    //Refuse to move a row inside a section
+    if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
+        return proposedDestinationIndexPath;
+    }
+    else {
+        return  sourceIndexPath;
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    //begin editing update
+    [self.tableView beginUpdates];
+    
     //Get source group
     Group* sourceGroup = [[self.managedObjectContext groups] objectAtIndex:sourceIndexPath.section];
     
@@ -157,10 +166,10 @@ objection_requires(@"managedObjectContext")
 
 #warning pourquoi le dispatch_async ?
     if (sourceGroup.trips.count == 0) {
-        dispatch_async(dispatch_get_main_queue(), ^() {
+//        dispatch_async(dispatch_get_main_queue(), ^() {
             [self.managedObjectContext deleteObject:sourceGroup];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-        });
+//        });
     }
 
     //Sauvegarde
@@ -169,6 +178,9 @@ objection_requires(@"managedObjectContext")
     if (error) {
         NSLog(@"Error while saving data in main context : %@", error.description);
     }    
+
+    //end editing update
+    [self.tableView endUpdates];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
