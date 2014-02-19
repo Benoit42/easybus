@@ -7,7 +7,6 @@
 //
 
 #import "Route.h"
-#import "Stop.h"
 
 @interface Route (Additions)
 

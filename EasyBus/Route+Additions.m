@@ -35,4 +35,8 @@
     return [NSURL URLWithString:encodedUrl];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat: @"Route: id=%@ shortName=%@", self.id, self.shortName];
+}
+
 @end

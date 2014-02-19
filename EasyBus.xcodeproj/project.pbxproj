@@ -49,6 +49,8 @@
 		149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 149DF05C163B2A78002D9D79 /* RoutesCsvReader.m */; };
 		14A540FF17773E0700E18262 /* NSManagedObjectContextNetworkTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A540FE17773E0700E18262 /* NSManagedObjectContextNetworkTest.m */; };
 		14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */; };
+		14A87E9A18B523F300A510D5 /* Stop+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A87E9918B523F300A510D5 /* Stop+Additions.m */; };
+		14A87E9D18B5247100A510D5 /* Group+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A87E9C18B5247100A510D5 /* Group+Additions.m */; };
 		14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 14CF4345165FEA3400834A23 /* DepartureCell.h */; };
 		14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AA96D71837E9CA0052B338 /* FeedInfoCsvReader.m */; };
 		14AA96E31837F1AF0052B338 /* feed_info.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14AA96E21837F1AF0052B338 /* feed_info.txt */; };
@@ -222,6 +224,10 @@
 		14A540FE17773E0700E18262 /* NSManagedObjectContextNetworkTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectContextNetworkTest.m; sourceTree = "<group>"; };
 		14A7B4DB1781E80B002A46FD /* StaticDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticDataLoader.h; sourceTree = "<group>"; };
 		14A7B4DC1781E80B002A46FD /* StaticDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoader.m; sourceTree = "<group>"; };
+		14A87E9818B523F300A510D5 /* Stop+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stop+Additions.h"; sourceTree = "<group>"; };
+		14A87E9918B523F300A510D5 /* Stop+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stop+Additions.m"; sourceTree = "<group>"; };
+		14A87E9B18B5247100A510D5 /* Group+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+Additions.h"; sourceTree = "<group>"; };
+		14A87E9C18B5247100A510D5 /* Group+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+Additions.m"; sourceTree = "<group>"; };
 		14AA96D61837E9CA0052B338 /* FeedInfoCsvReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfoCsvReader.h; sourceTree = "<group>"; };
 		14AA96D71837E9CA0052B338 /* FeedInfoCsvReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfoCsvReader.m; sourceTree = "<group>"; };
 		14AA96E21837F1AF0052B338 /* feed_info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = feed_info.txt; sourceTree = "<group>"; };
@@ -633,6 +639,10 @@
 				14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+Additions.h */,
 				14B1F88917D1C7BC009AE1FB /* Route+Additions.m */,
+				14A87E9818B523F300A510D5 /* Stop+Additions.h */,
+				14A87E9918B523F300A510D5 /* Stop+Additions.m */,
+				14A87E9B18B5247100A510D5 /* Group+Additions.h */,
+				14A87E9C18B5247100A510D5 /* Group+Additions.m */,
 				14FEBE0B18A77334006D52DE /* NSManagedObjectContext+Trip.h */,
 				14FEBE0C18A77334006D52DE /* NSManagedObjectContext+Trip.m */,
 				1455EFCF18ABBE16003522D2 /* NSManagedObjectContext+Group.h */,
@@ -1051,9 +1061,11 @@
 				140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */,
 				1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */,
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
+				14A87E9A18B523F300A510D5 /* Stop+Additions.m in Sources */,
 				14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */,
 				14B1F88D17D1D2ED009AE1FB /* Trip+Additions.m in Sources */,
 				14E6633D18B0BAC600D79895 /* DeparturesNavigationController.m in Sources */,
+				14A87E9D18B5247100A510D5 /* Group+Additions.m in Sources */,
 				14DDB95A17FC70BF000D1C5E /* TripsCsvReader.m in Sources */,
 				14E2AD7517D214E700ED4546 /* MainViewController.m in Sources */,
 			);
