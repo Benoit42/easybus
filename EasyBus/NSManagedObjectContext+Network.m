@@ -148,4 +148,20 @@
     return sortedStops;
 }
 
+- (NSArray*) nearestStopsHavingSameNameFrom:(CLLocation*)location {
+    //Récupération de tous les stops, triés par distance
+    NSArray* result = [NSArray array];
+    
+    //Filtrage des stops ayant le même nom que le plus proche
+    NSArray* stops = [self stopsSortedByDistanceFrom:location];
+    if (stops.count > 0) {
+        Stop* nearestStop = stops[0];
+        NSPredicate* namePredicate = [NSPredicate predicateWithFormat:@"name == %@", nearestStop.name];
+        result = [stops filteredArrayUsingPredicate:namePredicate];
+    }
+    
+    //Retour
+    return result;
+}
+
 @end

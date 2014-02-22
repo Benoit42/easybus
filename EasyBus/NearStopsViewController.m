@@ -71,15 +71,15 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return 3 stops
-    return 10;
+    // Show only one line as we aggregate a stops having same name
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //get stop list
+    //Get nearest stops having same name
     CLLocation* here = [self.locationManager currentLocation];
-    self.stops = [self.managedObjectContext stopsSortedByDistanceFrom:here];
-    
+    self.stops = [self.managedObjectContext nearestStopsHavingSameNameFrom:here];
+
     //get departure section
     if (indexPath.row < [self.stops count]) {
         //get the stop
@@ -104,22 +104,23 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"departuresView"]) {
         //Create group/trip
-        Stop* selectedStop = self.stops[self.tableView.indexPathForSelectedRow.row];
         NSMutableArray* trips = [[NSMutableArray alloc] init];
-        [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
-            Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
-            [trips addObject:trip];
+        [self.stops enumerateObjectsUsingBlock:^(Stop* selectedStop, NSUInteger idx, BOOL *stop) {
+            [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+                Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
+                [trips addObject:trip];
+            }];
+            [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+                Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
+                [trips addObject:trip];
+            }];
+            
+            NSError *error = nil;
+            if (![self.managedObjectContext save:&error]) {
+                //Log
+                NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+            }
         }];
-        [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
-            Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
-            [trips addObject:trip];
-        }];
-
-        NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            //Log
-            NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-        }
 
         ((DeparturesTableViewController*)segue.destinationViewController).trips = trips;
         ((DeparturesTableViewController*)segue.destinationViewController).title = @"à proximité";

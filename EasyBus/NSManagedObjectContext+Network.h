@@ -24,5 +24,6 @@
 - (Stop*) stopForId:(NSString*)stopId;
 - (NSArray*) stopsForRoute:(Route*)route direction:(NSString*)direction;
 - (NSArray*) stopsSortedByDistanceFrom:(CLLocation*)location;
+- (NSArray*) nearestStopsHavingSameNameFrom:(CLLocation*)location;
 
 @end
