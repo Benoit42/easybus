@@ -32,8 +32,13 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
 
 //Démarrage/arrêt de la localisation
 - (void) startUpdatingLocation {
+    //Log
+    NSLog(@"Geo-location started");
+
+    //Démarrage de la géolocalisation
     [self.locationManager startUpdatingLocation];
 
+    //Notification
     [[NSNotificationCenter defaultCenter] postNotificationName:locationStartedNotification object:self];
 }
 
@@ -45,6 +50,9 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
 // Démarrage de la localisation
 #pragma mark - Location Manager delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    //Log
+    NSLog(@"Geo-location succeeded");
+    
     // If it's a relatively recent event, turn off updates to save power
     CLLocation* location = [locations lastObject];
 
@@ -70,7 +78,7 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //Log
-    NSLog(@"Location failed! Error - %@ %@", [error description], [error debugDescription]);
+    NSLog(@"Geo-location - Error : %@ %@", [error description], [error debugDescription]);
 }
 
 @end

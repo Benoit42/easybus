@@ -104,6 +104,9 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
     
     @synchronized(self) {
         @try {
+            //Log
+            NSLog(@"Departures update started");
+
             //Appel réel vers kéolis
             self._isRequesting = TRUE;
             
@@ -146,9 +149,13 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 
                      //End
                      self._isRequesting = FALSE;
+                     
+                     //Log
+                     NSLog(@"Departures update succeeded");
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      //Log
+                     NSLog(@"Departures update failed");
                      NSLog(@"Error: %@", [error debugDescription]);
 
                      //lance la notification d'erreur
@@ -160,6 +167,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         }
         @catch (NSException * e) {
             //Log
+            NSLog(@"Departures update failed");
             NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
 
             //lance la notification d'erreur

@@ -87,7 +87,6 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 
 #pragma mark - Gestion de la mise à jour des départs
 - (void)departuresUpdatedStarted:(NSNotification *)notification {
-    NSLog(@"Update started");
     [self performBlockOnMainThread:^{
         //message
         NSString* message = @"mise à jour en cours...";
@@ -99,7 +98,6 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
-    NSLog(@"Update succeeded");
     [self performBlockOnMainThread:^{
         //refresh table view
         [self.tableView reloadData];
@@ -145,6 +143,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     // If no departures, still 1 row to indicate no departures
     NSArray* departures = [self.departuresManager getDeparturesForTrips:self.trips];
     NSInteger count = MAX(departures.count, 1);
+    NSLog(@"Nombre de départs : %i", departures.count);
     return count;
 }
 
