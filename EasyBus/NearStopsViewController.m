@@ -7,6 +7,7 @@
 //
 
 #import <Objection/Objection.h>
+#import "NSObject+AsyncPerformBlock.h"
 #import "NearStopsViewController.h"
 #import "NearStopsNavigationController.h"
 #import "LinesNavigationController.h"
@@ -35,6 +36,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     NSParameterAssert(self.locationManager);
 }
 
+#pragma mark - Life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,7 +45,26 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     NSParameterAssert(self.managedObjectContext != nil);
 }
 
-#pragma mark - Table view data source
+- (void)viewWillAppear:(BOOL)animated {
+    //Raffraichissement de la localisation
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:locationFoundNotification object:nil];
+    [self refreshLocation:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //Fermeture du pull to refresh
+    [self performBlockOnMainThread:^{
+        [self.refreshControl endRefreshing];
+    }];
+    
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - UItableViewDatasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
@@ -74,6 +95,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     return nil;
 }
 
+#pragma mark - Refresh
+- (IBAction)refreshLocation:(id)sender {
+    [self.locationManager startUpdatingLocation];
+}
+
 #pragma mark - Segues
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"departuresView"]) {
@@ -99,6 +125,17 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
         ((DeparturesTableViewController*)segue.destinationViewController).title = @"à proximité";
         [self.departuresManager refreshDepartures:trips];
     }
+}
+
+#pragma mark - notifications
+- (void)locationUpdated:(NSNotification*)notif {
+    [self performBlockOnMainThread:^{
+        //rechargement de la vue
+        [self.tableView reloadData];
+
+        //Fermeture du pull to refresh
+        [self.refreshControl endRefreshing];
+    }];
 }
 
 @end

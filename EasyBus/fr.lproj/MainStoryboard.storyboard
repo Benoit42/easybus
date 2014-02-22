@@ -64,7 +64,7 @@
                     </view>
                     <connections>
                         <segue destination="sTh-WR-Gyi" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegue" id="1Ds-8H-4P7"/>
-                        <segue destination="2uC-Xe-U03" kind="custom" customClass="SWRevealViewControllerSegue" id="wVL-cb-I0B"/>
+                        <segue destination="2uC-Xe-U03" kind="custom" id="wVL-cb-I0B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfW-GP-8yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1304,6 +1304,12 @@ Horaires d'hiver 2013/2014 - Version 3.0 - Novembre / Décembre</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Szq-PQ-fUQ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshLocation:" destination="KRo-ag-Og2" eventType="valueChanged" id="zMe-V9-zgD"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aaA-7y-AnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="CR1-T3-XWZ" userLabel="Exit" sceneMemberID="exit"/>
