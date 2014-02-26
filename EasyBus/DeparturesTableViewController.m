@@ -20,8 +20,6 @@
 @interface DeparturesTableViewController()
 
 @property(nonatomic) NSDateFormatter* timeIntervalFormatter;
-@property(nonatomic) NSUInteger maxRows;
-@property(nonatomic) NSDate* _lastRefresh;
 
 @end
 
@@ -32,7 +30,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
-    refreshLabelFont = [UIFont fontWithName:@"Heiti TC" size:15.0f];
 }
 
 #pragma mark - Life cycle
@@ -48,14 +45,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
     self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
     self.timeIntervalFormatter.dateFormat = @"HH:mm";
-
-    //message du pull-to-refresh
-    NSString* message = @"mise à jour des horaires";
-    NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-    [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-    self.refreshControl.attributedTitle = attributedMessage;
-    [self.refreshControl beginRefreshing];
-    [self.refreshControl endRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,7 +57,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [self.navigationItem setTitle:self.group.name];
 
     // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailedNotification object:nil];
 }
@@ -85,31 +73,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Gestion de la mise à jour des départs
-- (void)departuresUpdatedStarted:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
-        //message
-        NSString* message = @"mise à jour en cours...";
-        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-        self.refreshControl.attributedTitle = attributedMessage;
-    }];
-}
-
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
         //refresh table view
         [self.tableView reloadData];
-
-        //message
-        NSString* date = [_timeIntervalFormatter stringFromDate:self.departuresManager._refreshDate];
-        NSString* message = date?[NSString stringWithFormat:@"mis à jour à %@", date]:@"tirer pour raffraîchir";
-
-        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-        self.refreshControl.attributedTitle = attributedMessage;
-        
         [self.refreshControl endRefreshing];
     }];
 }
@@ -118,12 +86,6 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [self performBlockOnMainThread:^{
         // stop indicator
         [self.refreshControl endRefreshing];
-        
-        //message
-        NSString* message = @"échec de la mise à jour";
-        NSMutableAttributedString *attributedMessage=[[NSMutableAttributedString alloc] initWithString:message];
-        [attributedMessage addAttribute:NSFontAttributeName value:refreshLabelFont range:NSMakeRange(0, [message length])];
-        self.refreshControl.attributedTitle = attributedMessage;
     }];
 }
 
