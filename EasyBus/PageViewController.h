@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LocationManager.h"
 #import "PageViewControllerDatasource.h"
+#import "DeparturesManager.h"
 
 @interface PageViewController : UIPageViewController <UIPageViewControllerDelegate>
 

@@ -8,22 +8,24 @@
 
 #import <Objection/Objection.h>
 #import "PageViewControllerDatasource.h"
+#import "DeparturesNavigationController.h"
+#import "NearStopsNavigationController.h"
 #import "NSManagedObjectContext+Group.h"
 
 @interface PageViewControllerDatasource()
 
-@property(nonatomic) NSMutableArray* departuresViewControlers;
+@property(nonatomic) NSMutableDictionary* departuresViewControlers;
 
 @end
 
 @implementation PageViewControllerDatasource
 objection_register(PageViewControllerDatasource);
-objection_requires(@"managedObjectContext")
+objection_requires(@"managedObjectContext", @"locationManager")
 
 #pragma - Constructor & IoC
 - (id)init {
     if ( self = [super init] ) {
-        self.departuresViewControlers = [NSMutableArray new];
+        self.departuresViewControlers = [NSMutableDictionary new];
     }
     return self;
 }
@@ -31,81 +33,85 @@ objection_requires(@"managedObjectContext")
 - (void)awakeFromObjection {
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext);
+    NSParameterAssert(self.locationManager);
 }
 
 #pragma - Autres
 
-- (void)reset {
-    self.departuresViewControlers = [NSMutableArray new];
-}
-
-- (DeparturesNavigationController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
-{
-    // Create a new view controller and pass suitable data.
-    DeparturesNavigationController* viewController = nil;
-    if (index < [[self.managedObjectContext groups] count]) {
-        if (index < [self.departuresViewControlers count]) {
-            //Le view controler existe déjà
-            viewController = [self.departuresViewControlers objectAtIndex:index];
+- (DeparturesNavigationController *)viewControllerForGroup:(Group*)group storyboard:(UIStoryboard *)storyboard {
+    //Search if group already have a view controller
+    DeparturesNavigationController* viewController = self.departuresViewControlers[group.objectID];
+    if (viewController == nil) {
+        //Le view controler n'existe pas encore
+        if ([group.isNearStopGroup boolValue] == YES /* && self.locationManager.currentLocation*/) {
+            //Groupe des arrêts proche (uniquement si la géoloc a été obtenue)
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"NearStopsNavigationController"];
+            ((NearStopsNavigationController*)viewController).group = group;
+        }
+        else {
+            //Groupe de favoris
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesNavigationController"];
+            ((DeparturesNavigationController*)viewController).group = group;
         }
         
-        if (viewController == nil) {
-            //Le view controler n'existe pas encore
-            Group* group = [self.managedObjectContext groups][index];
-            viewController = [storyboard instantiateViewControllerWithIdentifier:@"DeparturesNavigationController"];
-            ((DeparturesNavigationController*)viewController).trips = [group.trips array];
-            ((DeparturesNavigationController*)viewController).title = group.name;
-            ((DeparturesNavigationController*)viewController).page = index;
-            [self.departuresViewControlers insertObject:viewController atIndex:index];
-        }
-    }
+        [self.departuresViewControlers setObject:viewController forKey:group.objectID];
+        
+        //TODO:register to group notifications (when deleted) 
+}
     
     return viewController;
 }
 
-- (NSUInteger)indexOfViewController:(UIViewController *)viewController
-{
-    // Return the index of the given data view controller.
-    return [self.departuresViewControlers indexOfObject:viewController];
-}
-
 #pragma mark - Page View Controller Data Source
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    NSUInteger index = [self indexOfViewController:viewController];
-    if ((index == 0) || (index == NSNotFound)) {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    //Recherche du groupe courant
+    //TODO : il faudrait mettre un protocol pour la propriété group
+    Group* group = ((DeparturesNavigationController*)viewController).group;
+    int index = [[self.managedObjectContext allGroups] indexOfObject:group];
+    
+    //Recherche du groupe précédent
+    if (index > 0) {
+        Group* previousGroup = [self.managedObjectContext allGroups][--index];
+        return [self viewControllerForGroup:previousGroup storyboard:viewController.storyboard];
+    }
+    else {
         return nil;
     }
-    
-    index--;
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
-    NSUInteger index = [self indexOfViewController:viewController];
-    if (index == NSNotFound) {
-        return nil;
-    }
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    //Recherche du groupe courant
+    //TODO : il faudrait mettre un protocol pour la propriété group
+    Group* group = ((DeparturesNavigationController*)viewController).group;
+    NSArray* allGroups = [self.managedObjectContext allGroups];
+    int index = [allGroups indexOfObject:group];
     
-    index++;
-    if (index == [[self.managedObjectContext groups] count]) {
+    //Recherche du groupe suivant
+    if (index < allGroups.count - 1) {
+        Group* followingGroup = [self.managedObjectContext allGroups][++index];
+        return [self viewControllerForGroup:followingGroup storyboard:viewController.storyboard];
+    }
+    else {
         return nil;
     }
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-
-    int count = [[self.managedObjectContext groups] count];
+    int count = [[self.managedObjectContext allGroups] count];
     return count;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    if ([pageViewController.viewControllers count] > 0)
-        return ((DeparturesNavigationController*)[pageViewController.viewControllers objectAtIndex:0]).page;
-    else
+    //Recherche du groupe courant
+    //TODO : il faudrait mettre un protocol pour la propriété group
+    Group* group = ((DeparturesNavigationController*)[pageViewController.viewControllers objectAtIndex:0]).group;
+    int index = [[self.managedObjectContext allGroups] indexOfObject:group];
+    if (index == NSNotFound) {
         return 0;
+    }
+    else {
+        return index;
+    }
 }
 
 @end

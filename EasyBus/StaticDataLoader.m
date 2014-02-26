@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <CoreData/CoreData.h>
-#import "NSObject+AsyncPerformBlock.h"
 #import "StaticDataLoader.h"
 #import "RoutesCsvReader.h"
 #import "StopsCsvReader.h"

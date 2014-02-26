@@ -35,7 +35,7 @@ objection_requires(@"managedObjectContext")
     [super viewWillAppear:animated];
     
     //Mise à jour de l'UI
-    BOOL haveFavorites = self.managedObjectContext.groups.count > 0;
+    BOOL haveFavorites = YES;// self.managedObjectContext.allGroups.count > 0;
     self.favoritesButton.enabled = haveFavorites;
     self.organizeButton.enabled = haveFavorites;
 }

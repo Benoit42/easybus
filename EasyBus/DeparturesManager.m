@@ -32,7 +32,9 @@
 
 @end
 
-@implementation DeparturesManager
+@implementation DeparturesManager {
+    dispatch_queue_t serialQueue;
+}
 objection_register_singleton(DeparturesManager)
 objection_requires(@"managedObjectContext")
 
@@ -44,6 +46,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 #pragma - Constructor & IoC
 -(id)init {
     if ( self = [super init] ) {
+        serialQueue = dispatch_queue_create("com.bleroux.easybus.departuresSerialQueue", DISPATCH_QUEUE_SERIAL);
         self._departures = [NSMutableArray new];
         self.freshDepartures = [NSMutableArray new];
 
@@ -54,8 +57,6 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         self.xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
         self.xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
         self.xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
-    
-        self._isRequesting = FALSE;
     }
 
     return self;
@@ -98,17 +99,14 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 #pragma call keolis and parse XML response
 - (void)refreshDepartures:(NSArray*)trips {
     //Controles
-    if ([trips count] == 0 || self._isRequesting){
+    if ([trips count] == 0){
         return;
     }
     
-    @synchronized(self) {
+    dispatch_async(serialQueue, ^{
         @try {
             //Log
             NSLog(@"Departures update started");
-
-            //Appel réel vers kéolis
-            self._isRequesting = TRUE;
             
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
@@ -146,9 +144,6 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
                      
                      //Notification
                      [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
-
-                     //End
-                     self._isRequesting = FALSE;
                      
                      //Log
                      NSLog(@"Departures update succeeded");
@@ -157,26 +152,20 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
                      //Log
                      NSLog(@"Departures update failed");
                      NSLog(@"Error: %@", [error debugDescription]);
-
+                     
                      //lance la notification d'erreur
                      [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
-                     
-                     //End
-                     self._isRequesting = FALSE;
                  }];
         }
         @catch (NSException * e) {
             //Log
             NSLog(@"Departures update failed");
             NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
-
+            
             //lance la notification d'erreur
             [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
-
-            //End
-            self._isRequesting = FALSE;
         }
-    }
+    });
 }
 
 #pragma mark NSXMLParserDelegate methods

@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Group.h"
+#import "LocationManager.h"
+#import "DeparturesManager.h"
 
 @interface NearStopsNavigationController : UINavigationController
 
-@property(nonatomic) NSArray* trips;
-@property(nonatomic) NSString* title;
+@property(nonatomic) Group* group;
+
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) LocationManager *locationManager;
+@property (nonatomic) DeparturesManager *departuresManager;
 
 @end

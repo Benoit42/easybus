@@ -96,7 +96,7 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
 
     //Create the group and add the trip
     NSString* groupName = [NSString stringWithFormat:@"vers %@", [route terminusForDirection:direction]];
-    Group* group = [self.managedObjectContext addGroupWithName:groupName];
+    Group* group = [self.managedObjectContext addGroupWithName:groupName isNearStopGroup:NO];
     [group addTripsObject:trip];
     
     //Sauvegarde

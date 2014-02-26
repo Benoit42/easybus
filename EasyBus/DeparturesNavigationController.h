@@ -13,8 +13,5 @@
 @interface DeparturesNavigationController : UINavigationController
 
 @property(nonatomic) Group* group;
-@property(nonatomic) NSArray* trips;
-@property(nonatomic) NSString* title;
-@property(nonatomic) NSInteger page;
 
 @end

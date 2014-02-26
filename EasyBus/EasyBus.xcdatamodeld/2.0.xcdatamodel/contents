@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="2.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FeedInfo" representedClassName="FeedInfo" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="publishDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -7,6 +7,7 @@
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="isNearStopGroup" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" elementID="terminus" syncable="YES"/>
         <relationship name="trips" optional="YES" toMany="YES" minCount="1" deletionRule="Deny" ordered="YES" destinationEntity="Trip" inverseName="group" inverseEntity="Trip" elementID="favorites" syncable="YES"/>
     </entity>
@@ -40,7 +41,9 @@
     <fetchRequest name="fetchAllRoutes" entity="Route"/>
     <fetchRequest name="fetchAllStops" entity="Stop"/>
     <fetchRequest name="fetchAllTrips" entity="Trip"/>
+    <fetchRequest name="fetchFavoriteGroups" entity="Group" predicateString="isNearStopGroup == 0"/>
     <fetchRequest name="fetchFeedInfo" entity="FeedInfo"/>
+    <fetchRequest name="fetchNearStopGroup" entity="Group" predicateString="isNearStopGroup != 0"/>
     <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
     <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
     <elements>

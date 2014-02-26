@@ -25,7 +25,6 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         self.locationManager.distanceFilter = 500;
-        [self.locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -36,13 +35,15 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
     NSLog(@"Geo-location started");
 
     //Démarrage de la géolocalisation
-    [self.locationManager startUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
 
     //Notification
     [[NSNotificationCenter defaultCenter] postNotificationName:locationStartedNotification object:self];
 }
 
 - (void) stopUpdatingLocation {
+    NSLog(@"Geo-location stopped");
+
     [self.locationManager stopUpdatingLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:locationCanceledNotification object:self];
 }
@@ -51,7 +52,7 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
 #pragma mark - Location Manager delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     //Log
-    NSLog(@"Geo-location succeeded");
+    NSLog(@"Geo-location updated");
     
     // If it's a relatively recent event, turn off updates to save power
     CLLocation* location = [locations lastObject];
@@ -59,20 +60,20 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
     // test the age of the location measurement to determine if the measurement is cached
     // in most cases you will not want to rely on cached measurements
     NSTimeInterval locationAge = -[location.timestamp timeIntervalSinceNow];
-    if (locationAge > 15.0) return;
+    NSLog(@"Geo-location age : %f", locationAge);
+//    if (locationAge > 15.0) return;
 
     // test that the horizontal accuracy does not indicate an invalid measurement
     if (location.horizontalAccuracy < 0) return;
 
     if (location.horizontalAccuracy <= 300) {
+        NSLog(@"Geo-location succeeded");
+
         // If the event is recent and accurate, do something with it.
         self.currentLocation = location;
 
         //lance la notification de localisation
         [[NSNotificationCenter defaultCenter] postNotificationName:locationFoundNotification object:self];
-
-        // Then stop location manager
-        [self.locationManager stopUpdatingLocation];
     }
 }
 

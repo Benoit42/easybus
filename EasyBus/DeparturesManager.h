@@ -18,7 +18,6 @@ FOUNDATION_EXPORT NSString* const departuresUpdateSucceededNotification;
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property(nonatomic) NSMutableData* _receivedData;
-@property(nonatomic) BOOL _isRequesting;
 @property(nonatomic) NSDate* _refreshDate;
 
 - (NSArray*) getDepartures;

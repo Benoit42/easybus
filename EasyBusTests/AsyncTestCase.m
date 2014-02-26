@@ -7,7 +7,6 @@
 //
 
 #import "AsyncTestCase.h"
-#import "NSObject+AsyncPerformBlock.h"
 
 @implementation AsyncTestCase
 

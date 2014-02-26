@@ -11,7 +11,8 @@
 
 @interface NSManagedObjectContext (Group)
 
-- (NSArray*) groups;
-- (Group*) addGroupWithName:(NSString*)name;
-
+- (NSArray*) allGroups;
+- (NSArray*) favoriteGroups;
+- (Group*) nearStopGroup;
+- (Group*) addGroupWithName:(NSString*)name isNearStopGroup:(BOOL)isNearStopGroup;
 @end

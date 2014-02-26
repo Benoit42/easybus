@@ -11,14 +11,10 @@
 
 @implementation DeparturesNavigationController
 
-- (void)setTrips:(NSArray *)trips {
+- (void)setGroup:(Group *)group {
+    _group = group;
     DeparturesTableViewController* departuresTableViewController = self.viewControllers[0];
-    departuresTableViewController.trips = trips;
-}
-
-- (void)setTitle:(NSString *)title {
-    DeparturesTableViewController* departuresTableViewController = self.viewControllers[0];
-    departuresTableViewController.title = title;
+    departuresTableViewController.group = group;
 }
 
 @end

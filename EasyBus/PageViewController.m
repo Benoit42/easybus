@@ -7,7 +7,6 @@
 //
 
 #import <Objection/Objection.h>
-#import "NSObject+AsyncPerformBlock.h"
 #import "Constants.h"
 #import "PageViewController.h"
 #import "PageViewControllerDatasource.h"
@@ -46,26 +45,35 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     NSParameterAssert(self.locationManager);
     NSParameterAssert(self.pageDataSource);
 
+    //Create near stops group if needed
+    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
+    if (!nearStopGroup) {
+        //Création du groupe des arrêts proches
+        nearStopGroup = [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
+    }
+    [nearStopGroup removeTrips:[nearStopGroup trips]];
+    
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self.pageDataSource;
-    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
+    UIViewController *startingViewController = [self.pageDataSource viewControllerForGroup:nearStopGroup storyboard:self.storyboard];
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 
     // Couleur de fond vert Star
     self.view.backgroundColor = Constants.starGreenColor;
 
     // Abonnement au notifications du contexte (même en arrière plan)
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataUpdated:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.managedObjectContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:applicationDidBecomeActiveNotification object:nil];
+
+    //Abonnement aux notification de géolocalisation
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:locationFoundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     //Move page view to nearest groupe
     [self gotoNearestPage];
 
-    // Abonnement au notifications des départs
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
+    // Abonnement au notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
 
     [self performBlockInBackground:^{
@@ -75,36 +83,30 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 
 - (void)viewWillDisappear:(BOOL)animated {
     //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:departuresUpdateStartedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:departuresUpdateSucceededNotification object:nil];
 }
 
 #pragma mark - scrolling
-- (void)scrollToPage:(NSInteger)page {
+- (void)scrollToPage:(Group*)targetGroup {
     //Get current page
-    int currentPage = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).page;
-    if (page != currentPage) {
-        int increment = (page>currentPage)?1:-1;
-        int nextPage = currentPage+increment;
-        UIPageViewControllerNavigationDirection direction = (increment == 1)?UIPageViewControllerNavigationDirectionForward:UIPageViewControllerNavigationDirectionReverse;
-        UIViewController *currentViewController = [self.pageDataSource viewControllerAtIndex:currentPage storyboard:self.storyboard];
-        for (int i=nextPage; i!=page+increment; i+=increment) {
-            //Move to page
-            UIViewController *nextViewController;
-            if (increment == 1) {
-                nextViewController = [self.pageDataSource pageViewController:self viewControllerAfterViewController:currentViewController];
-            }
-            else {
-                nextViewController = [self.pageDataSource pageViewController:self viewControllerBeforeViewController:currentViewController];
-                
-            }
-            dispatch_sync(dispatch_get_global_queue(
-                                                     DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self setViewControllers:@[nextViewController] direction:direction animated:YES completion:nil];
-            });
-            
-            currentViewController = nextViewController;
-        }
+    Group* currentGroup = ((DeparturesNavigationController*)[self viewControllers][0]).group;
+    if (targetGroup != currentGroup) {
+        //Define next group
+        NSArray* groups = [self.managedObjectContext allGroups];
+        int currentGroupIndex = [groups indexOfObject:currentGroup];
+        int targetGroupIndex = [groups indexOfObject:targetGroup];
+        Group* nextGroup = (targetGroupIndex > currentGroupIndex)?groups[currentGroupIndex + 1]:groups[currentGroupIndex - 1];
+        
+        //Compute scrolling direction
+        UIPageViewControllerNavigationDirection direction = (targetGroupIndex > currentGroupIndex)?UIPageViewControllerNavigationDirectionForward:UIPageViewControllerNavigationDirectionReverse;
+        UIViewController *nextViewController = [self.pageDataSource viewControllerForGroup:nextGroup storyboard:self.storyboard];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __weak typeof(self) weakSelf = self;
+            [self setViewControllers:@[nextViewController] direction:direction animated:YES completion:^(BOOL finished) {
+                [weakSelf scrollToPage:targetGroup];
+            }];
+        });
     }
 }
 
@@ -113,26 +115,28 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     CLLocation* currentLocation = [self.locationManager currentLocation];
 
     //Compute nearest group
-    NSArray* groupes = [self.managedObjectContext groups];
-    NSArray* sortedGroupes = [groupes sortedArrayUsingComparator:^NSComparisonResult(Group* groupe1, Group* groupe2) {
-        //Remarque : should always have trips, but prefer toi check anymore
-        if (groupe1.trips.count > 0 && groupe2.trips.count > 0) {
-            return [[NSNumber numberWithDouble:[((Trip*)groupe1.trips[0]).stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[((Trip*)groupe2.trips[0]).stop.location distanceFromLocation:currentLocation]]];
-        }
-        else if (groupe1.trips.count > 0) {
-            return NSOrderedAscending;
-        }
-        else if (groupe2.trips.count > 0) {
-            return NSOrderedAscending;
-        }
-        else {
-            return NSOrderedSame;
-        }
-    }];
-    
-    //Move page view to nearest groupe
-    NSUInteger index = [groupes indexOfObject:sortedGroupes[0]];
-    [self scrollToPage:index];
+    NSArray* favoriteGroups = [self.managedObjectContext favoriteGroups];
+    if (favoriteGroups.count > 0) {
+        NSArray* sortedGroupes = [favoriteGroups sortedArrayUsingComparator:^NSComparisonResult(Group* groupe1, Group* groupe2) {
+            //Remarque : should always have trips, but prefer toi check anymore
+            if (groupe1.trips.count > 0 && groupe2.trips.count > 0) {
+                return [[NSNumber numberWithDouble:[((Trip*)groupe1.trips[0]).stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[((Trip*)groupe2.trips[0]).stop.location distanceFromLocation:currentLocation]]];
+            }
+            else if (groupe1.trips.count > 0) {
+                return NSOrderedAscending;
+            }
+            else if (groupe2.trips.count > 0) {
+                return NSOrderedAscending;
+            }
+            else {
+                return NSOrderedSame;
+            }
+        }];
+        
+        //Move page view to nearest groupe (+ 1 because of near stops group)
+        Group* nearestGroup = sortedGroupes[0];
+        [self scrollToPage:nearestGroup];
+    }
 }
 
 #pragma mark - notifications
@@ -144,26 +148,28 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     }];
 }
 
-- (void)dataUpdated:(NSNotification *)notification {
-    //Raffraichissement des départs
-    NSArray* trips = [self.managedObjectContext trips];
-    [self.departuresManager refreshDepartures:trips];
-
-    //Reset des pages
-    [self.pageDataSource reset];
-    UIViewController *startingViewController = [self.pageDataSource viewControllerAtIndex:0 storyboard:self.storyboard];
-    [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-}
-
-- (void)departuresUpdatedStarted:(NSNotification *)notification {
-    [self.locationManager startUpdatingLocation];
-}
-
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
+    //Get current page
+    Group* currentGroup = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).group;
+    
+    //Scroll to nearest group only if we are not on near stops page
+    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
+    if (currentGroup != nearStopGroup) {
         //Move page view to nearest groupe
         [self gotoNearestPage];
-    }];
+    }
+}
+
+- (void)locationUpdated:(NSNotification *)notification {
+    //Get current page
+    Group* currentGroup = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).group;
+    
+    //Scroll to nearest group only if we are not on near stops page
+    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
+    if (currentGroup != nearStopGroup) {
+        //Move page view to nearest groupe
+        [self gotoNearestPage];
+    }
 }
 
 @end

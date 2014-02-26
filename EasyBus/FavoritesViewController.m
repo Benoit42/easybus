@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "NSObject+AsyncPerformBlock.h"
 #import "FavoritesViewController.h"
 #import "LinesViewController.h"
 #import "Trip.h"
@@ -59,21 +58,21 @@ objection_requires(@"managedObjectContext")
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSUInteger count = [[self.managedObjectContext groups] count];
+    NSUInteger count = [[self.managedObjectContext favoriteGroups] count];
     return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
+    Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:section];
     NSUInteger count = [group.trips count];
     return count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section < [[self.managedObjectContext groups] count]) {
-        Group* group = [[self.managedObjectContext groups] objectAtIndex:section];
+    if (section < [[self.managedObjectContext favoriteGroups] count]) {
+        Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:section];
         
         //add departure
         return group.name;
@@ -84,7 +83,7 @@ objection_requires(@"managedObjectContext")
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Get trips
-    Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
+    Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:indexPath.section];
     NSOrderedSet* trips = group.trips;
     
     //get departure section
@@ -113,7 +112,7 @@ objection_requires(@"managedObjectContext")
         [self.tableView beginUpdates];
         
         // delete your data item here
-        Group* group = [[self.managedObjectContext groups] objectAtIndex:indexPath.section];
+        Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:indexPath.section];
         Trip* trip = [[group trips] objectAtIndex:indexPath.row];
         [self.managedObjectContext deleteObject:trip];
         trip.group = nil;
@@ -153,13 +152,13 @@ objection_requires(@"managedObjectContext")
     [self.tableView beginUpdates];
     
     //Get source group
-    Group* sourceGroup = [[self.managedObjectContext groups] objectAtIndex:sourceIndexPath.section];
+    Group* sourceGroup = [[self.managedObjectContext favoriteGroups] objectAtIndex:sourceIndexPath.section];
     
     //Get favorite
     Trip* trip = [[sourceGroup trips] objectAtIndex:sourceIndexPath.row];
 
     //Get destination group
-    Group* destinationGroup = [[self.managedObjectContext groups] objectAtIndex:destinationIndexPath.section];
+    Group* destinationGroup = [[self.managedObjectContext favoriteGroups] objectAtIndex:destinationIndexPath.section];
 
     //Move favorite
     [self.managedObjectContext moveTrip:trip fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];

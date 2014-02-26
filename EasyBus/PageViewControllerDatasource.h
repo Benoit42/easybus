@@ -12,8 +12,8 @@
 @interface PageViewControllerDatasource : NSObject <UIPageViewControllerDataSource>
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) LocationManager *locationManager;
 
-- (DeparturesNavigationController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
-- (void)reset;
+- (DeparturesNavigationController *)viewControllerForGroup:(Group*)group storyboard:(UIStoryboard *)storyboard;
 
 @end

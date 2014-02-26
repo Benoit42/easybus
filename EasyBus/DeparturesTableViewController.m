@@ -8,7 +8,6 @@
 
 #import <Objection/Objection.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "NSObject+AsyncPerformBlock.h"
 #import "DeparturesTableViewController.h"
 #import "Constants.h"
 #import "DeparturesTableViewController.h"
@@ -16,6 +15,7 @@
 #import "NoDepartureCell.h"
 #import "NSManagedObjectContext+Trip.h"
 #import "Route+Additions.h"
+#import "DeparturesNavigationController.h"
 
 @interface DeparturesTableViewController()
 
@@ -28,7 +28,7 @@
 @implementation DeparturesTableViewController {
     UIFont* refreshLabelFont;
 }
-objection_requires(@"managedObjectContext", @"departuresManager")
+objection_requires(@"managedObjectContext", @"departuresManager", @"locationManager")
 #pragma mark - IoC
 - (void)awakeFromNib {
     [[JSObjection defaultInjector] injectDependencies:self];
@@ -42,6 +42,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     //Pré-conditions
     NSParameterAssert(self.managedObjectContext);
     NSParameterAssert(self.departuresManager);
+    NSParameterAssert(self.locationManager);
     
     // Instanciates des data
     self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
@@ -61,11 +62,10 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     [super viewWillAppear:animated];
 
     //Pré-conditions
-    NSParameterAssert(self.trips);
-    NSParameterAssert(self.title);
+    NSParameterAssert(self.group);
 
     //update header
-    [self.navigationItem setTitle:self.title];
+    [self.navigationItem setTitle:self.group.name];
 
     // Abonnement au notifications des départs
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedStarted:) name:departuresUpdateStartedNotification object:nil];
@@ -133,6 +133,8 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 #warning background pas nécessaire ici ?
     [self performBlockInBackground:^{
         [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+        [self.locationManager stopUpdatingLocation];
+        [self.locationManager startUpdatingLocation];
     }];
 }
 
@@ -141,9 +143,8 @@ objection_requires(@"managedObjectContext", @"departuresManager")
 {
     // Return the number of rows in the section
     // If no departures, still 1 row to indicate no departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:self.trips];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips array]];
     NSInteger count = MAX(departures.count, 1);
-    NSLog(@"Nombre de départs : %i", departures.count);
     return count;
 }
 
@@ -153,7 +154,7 @@ objection_requires(@"managedObjectContext", @"departuresManager")
     UITableViewCell* cell;
     
     //get departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:self.trips];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips array]];
     if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];

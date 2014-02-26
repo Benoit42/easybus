@@ -16,8 +16,9 @@
 }
 
 #pragma mark - Manage groupes
-- (NSArray*) groups {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Group"];
+- (NSArray*) allGroups {
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchAllGroups" substitutionVariables:@{}];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"isNearStopGroup" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     
     NSError *error = nil;
     NSArray *fetchResults = [self executeFetchRequest:request error:&error];
@@ -33,11 +34,45 @@
     return fetchResults;
 }
 
-- (Group*) addGroupWithName:(NSString*)name {
+- (NSArray*) favoriteGroups {
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestFromTemplateWithName:@"fetchFavoriteGroups" substitutionVariables:@{}];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    NSError *error = nil;
+    NSArray *fetchResults = [self executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (fetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+    
+    return fetchResults;
+}
+
+- (Group*) nearStopGroup {
+    NSFetchRequest *request = [self.managedObjectModel fetchRequestTemplateForName:@"fetchNearStopGroup"];
+    NSError *error = nil;
+    NSArray *fetchResults = [self executeFetchRequest:request error:&error];
+    if (error) {
+        //Log
+        NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
+    }
+    if (fetchResults == nil) {
+        //Log
+        NSLog(@"Error, resultSet should not be nil");
+    }
+
+    return (fetchResults.count > 0)?fetchResults[0]:nil;
+}
+
+- (Group*) addGroupWithName:(NSString*)name isNearStopGroup:(BOOL)isNearStopGroup {
     // Create and configure a new instance of the Group entity.
     Group* group = (Group*)[NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self];
     group.name =  name;
-    
+    group.isNearStopGroup = [NSNumber numberWithBool:isNearStopGroup];
+
     //Retour
     return group;
 }

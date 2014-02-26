@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Group.h"
 #import "DeparturesManager.h"
+#import "LocationManager.h"
 
 @interface DeparturesTableViewController : UITableViewController
 
 @property(nonatomic) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic) DeparturesManager* departuresManager;
+@property (nonatomic, retain) LocationManager *locationManager;
 
-@property(nonatomic) NSArray* trips;
-@property(nonatomic) NSString* title;
-
+@property(nonatomic) Group* group;
 
 - (IBAction)refreshAsked:(id)sender;
 
