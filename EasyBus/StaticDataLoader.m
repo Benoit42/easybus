@@ -221,13 +221,6 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     [self.stopsCsvReader cleanUp];
     [self.routesStopsCsvReader cleanUp];
     [self.terminusJsonReader cleanUp];
-    
-    //Sauvegarde
-    NSError* error;
-    [self.managedObjectContext save:&error];
-    if (error) {
-        NSLog(@"Error while saving data in main context : %@", error.description);
-    }
 
     //Post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:dataLoadingFinished object:self];

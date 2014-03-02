@@ -48,6 +48,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     //Create near stops group if needed
     Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
     if (!nearStopGroup) {
+#warning mettre ce code dans l'opération de migration des données
         //Création du groupe des arrêts proches
         nearStopGroup = [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
     }
@@ -62,7 +63,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     // Couleur de fond vert Star
     self.view.backgroundColor = Constants.starGreenColor;
 
-    // Abonnement au notifications du contexte (même en arrière plan)
+    // Abonnement au notifications de réveil
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:applicationDidBecomeActiveNotification object:nil];
 
     //Abonnement aux notification de géolocalisation
@@ -95,7 +96,14 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
         NSArray* groups = [self.managedObjectContext allGroups];
         int currentGroupIndex = [groups indexOfObject:currentGroup];
         int targetGroupIndex = [groups indexOfObject:targetGroup];
-        Group* nextGroup = (targetGroupIndex > currentGroupIndex)?groups[currentGroupIndex + 1]:groups[currentGroupIndex - 1];
+        Group* nextGroup = nil;
+        if (currentGroupIndex != NSNotFound) {
+            nextGroup = (targetGroupIndex > currentGroupIndex)?groups[currentGroupIndex + 1]:groups[currentGroupIndex - 1];
+        }
+        else {
+            //le groupe courant n'existe plus (il a été supprimé)
+            nextGroup = targetGroup;
+        }
         
         //Compute scrolling direction
         UIPageViewControllerNavigationDirection direction = (targetGroupIndex > currentGroupIndex)?UIPageViewControllerNavigationDirectionForward:UIPageViewControllerNavigationDirectionReverse;
@@ -120,7 +128,9 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
         NSArray* sortedGroupes = [favoriteGroups sortedArrayUsingComparator:^NSComparisonResult(Group* groupe1, Group* groupe2) {
             //Remarque : should always have trips, but prefer toi check anymore
             if (groupe1.trips.count > 0 && groupe2.trips.count > 0) {
-                return [[NSNumber numberWithDouble:[((Trip*)groupe1.trips[0]).stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[((Trip*)groupe2.trips[0]).stop.location distanceFromLocation:currentLocation]]];
+                Trip* trip1 = [groupe1.trips anyObject];
+                Trip* trip2 = [groupe2.trips anyObject];
+                return [[NSNumber numberWithDouble:[trip1.stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[trip2.stop.location distanceFromLocation:currentLocation]]];
             }
             else if (groupe1.trips.count > 0) {
                 return NSOrderedAscending;

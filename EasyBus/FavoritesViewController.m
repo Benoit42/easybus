@@ -17,6 +17,15 @@
 #import "NSManagedObjectContext+Trip.h"
 #import "NSManagedObjectContext+Group.h"
 
+#define FAVORITE_CACHE_NAME @"FavoritesCache"
+
+@interface FavoritesViewController() <NSFetchedResultsControllerDelegate>
+
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, assign) BOOL changeIsUserDriven;
+
+@end
+
 @implementation FavoritesViewController
 objection_requires(@"managedObjectContext")
 
@@ -38,15 +47,37 @@ objection_requires(@"managedObjectContext")
     lpgr.minimumPressDuration = 1.0; //seconds
     lpgr.delegate = self;
     [self.tableView addGestureRecognizer:lpgr];
+    self.changeIsUserDriven = NO;
+
+    //Create fetchedResultsController
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Trip" inManagedObjectContext:self.managedObjectContext]];
+    [fetchRequest setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"group.name" ascending:YES], [[NSSortDescriptor alloc] initWithKey:@"route.id" ascending:YES]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"group.isNearStopGroup == %@", [NSNumber numberWithBool:NO]]];
+    [fetchRequest setFetchBatchSize:20];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:@"group.objectID"
+                                                                                   cacheName:FAVORITE_CACHE_NAME];
+    self.fetchedResultsController.delegate = self;
+    
+
+    //Perform fetch
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Error %@, %@", error, [error userInfo]);
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     //Désactivation du mode édition
     if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
@@ -54,86 +85,66 @@ objection_requires(@"managedObjectContext")
     }
 }
 
-#pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+#pragma mark - UItableViewDatasource methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    NSUInteger count = [[self.managedObjectContext favoriteGroups] count];
+    NSArray* sections = [self.fetchedResultsController sections];
+    NSUInteger count = [sections count];
     return count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:section];
-    NSUInteger count = [group.trips count];
+    NSUInteger count = 0;
+    if ([[self.fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        NSUInteger count =  [sectionInfo numberOfObjects];
+        return count;
+        count = [sectionInfo numberOfObjects];
+    }
     return count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section < [[self.managedObjectContext favoriteGroups] count]) {
-        Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:section];
-        
-        //add departure
-        return group.name;
-    }
-    return nil;
+    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    Trip* trip = (Trip*)[sectionInfo objects][0];
+    NSString* groupName = trip.group.name;
+    return groupName;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //Get trips
-    Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:indexPath.section];
-    NSOrderedSet* trips = group.trips;
-    
-    //get departure section
-    if (indexPath.row < trips.count) {
-        static NSString *CellIdentifier = @"Cell";
-        FavoriteCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
-        //get the trip
-        Trip* trip = [trips objectAtIndex:indexPath.row];
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    //Get trip
+    Trip *trip = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-        //add departure
-        [cell._picto setImage:[UIImage imageNamed:trip.route.id]];
-        [cell._libArret setText:trip.stop.name];
-        [cell._libDirection setText:[trip.route terminusForDirection:trip.direction]];
-        return cell;
-    }
-    return nil;
+    //Configure cell
+    FavoriteCell* favoriteCell = (FavoriteCell*)cell;
+    [favoriteCell._picto setImage:[UIImage imageNamed:trip.route.id]];
+    [favoriteCell._libArret setText:trip.stop.name];
+    [favoriteCell._libDirection setText:[trip.route terminusForDirection:trip.direction]];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Get cell
+    FavoriteCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // If row is deleted, remove it from the list.
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        //begin editing update
-        [self.tableView beginUpdates];
-        
-        // delete your data item here
-        Group* group = [[self.managedObjectContext favoriteGroups] objectAtIndex:indexPath.section];
-        Trip* trip = [[group trips] objectAtIndex:indexPath.row];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //Delete trip
+        Trip *trip = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.managedObjectContext deleteObject:trip];
-        trip.group = nil;
+        Group* group = trip.group;
+        [group removeTripsObject:trip];
         
-        // Animate the deletion from the table
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        //Delete group if needed
         if (group.trips.count == 0) {
             [self.managedObjectContext deleteObject:group];
-            NSIndexSet *sections = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, 1)];
-            [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
         }
-
-        //Sauvegarde
-        NSError* error;
-        [self.managedObjectContext save:&error];
-        if (error) {
-            NSLog(@"Error while saving data in main context : %@", error.description);
-        }
-        
-        //end editing update
-        [self.tableView endUpdates];
     }
 }
 
@@ -148,40 +159,84 @@ objection_requires(@"managedObjectContext")
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    //begin editing update
-    [self.tableView beginUpdates];
-    
-    //Get source group
-    Group* sourceGroup = [[self.managedObjectContext favoriteGroups] objectAtIndex:sourceIndexPath.section];
-    
-    //Get favorite
-    Trip* trip = [[sourceGroup trips] objectAtIndex:sourceIndexPath.row];
+    //Get trip and source group
+    Trip *trip = [self.fetchedResultsController objectAtIndexPath:sourceIndexPath];
+    Group* sourceGroup = trip.group;
 
-    //Get destination group
-    Group* destinationGroup = [[self.managedObjectContext favoriteGroups] objectAtIndex:destinationIndexPath.section];
+    //Get destinaton group
+    id<NSFetchedResultsSectionInfo> destinationSectionInfo = [[self.fetchedResultsController sections] objectAtIndex:destinationIndexPath.section];
+    Trip* destinationTrip = (Trip*)[destinationSectionInfo objects][0];
+    Group* destinationGroup = destinationTrip.group;
 
-    //Move favorite
+    //Move trip
     [self.managedObjectContext moveTrip:trip fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
 
-#warning pourquoi le dispatch_async ?
     if (sourceGroup.trips.count == 0) {
-//        dispatch_async(dispatch_get_main_queue(), ^() {
-            [self.managedObjectContext deleteObject:sourceGroup];
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-//        });
+        [self.managedObjectContext deleteObject:sourceGroup];
     }
+    
+    //Move flag
+    self.changeIsUserDriven = YES;
+}
 
-    //Sauvegarde
-    NSError* error;
-    [self.managedObjectContext save:&error];
-    if (error) {
-        NSLog(@"Error while saving data in main context : %@", error.description);
-    }    
+#pragma mark - NSFetchedResultsControllerDelegate methods
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
 
-    //end editing update
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            if (!self.changeIsUserDriven) {
+                self.changeIsUserDriven = NO;
+                [tableView deleteRowsAtIndexPaths:[NSArray
+                                                   arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:[NSArray
+                                                   arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
 }
 
+#pragma mark - Manages interactions
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (!self.tableView.isEditing) {
         [self.tableView setEditing:YES animated:YES];
@@ -191,6 +246,7 @@ objection_requires(@"managedObjectContext")
 
 - (IBAction)modifyButtonPressed:(id)sender {
     if (self.tableView.isEditing) {
+        //fin de l'édition
         [self.tableView setEditing:NO animated:YES];
         [self.modifyButton setTitle:@"modifier"];
     }
@@ -200,17 +256,9 @@ objection_requires(@"managedObjectContext")
     }
 }
 
-#pragma mark - Segues
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"chooseLine"]) {
-        if (self.tableView.isEditing) {
-            [self.tableView setEditing:NO animated:YES];
-            [self.modifyButton setTitle:@"modifier"];
-            return FALSE;
-        }
-    }
-    
-    return TRUE;
+#pragma mark - model
+- (NSManagedObjectModel*)managedObjectModel {
+    return self.managedObjectContext.persistentStoreCoordinator.managedObjectModel;
 }
 
 @end

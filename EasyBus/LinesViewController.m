@@ -98,13 +98,6 @@ objection_requires( @"managedObjectContext", @"gtfsDownloadManager")
     NSString* groupName = [NSString stringWithFormat:@"vers %@", [route terminusForDirection:direction]];
     Group* group = [self.managedObjectContext addGroupWithName:groupName isNearStopGroup:NO];
     [group addTripsObject:trip];
-    
-    //Sauvegarde
-    NSError* error;
-    [self.managedObjectContext save:&error];
-    if (error) {
-        NSLog(@"Error while saving data in main context : %@", error.description);
-    }
 }
 
 @end

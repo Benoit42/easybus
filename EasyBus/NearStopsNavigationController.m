@@ -35,6 +35,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 
     //Nettoyage du groupe
     Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
+    if (!nearStopGroup) {
+        //Création du groupe des arrêts proches
+#warning mettre ce code dans l'opération de migration des données
+        nearStopGroup = [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
+    }
     [nearStopGroup removeTrips:[nearStopGroup trips]];
 
     if (here) {
@@ -44,29 +49,15 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
         //Set trips in group
         nearStopGroup.name = (stops.count > 0)?((Stop*)stops[0]).name:@"à proximité";
         [stops enumerateObjectsUsingBlock:^(Stop* selectedStop, NSUInteger idx, BOOL *stop) {
-            [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+            [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
                 Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
                 [nearStopGroup addTripsObject:trip];
             }];
-            [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, NSUInteger idx, BOOL *stop) {
+            [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
                 Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
                 [nearStopGroup addTripsObject:trip];
             }];
-            
-            //        NSError *error = nil;
-            //        if (![self.managedObjectContext save:&error]) {
-            //            //Log
-            //            NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
-            //        }
-        }];
-        
-        //Sauvegarde
-        //    NSError* error;
-        //    [self.managedObjectContext save:&error];
-        //    if (error) {
-        //        NSLog(@"Error while saving data in main context : %@", error.description);
-        //    }
-        
+        }];        
     }
     else {
         //Pas de géoloc obtenue

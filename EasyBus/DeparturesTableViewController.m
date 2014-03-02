@@ -105,7 +105,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 {
     // Return the number of rows in the section
     // If no departures, still 1 row to indicate no departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips array]];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips allObjects]];
     NSInteger count = MAX(departures.count, 1);
     return count;
 }
@@ -116,7 +116,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     UITableViewCell* cell;
     
     //get departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips array]];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips allObjects]];
     if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];

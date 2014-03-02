@@ -97,7 +97,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     [self.managedObjectContext addTrip:route64 stop:stopTimo direction:@"0"];
 
     //Vérifications
-    XCTAssertEqual([[self.managedObjectContext trips] count], tripCount, @"Wrong number of trips");
+    XCTAssertEqual([[self.managedObjectContext trips] count], tripCount + 1, @"Wrong number of trips");
 }
 
 //Test de la suppression
