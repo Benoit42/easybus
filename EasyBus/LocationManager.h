@@ -20,5 +20,5 @@ FOUNDATION_EXPORT NSString* const locationFoundNotification;
 
 - (void) startUpdatingLocation;
 - (void) stopUpdatingLocation;
-
+- (void) forceUpdatingLocation;
 @end

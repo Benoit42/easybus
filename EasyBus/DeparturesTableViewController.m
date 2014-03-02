@@ -56,7 +56,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     //update header
     [self.navigationItem setTitle:self.group.name];
 
-    // Abonnement au notifications des départs
+    // Abonnement au notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdateFailed:) name:departuresUpdateFailedNotification object:nil];
 }
@@ -95,8 +95,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 #warning background pas nécessaire ici ?
     [self performBlockInBackground:^{
         [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
-        [self.locationManager stopUpdatingLocation];
-        [self.locationManager startUpdatingLocation];
+        [self.locationManager forceUpdatingLocation];
     }];
 }
 

@@ -48,6 +48,12 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
     [[NSNotificationCenter defaultCenter] postNotificationName:locationCanceledNotification object:self];
 }
 
+- (void) forceUpdatingLocation; {
+    NSLog(@"Geo-location refreshed");
+    [self.locationManager stopUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
+}
+
 // Démarrage de la localisation
 #pragma mark - Location Manager delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
