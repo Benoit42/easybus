@@ -77,9 +77,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     // Abonnement au notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
 
-    [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
-    }];
+    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -152,10 +150,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 #pragma mark - notifications
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
     NSLog(@"Application did become active, refreshing");
-#warning background pas nécessaire ici ?
-    [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
-    }];
+    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
 }
 
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {

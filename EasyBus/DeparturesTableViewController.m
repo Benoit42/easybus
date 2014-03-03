@@ -92,11 +92,8 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 #pragma mark - Table view refresh control
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
-#warning background pas nécessaire ici ?
-    [self performBlockInBackground:^{
-        [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
-        [self.locationManager forceUpdatingLocation];
-    }];
+    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    [self.locationManager forceUpdatingLocation];
 }
 
 #pragma mark - Table view data source

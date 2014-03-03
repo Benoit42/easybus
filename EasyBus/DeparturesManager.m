@@ -132,7 +132,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
             //New departures array
             [self.freshDepartures removeAllObjects];
             
-            [manager GET:path
+            NSOperation* operation = [manager GET:path
               parameters:nil
                  success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
                      //Parse response
@@ -156,6 +156,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
                      //lance la notification d'erreur
                      [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
                  }];
+            [operation waitUntilFinished];
         }
         @catch (NSException * e) {
             //Log

@@ -34,9 +34,6 @@ NSString* const applicationDidBecomeActiveNotification = @"applicationDidBecomeA
     
     //Network activity indicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    
-    //Démarrage de la géoloc
-    [self.locationManager startUpdatingLocation];
 
     //End
     return YES;

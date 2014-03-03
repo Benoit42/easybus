@@ -30,18 +30,50 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     //Abonnement aux notification de géolocalisation
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:locationFoundNotification object:nil];
     
-    //Get nearest stops having same name
-    CLLocation* here = [self.locationManager currentLocation];
+    //Récupération du groupe
+    Group* nearStopGroup = [self updateNearStopGroup];
+    
+    //Mise à jour de la table view
+    DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
+    departuresTableViewController.group = nearStopGroup;
+    
+    //Raffraichissement des départs
+    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    
+    //Super à la fin pour pouvoir setter le groupe avant l'affichage de la table
+    [super viewWillAppear:animated];
+}
 
-    //Nettoyage du groupe
+- (void) dealloc {
+    //Désabonnement aux notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)locationUpdated:(NSNotification *)notification {
+    //Récupération du groupe
+    Group* nearStopGroup = [self updateNearStopGroup];
+    
+    //Mise à jour de la table view
+    DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
+    departuresTableViewController.group = nearStopGroup;
+    
+    //Raffraichissement des départs
+    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+}
+
+- (Group*)updateNearStopGroup {
+    //Mise à jour du groupe
     Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
     if (!nearStopGroup) {
-        //Création du groupe des arrêts proches
 #warning mettre ce code dans l'opération de migration des données
-        nearStopGroup = [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
+        [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
     }
     [nearStopGroup removeTrips:[nearStopGroup trips]];
-
+    
+    //Get location
+    CLLocation* here = [self.locationManager currentLocation];
+    
+    //Compute trips
     if (here) {
         //Calcul des arrêts proches
         NSArray* stops = [self.managedObjectContext nearestStopsHavingSameNameFrom:here];
@@ -57,36 +89,15 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
                 Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
                 [nearStopGroup addTripsObject:trip];
             }];
-        }];        
+        }];
     }
     else {
         //Pas de géoloc obtenue
         nearStopGroup.name = @"position inconnue";
     }
-
-    //Show departures
-    DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
-    departuresTableViewController.group = nearStopGroup;
-
-    //Super à la fin pour pouvoir setter le groupe avant l'affichage de la table 
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
     
-    //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)locationUpdated:(NSNotification *)notification {
-    [self performBlockOnMainThread:^{
-        //Refresh departures
-        DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
-
-        //refresh table view
-        [departuresTableViewController.tableView reloadData];
-    }];
+    //Retour
+    return nearStopGroup;
 }
 
 @end
