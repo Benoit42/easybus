@@ -82,12 +82,18 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
         nearStopGroup.name = (stops.count > 0)?((Stop*)stops[0]).name:@"à proximité";
         [stops enumerateObjectsUsingBlock:^(Stop* selectedStop, NSUInteger idx, BOOL *stop) {
             [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
-                Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
-                [nearStopGroup addTripsObject:trip];
+                if ([route.stopsDirectionZero lastObject] != selectedStop) {
+                    //On n'ajoute pas le dernier stop d'une ligne
+                    Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
+                    [nearStopGroup addTripsObject:trip];
+                }
             }];
             [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
-                Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
-                [nearStopGroup addTripsObject:trip];
+                if ([route.stopsDirectionOne lastObject] != selectedStop) {
+                    //On n'ajoute pas le dernier stop d'une ligne
+                    Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
+                    [nearStopGroup addTripsObject:trip];
+                }
             }];
         }];
     }
