@@ -36,7 +36,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"Route: id=%@ shortName=%@", self.id, self.shortName];
+    return [NSString stringWithFormat: @"[Route: id=%@]", self.id];
 }
 
 @end

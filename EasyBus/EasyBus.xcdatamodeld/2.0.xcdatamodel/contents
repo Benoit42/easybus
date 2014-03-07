@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="2.0" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FavoriteGroup" representedClassName="FavoriteGroup" parentEntity="Group" syncable="YES">
+        <relationship name="trips" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Trip" inverseName="favoriteGroup" inverseEntity="Trip" syncable="YES"/>
+    </entity>
     <entity name="FeedInfo" representedClassName="FeedInfo" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="publishDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Group" representedClassName="Group" syncable="YES">
-        <attribute name="isNearStopGroup" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+    <entity name="Group" representedClassName="Group" isAbstract="YES" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" elementID="terminus" syncable="YES"/>
-        <relationship name="trips" optional="YES" toMany="YES" minCount="1" deletionRule="Deny" destinationEntity="Trip" inverseName="group" inverseEntity="Trip" elementID="favorites" syncable="YES"/>
+    </entity>
+    <entity name="ProximityGroup" representedClassName="ProximityGroup" parentEntity="Group" syncable="YES">
+        <relationship name="trips" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Trip" inverseName="proximityGroup" inverseEntity="Trip" syncable="YES"/>
     </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
         <attribute name="fromName" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,7 +37,8 @@
     </entity>
     <entity name="Trip" representedClassName="Trip" elementID="Favorite" syncable="YES">
         <attribute name="direction" attributeType="String" syncable="YES"/>
-        <relationship name="group" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="trips" inverseEntity="Group" syncable="YES"/>
+        <relationship name="favoriteGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FavoriteGroup" inverseName="trips" inverseEntity="FavoriteGroup" syncable="YES"/>
+        <relationship name="proximityGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProximityGroup" inverseName="trips" inverseEntity="ProximityGroup" syncable="YES"/>
         <relationship name="route" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="trips" inverseEntity="Route" syncable="YES"/>
         <relationship name="stop" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stop" inverseName="trips" inverseEntity="Stop" syncable="YES"/>
     </entity>
@@ -41,9 +46,9 @@
     <fetchRequest name="fetchAllRoutes" entity="Route"/>
     <fetchRequest name="fetchAllStops" entity="Stop"/>
     <fetchRequest name="fetchAllTrips" entity="Trip"/>
-    <fetchRequest name="fetchFavoriteGroups" entity="Group" predicateString="isNearStopGroup == 0"/>
+    <fetchRequest name="fetchFavoriteGroups" entity="FavoriteGroup"/>
     <fetchRequest name="fetchFeedInfo" entity="FeedInfo"/>
-    <fetchRequest name="fetchNearStopGroup" entity="Group" predicateString="isNearStopGroup != 0"/>
+    <fetchRequest name="fetchProximityGroup" entity="ProximityGroup" predicateString="TRUEPREDICATE"/>
     <fetchRequest name="fetchRouteWithId" entity="Route" predicateString="id == $id"/>
     <fetchRequest name="fetchStopWithId" entity="Stop" predicateString="id == $id"/>
     <elements>
@@ -52,5 +57,7 @@
         <element name="Route" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Stop" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Trip" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ProximityGroup" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FavoriteGroup" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

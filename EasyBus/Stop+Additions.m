@@ -11,7 +11,7 @@
 @implementation Stop (Additions)
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"Stop: id=%@ name=%@", self.id, self.name];
+    return [NSString stringWithFormat: @"[Stop: id=%@, name=%@]", self.id, self.name];
 }
 
 @end

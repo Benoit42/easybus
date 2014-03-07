@@ -1,16 +1,17 @@
 //
-//  Group.m
+//  FavoriteGroup.m
 //  EasyBus
 //
 //  Created by Benoît on 07/03/2014.
 //  Copyright (c) 2014 Benoit. All rights reserved.
 //
 
-#import "Group.h"
+#import "FavoriteGroup.h"
+#import "Trip.h"
 
 
-@implementation Group
+@implementation FavoriteGroup
 
-@dynamic name;
+@dynamic trips;
 
 @end

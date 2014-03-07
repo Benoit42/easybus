@@ -17,7 +17,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"Trip: Route=%@ Stop=%@ Direction=%@", [self.route description], [self.stop description], self.direction];
+    return [NSString stringWithFormat: @"[Trip: %@, %@, direction: %@, FavoriteGroupe:%@]", [self.route description], [self.stop description], self.direction, self.favoriteGroup];
 }
 
 @end

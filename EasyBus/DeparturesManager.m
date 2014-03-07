@@ -13,9 +13,10 @@
 #import "Stop.h"
 #import "Trip+Additions.h"
 #import "NSManagedObjectContext+Network.h"
+#import "NSManagedObjectContext+Trip.h"
 
 @interface DeparturesManager()
-@property (strong, nonatomic) NSMutableArray* _departures;
+@property (strong, nonatomic) NSMutableArray* departures;
 
 @property(nonatomic) NSString* currentNode;
 @property(nonatomic) NSString* stop;
@@ -25,16 +26,18 @@
 @property(nonatomic) NSString* currentDate;
 @property(nonatomic) NSString* accurate;
 @property(nonatomic) NSString* departureDate;
-@property(nonatomic) NSMutableArray* freshDepartures;
 
 @property(nonatomic) NSDateFormatter* timeIntervalFormatter;
 @property(nonatomic) NSDateFormatter* xsdDateTimeFormatter;
 
+@property(nonatomic) AFHTTPRequestOperationManager* requestOperationManager;
+
+@property(nonatomic) NSOperationQueue* serialOperationQueue;
+
+
 @end
 
-@implementation DeparturesManager {
-    dispatch_queue_t serialQueue;
-}
+@implementation DeparturesManager
 objection_register_singleton(DeparturesManager)
 objection_requires(@"managedObjectContext")
 
@@ -44,11 +47,9 @@ NSString* const departuresUpdateFailedNotification = @"departuresUpdateFailedNot
 NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSucceededNotification";
 
 #pragma - Constructor & IoC
--(id)init {
+- (id)init {
     if ( self = [super init] ) {
-        serialQueue = dispatch_queue_create("com.bleroux.easybus.departuresSerialQueue", DISPATCH_QUEUE_SERIAL);
-        self._departures = [NSMutableArray new];
-        self.freshDepartures = [NSMutableArray new];
+        self.departures = [NSMutableArray new];
 
         self.timeIntervalFormatter = [[NSDateFormatter alloc] init];
         self.timeIntervalFormatter.timeStyle = NSDateFormatterFullStyle;
@@ -57,7 +58,16 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         self.xsdDateTimeFormatter = [[NSDateFormatter alloc] init];  // Keep around forever
         self.xsdDateTimeFormatter.timeStyle = NSDateFormatterFullStyle;
         self.xsdDateTimeFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:sszzz";
-    }
+
+        self.requestOperationManager = [AFHTTPRequestOperationManager manager];
+        [self.requestOperationManager.operationQueue setMaxConcurrentOperationCount:1];
+        self.requestOperationManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+        self.requestOperationManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
+        [self.requestOperationManager.operationQueue setMaxConcurrentOperationCount:1];
+        
+        self.serialOperationQueue = [[NSOperationQueue alloc] init];
+        self.serialOperationQueue.maxConcurrentOperationCount = 1;
+}
 
     return self;
 }
@@ -70,7 +80,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 #pragma - Manage departures
 - (NSArray*) getDepartures {
     //retourne la liste des départs
-    return self._departures;
+    return self.departures;
 }
 
 - (NSArray*) getDeparturesForTrips:(NSArray*)trips {
@@ -81,7 +91,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         NSPredicate* stopPredicate = [NSPredicate predicateWithFormat:@"route.id == %@", trip.route.id];
         NSPredicate* directionPredicate = [NSPredicate predicateWithFormat:@"direction == %@", trip.direction];
         NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[routePredicate, stopPredicate, directionPredicate]];
-        NSArray* partialResult = [self._departures filteredArrayUsingPredicate:predicate];
+        NSArray* partialResult = [self.departures filteredArrayUsingPredicate:predicate];
         [departures addObjectsFromArray:partialResult];
     }];
 
@@ -97,76 +107,61 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 }
 
 #pragma call keolis and parse XML response
-- (void)refreshDepartures:(NSArray*)trips {
-    //Controles
-    if ([trips count] == 0){
-        return;
-    }
-    
-    dispatch_async(serialQueue, ^{
-        @try {
-            //Log
-            NSLog(@"Departures update started");
-            
+- (void)refreshDepartures {
+    //Serialize requests
+    [self.serialOperationQueue addOperationWithBlock:^{
+        //Log
+        NSLog(@"Departures update started");
+        
+        //Notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
+
+        //Clean data
+        self.departures = [[NSMutableArray alloc] init];
+        
+        //Perform request(s)
+        NSMutableArray* trips = [[self.managedObjectContext trips] mutableCopy];
+        int requestCount = 0;
+        while (trips.count > 0) {
             // Create the request an parse the XML
             static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
             static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
-            
-            //compute path
             NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
-            for (int i=0; i<[trips count] && i<10; i++) {
-                //Get bus
-                Trip* trip = [trips objectAtIndex:i];
-                
-                //Compute path
+            
+            for (int i=0; i<10 && trips.count>0; i++) {
+                Trip* trip = trips[0];
                 [path appendFormat:paramPath, trip.route.id, trip.direction, trip.stop.id];
+                [trips removeObject:trip];
             }
             
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
-            
-            //Lancement du traitement
-            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
-            
-            //New departures array
-            [self.freshDepartures removeAllObjects];
-            
-            NSOperation* operation = [manager GET:path
-              parameters:nil
-                 success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
-                     //Parse response
-                     [xmlParser setDelegate:self];
-                     [xmlParser parse];
-                     
-                     //Store data
-                     self._departures = self.freshDepartures;
-                     
-                     //Notification
-                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
-                     
-                     //Log
-                     NSLog(@"Departures update succeeded");
-                 }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     //Log
-                     NSLog(@"Departures update failed");
-                     NSLog(@"Error: %@", [error debugDescription]);
-                     
-                     //lance la notification d'erreur
-                     [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
-                 }];
-            [operation waitUntilFinished];
+            //Lancement de la requête
+            NSLog(@"Launching request %i : %@", requestCount++, path);
+            [self.requestOperationManager GET:path
+                                parameters:nil
+                                   success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
+                                       NSLog(@"Parsing response %i", requestCount);
+                                       [xmlParser setDelegate:self];
+                                       [xmlParser parse];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                       //Log
+                                       NSLog(@"Request %i failed : %@", requestCount, [error debugDescription]);
+                                   }];
         }
-        @catch (NSException * e) {
+        
+        //Traitement des réponse en asynchrone
+        [self performBlockInBackground:^{
+            //Attente en back-gound de la fin du traitement de toutes les requêtes et réponses
+            [self.requestOperationManager.operationQueue waitUntilAllOperationsAreFinished];
+
             //Log
-            NSLog(@"Departures update failed");
-            NSLog(@"Data parsing failed! Error - %@ %@", [e description], [e debugDescription]);
+            NSLog(@"Departures update finished");
+
+            //Notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
+        }];
             
-            //lance la notification d'erreur
-            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateFailedNotification object:self];
-        }
-    });
+    }];
 }
 
 #pragma mark NSXMLParserDelegate methods
@@ -211,7 +206,7 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
             
             //création du départ
             Depart* depart = [[Depart alloc] initWithRoute:route stop:stop direction:self.direction delai:interval heure:departureDate isRealTime:isRealTime];
-            [self.freshDepartures addObject:depart];
+            [self.departures addObject:depart];
         }
     }
 }

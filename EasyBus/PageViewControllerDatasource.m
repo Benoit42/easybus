@@ -43,7 +43,7 @@ objection_requires(@"managedObjectContext", @"locationManager")
     DeparturesNavigationController* viewController = self.departuresViewControlers[group.objectID];
     if (viewController == nil) {
         //Le view controler n'existe pas encore
-        if ([group.isNearStopGroup boolValue]  /* && self.locationManager.currentLocation*/) {
+        if ([group isKindOfClass:[ProximityGroup class]]  /* && self.locationManager.currentLocation*/) {
 #warning check if location is enabled
             //Groupe des arrêts proche (uniquement si la géoloc a été obtenue)
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"NearStopsNavigationController"];

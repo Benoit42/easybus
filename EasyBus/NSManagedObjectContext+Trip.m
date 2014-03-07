@@ -53,17 +53,22 @@
 }
 
 - (Trip*) addTrip:(Route*)route stop:(Stop*)stop direction:(NSString*)direction {
-    // Create and configure a new instance of the Trip entity.
-        Trip* trip = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self];
-    trip.route =  route;
-    trip.stop = stop;
-    trip.direction = direction;
+    //Recherche du favori
+    Trip* trip = [self tripForRoute:route stop:stop direction:direction];
+    
+    if (trip == nil) {
+        // Create and configure a new instance of the Trip entity.
+        trip = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self];
+        trip.route =  route;
+        trip.stop = stop;
+        trip.direction = direction;
+    }
     
     //Retour
     return trip;
 }
 
-- (void) moveTrip:(Trip*)trip fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index {
+- (void) moveTrip:(Trip*)trip fromGroup:(FavoriteGroup*)sourceGroup toGroup:(FavoriteGroup*)destinationGroup atIndex:(NSUInteger)index {
     [sourceGroup removeTripsObject:trip];
     [destinationGroup addTripsObject:trip];
 }

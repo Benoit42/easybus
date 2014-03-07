@@ -10,7 +10,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "FavoritesViewController.h"
 #import "LinesViewController.h"
-#import "Trip.h"
+#import "Trip+Additions.h"
 #import "Route+Additions.h"
 #import "Stop.h"
 #import "FavoriteCell.h"
@@ -52,13 +52,13 @@ objection_requires(@"managedObjectContext")
     //Create fetchedResultsController
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Trip" inManagedObjectContext:self.managedObjectContext]];
-    [fetchRequest setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"group.name" ascending:YES], [[NSSortDescriptor alloc] initWithKey:@"route.id" ascending:YES]]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"group.isNearStopGroup == %@", [NSNumber numberWithBool:NO]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"favoriteGroup != nil"]];
+    [fetchRequest setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"favoriteGroup.name" ascending:YES], [[NSSortDescriptor alloc] initWithKey:@"route.id" ascending:YES]]];
     [fetchRequest setFetchBatchSize:20];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:@"group.objectID"
+                                                                          sectionNameKeyPath:@"favoriteGroup.objectID"
                                                                                    cacheName:FAVORITE_CACHE_NAME];
     self.fetchedResultsController.delegate = self;
     
@@ -108,7 +108,8 @@ objection_requires(@"managedObjectContext")
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     Trip* trip = (Trip*)[sectionInfo objects][0];
-    NSString* groupName = trip.group.name;
+    FavoriteGroup* group = trip.favoriteGroup;
+    NSString* groupName = group.name;
     return groupName;
 }
 
@@ -138,7 +139,7 @@ objection_requires(@"managedObjectContext")
         //Delete trip
         Trip *trip = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.managedObjectContext deleteObject:trip];
-        Group* group = trip.group;
+        FavoriteGroup* group = trip.favoriteGroup;
         [group removeTripsObject:trip];
         
         //Delete group if needed
@@ -161,12 +162,12 @@ objection_requires(@"managedObjectContext")
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     //Get trip and source group
     Trip *trip = [self.fetchedResultsController objectAtIndexPath:sourceIndexPath];
-    Group* sourceGroup = trip.group;
+    FavoriteGroup* sourceGroup = trip.favoriteGroup;
 
     //Get destinaton group
     id<NSFetchedResultsSectionInfo> destinationSectionInfo = [[self.fetchedResultsController sections] objectAtIndex:destinationIndexPath.section];
     Trip* destinationTrip = (Trip*)[destinationSectionInfo objects][0];
-    Group* destinationGroup = destinationTrip.group;
+    FavoriteGroup* destinationGroup = destinationTrip.favoriteGroup;
 
     //Move trip
     [self.managedObjectContext moveTrip:trip fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];

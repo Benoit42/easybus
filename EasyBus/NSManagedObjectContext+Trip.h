@@ -10,12 +10,12 @@
 #import "Trip.h"
 #import "Route.h"
 #import "Stop.h"
-#import "Group.h"
+#import "FavoriteGroup.h"
 
 @interface NSManagedObjectContext (Trip)
 
 - (NSArray*) trips;
 - (Trip*) addTrip:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
-- (void) moveTrip:(Trip*)trip fromGroup:(Group*)sourceGroup toGroup:(Group*)destinationGroup atIndex:(NSUInteger)index;
+- (void) moveTrip:(Trip*)trip fromGroup:(FavoriteGroup*)sourceGroup toGroup:(FavoriteGroup*)destinationGroup atIndex:(NSUInteger)index;
 
 @end

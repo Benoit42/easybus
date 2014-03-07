@@ -60,53 +60,8 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     [super tearDown];
 }
 
-//Test du cas droit
+//Test du cas droit avec lignes 64, 164 et 200
 - (void)testGetDepartures
-{
-    //Stub de l'url des départs
-    [NSURLProtocol registerClass:[NSURLProtocolStub class]];
-    NSString* url = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures";
-    [NSURLProtocolStub bindUrl:url toResource:@"getbusnextdepartures.xml"];
-    [NSURLProtocolStub configureUrl:url withHeaders:@{@"Content-Type": @"application/xml; charset=UTF-8"}];
-    
-    //Création des favoris
-    Trip* trip1 = (Trip*)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" inManagedObjectContext:self.managedObjectContext];
-
-    //Recherche des départs
-    [self runTestWithBlock:^{
-        [self.departuresManager refreshDepartures:@[trip1]];
-    }
-    waitingForNotifications:@[departuresUpdateSucceededNotification]
-               withTimeout:5
-     ];
-    NSArray* departures = [self.departuresManager getDepartures];
-    XCTAssertEqual(7, (int)[departures count], @"Wrong number of departures");
-    int index = 0;
-    Depart* depart = departures[index++];
-    XCTAssertEqualObjects(@"0064", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"1", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0064", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"1", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0064", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"1", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0164", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"1", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0164", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"1", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0064", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"0", depart._direction, @"Wrong direction");
-    depart = departures[index++];
-    XCTAssertEqualObjects(@"0164", depart.route.id, @"Wrong route id");
-    XCTAssertEqualObjects(@"0", depart._direction, @"Wrong direction");
-}
-
-//Test du cas droit 2 avec lignes 64, 164 et 200
-- (void)testGetDeparturesForTrips
 {
     //Stub de l'url des départs
     [NSURLProtocol registerClass:[NSURLProtocolStub class]];
@@ -139,9 +94,9 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"routesCsvRea
     
     //Recherche des départs
     [self runTestWithBlock:^{
-        [self.departuresManager refreshDepartures:@[trip64, trip164, trip200]];
+        [self.departuresManager refreshDepartures];
     }
-   waitingForNotifications:@[departuresUpdateSucceededNotification]
+    waitingForNotifications:@[departuresUpdateSucceededNotification]
                withTimeout:5
      ];
     

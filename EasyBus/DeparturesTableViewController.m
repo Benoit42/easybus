@@ -92,7 +92,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 #pragma mark - Table view refresh control
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
-    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    [self.departuresManager refreshDepartures];
     [self.locationManager forceUpdatingLocation];
 }
 
@@ -101,7 +101,9 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 {
     // Return the number of rows in the section
     // If no departures, still 1 row to indicate no departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips allObjects]];
+#warning voir si on peut définir une méthode abstarite trips sur l'entité Group
+    NSArray* trips = [((FavoriteGroup*)self.group).trips allObjects];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:trips];
     NSInteger count = MAX(departures.count, 1);
     return count;
 }
@@ -112,7 +114,9 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     UITableViewCell* cell;
     
     //get departures
-    NSArray* departures = [self.departuresManager getDeparturesForTrips:[self.group.trips allObjects]];
+#warning voir si on peut définir une méthode abstarite trips sur l'entité Group
+    NSArray* trips = [((FavoriteGroup*)self.group).trips allObjects];
+    NSArray* departures = [self.departuresManager getDeparturesForTrips:trips];
     if (indexPath.row < [departures count]) {
         // departure row
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];

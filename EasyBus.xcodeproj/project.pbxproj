@@ -31,11 +31,13 @@
 		142D58FA18BA2A6F00CB4F5A /* NearStopsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E6633F18B13D7C00D79895 /* NearStopsNavigationController.m */; };
 		1432AC8118BE3097005FDFFD /* Maison.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1432AC8018BE3097005FDFFD /* Maison.gpx */; };
 		1432AC8318BE312D005FDFFD /* Bureau.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1432AC8218BE312D005FDFFD /* Bureau.gpx */; };
-		14383A8018C0FEF800AD9137 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383A7F18C0FEF800AD9137 /* Group.m */; };
-		14383A8318C0FEF900AD9137 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383A8218C0FEF900AD9137 /* Stop.m */; };
-		14383A8618C0FEF900AD9137 /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383A8518C0FEF900AD9137 /* FeedInfo.m */; };
-		14383A8918C0FEF900AD9137 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383A8818C0FEF900AD9137 /* Trip.m */; };
-		14383A8C18C0FEF900AD9137 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383A8B18C0FEF900AD9137 /* Route.m */; };
+		14383B2818C9CBE700AD9137 /* ProximityGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B2718C9CBE700AD9137 /* ProximityGroup.m */; };
+		14383B2B18C9CBE700AD9137 /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B2A18C9CBE700AD9137 /* Stop.m */; };
+		14383B2E18C9CBE800AD9137 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B2D18C9CBE800AD9137 /* Route.m */; };
+		14383B3118C9CBE800AD9137 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B3018C9CBE800AD9137 /* Group.m */; };
+		14383B3418C9CBE800AD9137 /* FeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B3318C9CBE800AD9137 /* FeedInfo.m */; };
+		14383B3718C9CBE800AD9137 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B3618C9CBE800AD9137 /* Trip.m */; };
+		14383B3A18C9CBE800AD9137 /* FavoriteGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 14383B3918C9CBE800AD9137 /* FavoriteGroup.m */; };
 		143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */; };
 		143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */ = {isa = PBXBuildFile; fileRef = 143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */; };
 		14405C91182175BF00843B20 /* StaticDataLoaderLocalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */; };
@@ -186,16 +188,20 @@
 		142340D9162E0ABA0095073C /* Depart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Depart.m; sourceTree = "<group>"; };
 		1432AC8018BE3097005FDFFD /* Maison.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Maison.gpx; path = ../EasyBus/Maison.gpx; sourceTree = "<group>"; };
 		1432AC8218BE312D005FDFFD /* Bureau.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Bureau.gpx; sourceTree = "<group>"; };
-		14383A7E18C0FEF800AD9137 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		14383A7F18C0FEF800AD9137 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
-		14383A8118C0FEF900AD9137 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
-		14383A8218C0FEF900AD9137 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
-		14383A8418C0FEF900AD9137 /* FeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfo.h; sourceTree = "<group>"; };
-		14383A8518C0FEF900AD9137 /* FeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfo.m; sourceTree = "<group>"; };
-		14383A8718C0FEF900AD9137 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		14383A8818C0FEF900AD9137 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
-		14383A8A18C0FEF900AD9137 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
-		14383A8B18C0FEF900AD9137 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		14383B2618C9CBE700AD9137 /* ProximityGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProximityGroup.h; sourceTree = "<group>"; };
+		14383B2718C9CBE700AD9137 /* ProximityGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProximityGroup.m; sourceTree = "<group>"; };
+		14383B2918C9CBE700AD9137 /* Stop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stop.h; sourceTree = "<group>"; };
+		14383B2A18C9CBE700AD9137 /* Stop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stop.m; sourceTree = "<group>"; };
+		14383B2C18C9CBE800AD9137 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		14383B2D18C9CBE800AD9137 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		14383B2F18C9CBE800AD9137 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		14383B3018C9CBE800AD9137 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		14383B3218C9CBE800AD9137 /* FeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedInfo.h; sourceTree = "<group>"; };
+		14383B3318C9CBE800AD9137 /* FeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedInfo.m; sourceTree = "<group>"; };
+		14383B3518C9CBE800AD9137 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		14383B3618C9CBE800AD9137 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		14383B3818C9CBE800AD9137 /* FavoriteGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteGroup.h; sourceTree = "<group>"; };
+		14383B3918C9CBE800AD9137 /* FavoriteGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteGroup.m; sourceTree = "<group>"; };
 		143A3F4D16810C6300EEC39B /* PageViewControllerDatasource.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = PageViewControllerDatasource.h; sourceTree = "<group>"; };
 		143A3F4E16810C6300EEC39B /* PageViewControllerDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewControllerDatasource.m; sourceTree = "<group>"; };
 		14405C90182175BF00843B20 /* StaticDataLoaderLocalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticDataLoaderLocalTest.m; sourceTree = "<group>"; };
@@ -628,16 +634,20 @@
 			isa = PBXGroup;
 			children = (
 				1405136B17465CD700345B1D /* EasyBus.xcdatamodeld */,
-				14383A8A18C0FEF900AD9137 /* Route.h */,
-				14383A8B18C0FEF900AD9137 /* Route.m */,
-				14383A8718C0FEF900AD9137 /* Trip.h */,
-				14383A8818C0FEF900AD9137 /* Trip.m */,
-				14383A8418C0FEF900AD9137 /* FeedInfo.h */,
-				14383A8518C0FEF900AD9137 /* FeedInfo.m */,
-				14383A8118C0FEF900AD9137 /* Stop.h */,
-				14383A8218C0FEF900AD9137 /* Stop.m */,
-				14383A7E18C0FEF800AD9137 /* Group.h */,
-				14383A7F18C0FEF800AD9137 /* Group.m */,
+				14383B3818C9CBE800AD9137 /* FavoriteGroup.h */,
+				14383B3918C9CBE800AD9137 /* FavoriteGroup.m */,
+				14383B3518C9CBE800AD9137 /* Trip.h */,
+				14383B3618C9CBE800AD9137 /* Trip.m */,
+				14383B3218C9CBE800AD9137 /* FeedInfo.h */,
+				14383B3318C9CBE800AD9137 /* FeedInfo.m */,
+				14383B2F18C9CBE800AD9137 /* Group.h */,
+				14383B3018C9CBE800AD9137 /* Group.m */,
+				14383B2C18C9CBE800AD9137 /* Route.h */,
+				14383B2D18C9CBE800AD9137 /* Route.m */,
+				14383B2918C9CBE700AD9137 /* Stop.h */,
+				14383B2A18C9CBE700AD9137 /* Stop.m */,
+				14383B2618C9CBE700AD9137 /* ProximityGroup.h */,
+				14383B2718C9CBE700AD9137 /* ProximityGroup.m */,
 				14B1F88B17D1D2ED009AE1FB /* Trip+Additions.h */,
 				14B1F88C17D1D2ED009AE1FB /* Trip+Additions.m */,
 				14B1F88817D1C7BC009AE1FB /* Route+Additions.h */,
@@ -1007,7 +1017,7 @@
 				14ADC8FD1649C5D700B50FA2 /* DirectionViewController.m in Sources */,
 				14AD3C1C162AF00400DF061A /* main.m in Sources */,
 				147168A71801A38000846AE6 /* DataLoaderViewController.m in Sources */,
-				14383A8618C0FEF900AD9137 /* FeedInfo.m in Sources */,
+				14383B3418C9CBE800AD9137 /* FeedInfo.m in Sources */,
 				14AD3C20162AF00400DF061A /* AppDelegate.m in Sources */,
 				14AD3C2F162AF00400DF061A /* LinesViewController.m in Sources */,
 				142340DA162E0ABA0095073C /* Depart.m in Sources */,
@@ -1016,6 +1026,7 @@
 				149DF05D163B2A78002D9D79 /* RoutesCsvReader.m in Sources */,
 				14E0EC321837BF7A008B6CA0 /* NSMutableArray+Randomize.m in Sources */,
 				1455EFD118ABBE16003522D2 /* NSManagedObjectContext+Group.m in Sources */,
+				14383B2E18C9CBE800AD9137 /* Route.m in Sources */,
 				14FEBE0D18A77334006D52DE /* NSManagedObjectContext+Trip.m in Sources */,
 				140EA4E4163D8C7B00FB4A85 /* StopsCsvReader.m in Sources */,
 				140EA4E6163D8C8200FB4A85 /* StopsCsvReader.h in Sources */,
@@ -1030,6 +1041,7 @@
 				14CF4321165C25A600834A23 /* DeparturesManager.m in Sources */,
 				147168A1180086F200846AE6 /* RouteStop.m in Sources */,
 				14CF4334165EB10500834A23 /* LineCell.m in Sources */,
+				14383B3718C9CBE800AD9137 /* Trip.m in Sources */,
 				14CF4337165EB2C600834A23 /* DirectionCell.m in Sources */,
 				14AA96D81837E9CA0052B338 /* FeedInfoCsvReader.m in Sources */,
 				146161C6182B70AC0012A1CE /* LinesNavigationController.m in Sources */,
@@ -1037,31 +1049,31 @@
 				146161C3182AAA860012A1CE /* DeparturesTableViewController.m in Sources */,
 				14CF433D165EB41700834A23 /* LineCell.h in Sources */,
 				14CF433E165EB42000834A23 /* FavoriteCell.h in Sources */,
+				14383B2B18C9CBE700AD9137 /* Stop.m in Sources */,
 				142D58FA18BA2A6F00CB4F5A /* NearStopsNavigationController.m in Sources */,
 				146161CC182C160B0012A1CE /* Constants.m in Sources */,
+				14383B3A18C9CBE800AD9137 /* FavoriteGroup.m in Sources */,
 				14CF4341165EB44400834A23 /* StopCell.m in Sources */,
+				14383B2818C9CBE700AD9137 /* ProximityGroup.m in Sources */,
 				14CF4347165FEA3400834A23 /* DepartureCell.m in Sources */,
 				14E459041810695900E2401A /* FeedInfoTmp.m in Sources */,
 				146161D51831120C0012A1CE /* CreditsViewController.m in Sources */,
 				14A8AA601660FED300394FC2 /* DepartureCell.h in Sources */,
 				140AA0E2182968FA008EFF54 /* RevealViewController.m in Sources */,
 				147480041663D4DC0091FF49 /* PageViewController.m in Sources */,
-				14383A8C18C0FEF900AD9137 /* Route.m in Sources */,
 				1414E1AD166E6F380013E9A1 /* NoDepartureCell.m in Sources */,
 				14DDB96E17FC7BEB000D1C5E /* StopTimesCsvReader.m in Sources */,
 				14EF87EB167BBF370058607C /* LocationManager.m in Sources */,
 				14EF87EC167BC3860058607C /* LocationManager.h in Sources */,
-				14383A8918C0FEF900AD9137 /* Trip.m in Sources */,
+				14383B3118C9CBE800AD9137 /* Group.m in Sources */,
 				143A3F4F16810C6300EEC39B /* PageViewControllerDatasource.m in Sources */,
 				143A3F51168111B700EEC39B /* PageViewControllerDatasource.h in Sources */,
 				14148BA3180E64A6005DDAF9 /* GtfsDownloadManager.m in Sources */,
 				14AEC8DE18A69625007B5EA4 /* NSManagedObjectContext+Network.m in Sources */,
 				14AA96E8183802F30052B338 /* FeedInfoViewController.m in Sources */,
-				14383A8318C0FEF900AD9137 /* Stop.m in Sources */,
 				14DDB98417FCA933000D1C5E /* TripItem.m in Sources */,
 				140AA0DF18283801008EFF54 /* MenuViewController.m in Sources */,
 				1405136D17465CD700345B1D /* EasyBus.xcdatamodeld in Sources */,
-				14383A8018C0FEF800AD9137 /* Group.m in Sources */,
 				14A7B4DD1781E80B002A46FD /* StaticDataLoader.m in Sources */,
 				14A87E9A18B523F300A510D5 /* Stop+Additions.m in Sources */,
 				14B1F88A17D1C7BC009AE1FB /* Route+Additions.m in Sources */,

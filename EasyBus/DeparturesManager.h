@@ -22,6 +22,6 @@ FOUNDATION_EXPORT NSString* const departuresUpdateSucceededNotification;
 
 - (NSArray*) getDepartures;
 - (NSArray*) getDeparturesForTrips:(NSArray*)trips;
-- (void) refreshDepartures:(NSArray*)trips;
+- (void) refreshDepartures;
 
 @end

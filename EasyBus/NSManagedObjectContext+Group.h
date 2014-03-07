@@ -7,12 +7,16 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "Group.h"
+#import <CoreLocation/CoreLocation.h>
+#import "FavoriteGroup.h"
+#import "ProximityGroup.h"
 
 @interface NSManagedObjectContext (Group)
 
 - (NSArray*) allGroups;
 - (NSArray*) favoriteGroups;
-- (Group*) nearStopGroup;
-- (Group*) addGroupWithName:(NSString*)name isNearStopGroup:(BOOL)isNearStopGroup;
+- (FavoriteGroup*) addFavoriteGroupWithName:(NSString*)name;
+- (ProximityGroup*) proximityGroup;
+- (ProximityGroup*) updateProximityGroupForLocation:(CLLocation*)location;
+
 @end

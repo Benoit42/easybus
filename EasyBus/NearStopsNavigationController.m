@@ -31,14 +31,11 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:locationFoundNotification object:nil];
     
     //Récupération du groupe
-    Group* nearStopGroup = [self updateNearStopGroup];
+    Group* proximityGroup = [self updateProximityGroup];
     
     //Mise à jour de la table view
     DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
-    departuresTableViewController.group = nearStopGroup;
-    
-    //Raffraichissement des départs
-    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    departuresTableViewController.group = proximityGroup;
     
     //Super à la fin pour pouvoir setter le groupe avant l'affichage de la table
     [super viewWillAppear:animated];
@@ -51,59 +48,22 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 
 - (void)locationUpdated:(NSNotification *)notification {
     //Récupération du groupe
-    Group* nearStopGroup = [self updateNearStopGroup];
+    Group* proximityGroup = [self updateProximityGroup];
     
     //Mise à jour de la table view
     DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
-    departuresTableViewController.group = nearStopGroup;
-    
-    //Raffraichissement des départs
-    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    departuresTableViewController.group = proximityGroup;
 }
 
-- (Group*)updateNearStopGroup {
-    //Mise à jour du groupe
-    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
-    if (!nearStopGroup) {
-#warning mettre ce code dans l'opération de migration des données
-        [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
-    }
-    [nearStopGroup removeTrips:[nearStopGroup trips]];
-    
+- (Group*)updateProximityGroup {
     //Get location
     CLLocation* here = [self.locationManager currentLocation];
     
-    //Compute trips
-    if (here) {
-        //Calcul des arrêts proches
-        NSArray* stops = [self.managedObjectContext nearestStopsHavingSameNameFrom:here];
-        
-        //Set trips in group
-        nearStopGroup.name = (stops.count > 0)?((Stop*)stops[0]).name:@"à proximité";
-        [stops enumerateObjectsUsingBlock:^(Stop* selectedStop, NSUInteger idx, BOOL *stop) {
-            [selectedStop.routesDirectionZero enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
-                if ([route.stopsDirectionZero lastObject] != selectedStop) {
-                    //On n'ajoute pas le dernier stop d'une ligne
-                    Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"0"];
-                    [nearStopGroup addTripsObject:trip];
-                }
-            }];
-            [selectedStop.routesDirectionOne enumerateObjectsUsingBlock:^(Route* route, BOOL *stop) {
-                if ([route.stopsDirectionOne lastObject] != selectedStop) {
-                    //On n'ajoute pas le dernier stop d'une ligne
-                    Trip* trip = [self.managedObjectContext addTrip:route stop:selectedStop direction:@"1"];
-                    [nearStopGroup addTripsObject:trip];
-                }
-            }];
-        }];
-    }
-    else {
-        //Pas de géoloc obtenue
-        nearStopGroup.name = @"position inconnue";
-    }
+    //Mise à jour du groupe (suppression des trips associés)
+    ProximityGroup* proximityGroup = [self.managedObjectContext updateProximityGroupForLocation:here];
     
     //Retour
-    return nearStopGroup;
+    return proximityGroup;
 }
 
 @end

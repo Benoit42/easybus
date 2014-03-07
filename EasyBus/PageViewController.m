@@ -45,19 +45,16 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     NSParameterAssert(self.locationManager);
     NSParameterAssert(self.pageDataSource);
 
-    //Create near stops group if needed
-    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
-    if (!nearStopGroup) {
-#warning mettre ce code dans l'opération de migration des données
-        //Création du groupe des arrêts proches
-        nearStopGroup = [self.managedObjectContext addGroupWithName:@"à proximité" isNearStopGroup:YES];
-    }
-    [nearStopGroup removeTrips:[nearStopGroup trips]];
+    //Get location
+    CLLocation* here = [self.locationManager currentLocation];
+    
+    //Get proximity group
+    ProximityGroup* proximityGroup = [self.managedObjectContext updateProximityGroupForLocation:here];
     
     //Set delegate and datasource
     self.delegate = self;
     self.dataSource = self.pageDataSource;
-    UIViewController *startingViewController = [self.pageDataSource viewControllerForGroup:nearStopGroup storyboard:self.storyboard];
+    UIViewController *startingViewController = [self.pageDataSource viewControllerForGroup:proximityGroup storyboard:self.storyboard];
     [self setViewControllers:@[startingViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 
     // Couleur de fond vert Star
@@ -77,7 +74,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     // Abonnement au notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
 
-    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    [self.departuresManager refreshDepartures];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -125,15 +122,18 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     if (favoriteGroups.count > 0) {
         NSArray* sortedGroupes = [favoriteGroups sortedArrayUsingComparator:^NSComparisonResult(Group* groupe1, Group* groupe2) {
             //Remarque : should always have trips, but prefer toi check anymore
-            if (groupe1.trips.count > 0 && groupe2.trips.count > 0) {
-                Trip* trip1 = [groupe1.trips anyObject];
-                Trip* trip2 = [groupe2.trips anyObject];
+#warning voir si on peut définir une méthode abstarite trips sur l'entité Group
+            NSArray* trips1 = [((FavoriteGroup*)groupe1).trips allObjects];
+            NSArray* trips2 = [((FavoriteGroup*)groupe2).trips allObjects];
+            if (trips1.count > 0 && trips2.count > 0) {
+                Trip* trip1 = trips1[0];
+                Trip* trip2 = trips2[0];
                 return [[NSNumber numberWithDouble:[trip1.stop.location distanceFromLocation:currentLocation]] compare:[NSNumber numberWithDouble:[trip2.stop.location distanceFromLocation:currentLocation]]];
             }
-            else if (groupe1.trips.count > 0) {
+            else if (trips1.count > 0) {
                 return NSOrderedAscending;
             }
-            else if (groupe2.trips.count > 0) {
+            else if (trips2.count > 0) {
                 return NSOrderedAscending;
             }
             else {
@@ -150,7 +150,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 #pragma mark - notifications
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
     NSLog(@"Application did become active, refreshing");
-    [self.departuresManager refreshDepartures:self.managedObjectContext.trips];
+    [self.departuresManager refreshDepartures];
 }
 
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
@@ -158,8 +158,8 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     Group* currentGroup = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).group;
     
     //Scroll to nearest group only if we are not on near stops page
-    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
-    if (currentGroup != nearStopGroup) {
+    ProximityGroup* proximityGroup = [self.managedObjectContext proximityGroup];
+    if (currentGroup != proximityGroup) {
         //Move page view to nearest groupe
         [self gotoNearestPage];
     }
@@ -170,8 +170,8 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     Group* currentGroup = ((DeparturesNavigationController*)[[self viewControllers]objectAtIndex:0]).group;
     
     //Scroll to nearest group only if we are not on near stops page
-    Group* nearStopGroup = [self.managedObjectContext nearStopGroup];
-    if (currentGroup != nearStopGroup) {
+    ProximityGroup* proximityGroup = [self.managedObjectContext proximityGroup];
+    if (currentGroup != proximityGroup) {
         //Move page view to nearest groupe
         [self gotoNearestPage];
     }
