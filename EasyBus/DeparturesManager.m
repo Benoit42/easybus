@@ -32,9 +32,6 @@
 
 @property(nonatomic) AFHTTPRequestOperationManager* requestOperationManager;
 
-@property(nonatomic) NSOperationQueue* serialOperationQueue;
-
-
 @end
 
 @implementation DeparturesManager
@@ -64,9 +61,6 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         self.requestOperationManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
         self.requestOperationManager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/xml", @"text/xml"]];
         [self.requestOperationManager.operationQueue setMaxConcurrentOperationCount:1];
-        
-        self.serialOperationQueue = [[NSOperationQueue alloc] init];
-        self.serialOperationQueue.maxConcurrentOperationCount = 1;
 }
 
     return self;
@@ -108,60 +102,92 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
 
 #pragma call keolis and parse XML response
 - (void)refreshDepartures {
-    //Serialize requests
-    [self.serialOperationQueue addOperationWithBlock:^{
-        //Log
-        NSLog(@"Departures update started");
-        
-        //Notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
+    //Log
+    NSLog(@"Departures update started");
+    
+    //Notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
 
+    //Parsers XML
+    NSMutableArray *xmlParsers = [NSMutableArray array];
+    
+    //Construction des requêtes (les Trips sont découpés par bloc de 10 maximum)
+    NSMutableArray* trips = [[self.managedObjectContext trips] mutableCopy];
+    NSMutableArray *requestsOperations = [NSMutableArray array];
+    int requestCount = 0;
+    while (trips.count > 0) {
+        //Construction de la requête
+        static NSString* PATH = @"http://data.keolis-rennes.com/xml/";
+        static NSString* PARAM_ROUTE = @"param[route]";
+        static NSString* PARAM_DIRECTION = @"param[direction]";
+        static NSString* PARAM_STOP = @"param[stop]";
+
+        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"getbusnextdepartures" forKey:@"cmd"];
+        [params setObject:@"2.1" forKey:@"version"];
+        [params setObject:@"91RU2VSP13GHHOP" forKey:@"key"];
+        [params setObject:@"stopline" forKey:@"param[mode]"];
+        [params setObject:@"getbusnextdepartures" forKey:@"cmd"];
+        
+        NSMutableArray* paramsRoute = [[NSMutableArray alloc] init];
+        NSMutableArray* paramsdirection = [[NSMutableArray alloc] init];
+        NSMutableArray* paramsStop = [[NSMutableArray alloc] init];
+        for (int i=0; i<10 && trips.count>0; i++) {
+            Trip* trip = trips[0];
+            [paramsRoute addObject:trip.route.id];
+            [paramsdirection addObject:trip.direction];
+            [paramsStop addObject:trip.stop.id];
+            [trips removeObject:trip];
+        }
+        [params setObject:paramsRoute forKey:PARAM_ROUTE];
+        [params setObject:paramsdirection forKey:PARAM_DIRECTION];
+        [params setObject:paramsStop forKey:PARAM_STOP];
+        
+        NSError* error;
+        NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:PATH parameters:params error:&error];
+        if (error) {
+            NSLog(@"Request %i failed : %@", requestCount, [error debugDescription]);
+        }
+        else {
+            AFHTTPRequestOperation *operation = [self.requestOperationManager HTTPRequestOperationWithRequest:request
+                                      success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
+                                          NSLog(@"Request %i succeeded", requestCount);
+                                          [xmlParsers addObject:xmlParser];
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          //Log
+                                          NSLog(@"Request %i failed : %@", requestCount, [error debugDescription]);
+                                      }];
+
+            [requestsOperations addObject:operation];
+//            NSLog(@"Request %i : %@", requestCount, request.URL.absoluteString);
+            requestCount++;
+        }
+    }
+    
+    //Lancement des requêtes
+    NSArray *operations = [AFURLConnectionOperation batchOfRequestOperations:requestsOperations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+//        NSLog(@"%i/%i requests finished", numberOfFinishedOperations, totalNumberOfOperations);
+    }
+    completionBlock:^(NSArray *operations) {
+        NSLog(@"All operations finished");
         //Clean data
         self.departures = [[NSMutableArray alloc] init];
         
-        //Perform request(s)
-        NSMutableArray* trips = [[self.managedObjectContext trips] mutableCopy];
-        int requestCount = 0;
-        while (trips.count > 0) {
-            // Create the request an parse the XML
-            static NSString* basePath = @"http://data.keolis-rennes.com/xml/?cmd=getbusnextdepartures&version=2.1&key=91RU2VSP13GHHOP&param[mode]=stopline";
-            static NSString* paramPath = @"&param[route][]=%@&param[direction][]=%@&param[stop][]=%@";
-            NSMutableString* path = [[NSMutableString alloc] initWithString:basePath];
-            
-            for (int i=0; i<10 && trips.count>0; i++) {
-                Trip* trip = trips[0];
-                [path appendFormat:paramPath, trip.route.id, trip.direction, trip.stop.id];
-                [trips removeObject:trip];
-            }
-            
-            //Lancement de la requête
-            NSLog(@"Launching request %i : %@", requestCount++, path);
-            [self.requestOperationManager GET:path
-                                parameters:nil
-                                   success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
-                                       NSLog(@"Parsing response %i", requestCount);
-                                       [xmlParser setDelegate:self];
-                                       [xmlParser parse];
-                                   }
-                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                       //Log
-                                       NSLog(@"Request %i failed : %@", requestCount, [error debugDescription]);
-                                   }];
-        }
-        
-        //Traitement des réponse en asynchrone
-        [self performBlockInBackground:^{
-            //Attente en back-gound de la fin du traitement de toutes les requêtes et réponses
-            [self.requestOperationManager.operationQueue waitUntilAllOperationsAreFinished];
-
-            //Log
-            NSLog(@"Departures update finished");
-
-            //Notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
+        //Parse responses
+        [xmlParsers enumerateObjectsUsingBlock:^(NSXMLParser* xmlParser, NSUInteger idx, BOOL *stop) {
+            NSLog(@"Parsing response %i", idx);
+            [xmlParser setDelegate:self];
+            [xmlParser parse];
         }];
-            
+        
+        //Log
+        NSLog(@"Departures update finished");
+        
+        //Notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
     }];
+    [self.requestOperationManager.operationQueue addOperations:operations waitUntilFinished:NO];
 }
 
 #pragma mark NSXMLParserDelegate methods
