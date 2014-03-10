@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Group.h"
+#import "ProximityGroup.h"
 #import "LocationManager.h"
 #import "DeparturesManager.h"
 
 @interface NearStopsNavigationController : UINavigationController
 
-@property(nonatomic) Group* group;
+@property(nonatomic) ProximityGroup* group;
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) LocationManager *locationManager;

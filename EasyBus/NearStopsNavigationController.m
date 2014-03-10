@@ -31,7 +31,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:locationFoundNotification object:nil];
     
     //Récupération du groupe
-    Group* proximityGroup = [self updateProximityGroup];
+    ProximityGroup* proximityGroup = [self updateProximityGroup];
     
     //Mise à jour de la table view
     DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
@@ -48,14 +48,14 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 
 - (void)locationUpdated:(NSNotification *)notification {
     //Récupération du groupe
-    Group* proximityGroup = [self updateProximityGroup];
+    ProximityGroup* proximityGroup = [self updateProximityGroup];
     
     //Mise à jour de la table view
     DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];
     departuresTableViewController.group = proximityGroup;
 }
 
-- (Group*)updateProximityGroup {
+- (ProximityGroup*)updateProximityGroup {
     //Get location
     CLLocation* here = [self.locationManager currentLocation];
     
