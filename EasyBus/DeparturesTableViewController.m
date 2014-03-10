@@ -77,6 +77,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
         //refresh table view
+        [self.navigationItem setTitle:self.group.name];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
