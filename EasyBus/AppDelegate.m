@@ -43,9 +43,6 @@ NSString* const applicationDidBecomeActiveNotification = @"applicationDidBecomeA
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-
-    //Arrêt de la géoloc
-    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -72,7 +69,7 @@ NSString* const applicationDidBecomeActiveNotification = @"applicationDidBecomeA
     //update departures
     
     //Démarrage de la géoloc
-    [self.locationManager startUpdatingLocation];
+    [self.locationManager updateLocation];
 
     //Refresh UI
     [[NSNotificationCenter defaultCenter] postNotificationName:applicationDidBecomeActiveNotification object:nil];
@@ -88,9 +85,6 @@ NSString* const applicationDidBecomeActiveNotification = @"applicationDidBecomeA
         //Log
         NSLog(@"Database error - %@ %@", [error description], [error debugDescription]);
     }
-
-    //Arrêt de la géoloc
-    [self.locationManager stopUpdatingLocation];
 }
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {

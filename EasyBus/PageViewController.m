@@ -46,7 +46,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     NSParameterAssert(self.pageDataSource);
 
     //Get location
-    CLLocation* here = [self.locationManager currentLocation];
+    CLLocation* here = self.locationManager.location;
     
     //Get proximity group
     ProximityGroup* proximityGroup = [self.managedObjectContext updateProximityGroupForLocation:here];
@@ -89,8 +89,8 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     if (targetGroup != currentGroup) {
         //Define next group
         NSArray* groups = [self.managedObjectContext allGroups];
-        int currentGroupIndex = [groups indexOfObject:currentGroup];
-        int targetGroupIndex = [groups indexOfObject:targetGroup];
+        NSUInteger currentGroupIndex = [groups indexOfObject:currentGroup];
+        NSUInteger targetGroupIndex = [groups indexOfObject:targetGroup];
         Group* nextGroup = nil;
         if (currentGroupIndex != NSNotFound) {
             nextGroup = (targetGroupIndex > currentGroupIndex)?groups[currentGroupIndex + 1]:groups[currentGroupIndex - 1];
@@ -115,7 +115,7 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
 
 - (void)gotoNearestPage {
     //Get current location
-    CLLocation* currentLocation = [self.locationManager currentLocation];
+    CLLocation* currentLocation = self.locationManager.location;
 
     //Compute nearest group
     NSArray* favoriteGroups = [self.managedObjectContext favoriteGroups];

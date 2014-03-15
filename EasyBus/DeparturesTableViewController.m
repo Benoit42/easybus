@@ -94,7 +94,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 - (IBAction)refreshAsked:(id)sender {
     NSLog(@"Refresh asked");
     [self.departuresManager refreshDepartures];
-    [self.locationManager forceUpdatingLocation];
+    [self.locationManager updateLocation];
 }
 
 #pragma mark - Table view data source

@@ -57,7 +57,7 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
 
 - (ProximityGroup*)updateProximityGroup {
     //Get location
-    CLLocation* here = [self.locationManager currentLocation];
+    CLLocation* here = self.locationManager.location;
     
     //Mise à jour du groupe (suppression des trips associés)
     ProximityGroup* proximityGroup = [self.managedObjectContext updateProximityGroupForLocation:here];

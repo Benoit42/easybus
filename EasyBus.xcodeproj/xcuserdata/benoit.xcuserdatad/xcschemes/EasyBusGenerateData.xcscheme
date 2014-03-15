@@ -78,10 +78,10 @@
                   Identifier = "StaticDataManagerTest">
                </Test>
                <Test
-                  Identifier = "StopsCsvReaderTest">
+                  Identifier = "StopTimesCsvReaderTest">
                </Test>
                <Test
-                  Identifier = "StopTimesCsvReaderTest">
+                  Identifier = "StopsCsvReaderTest">
                </Test>
                <Test
                   Identifier = "TerminusJsonReaderTest">
