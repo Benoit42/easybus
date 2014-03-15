@@ -134,6 +134,16 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         NSMutableArray* paramsStop = [[NSMutableArray alloc] init];
         for (int i=0; i<10 && trips.count>0; i++) {
             Trip* trip = trips[0];
+            //Exclusion de trips orphelins
+
+#warning Voir pourquoi il y a des trips orphelins
+            if (!trip.favoriteGroup && !trip.proximityGroup) {
+                NSLog(@"ATTENTION : trips orphelins !!!");
+                [self.managedObjectContext deleteObject:trip];
+                [trips removeObject:trip];
+                continue;
+            }
+
             [paramsRoute addObject:trip.route.id];
             [paramsdirection addObject:trip.direction];
             [paramsStop addObject:trip.stop.id];
