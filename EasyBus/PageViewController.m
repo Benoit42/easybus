@@ -75,6 +75,15 @@ objection_requires(@"managedObjectContext", @"locationManager", @"pageDataSource
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(departuresUpdatedSucceeded:) name:departuresUpdateSucceededNotification object:nil];
 
     [self.departuresManager refreshDepartures];
+
+    //Nettoyage des groupes vides
+#warning Voir pourquoi il y a des groupes vides
+    [[self.managedObjectContext favoriteGroups] enumerateObjectsUsingBlock:^(FavoriteGroup* group, NSUInteger idx, BOOL *stop) {
+        if (group.trips.count == 0) {
+            NSLog(@"ATTENTION : groupes vides !!!");
+            [self.managedObjectContext deleteObject:group];
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
