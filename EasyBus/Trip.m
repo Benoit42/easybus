@@ -30,9 +30,12 @@
         [self didChangeValueForKey:@"favoriteGroup"];
         
         //Delete previous group if no more trips
-        if (previousFavoriteGroup && previousFavoriteGroup.trips.count == 0) {
-            [self.managedObjectContext deleteObject:previousFavoriteGroup];
-        }
+        [self performBlockOnMainThread:^{
+            //TODO: pourquoi est-il nécessaire d'exécuter ce traitement "après-coup" ?
+            if (previousFavoriteGroup && previousFavoriteGroup.trips.count == 0) {
+                [self.managedObjectContext deleteObject:previousFavoriteGroup];
+            }
+        }];
     }
 }
 
