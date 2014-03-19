@@ -68,18 +68,15 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [self performBlockOnMainThread:^{
         [self.refreshControl endRefreshing];
     }];
-
-    //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Stuff for refreshing view
 - (void)departuresUpdatedSucceeded:(NSNotification *)notification {
     [self performBlockOnMainThread:^{
         //refresh table view
+        [self.refreshControl endRefreshing];
         [self.navigationItem setTitle:self.group.name];
         [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
     }];
 }
 

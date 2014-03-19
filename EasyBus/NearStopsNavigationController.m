@@ -41,14 +41,12 @@ objection_requires(@"managedObjectContext", @"departuresManager", @"locationMana
     [super viewWillAppear:animated];
 }
 
-- (void) dealloc {
-    //Désabonnement aux notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)locationUpdated:(NSNotification *)notification {
     //Récupération du groupe
     ProximityGroup* proximityGroup = [self updateProximityGroup];
+    
+    //Rechargement des départs
+    [self.departuresManager refreshDepartures];
     
     //Mise à jour de la table view
     DeparturesTableViewController* departuresTableViewController = (DeparturesTableViewController*)self.viewControllers[0];

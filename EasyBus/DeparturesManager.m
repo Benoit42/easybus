@@ -105,9 +105,6 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
     //Log
     NSLog(@"Departures update started");
     
-    //Notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
-
     //Parsers XML
     NSMutableArray *xmlParsers = [NSMutableArray array];
     
@@ -161,7 +158,6 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
         else {
             AFHTTPRequestOperation *operation = [self.requestOperationManager HTTPRequestOperationWithRequest:request
                                       success:^(AFHTTPRequestOperation *operation, NSXMLParser* xmlParser) {
-                                          NSLog(@"Request %i succeeded", requestCount);
                                           [xmlParsers addObject:xmlParser];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -176,28 +172,31 @@ NSString* const departuresUpdateSucceededNotification = @"departuresUpdateSuccee
     }
     
     //Lancement des requêtes
-    NSArray *operations = [AFURLConnectionOperation batchOfRequestOperations:requestsOperations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-//        NSLog(@"%i/%i requests finished", numberOfFinishedOperations, totalNumberOfOperations);
-    }
-    completionBlock:^(NSArray *operations) {
-        NSLog(@"All operations finished");
-        //Clean data
-        self.departures = [[NSMutableArray alloc] init];
-        
-        //Parse responses
-        [xmlParsers enumerateObjectsUsingBlock:^(NSXMLParser* xmlParser, NSUInteger idx, BOOL *stop) {
-            NSLog(@"Parsing response %i", idx);
-            [xmlParser setDelegate:self];
-            [xmlParser parse];
-        }];
-        
-        //Log
-        NSLog(@"Departures update finished");
-        
+    if (requestsOperations.count > 0) {
         //Notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
-    }];
-    [self.requestOperationManager.operationQueue addOperations:operations waitUntilFinished:NO];
+        [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateStartedNotification object:self];
+        
+        NSArray *operations = [AFURLConnectionOperation batchOfRequestOperations:requestsOperations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+            //NSLog(@"%i/%i requests finished", numberOfFinishedOperations, totalNumberOfOperations);
+        }
+        completionBlock:^(NSArray *operations) {
+            //Clean data
+            self.departures = [[NSMutableArray alloc] init];
+            
+            //Parse responses
+            [xmlParsers enumerateObjectsUsingBlock:^(NSXMLParser* xmlParser, NSUInteger idx, BOOL *stop) {
+                [xmlParser setDelegate:self];
+                [xmlParser parse];
+            }];
+            
+            //Log
+            NSLog(@"Departures update finished");
+            
+            //Notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:departuresUpdateSucceededNotification object:self];
+        }];
+        [self.requestOperationManager.operationQueue addOperations:operations waitUntilFinished:NO];
+    }
 }
 
 #pragma mark NSXMLParserDelegate methods
