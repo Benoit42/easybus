@@ -153,7 +153,6 @@ objection_requires(@"managedObjectContext")
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     //Get trip and source group
     Trip *trip = [self.fetchedResultsController objectAtIndexPath:sourceIndexPath];
-    FavoriteGroup* sourceGroup = trip.favoriteGroup;
 
     //Get destination group
     id<NSFetchedResultsSectionInfo> destinationSectionInfo = [[self.fetchedResultsController sections] objectAtIndex:destinationIndexPath.section];

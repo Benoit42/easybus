@@ -68,7 +68,7 @@ objection_requires(@"managedObjectContext", @"locationManager")
     //Recherche du groupe courant
     //TODO : il faudrait mettre un protocol pour la propriété group
     Group* group = ((DeparturesNavigationController*)viewController).group;
-    int index = [[self.managedObjectContext allGroups] indexOfObject:group];
+    NSUInteger index = [[self.managedObjectContext allGroups] indexOfObject:group];
     
     //Recherche du groupe précédent
     if (index > 0) {
@@ -85,7 +85,7 @@ objection_requires(@"managedObjectContext", @"locationManager")
     //TODO : il faudrait mettre un protocol pour la propriété group
     Group* group = ((DeparturesNavigationController*)viewController).group;
     NSArray* allGroups = [self.managedObjectContext allGroups];
-    int index = [allGroups indexOfObject:group];
+    NSUInteger index = [allGroups indexOfObject:group];
     
     //Recherche du groupe suivant
     if (index < allGroups.count - 1) {
@@ -98,7 +98,7 @@ objection_requires(@"managedObjectContext", @"locationManager")
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    int count = [[self.managedObjectContext allGroups] count];
+    NSUInteger count = [[self.managedObjectContext allGroups] count];
     return count;
 }
 
@@ -106,7 +106,7 @@ objection_requires(@"managedObjectContext", @"locationManager")
     //Recherche du groupe courant
     //TODO : il faudrait mettre un protocol pour la propriété group
     Group* group = ((DeparturesNavigationController*)[pageViewController.viewControllers objectAtIndex:0]).group;
-    int index = [[self.managedObjectContext allGroups] indexOfObject:group];
+    NSUInteger index = [[self.managedObjectContext allGroups] indexOfObject:group];
     if (index == NSNotFound) {
         return 0;
     }
