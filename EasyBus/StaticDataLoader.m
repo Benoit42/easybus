@@ -403,7 +403,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
     }];
     
     NSUInteger afterCleanUp = [[self.managedObjectContext stops] count];
-    NSLog(@"Nettoyage des arrêts inutilisés : %i arrêts supprimés", beforeCleanUp - afterCleanUp);
+    NSLog(@"Nettoyage des arrêts inutilisés : %lu arrêts supprimés", beforeCleanUp - afterCleanUp);
     
     //Clean-up unused stops
     beforeCleanUp = [[self.managedObjectContext routes] count];
@@ -417,7 +417,7 @@ objection_requires(@"managedObjectContext", @"routesCsvReader", @"stopsCsvReader
         progress.completedUnitCount++;
     }];
     afterCleanUp = [[self.managedObjectContext routes] count];
-    NSLog(@"Nettoyage des routes inutilisées : %i routes supprimées", beforeCleanUp - afterCleanUp);
+    NSLog(@"Nettoyage des routes inutilisées : %lu routes supprimées", beforeCleanUp - afterCleanUp);
     
     //Retour
     return;

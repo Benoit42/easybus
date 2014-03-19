@@ -11,7 +11,7 @@
 @implementation Group (Additions)
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"[Group: name=%@", self.name];
+    return [NSString stringWithFormat: @"[Group: name=%@]", self.name];
 }
 
 @end

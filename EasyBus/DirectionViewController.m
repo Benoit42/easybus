@@ -53,7 +53,7 @@ objection_requires(@"managedObjectContext")
         Route* route = ((LinesNavigationController*)self.navigationController).currentTripRoute;
 
         //add departure
-        NSString* libelle = [route terminusForDirection:[NSString stringWithFormat:@"%i", indexPath.row]];
+        NSString* libelle = [route terminusForDirection:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
         [cell._libDirection setText:libelle];
         return cell;
     }
@@ -64,7 +64,7 @@ objection_requires(@"managedObjectContext")
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //get the trip from nav controler
-    ((LinesNavigationController*)self.navigationController).currentTripDirection = [NSString stringWithFormat:@"%i", indexPath.row];
+    ((LinesNavigationController*)self.navigationController).currentTripDirection = [NSString stringWithFormat:@"%li", (long)indexPath.row];
 }
 
 @end

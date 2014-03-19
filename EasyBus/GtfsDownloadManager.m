@@ -148,7 +148,7 @@ NSString* const gtfsUpdateFailedNotification = @"gtfsUpdateFailedNotification";
                             }];
                         }
                         else {
-                            error = [[NSError alloc] initWithDomain:@"Downloading" code:1 userInfo:@{@"reason": [NSString stringWithFormat:@"HTTP status code %i", statusCode]}];
+                            error = [[NSError alloc] initWithDomain:@"Downloading" code:1 userInfo:@{@"reason": [NSString stringWithFormat:@"HTTP status code %li", (long)statusCode]}];
                             NSLog(@"Error: %@", [error debugDescription]);
                             failure(error);
                         }

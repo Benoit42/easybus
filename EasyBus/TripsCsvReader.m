@@ -71,9 +71,9 @@ objection_register_singleton(TripsCsvReader)
         if (!numberOfOccurencesForLabel) {
             [terminusLabelsForDirection setObject:[NSNumber numberWithInt:0] forKey:terminusLabel];
         }
-        int nbOcc = [terminusLabelsForDirection[terminusLabel] integerValue];
+        NSUInteger nbOcc = [terminusLabelsForDirection[terminusLabel] integerValue];
         nbOcc++;
-        terminusLabelsForDirection[terminusLabel] = [NSNumber numberWithInt:nbOcc];
+        terminusLabelsForDirection[terminusLabel] = [NSNumber numberWithLong:nbOcc];
     }
 }
 
