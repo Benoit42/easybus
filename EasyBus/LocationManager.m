@@ -40,7 +40,7 @@ NSString* const locationFoundNotification = @"locationFoundNotification";
     CLLocation* location = self.locationManager.location;
     CLLocationAccuracy horizontalAccuracy = location.horizontalAccuracy;
     NSTimeInterval age = [location.timestamp timeIntervalSinceNow];
-    if (!location || (horizontalAccuracy > 100 || age > 60)) {
+    if (!location || (horizontalAccuracy > 100 || age < -60)) {
         //Log
         NSLog(@"Geo-location started");
 
