@@ -68,9 +68,4 @@
     return trip;
 }
 
-- (void) moveTrip:(Trip*)trip fromGroup:(FavoriteGroup*)sourceGroup toGroup:(FavoriteGroup*)destinationGroup atIndex:(NSUInteger)index {
-    [sourceGroup removeTripsObject:trip];
-    [destinationGroup addTripsObject:trip];
-}
-
 @end

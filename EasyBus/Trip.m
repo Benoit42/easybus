@@ -21,4 +21,19 @@
 @dynamic stop;
 @dynamic proximityGroup;
 
+- (void)setFavoriteGroup:(FavoriteGroup *)favoriteGroup {
+    FavoriteGroup* previousFavoriteGroup = self.favoriteGroup;
+    if (favoriteGroup != previousFavoriteGroup) {
+        //Set new favoriteGroup
+        [self willChangeValueForKey:@"favoriteGroup"];
+        [self setPrimitiveValue:favoriteGroup forKey:@"favoriteGroup"];
+        [self didChangeValueForKey:@"favoriteGroup"];
+        
+        //Delete previous group if no more trips
+        if (previousFavoriteGroup && previousFavoriteGroup.trips.count == 0) {
+            [self.managedObjectContext deleteObject:previousFavoriteGroup];
+        }
+    }
+}
+
 @end

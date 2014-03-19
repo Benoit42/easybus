@@ -16,6 +16,5 @@
 
 - (NSArray*) trips;
 - (Trip*) addTrip:(Route*)route stop:(Stop*)stop direction:(NSString*)direction;
-- (void) moveTrip:(Trip*)trip fromGroup:(FavoriteGroup*)sourceGroup toGroup:(FavoriteGroup*)destinationGroup atIndex:(NSUInteger)index;
 
 @end

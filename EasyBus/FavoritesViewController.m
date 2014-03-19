@@ -98,9 +98,7 @@ objection_requires(@"managedObjectContext")
     NSUInteger count = 0;
     if ([[self.fetchedResultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        NSUInteger count =  [sectionInfo numberOfObjects];
-        return count;
-        count = [sectionInfo numberOfObjects];
+        count =  [sectionInfo numberOfObjects];
     }
     return count;
 }
@@ -139,13 +137,6 @@ objection_requires(@"managedObjectContext")
         //Delete trip
         Trip *trip = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.managedObjectContext deleteObject:trip];
-        FavoriteGroup* group = trip.favoriteGroup;
-        [group removeTripsObject:trip];
-        
-        //Delete group if needed
-        if (group.trips.count == 0) {
-            [self.managedObjectContext deleteObject:group];
-        }
     }
 }
 
@@ -164,18 +155,14 @@ objection_requires(@"managedObjectContext")
     Trip *trip = [self.fetchedResultsController objectAtIndexPath:sourceIndexPath];
     FavoriteGroup* sourceGroup = trip.favoriteGroup;
 
-    //Get destinaton group
+    //Get destination group
     id<NSFetchedResultsSectionInfo> destinationSectionInfo = [[self.fetchedResultsController sections] objectAtIndex:destinationIndexPath.section];
     Trip* destinationTrip = (Trip*)[destinationSectionInfo objects][0];
     FavoriteGroup* destinationGroup = destinationTrip.favoriteGroup;
 
     //Move trip
-    [self.managedObjectContext moveTrip:trip fromGroup:sourceGroup toGroup:destinationGroup atIndex:destinationIndexPath.row];
+    trip.favoriteGroup = destinationGroup;
 
-    if (sourceGroup.trips.count == 0) {
-        [self.managedObjectContext deleteObject:sourceGroup];
-    }
-    
     //Move flag
     self.changeIsUserDriven = YES;
 }
